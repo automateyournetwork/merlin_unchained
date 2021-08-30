@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Show Version Results for {{ year }}{% endblock %}
+
+{% block content %}
+<h1>Show Version Results for {{ year }}</h1>
+{% for version in version_list %}
+    <p>Captured {{ version.timestamp }}</p>
+    <table class="merlin-table">
+        <thead>
+        <tr>
+          <th>Bootflash</th>
+          <th>Chassis</th>
+          <th>CPU</th>
+          <th>Device Name</th>
+          <th>Memory</th>
+          <th>Model</th>
+          <th>Processor Board ID</th>
+          <th>RP</th>
+          <th>Slots</th>
+          <th>Kernel Uptime</th>
+          <th>Name</th>
+          <th>OS</th>
+          <th>Last Reload Reason</th>
+          <th>System Compile Time</th>
+          <th>System Image File</th>
+          <th>System Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ version.bootflash }}</td>
+          <td>{{ version.chassis }}</td>
+          <td>{{ version.cpu }}</td>
+          <td>{{ version.device_name }}</td>
+          <td>{{ version.memory }}</td>
+          <td>{{ version.model }}</td>
+          <td>{{ version.processor_board_id }}</td>
+          <td>{{ version.rp }}</td>
+          <td>{{ version.slots }}</td>
+          <td>{{ version.days }} {{ version.hours }} {{ version.minutes }} {{ version.seconds }}</td>
+          <td>{{ version.name }}</td>
+          <td>{{ version.os }}</td>
+          <td>{{ version.reason }}</td>
+          <td>{{ version.system_compile_time }}</td>
+          <td>{{ version.system_image_file }}</td>
+          <td>{{ version.system_version }}</td>
+        </tr>
+        </tbody>  
+      </table> 
+{% endfor %}
+{% endblock %}
