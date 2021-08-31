@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Show Version Results for {{ year }}{% endblock %}
+{% block title %}Show Version Results for {{ year }} {{ month }}{% endblock %}
 
 {% block content %}
-<h1>Show Version Results for {{ year }}</h1>
+<h1>Show Version Results for {{ year }} {{ month }}</h1>
 {% for version in version_list %}
 {%   if version.os == "NX-OS" %}
     <p>Device Name: {{ version.device_name }}</p>

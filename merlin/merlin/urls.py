@@ -20,6 +20,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ShowVersion/<int:year>/', views.year_archive),
-    #path('articles/<int:year>/<int:month>/', views.month_archive),
-    #path('articles/<int:year>/<int:month>/<int:pk>/', views.article_detail),
+    path('ShowVersion/<int:year>/<int:month>/', views.month_archive),
+    path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.day_archive),
+    path('ShowVersion/<str:os>/', views.os_archive),
 ]

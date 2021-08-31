@@ -2,6 +2,7 @@
 To run the job:
 
 $ pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
+$ pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_CSR1000v_Sandbox.yaml
 
 '''
 
