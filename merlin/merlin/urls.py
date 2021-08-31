@@ -19,8 +19,12 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('ShowVersion/<int:year>/', views.year_archive),
-    path('ShowVersion/<int:year>/<int:month>/', views.month_archive),
-    path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.day_archive),
-    path('ShowVersion/<str:os>/', views.os_archive),
+    path('ShowVersion/<int:year>/', views.show_version_year_archive),
+    path('ShowVersion/<int:year>/<int:month>/', views.show_version_month_archive),
+    path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.show_version_day_archive),
+    path('ShowVersion/<str:os>/', views.show_version_os_archive),
+    path('LearnVRF/<int:year>/', views.learn_vrf_year_archive),
+    path('LearnVRF/<int:year>/<int:month>/', views.learn_vrf_month_archive),
+    path('LearnVRF/<int:year>/<int:month>/<int:day>/', views.learn_vrf_day_archive),
+    path('LearnVRF/<str:os>/', views.learn_vrf_os_archive),    
 ]
