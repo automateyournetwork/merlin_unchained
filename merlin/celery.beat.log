@@ -1,0 +1,4 @@
+[2021-09-01 21:01:15,112: INFO/MainProcess] beat: Starting...
+[2021-09-01 21:06:15,135: INFO/MainProcess] Scheduler: Sending due task run_pyATS_job_every_five_minutes (run_pyATS_job)
+[2021-09-01 21:11:15,225: INFO/MainProcess] Scheduler: Sending due task run_pyATS_job_every_five_minutes (run_pyATS_job)
+[2021-09-01 21:16:15,317: INFO/MainProcess] Scheduler: Sending due task run_pyATS_job_every_five_minutes (run_pyATS_job)
