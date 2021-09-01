@@ -26,5 +26,10 @@ urlpatterns = [
     path('LearnVRF/<int:year>/', views.learn_vrf_year_archive),
     path('LearnVRF/<int:year>/<int:month>/', views.learn_vrf_month_archive),
     path('LearnVRF/<int:year>/<int:month>/<int:day>/', views.learn_vrf_day_archive),
-    path('LearnVRF/<str:os>/', views.learn_vrf_os_archive),    
+    path('LearnVRF/<str:os>/', views.learn_vrf_os_archive),
+    path('LearnVLAN/<int:year>/', views.learn_vlan_year_archive),
+    path('LearnVLAN/<int:year>/<int:month>/', views.learn_vlan_month_archive),
+    path('LearnVLAN/<int:year>/<int:month>/<int:day>/', views.learn_vlan_day_archive),
+    path('LearnVLAN/<str:os>/', views.learn_vlan_os_archive),
+    path('LearnVLAN/<str:os>/<str:pyats_alias>/', views.learn_vlan_alias_archive),      
 ]
