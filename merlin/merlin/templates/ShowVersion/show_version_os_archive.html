@@ -5,12 +5,13 @@
 {% block content %}
 <h1>Show Version Results for {{ os }}</h1>
 {% for version in version_list %}
-{%   if version.os == "NX-OS" %}
+{%   if version.os == "nxos" %}
     <p>Device Name: {{ version.device_name }}</p>
     <p>Captured {{ version.timestamp }}</p>
     <table class="merlin-table">
         <thead>
         <tr>
+          <th>pyATS Alias</th>
           <th>Hostname</th>
           <th>Bootflash</th>
           <th>Chassis</th>
@@ -31,6 +32,7 @@
         </thead>
         <tbody>
         <tr>
+          <td>{{ version.pyats_alias }}</td>
           <td>{{ version.device_name }}</td>          
           <td>{{ version.bootflash }}</td>
           <td>{{ version.chassis }}</td>
@@ -56,6 +58,7 @@
     <table class="merlin-table">
       <thead>
         <tr>
+          <th>pyATS Alias</th>
           <th>Hostname</th>          
           <th>Bootflash</th>
           <th>Chassis</th>
@@ -91,6 +94,7 @@
         </thead>
         <tbody>
         <tr>
+          <td>{{ version.pyats_alias }}</td>
           <td>{{ version.device_name }}</td>
           <td>{{ version.bootflash }}</td>
           <td>{{ version.chassis }}</td>
