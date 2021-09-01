@@ -10,6 +10,7 @@
     <table class="merlin-table">
       <thead>
         <tr>
+          <th>pyATS Alias</th>          
           <th>VRF</th>
           <th>Address Family IPv4</th>
           <th>Address Family IPv6</th>
@@ -18,6 +19,7 @@
         </thead>
         <tbody>
         <tr>
+          <td>{{ vrf.pyats_alias }}</td>
           <td>{{ vrf.vrf }}</td>
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
