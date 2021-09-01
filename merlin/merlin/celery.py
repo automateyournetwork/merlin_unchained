@@ -14,10 +14,19 @@ app = Celery('merlin')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
 
 @app.task(bind=True)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
+
+app.conf.beat_schedule = {
+    #Scheduler Name
+    'run_pyATS_job_every_five_minutes': {
+        # Task Name (Name Specified in Decorator)
+        'task': 'run_pyATS_job',  
+        # Schedule      
+        'schedule': 300.0,
+    }
+}
