@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin On-Demand Centre{% endblock %}
+
+{% block content %}
+<h1>Merlin On-Demand Centre</h1>
+<h2>Refresh All</h2>
+<table class="merlin-table">
+    <thead>
+    <tr>
+      <th>Command</th>
+      <th>Click Here</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>All</td>
+      <td><button onclick="location.href='{% url 'get_all' %}'">Get All</button></td>          
+    </tr>
+    </tbody>  
+  </table>
+  <h2>Refresh Individual Commands</h2>
+  <table class="merlin-table">
+    <thead>
+    <tr>
+      <th>Command</th>
+      <th>Click Here</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Learn VLAN</td>
+        <td><button onclick="location.href='{% url 'learn_vlan' %}'">Get Learn VLAN</button></td>          
+      </tr>      
+      <tr>
+        <td>Learn VRF</td>
+        <td><button onclick="location.href='{% url 'learn_vrf' %}'">Get Learn VRF</button></td>          
+      </tr>      
+    <tr>
+      <td>Show Version</td>
+      <td><button onclick="location.href='{% url 'show_version' %}'">Get Show Version</button></td>          
+    </tr>
+    </tbody>  
+  </table>
+  {% endblock %}  

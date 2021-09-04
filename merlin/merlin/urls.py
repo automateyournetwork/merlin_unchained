@@ -19,6 +19,11 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('OnDemand/', views.button),
+    path('OnDemand/get_all_result/', views.get_all_ondemand, name="get_all"),
+    path('OnDemand/learn_vlan_result/', views.learn_vlan_ondemand, name="learn_vlan"),
+    path('OnDemand/learn_vrf_result/', views.learn_vrf_ondemand, name="learn_vrf"),
+    path('OnDemand/show_version_result/', views.show_version_ondemand, name="show_version"),
     path('ShowVersion/<int:year>/', views.show_version_year_archive),
     path('ShowVersion/<int:year>/<int:month>/', views.show_version_month_archive),
     path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.show_version_day_archive),
@@ -33,5 +38,5 @@ urlpatterns = [
     path('LearnVLAN/<int:year>/<int:month>/', views.learn_vlan_month_archive),
     path('LearnVLAN/<int:year>/<int:month>/<int:day>/', views.learn_vlan_day_archive),
     path('LearnVLAN/<str:os>/', views.learn_vlan_os_archive),
-    path('LearnVLAN/<str:os>/<str:pyats_alias>/', views.learn_vlan_alias_archive),      
+    path('LearnVLAN/<str:os>/<str:pyats_alias>/', views.learn_vlan_alias_archive),
 ]

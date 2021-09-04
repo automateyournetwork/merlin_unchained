@@ -1,7 +1,7 @@
 '''
 To run the job:
 
-$ pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
+$ pyats run job show_version_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
 
 '''
 
@@ -23,7 +23,7 @@ def main(runtime):
         testbed = runtime.testbed
 
     # Find the location of the script in relation to the job file
-    testscript = os.path.join(os.path.dirname(__file__), 'populate_db.py')
+    testscript = os.path.join(os.path.dirname(__file__), 'show_version.py')
 
     # run script
     runtime.tasks.run(testscript=testscript, testbed=testbed)

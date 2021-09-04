@@ -1,14 +1,12 @@
-[2021-09-01 21:01:17,102: INFO/MainProcess] Connected to redis://localhost:6379//
-[2021-09-01 21:01:17,105: INFO/MainProcess] mingle: searching for neighbors
-[2021-09-01 21:01:18,116: INFO/MainProcess] mingle: all alone
-[2021-09-01 21:01:18,122: WARNING/MainProcess] /home/capobj/env/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
+[2021-09-02 00:49:05,230: INFO/MainProcess] Connected to redis://localhost:6379//
+[2021-09-02 00:49:05,235: INFO/MainProcess] mingle: searching for neighbors
+[2021-09-02 00:49:06,245: INFO/MainProcess] mingle: all alone
+[2021-09-02 00:49:06,251: WARNING/MainProcess] /home/capobj/env/lib/python3.8/site-packages/celery/fixups/django.py:203: UserWarning: Using settings.DEBUG leads to a memory
             leak, never use this setting in production environments!
   warnings.warn('''Using settings.DEBUG leads to a memory
 
-[2021-09-01 21:01:18,123: INFO/MainProcess] celery@DESKTOP-EFDK79U ready.
-[2021-09-01 21:06:15,150: INFO/MainProcess] Task run_pyATS_job[d83961ea-64cc-4812-a4ec-74d0f6c9f122] received
-[2021-09-01 21:06:28,465: INFO/ForkPoolWorker-15] Task run_pyATS_job[d83961ea-64cc-4812-a4ec-74d0f6c9f122] succeeded in 13.314884999999776s: None
-[2021-09-01 21:11:15,227: INFO/MainProcess] Task run_pyATS_job[7c015922-4c82-4b5a-adb0-109937efb268] received
-[2021-09-01 21:11:26,991: INFO/ForkPoolWorker-15] Task run_pyATS_job[7c015922-4c82-4b5a-adb0-109937efb268] succeeded in 11.763489799999661s: None
-[2021-09-01 21:16:15,318: INFO/MainProcess] Task run_pyATS_job[60541d39-eefb-4115-8801-104ca2a688e9] received
-[2021-09-01 21:16:27,088: INFO/ForkPoolWorker-15] Task run_pyATS_job[60541d39-eefb-4115-8801-104ca2a688e9] succeeded in 11.76865109999926s: None
+[2021-09-02 00:49:06,251: INFO/MainProcess] celery@DESKTOP-EFDK79U ready.
+[2021-09-02 00:54:03,274: INFO/MainProcess] Task run_pyATS_job[19940229-2775-4474-98cc-5ffcba5485a1] received
+[2021-09-02 00:54:21,595: INFO/ForkPoolWorker-15] Task run_pyATS_job[19940229-2775-4474-98cc-5ffcba5485a1] succeeded in 18.319856300000083s: None
+[2021-09-02 00:59:03,362: INFO/MainProcess] Task run_pyATS_job[57cab418-39b8-465a-95fc-bb02a076bccf] received
+[2021-09-02 00:59:14,653: INFO/ForkPoolWorker-15] Task run_pyATS_job[57cab418-39b8-465a-95fc-bb02a076bccf] succeeded in 11.290537299999869s: None
