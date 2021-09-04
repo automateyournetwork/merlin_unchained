@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
 from .models import LearnVLAN, LearnVRF, ShowVersion
+import os
 
 def show_version_year_archive(request, year):
     v_list = ShowVersion.objects.filter(timestamp__year=year)
@@ -25,7 +25,26 @@ def show_version_os_archive(request, os):
 def show_version_alias_archive(request, os, pyats_alias):
     v_list = ShowVersion.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'version_list': v_list}
-    return render(request, 'ShowVersion/show_version_alias_archive.html', context)    
+    return render(request, 'ShowVersion/show_version_alias_archive.html', context)
+
+def button(request):
+    return render(request, 'OnDemand/ondemand.html')
+
+def get_all_ondemand(request):
+    os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/get_all_result.html')
+
+def learn_vlan_ondemand(request):
+    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_vlan_result.html')
+
+def learn_vrf_ondemand(request):
+    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_vrf_result.html')
+
+def show_version_ondemand(request):
+    os.system('pyats run job show_version_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/show_version_result.html')
 
 def learn_vrf_year_archive(request, year):
     v_list = LearnVRF.objects.filter(timestamp__year=year)
