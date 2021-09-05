@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -24,6 +24,7 @@ urlpatterns = [
     path('OnDemand/learn_vlan_result/', views.learn_vlan_ondemand, name="learn_vlan"),
     path('OnDemand/learn_vrf_result/', views.learn_vrf_ondemand, name="learn_vrf"),
     path('OnDemand/show_version_result/', views.show_version_ondemand, name="show_version"),
+    path('API/', include('merlin_api.urls')),
     path('ShowVersion/<int:year>/', views.show_version_year_archive),
     path('ShowVersion/<int:year>/<int:month>/', views.show_version_month_archive),
     path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.show_version_day_archive),
@@ -33,7 +34,8 @@ urlpatterns = [
     path('LearnVRF/<int:year>/<int:month>/', views.learn_vrf_month_archive),
     path('LearnVRF/<int:year>/<int:month>/<int:day>/', views.learn_vrf_day_archive),
     path('LearnVRF/<str:os>/', views.learn_vrf_os_archive),
-    path('LearnVRF/<str:os>/<str:pyats_alias>/', views.learn_vrf_alias_archive),     
+    path('LearnVRF/<str:os>/<str:pyats_alias>/', views.learn_vrf_alias_archive), 
+    path('LearnVLAN/<int:year>/', views.learn_vlan_year_archive),
     path('LearnVLAN/<int:year>/', views.learn_vlan_year_archive),
     path('LearnVLAN/<int:year>/<int:month>/', views.learn_vlan_month_archive),
     path('LearnVLAN/<int:year>/<int:month>/<int:day>/', views.learn_vlan_day_archive),
