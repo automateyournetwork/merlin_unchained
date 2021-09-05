@@ -29,6 +29,22 @@ def show_version_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'version_list': v_list}
     return render(request, 'ShowVersion/show_version_alias_archive.html', context)
 
+def show_version_csv(request):
+    return render(request, 'ShowVersion/show_version_csv.html')    
+
+def show_version_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_version_csv.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Bootflash','Chassis','CPU','Device Name','Memory','Model','Processor Board ID','RP','Slots','Days Up','Hours Up','Minutes Up','Seconds Up','Name','OS','Last Reload Reason','System Compile Time','Image File','Version','Chassis Serial Number','Compiled By','Current Config Register','Image ID','Label','License Leven','License Type','Non Volative Memory','Physical Memory','Next Reload License Level','Platform','Processor Type','Return to ROM by','Router Type','Uptime','Uptime this CP','Version (Short)','XE Version','Timestamp'])
+
+    versions = ShowVersion.objects.all().values_list('pyats_alias','bootflash','chassis','cpu','device_name','memory','model','processor_board_id','rp','slots','days','hours','minutes','seconds','name','os','reason','system_compile_time','system_image_file','system_version','chassis_sn','compiled_by','curr_config_register','image_id','image_type','label','license_level','license_type','non_volatile','physical','next_reload_license_level','platform','processor_type','returned_to_rom_by','rom','rtr_type','uptime','uptime_this_cp','version_short','xe_version','timestamp')
+    for version in versions:
+        writer.writerow(version)
+
+    return response  
+
 def button(request):
     return render(request, 'OnDemand/ondemand.html')
 
@@ -78,7 +94,7 @@ def learn_vrf_csv(request):
 
 def learn_vrf_csv_download(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="learn_csv.csv'
+    response['Content-Disposition'] = 'attachment; filename="learn_vrf_csv.csv'
 
     writer = csv.writer(response)
     writer.writerow(['pyATS Alias','VRF','Address Family IPv4','Address Family IPv6','Route Distinguisher','Timestamp'])
@@ -113,3 +129,19 @@ def learn_vlan_alias_archive(request, os, pyats_alias):
     v_list = LearnVLAN.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'vlan_list': v_list}
     return render(request, 'LearnVLAN/learn_vlan_alias_archive.html', context)
+
+def learn_vlan_csv(request):
+    return render(request, 'LearnVLAN/learn_vlan_csv.html')    
+
+def learn_vlan_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_vlan_csv.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','VLAN','Interfaces','Mode','Name','Shutdown','State','Timestamp'])
+
+    vlans = LearnVLAN.objects.all().values_list('pyats_alias','vlan','interfaces','mode','name','shutdown','state','timestamp')
+    for vlan in vlans:
+        writer.writerow(vlan)
+
+    return response    

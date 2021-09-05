@@ -29,7 +29,9 @@ urlpatterns = [
     path('ShowVersion/<int:year>/<int:month>/', views.show_version_month_archive),
     path('ShowVersion/<int:year>/<int:month>/<int:day>/', views.show_version_day_archive),
     path('ShowVersion/<str:os>/', views.show_version_os_archive),
-    path('ShowVersion/<str:os>/<str:pyats_alias>/', views.show_version_alias_archive),         
+    path('ShowVersion/<str:os>/<str:pyats_alias>/', views.show_version_alias_archive),
+    path('CSV/ShowVersion/', views.show_version_csv),
+    path('CSV/ShowVersion/download', views.show_version_csv_download, name='show_version_csv'),             
     path('LearnVRF/<int:year>/', views.learn_vrf_year_archive),
     path('LearnVRF/<int:year>/<int:month>/', views.learn_vrf_month_archive),
     path('LearnVRF/<int:year>/<int:month>/<int:day>/', views.learn_vrf_day_archive),
@@ -43,4 +45,6 @@ urlpatterns = [
     path('LearnVLAN/<int:year>/<int:month>/<int:day>/', views.learn_vlan_day_archive),
     path('LearnVLAN/<str:os>/', views.learn_vlan_os_archive),
     path('LearnVLAN/<str:os>/<str:pyats_alias>/', views.learn_vlan_alias_archive),
+    path('CSV/LearnVLAN/', views.learn_vlan_csv),
+    path('CSV/LearnVLAN/download', views.learn_vlan_csv_download, name='learn_vlan_csv'),
 ]
