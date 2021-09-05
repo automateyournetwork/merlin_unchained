@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from .models import LearnVLAN, LearnVRF, ShowVersion
 import os
+import csv
 
 def show_version_year_archive(request, year):
     v_list = ShowVersion.objects.filter(timestamp__year=year)
@@ -70,6 +72,22 @@ def learn_vrf_alias_archive(request, os, pyats_alias):
     v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'LearnVRF/learn_vrf_alias_archive.html', context)    
+
+def learn_vrf_csv(request):
+    return render(request, 'LearnVRF/learn_vrf_csv.html')    
+
+def learn_vrf_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_csv.csv'
+
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','VRF','Address Family IPv4','Address Family IPv6','Route Distinguisher','Timestamp'])
+
+    vrfs = LearnVRF.objects.all().values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
+    for vrf in vrfs:
+        writer.writerow(vrf)
+
+    return response
 
 def learn_vlan_year_archive(request, year):
     v_list = LearnVLAN.objects.filter(timestamp__year=year)
