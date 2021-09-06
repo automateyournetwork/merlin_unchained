@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Business Ready Document Centre{% endblock %}
+
+{% block content %}
+<h1>Business Ready Document Centre</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>Command</th>
+  <th>All Records</th>
+  <th>Latest Record</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>Learn VLAN</td>
+    <td><button onclick="location.href='{% url 'learn_vlan_csv' %}'">Export All VLAN Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_vlan_csv_latest' %}'">Export Latest VLAN Records</button></td>
+  </tr>
+  <tr>
+    <td>Learn VRF</td>
+    <td><button onclick="location.href='{% url 'learn_vrf_csv' %}'">Export All VRF Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_vlan_csv_latest' %}'">Export Latest VRF Records</button></td>
+  </tr>
+  <tr>
+    <td>Show Version</td>
+    <td><button onclick="location.href='{% url 'show_version_csv' %}'">Export All Version Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_vlan_csv_latest' %}'">Export Latest Version Records</button></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}

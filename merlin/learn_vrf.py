@@ -50,6 +50,6 @@ class Collect_Information(aetest.Testcase):
             if self.learned_vrf is not None:
                 # Set Django Database values from pyATS JSON
                 for vrf in self.learned_vrf['vrfs']:
-                    learnVRF=LearnVRF(pyats_alias=device.alias,os=device.os,vrf=vrf,address_family_ipv4=self.learned_vrf['vrfs'][vrf]['address_family']['ipv4'],address_family_ipv6=self.learned_vrf['vrfs'][vrf]['address_family']['ipv6'],route_distinguisher=self.learned_vrf['vrfs'][vrf]['route_distinguisher'],timestamp=datetime.now())
+                    learnVRF=LearnVRF(pyats_alias=device.alias,os=device.os,vrf=vrf,address_family_ipv4=self.learned_vrf['vrfs'][vrf]['address_family']['ipv4'],address_family_ipv6=self.learned_vrf['vrfs'][vrf]['address_family']['ipv6'],route_distinguisher=self.learned_vrf['vrfs'][vrf]['route_distinguisher'],timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                 # Save the objects into the database.
                     learnVRF.save()
