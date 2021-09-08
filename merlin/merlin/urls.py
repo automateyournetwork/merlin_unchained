@@ -43,6 +43,7 @@ urlpatterns = [
     path('CSV/ShowVersion/', views.show_version_csv),
     path('CSV/ShowVersion/download', views.show_version_csv_download, name='show_version_csv'),
     path('CSV/ShowVersion/latest', views.show_version_csv_download_latest, name='show_version_csv_latest'),
+    path('', include('search.urls')),
     path('LearnVLAN/<int:year>/', views.learn_vlan_year_archive),
     path('LearnVLAN/<int:year>/<int:month>/', views.learn_vlan_month_archive),
     path('LearnVLAN/<int:year>/<int:month>/<int:day>/', views.learn_vlan_day_archive),

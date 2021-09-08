@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Search{% endblock %}
+
+{% block content %}
+<h1>Merlin Search</h1>
+<form action="{% url 'learn_vlan_search_results' %}" method="get">
+    <input name="q" type="text" placeholder="Search...">
+  </form>
+{% endblock %}
