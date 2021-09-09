@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Search Results{% endblock %}
+
+{% block content %}
+<h1>Merlin Search Results</h1>
+<h2>Learn VLAN Hits</h2>
+{{ context }}
+<ul>
+    {% for vlan in object_list.0 %}
+      <li>
+        {{ vlan.pyats_alias }}
+        {{ vlan.os }}
+        {{ vlan.vlan }}
+        {{ vlan.interfaces }}
+        {{ vlan.mode }}
+        {{ vlan.name }}
+        {{ vlan.shutdown }}
+        {{ vlan.state }}
+        {{ vlan.timestamp }}
+      </li>
+    {% endfor %}
+  </ul>
+  <h2>Learn VRF Hits</h2>
+  <ul>
+    {% for vrf in object_list.1 %}
+      <li>
+        {{ vrf.pyats_alias }}
+        {{ vrf.os }}
+        {{ vrf.vrf }}
+        {{ vrf.address_family_ipv4 }}
+        {{ vrf.address_family_ipv6 }}
+        {{ vrf.route_distinguisher }}
+        {{ vrf.timestamp }}
+      </li>
+    {% endfor %}
+  </ul>
+  <h2>Show Version Hits</h2>
+  <ul>
+    {% for version in object_list.2 %}
+      <li>
+        {{ version.pyats_alias }}
+        {{ version.bootflash }}
+        {{ version.chassis }}
+        {{ version.cpu }}
+        {{ version.device_name }}
+        {{ version.memory }}
+        {{ version.model }}
+        {{ version.processor_board_id }}
+        {{ version.rp }}
+        {{ version.slots }}
+        {{ version.days }}
+        {{ version.hours }}
+        {{ version.minutes }}
+        {{ version.seconds }}
+        {{ version.name }}
+        {{ version.os }}
+        {{ version.reason }}
+        {{ version.system_compile_time }}
+        {{ version.system_image_file }}
+        {{ version.system_version }}
+        {{ version.chassis_sn }}
+        {{ version.compiled_by }}
+        {{ version.curr_config_register }}
+        {{ version.image_id }}
+        {{ version.image_type }}
+        {{ version.label }}
+        {{ version.license_level }}
+        {{ version.license_type }}
+        {{ version.non_volatile }}
+        {{ version.physical }}
+        {{ version.next_reload_license_level }}
+        {{ version.platform }}
+        {{ version.processor_type }}
+        {{ version.returned_to_rom_by }}
+        {{ version.rom }}
+        {{ version.rtr_type }}
+        {{ version.uptime }}
+        {{ version.uptime_this_cp }}
+        {{ version.version_short }}
+        {{ version.xe_version }}              
+        {{ version.timestamp }}      
+      </li>
+    {% endfor %}
+  </ul>  
+{% endblock %}
