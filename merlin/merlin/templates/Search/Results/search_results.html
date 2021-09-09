@@ -4,83 +4,186 @@
 
 {% block content %}
 <h1>Merlin Search Results</h1>
+{% if object_list.0 %}
 <h2>Learn VLAN Hits</h2>
-{{ context }}
-<ul>
-    {% for vlan in object_list.0 %}
-      <li>
-        {{ vlan.pyats_alias }}
-        {{ vlan.os }}
-        {{ vlan.vlan }}
-        {{ vlan.interfaces }}
-        {{ vlan.mode }}
-        {{ vlan.name }}
-        {{ vlan.shutdown }}
-        {{ vlan.state }}
-        {{ vlan.timestamp }}
-      </li>
-    {% endfor %}
-  </ul>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>pyATS Alias</th>
+  <th>VLAN</th>
+  <th>Name</th>
+  <th>State</th>
+  <th>Shutdown</th>
+  <th>Interfaces</th>
+  <th>Mode</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vlan in object_list.0 %}
+  <tr>
+    <td>{{ vlan.pyats_alias }}</td>
+    <td>{{ vlan.vlan }}</td>
+    <td>{{ vlan.name }}</td>
+    <td>{{ vlan.state }}</td>
+    <td>{{ vlan.shutdown }}</td>
+    <td>{{ vlan.interfaces }}</td>
+    <td>{{ vlan.mode }}</td>
+    <td>{{ vlan.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.1 %}
   <h2>Learn VRF Hits</h2>
-  <ul>
-    {% for vrf in object_list.1 %}
-      <li>
-        {{ vrf.pyats_alias }}
-        {{ vrf.os }}
-        {{ vrf.vrf }}
-        {{ vrf.address_family_ipv4 }}
-        {{ vrf.address_family_ipv6 }}
-        {{ vrf.route_distinguisher }}
-        {{ vrf.timestamp }}
-      </li>
-    {% endfor %}
-  </ul>
+  {% for vrf in object_list.1 %}
+  <p>Device Name: {{ vrf.hostname }}</p>
+  <p>Captured {{ vrf.timestamp }}</p>
+  <table class="merlin-table">
+    <thead>
+      <tr>
+        <th>pyATS Alias</th>          
+        <th>VRF</th>
+        <th>Address Family IPv4</th>
+        <th>Address Family IPv6</th>
+        <th>Route Distinguisher</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ vrf.pyats_alias }}</td>
+        <td>{{ vrf.vrf }}</td>
+        <td>{{ vrf.address_family_ipv4 }}</td>
+        <td>{{ vrf.address_family_ipv6 }}</td>
+        <td>{{ vrf.route_distinguisher }}</td>
+      </tr>
+      </tbody></table>{% endfor %}
+{% endif %}  
+{% if object_list.2 %}  
   <h2>Show Version Hits</h2>
-  <ul>
-    {% for version in object_list.2 %}
-      <li>
-        {{ version.pyats_alias }}
-        {{ version.bootflash }}
-        {{ version.chassis }}
-        {{ version.cpu }}
-        {{ version.device_name }}
-        {{ version.memory }}
-        {{ version.model }}
-        {{ version.processor_board_id }}
-        {{ version.rp }}
-        {{ version.slots }}
-        {{ version.days }}
-        {{ version.hours }}
-        {{ version.minutes }}
-        {{ version.seconds }}
-        {{ version.name }}
-        {{ version.os }}
-        {{ version.reason }}
-        {{ version.system_compile_time }}
-        {{ version.system_image_file }}
-        {{ version.system_version }}
-        {{ version.chassis_sn }}
-        {{ version.compiled_by }}
-        {{ version.curr_config_register }}
-        {{ version.image_id }}
-        {{ version.image_type }}
-        {{ version.label }}
-        {{ version.license_level }}
-        {{ version.license_type }}
-        {{ version.non_volatile }}
-        {{ version.physical }}
-        {{ version.next_reload_license_level }}
-        {{ version.platform }}
-        {{ version.processor_type }}
-        {{ version.returned_to_rom_by }}
-        {{ version.rom }}
-        {{ version.rtr_type }}
-        {{ version.uptime }}
-        {{ version.uptime_this_cp }}
-        {{ version.version_short }}
-        {{ version.xe_version }}              
-        {{ version.timestamp }}      
-      </li>
-    {% endfor %}
-  </ul>  
+  {% for version in object_list.2 %}
+  {%   if version.os == "nxos" %}
+      <p>Device Name: {{ version.device_name }}</p>
+      <p>Captured {{ version.timestamp }}</p>
+      <table class="merlin-table">
+          <thead>
+          <tr>
+            <th>pyATS Alias</th>
+            <th>Hostname</th>
+            <th>Bootflash</th>
+            <th>Chassis</th>
+            <th>CPU</th>
+            <th>Memory</th>
+            <th>Model</th>
+            <th>Processor Board ID</th>
+            <th>RP</th>
+            <th>Slots</th>
+            <th>Kernel Uptime</th>
+            <th>Name</th>
+            <th>OS</th>
+            <th>Last Reload Reason</th>
+            <th>System Compile Time</th>
+            <th>System Image File</th>
+            <th>System Version</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ version.pyats_alias }}</td>
+            <td>{{ version.device_name }}</td>          
+            <td>{{ version.bootflash }}</td>
+            <td>{{ version.chassis }}</td>
+            <td>{{ version.cpu }}</td>
+            <td>{{ version.memory }}</td>
+            <td>{{ version.model }}</td>
+            <td>{{ version.processor_board_id }}</td>
+            <td>{{ version.rp }}</td>
+            <td>{{ version.slots }}</td>
+            <td>{{ version.days }} {{ version.hours }} {{ version.minutes }} {{ version.seconds }}</td>
+            <td>{{ version.name }}</td>
+            <td>{{ version.os }}</td>
+            <td>{{ version.reason }}</td>
+            <td>{{ version.system_compile_time }}</td>
+            <td>{{ version.system_image_file }}</td>
+            <td>{{ version.system_version }}</td>
+          </tr>
+          </tbody>  
+        </table>
+  {%   else %}
+      <p>Device Name: {{ version.device_name }}</p>
+      <p>Captured {{ version.timestamp }}</p>
+      <table class="merlin-table">
+        <thead>
+          <tr>
+            <th>pyATS Alias</th>
+            <th>Hostname</th>          
+            <th>Bootflash</th>
+            <th>Chassis</th>
+            <th>Chassis Serial Number</th>
+            <th>Platform</th>
+            <th>Processor Type</th>
+            <th>Memory</th>
+            <th>Model</th>
+            <th>Kernel Uptime</th>
+            <th>OS</th>
+            <th>Last Reload Reason</th>
+            <th>Uptime</th>
+            <th>Uptime This CP</th>
+            <th>System Compile Time</th>
+            <th>System Image File</th>
+            <th>System Version</th>
+            <th>Compiled By</th>
+            <th>Current Config Register</th>
+            <th>Image ID</th>
+            <th>Image Type</th>
+            <th>Label</th>
+            <th>License Level</th>
+            <th>License Type</th>
+            <th>Next Reload License Level</th>
+            <th>Non Volatile Memory</th>
+            <th>Physical Memory</th>
+            <th>Returned to ROM By</th>
+            <th>ROM</th>
+            <th>Router Type</th>
+            <th>Version Short</th>
+            <th>XE Version</th>          
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ version.pyats_alias }}</td>
+            <td>{{ version.device_name }}</td>
+            <td>{{ version.bootflash }}</td>
+            <td>{{ version.chassis }}</td>
+            <td>{{ version.chassis_sn }}</td>
+            <td>{{ version.platform }}</td>
+            <td>{{ version.processor_type }}</td>
+            <td>{{ version.memory }}</td>
+            <td>{{ version.model }}</td>
+            <td>{{ version.uptime }}</td>
+            <td>{{ version.os }}</td>
+            <td>{{ version.reason }}</td>
+            <td>{{ version.uptime }}</td>
+            <td>{{ version.uptime_this_cp }}</td>
+            <td>{{ version.system_compile_time }}</td>
+            <td>{{ version.system_image_file }}</td>
+            <td>{{ version.system_version }}</td>
+            <td>{{ version.compiled_by }}</td>
+            <td>{{ version.curr_config_register }}</td>
+            <td>{{ version.image_id }}</td>
+            <td>{{ version.image_type }}</td>
+            <td>{{ version.label }}</td>
+            <td>{{ version.license_level }}</td>
+            <td>{{ version.license_type }}</td>
+            <td>{{ version.next_reload_license_level }}</td>
+            <td>{{ version.non_volatile }}</td>
+            <td>{{ version.physical }}</td>
+            <td>{{ version.returned_to_rom_by }}</td>
+            <td>{{ version.rom }}</td>
+            <td>{{ version.rtr_type }}</td>
+            <td>{{ version.version_short }}</td>
+            <td>{{ version.xe_version }}</td>
+          </tr>
+        </tbody>
+      </table>{% endif %}{% endfor %}
+{% endif %}
 {% endblock %}
