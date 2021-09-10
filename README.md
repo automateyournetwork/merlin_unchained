@@ -9,6 +9,8 @@ A Django implementation of Merlin
 5. Superuser 
 6. populate 
 
+export DJANGO_SETTINGS_MODULE=merlin.settings
+
 pkill -f "celery worker"  
 celery -A merlin beat -l info --logfile=celery.beat.log --detach  
 celery -A merlin worker -l info --logfile=celery.log --detach
