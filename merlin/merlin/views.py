@@ -198,3 +198,18 @@ def show_version_latest(request):
     v_list = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'version_list': v_list}
     return render(request, 'Latest/ShowVersion/show_version_latest.html', context)
+
+# Changes 
+
+def changes(request):
+    return render(request, 'Changes/changes.html')
+
+def learn_vlan_changes(request):
+    latest_timestamp = LearnVLAN.objects.latest('timestamp')
+    current_vlans = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
+    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnVLAN.objects.latest('timestamp')
+    latest_vlans = LearnVLAN.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
+    vlan_removals = current_vlans.difference(latest_vlans)
+    vlan_additions = latest_vlans.difference(current_vlans)
+    return render(request, 'Changes/learn_vlan_changes.html', {'vlan_removals': vlan_removals,'vlan_additions': vlan_additions})

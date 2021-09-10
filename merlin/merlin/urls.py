@@ -24,6 +24,8 @@ urlpatterns = [
     path('OnDemand/learn_vlan_result/', views.learn_vlan_ondemand, name="learn_vlan"),
     path('OnDemand/learn_vrf_result/', views.learn_vrf_ondemand, name="learn_vrf"),
     path('OnDemand/show_version_result/', views.show_version_ondemand, name="show_version"),
+    path('Changes/', views.changes),
+    path('Changes/learn_vlan_changes/', views.learn_vlan_changes, name="learn_vlan_changes"),
     path('API/', include('merlin_api.urls')),
     path('Latest/', views.latest),
     path('Latest/LearnVLAN/', views.learn_vlan_latest),
