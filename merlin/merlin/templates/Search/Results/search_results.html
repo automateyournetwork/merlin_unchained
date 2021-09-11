@@ -57,8 +57,29 @@
         <td>{{ vrf.route_distinguisher }}</td>
       </tr>
       </tbody></table>{% endfor %}
-{% endif %}  
-{% if object_list.2 %}  
+{% endif %}
+{% if object_list.2 %}
+<h1>Show IP Interface Brief Hits</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.2 %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.3 %}  
   <h2>Show Version Hits</h2>
   {% for version in object_list.2 %}
   {%   if version.os == "nxos" %}
