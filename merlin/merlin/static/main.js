@@ -1,6 +1,7 @@
 const getAllSpinnerBox = document.getElementById('get_all_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
+const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
 const showVersionSpinnerBox = document.getElementById('show_version_spinner')
 
 $("#get_all_button").click(function(e){
@@ -41,6 +42,20 @@ $("#learn_vrf_button").click(function(e){
         },
         success: function(response){
             learnVRFSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#show_ip_int_brief_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/show_ip_int_brief_result/",
+        beforeSend: function(){
+            showIPIntBriefSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            showIPIntBriefSpinnerBox.classList.add('not-visible')
         }
     })
 })
