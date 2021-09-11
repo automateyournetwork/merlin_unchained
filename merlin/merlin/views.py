@@ -181,6 +181,16 @@ def show_version_ondemand(request):
 def latest(request):
     return render(request, 'Latest/latest.html')
 
+def all_latest(request):
+    vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
+    vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
+    vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
+    vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp) 
+    version_latest_timestamp = ShowVersion.objects.latest('timestamp')
+    version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
+    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list}
+    return render(request, 'Latest/All/all_latest.html', context)
+
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
     v_list = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp)
@@ -203,6 +213,28 @@ def show_version_latest(request):
 
 def changes(request):
     return render(request, 'Changes/changes.html')
+
+def all_changes(request):
+    vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
+    current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
+    vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
+    current_vrfs = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+    version_latest_timestamp = ShowVersion.objects.latest('timestamp')
+    current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
+    os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
+    latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
+    vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
+    latest_vrfs = LearnVRF.objects.filter(timestamp=vrf_new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+    version_new_timestamp = ShowVersion.objects.latest('timestamp')
+    latest_version = ShowVersion.objects.filter(timestamp=version_new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")    
+    vlan_removals = current_vlans.difference(latest_vlans)
+    vlan_additions = latest_vlans.difference(current_vlans)
+    vrf_removals = current_vrfs.difference(latest_vrfs)
+    vrf_additions = latest_vrfs.difference(current_vrfs)
+    version_removals = current_version.difference(latest_version)
+    version_additions = latest_version.difference(current_version)       
+    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals,'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals,'vrf_additions': vrf_additions,'version_removals': version_removals,'version_additions': version_additions})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')

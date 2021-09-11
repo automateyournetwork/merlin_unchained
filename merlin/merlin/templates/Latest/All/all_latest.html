@@ -1,9 +1,61 @@
 {% extends "base.html" %}
 
-{% block title %}Latest Show Version Results{% endblock %}
+{% block title %}Latest{% endblock %}
 
 {% block content %}
-<h1>Latest Show Version Results</h1>
+<h1>Merlin's Latest Records</h1>
+<h2>Latest Learn VLAN</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>pyATS Alias</th>
+  <th>VLAN</th>
+  <th>Name</th>
+  <th>State</th>
+  <th>Shutdown</th>
+  <th>Interfaces</th>
+  <th>Mode</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vlan in vlan_list %}
+  <tr>
+    <td>{{ vlan.pyats_alias }}</td>
+    <td>{{ vlan.vlan }}</td>
+    <td>{{ vlan.name }}</td>
+    <td>{{ vlan.state }}</td>
+    <td>{{ vlan.shutdown }}</td>
+    <td>{{ vlan.interfaces }}</td>
+    <td>{{ vlan.mode }}</td>
+    <td>{{ vlan.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+<h2>Latest Learn VRF</h2>
+{% for vrf in vrf_list %}
+    <p>Device Name: {{ vrf.hostname }}</p>
+    <p>Captured {{ vrf.timestamp }}</p>
+    <table class="merlin-table">
+      <thead>
+        <tr>
+          <th>pyATS Alias</th>          
+          <th>VRF</th>
+          <th>Address Family IPv4</th>
+          <th>Address Family IPv6</th>
+          <th>Route Distinguisher</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vrf.pyats_alias }}</td>
+          <td>{{ vrf.vrf }}</td>
+          <td>{{ vrf.address_family_ipv4 }}</td>
+          <td>{{ vrf.address_family_ipv6 }}</td>
+          <td>{{ vrf.route_distinguisher }}</td>
+        </tr>
+        </tbody></table>
+{% endfor %}
+<h2>Latest Show Version Results</h2>
 {% for version in version_list %}
 {%   if version.os == "nxos" %}
     <p>Device Name: {{ version.device_name }}</p>

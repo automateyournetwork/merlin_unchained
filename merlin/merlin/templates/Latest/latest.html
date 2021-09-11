@@ -4,24 +4,38 @@
 
 {% block content %}
 <h1>Latest Versions</h1>
-    <table class="merlin-table">
-      <thead>
-        <tr>
-          <th>Command</th>          
-          <th>Link</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td>Learn VLAN</td>
-          <td><a href="http://localhost:8000/Latest/LearnVLAN/">Latest Learn VLAN</a></td>
-        </tr>
-        <tr>
-          <td>Learn VRF</td>
-          <td><a href="http://localhost:8000/Latest/LearnVRF/">Latest Learn VRF</a></td>
-        </tr>
-        <tr>
-          <td>Learn VLAN</td>
-          <td><a href="http://localhost:8000/Latest/ShowVersion/">Latest Show Version</a></td>
-        </tr>
-        </tbody></table>{% endblock %}
+<table class="merlin-table">
+  <thead>
+    <tr>
+      <th>All Database Records</th>          
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>All Records</td>
+      <td><a href="http://localhost:8000/Latest/All/">Latest Database Records</a></td>
+    </tr>
+    </tbody></table>
+<table class="merlin-table">
+  <thead>
+    <tr>
+      <th>Command</th>          
+      <th>Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Learn VLAN</td>
+      <td><a href="http://localhost:8000/Latest/LearnVLAN/">Latest Learn VLAN</a></td>
+    </tr>
+    <tr>
+      <td>Learn VRF</td>
+      <td><a href="http://localhost:8000/Latest/LearnVRF/">Latest Learn VRF</a></td>
+    </tr>
+    <tr>
+      <td>Learn VLAN</td>
+      <td><a href="http://localhost:8000/Latest/ShowVersion/">Latest Show Version</a></td>
+    </tr>
+    </tbody></table>
+{% endblock %}
