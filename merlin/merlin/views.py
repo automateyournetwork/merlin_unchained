@@ -213,3 +213,23 @@ def learn_vlan_changes(request):
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     return render(request, 'Changes/learn_vlan_changes.html', {'vlan_removals': vlan_removals,'vlan_additions': vlan_additions})
+
+def learn_vrf_changes(request):
+    latest_timestamp = LearnVRF.objects.latest('timestamp')
+    current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnVRF.objects.latest('timestamp')
+    latest_vrfs = LearnVRF.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+    vrf_removals = current_vrfs.difference(latest_vrfs)
+    vrf_additions = latest_vrfs.difference(current_vrfs)
+    return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
+
+def show_version_changes(request):
+    latest_timestamp = ShowVersion.objects.latest('timestamp')
+    current_version = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
+    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = ShowVersion.objects.latest('timestamp')
+    latest_version = ShowVersion.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
+    version_removals = current_version.difference(latest_version)
+    version_additions = latest_version.difference(current_version)
+    return render(request, 'Changes/show_version_changes.html', {'version_removals': version_removals,'version_additions': version_additions})
