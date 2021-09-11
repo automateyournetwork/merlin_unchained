@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Show IP Interface Brief Results for {{ os }}{% endblock %}
+
+{% block content %}
+<h1>Show IP Interface Brief Results for {{ os }}</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in interface_list %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endblock %}

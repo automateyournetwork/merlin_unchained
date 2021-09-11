@@ -5,6 +5,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'LearnVLAN', views.LearnVLANViewSet)
 router.register(r'LearnVRF', views.LearnVRFViewSet)
+router.register(r'ShowIPInterfaceBrief', views.ShowIPIntBriefViewSet)
 router.register(r'ShowVersion', views.ShowVersionViewSet)
 
 urlpatterns = [

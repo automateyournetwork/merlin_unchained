@@ -67,6 +67,20 @@ class Collect_Information(aetest.Testcase):
                 # Save the objects into the database.
                     learnVRF.save()
 
+            # Show IP Int Brief to JSON
+            self.parsed_show_ip_brief=ParseShowCommandFunction.parse_show_command(steps, device, "show ip interface brief")
+            if self.parsed_show_ip_brief is not None:
+                # Set Django Database values from pyATS JSON
+                for interface in self.parsed_show_ip_brief['interface']:
+                    if "Vlan" in interface:
+                        for vlan in self.parsed_show_ip_brief['interface'][interface]['vlan_id']:
+                            showIPIntBrief=ShowIPIntBrief(pyats_alias=device.alias,os=device.os,interface=interface,interface_status=self.parsed_show_ip_brief['interface'][interface]['vlan_id'][vlan]['interface_status'],ip_address=self.parsed_show_ip_brief['interface'][interface]['vlan_id'][vlan]['ip_address'],timestamp=datetime.now().replace(microsecond=0))
+                    else:
+                        showIPIntBrief=ShowIPIntBrief(pyats_alias=device.alias,os=device.os,interface=interface,interface_status=self.parsed_show_ip_brief['interface'][interface]['interface_status'],ip_address=self.parsed_show_ip_brief['interface'][interface]['ip_address'],timestamp=datetime.now().replace(microsecond=0))
+                        # Save the objects into the database.
+                        
+                    showIPIntBrief.save()
+
             # Show Version to JSON
             self.parsed_show_version=ParseShowCommandFunction.parse_show_command(steps, device, "show version")
             if self.parsed_show_version is not None:

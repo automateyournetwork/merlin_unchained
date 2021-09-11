@@ -28,6 +28,18 @@ class LearnVRF(models.Model):
         template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
         return template.format(self)
 
+class ShowIPIntBrief(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    interface = models.TextField()
+    interface_status = models.TextField()
+    ip_address = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.interface} {0.interface_status} {0.ip_address} {0.timestamp}'
+        return template.format(self)
+
 class ShowVersion(models.Model):
     pyats_alias = models.TextField()
     bootflash = models.TextField()
