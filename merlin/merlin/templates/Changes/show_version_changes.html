@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if version_additions %}
+<h2>Merlin has detected the following Version configurations have been added</h2>
+{% for version in version_additions %}
+{%   if version.os == "nxos" %}
+    <table class="merlin-table">
+        <thead>
+        <tr>
+          <th>pyATS Alias</th>
+          <th>Hostname</th>
+          <th>Bootflash</th>
+          <th>Chassis</th>
+          <th>CPU</th>
+          <th>Memory</th>
+          <th>Model</th>
+          <th>Processor Board ID</th>
+          <th>RP</th>
+          <th>Slots</th>
+          <th>Name</th>
+          <th>OS</th>
+          <th>Last Reload Reason</th>
+          <th>System Compile Time</th>
+          <th>System Image File</th>
+          <th>System Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ version.pyats_alias }}</td>
+          <td>{{ version.device_name }}</td>          
+          <td>{{ version.bootflash }}</td>
+          <td>{{ version.chassis }}</td>
+          <td>{{ version.cpu }}</td>
+          <td>{{ version.memory }}</td>
+          <td>{{ version.model }}</td>
+          <td>{{ version.processor_board_id }}</td>
+          <td>{{ version.rp }}</td>
+          <td>{{ version.slots }}</td>
+          <td>{{ version.name }}</td>
+          <td>{{ version.os }}</td>
+          <td>{{ version.reason }}</td>
+          <td>{{ version.system_compile_time }}</td>
+          <td>{{ version.system_image_file }}</td>
+          <td>{{ version.system_version }}</td>
+        </tr>
+        </tbody>  
+      </table>
+{%   else %}
+    <table class="merlin-table">
+      <thead>
+        <tr>
+          <th>pyATS Alias</th>
+          <th>Hostname</th>          
+          <th>Bootflash</th>
+          <th>Chassis</th>
+          <th>Chassis Serial Number</th>
+          <th>Platform</th>
+          <th>Processor Type</th>
+          <th>Memory</th>
+          <th>Model</th>
+          <th>OS</th>
+          <th>Last Reload Reason</th>
+          <th>System Compile Time</th>
+          <th>System Image File</th>
+          <th>System Version</th>
+          <th>Compiled By</th>
+          <th>Current Config Register</th>
+          <th>Image ID</th>
+          <th>Image Type</th>
+          <th>Label</th>
+          <th>License Level</th>
+          <th>License Type</th>
+          <th>Next Reload License Level</th>
+          <th>Non Volatile Memory</th>
+          <th>Physical Memory</th>
+          <th>Returned to ROM By</th>
+          <th>ROM</th>
+          <th>Router Type</th>
+          <th>Version Short</th>
+          <th>XE Version</th>          
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ version.pyats_alias }}</td>
+          <td>{{ version.device_name }}</td>
+          <td>{{ version.bootflash }}</td>
+          <td>{{ version.chassis }}</td>
+          <td>{{ version.chassis_sn }}</td>
+          <td>{{ version.platform }}</td>
+          <td>{{ version.processor_type }}</td>
+          <td>{{ version.memory }}</td>
+          <td>{{ version.model }}</td>
+          <td>{{ version.os }}</td>
+          <td>{{ version.reason }}</td>
+          <td>{{ version.system_compile_time }}</td>
+          <td>{{ version.system_image_file }}</td>
+          <td>{{ version.system_version }}</td>
+          <td>{{ version.compiled_by }}</td>
+          <td>{{ version.curr_config_register }}</td>
+          <td>{{ version.image_id }}</td>
+          <td>{{ version.image_type }}</td>
+          <td>{{ version.label }}</td>
+          <td>{{ version.license_level }}</td>
+          <td>{{ version.license_type }}</td>
+          <td>{{ version.next_reload_license_level }}</td>
+          <td>{{ version.non_volatile }}</td>
+          <td>{{ version.physical }}</td>
+          <td>{{ version.returned_to_rom_by }}</td>
+          <td>{{ version.rom }}</td>
+          <td>{{ version.rtr_type }}</td>
+          <td>{{ version.version_short }}</td>
+          <td>{{ version.xe_version }}</td>
+        </tr>
+      </tbody>
+    </table>{% endif %}
+  {% endfor %}
+{% else %}
+<h2>Merlin has not detected any Version configuration additons</h2>
+{% endif %}
+{% if version_removals %}
+<h2>Merlin has detected the following Version configurations have been removed</h2>
+{% for version in version_removals %}
+{%   if version.os == "nxos" %}
+    <table class="merlin-table">
+        <thead>
+        <tr>
+          <th>pyATS Alias</th>
+          <th>Hostname</th>
+          <th>Bootflash</th>
+          <th>Chassis</th>
+          <th>CPU</th>
+          <th>Memory</th>
+          <th>Model</th>
+          <th>Processor Board ID</th>
+          <th>RP</th>
+          <th>Slots</th>
+          <th>Name</th>
+          <th>OS</th>
+          <th>Last Reload Reason</th>
+          <th>System Compile Time</th>
+          <th>System Image File</th>
+          <th>System Version</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ version.pyats_alias }}</td>
+          <td>{{ version.device_name }}</td>          
+          <td>{{ version.bootflash }}</td>
+          <td>{{ version.chassis }}</td>
+          <td>{{ version.cpu }}</td>
+          <td>{{ version.memory }}</td>
+          <td>{{ version.model }}</td>
+          <td>{{ version.processor_board_id }}</td>
+          <td>{{ version.rp }}</td>
+          <td>{{ version.slots }}</td>
+          <td>{{ version.name }}</td>
+          <td>{{ version.os }}</td>
+          <td>{{ version.reason }}</td>
+          <td>{{ version.system_compile_time }}</td>
+          <td>{{ version.system_image_file }}</td>
+          <td>{{ version.system_version }}</td>
+        </tr>
+        </tbody>  
+      </table>
+{% else %}
+    <table class="merlin-table">
+      <thead>
+        <tr>
+          <th>pyATS Alias</th>
+          <th>Hostname</th>          
+          <th>Bootflash</th>
+          <th>Chassis</th>
+          <th>Chassis Serial Number</th>
+          <th>Platform</th>
+          <th>Processor Type</th>
+          <th>Memory</th>
+          <th>Model</th>
+          <th>OS</th>
+          <th>Last Reload Reason</th>
+          <th>System Compile Time</th>
+          <th>System Image File</th>
+          <th>System Version</th>
+          <th>Compiled By</th>
+          <th>Current Config Register</th>
+          <th>Image ID</th>
+          <th>Image Type</th>
+          <th>Label</th>
+          <th>License Level</th>
+          <th>License Type</th>
+          <th>Next Reload License Level</th>
+          <th>Non Volatile Memory</th>
+          <th>Physical Memory</th>
+          <th>Returned to ROM By</th>
+          <th>ROM</th>
+          <th>Router Type</th>
+          <th>Version Short</th>
+          <th>XE Version</th>          
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ version.pyats_alias }}</td>
+          <td>{{ version.device_name }}</td>
+          <td>{{ version.bootflash }}</td>
+          <td>{{ version.chassis }}</td>
+          <td>{{ version.chassis_sn }}</td>
+          <td>{{ version.platform }}</td>
+          <td>{{ version.processor_type }}</td>
+          <td>{{ version.memory }}</td>
+          <td>{{ version.model }}</td>
+          <td>{{ version.os }}</td>
+          <td>{{ version.reason }}</td>
+          <td>{{ version.system_compile_time }}</td>
+          <td>{{ version.system_image_file }}</td>
+          <td>{{ version.system_version }}</td>
+          <td>{{ version.compiled_by }}</td>
+          <td>{{ version.curr_config_register }}</td>
+          <td>{{ version.image_id }}</td>
+          <td>{{ version.image_type }}</td>
+          <td>{{ version.label }}</td>
+          <td>{{ version.license_level }}</td>
+          <td>{{ version.license_type }}</td>
+          <td>{{ version.next_reload_license_level }}</td>
+          <td>{{ version.non_volatile }}</td>
+          <td>{{ version.physical }}</td>
+          <td>{{ version.returned_to_rom_by }}</td>
+          <td>{{ version.rom }}</td>
+          <td>{{ version.rtr_type }}</td>
+          <td>{{ version.version_short }}</td>
+          <td>{{ version.xe_version }}</td>
+        </tr>
+      </tbody>
+    </table>{% endif %}
+  {% endfor %}
+{% else %}
+<h2>Merlin has not detected any Version configuration removals</h2>
+{% endif %}
+{% endblock %} 

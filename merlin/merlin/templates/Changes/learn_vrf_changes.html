@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if vrf_additions %}
+<h2>Merlin has detected the following VRF configurations have been added</h2>
+{% for vrf in vrf_additions %}
+    <table class="merlin-table">
+      <thead>
+        <tr>
+          <th>pyATS Alias</th>          
+          <th>VRF</th>
+          <th>Address Family IPv4</th>
+          <th>Address Family IPv6</th>
+          <th>Route Distinguisher</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vrf.pyats_alias }}</td>
+          <td>{{ vrf.vrf }}</td>
+          <td>{{ vrf.address_family_ipv4 }}</td>
+          <td>{{ vrf.address_family_ipv6 }}</td>
+          <td>{{ vrf.route_distinguisher }}</td>
+        </tr>
+        </tbody></table>{% endfor %}
+{% else %}
+<h2>Merlin has not detected any VRF configuration additons</h2>
+{% endif %}
+{% if vrf_removals %}
+<h2>Merlin has detected the following VRF configurations have been removed</h2>
+{% for vrf in vrf_removals %}
+    <table class="merlin-table">
+      <thead>
+        <tr>
+          <th>pyATS Alias</th>          
+          <th>VRF</th>
+          <th>Address Family IPv4</th>
+          <th>Address Family IPv6</th>
+          <th>Route Distinguisher</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>{{ vrf.pyats_alias }}</td>
+          <td>{{ vrf.vrf }}</td>
+          <td>{{ vrf.address_family_ipv4 }}</td>
+          <td>{{ vrf.address_family_ipv6 }}</td>
+          <td>{{ vrf.route_distinguisher }}</td>
+        </tr>
+        </tbody></table>{% endfor %}
+{% else %}
+<h2>Merlin has not detected any VRF configuration removals</h2>
+{% endif %}
+{% endblock %} 
