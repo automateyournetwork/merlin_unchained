@@ -148,13 +148,37 @@ def learn_vrf_csv_download(request):
 
 def learn_vrf_csv_download_latest(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="learn_vrf_all.csv'
+    response['Content-Disposition'] = 'attachment; filename="learn_vrf_latest.csv'
     writer = csv.writer(response)
     writer.writerow(['pyATS Alias','VRF','Address Family IPv4','Address Family IPv6','Route Distinguisher','Timestamp'])
     latest_timestamp = LearnVRF.objects.latest('timestamp')
-    vrfs = LearnVRF.objects.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
+    vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
+    return response
+
+def show_ip_int_brief_csv(request):
+    return render(request, 'CSV/ShowIPInterfaceBrief/show_ip_int_brief.html')    
+
+def show_ip_int_brief_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_ip_interface_brief_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Interface Status','IP Address','Timestamp'])
+    interfaces = ShowIPIntBrief.objects.all().values_list('pyats_alias','interface','interface_status','ip_address','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
+def show_ip_int_brief_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_ip_interface_brief_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Interface Status','IP Address','Timestamp'])
+    latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
+    interfaces = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','interface','interface_status','ip_address','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
     return response
 
 def show_version_csv(request):
@@ -172,11 +196,11 @@ def show_version_csv_download(request):
 
 def show_version_csv_download_latest(request):
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="show_version_all.csv'
+    response['Content-Disposition'] = 'attachment; filename="show_version_latest.csv'
     writer = csv.writer(response)
     writer.writerow(['pyATS Alias','Bootflash','Chassis','CPU','Device Name','Memory','Model','Processor Board ID','RP','Slots','Days Up','Hours Up','Minutes Up','Seconds Up','Name','OS','Last Reload Reason','System Compile Time','Image File','Version','Chassis Serial Number','Compiled By','Current Config Register','Image ID','Label','License Leven','License Type','Non Volative Memory','Physical Memory','Next Reload License Level','Platform','Processor Type','Return to ROM by','Router Type','Uptime','Uptime this CP','Version (Short)','XE Version','Timestamp'])
     latest_timestamp = ShowVersion.objects.latest('timestamp')
-    versions = ShowVersion.objects.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','bootflash','chassis','cpu','device_name','memory','model','processor_board_id','rp','slots','days','hours','minutes','seconds','name','os','reason','system_compile_time','system_image_file','system_version','chassis_sn','compiled_by','curr_config_register','image_id','image_type','label','license_level','license_type','non_volatile','physical','next_reload_license_level','platform','processor_type','returned_to_rom_by','rom','rtr_type','uptime','uptime_this_cp','version_short','xe_version','timestamp')
+    versions = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','bootflash','chassis','cpu','device_name','memory','model','processor_board_id','rp','slots','days','hours','minutes','seconds','name','os','reason','system_compile_time','system_image_file','system_version','chassis_sn','compiled_by','curr_config_register','image_id','image_type','label','license_level','license_type','non_volatile','physical','next_reload_license_level','platform','processor_type','returned_to_rom_by','rom','rtr_type','uptime','uptime_this_cp','version_short','xe_version','timestamp')
     for version in versions:
         writer.writerow(version)
     return response
@@ -231,6 +255,12 @@ def learn_vrf_latest(request):
     v_list = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'vrf_list': v_list}
     return render(request, 'Latest/LearnVRF/learn_vrf_latest.html', context)
+
+def show_ip_int_brief_latest(request):
+    latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
+    interface_list = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'interface_list': interface_list}
+    return render(request, 'Latest/ShowIPInterfaceBrief/show_ip_int_brief_latest.html', context)
 
 def show_version_latest(request):
     latest_timestamp = ShowVersion.objects.latest('timestamp')

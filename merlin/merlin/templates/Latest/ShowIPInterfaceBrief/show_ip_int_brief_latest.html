@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Latest Show IP Interface Brief Results{% endblock %}
+
+{% block content %}
+<h1>Latest Show IP Interface Brief Results</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in interface_list %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endblock %}
