@@ -238,10 +238,12 @@ def all_latest(request):
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
-    vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp) 
+    vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp)
+    ip_int_brief_latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
+    ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list}
+    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_vlan_latest(request):

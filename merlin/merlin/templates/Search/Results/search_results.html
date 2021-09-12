@@ -46,6 +46,7 @@
         <th>Address Family IPv4</th>
         <th>Address Family IPv6</th>
         <th>Route Distinguisher</th>
+        <th>Timestamp</th>
       </tr>
       </thead>
       <tbody>
@@ -55,6 +56,7 @@
         <td>{{ vrf.address_family_ipv4 }}</td>
         <td>{{ vrf.address_family_ipv6 }}</td>
         <td>{{ vrf.route_distinguisher }}</td>
+        <td>{{ vrf.timestamp }}</td>
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
@@ -67,6 +69,7 @@
     <th>Interface</th>
     <th>IP Address</th>
     <th>Status</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for interface in object_list.2 %}
@@ -75,6 +78,7 @@
     <td>{{ interface.interface }}</td>
     <td>{{ interface.ip_address }}</td>
     <td>{{ interface.interface_status }}</td>
+    <td>{{ interface.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
@@ -105,6 +109,7 @@
             <th>System Compile Time</th>
             <th>System Image File</th>
             <th>System Version</th>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>
@@ -126,6 +131,7 @@
             <td>{{ version.system_compile_time }}</td>
             <td>{{ version.system_image_file }}</td>
             <td>{{ version.system_version }}</td>
+            <td>{{ version.timestamp }}</td>
           </tr>
           </tbody>  
         </table>
@@ -166,7 +172,8 @@
             <th>ROM</th>
             <th>Router Type</th>
             <th>Version Short</th>
-            <th>XE Version</th>          
+            <th>XE Version</th>
+            <th>Timstamp</th>     
           </tr>
           </thead>
           <tbody>
@@ -203,6 +210,7 @@
             <td>{{ version.rtr_type }}</td>
             <td>{{ version.version_short }}</td>
             <td>{{ version.xe_version }}</td>
+            <td>{{ version.timestamp }}</td>
           </tr>
         </tbody>
       </table>{% endif %}{% endfor %}
