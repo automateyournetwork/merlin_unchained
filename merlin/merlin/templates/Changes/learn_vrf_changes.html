@@ -14,6 +14,7 @@
           <th>Address Family IPv4</th>
           <th>Address Family IPv6</th>
           <th>Route Distinguisher</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
+          <td>{{ vrf_latest_timestamp }}</td>
         </tr>
         </tbody></table>{% endfor %}
 {% else %}
@@ -39,6 +41,7 @@
           <th>Address Family IPv4</th>
           <th>Address Family IPv6</th>
           <th>Route Distinguisher</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -48,6 +51,7 @@
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
+          <td>{{ vrf_new_timestamp }}</td>
         </tr>
         </tbody></table>{% endfor %}
 {% else %}

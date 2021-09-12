@@ -12,6 +12,7 @@
     <th>Interface</th>
     <th>IP Address</th>
     <th>Status</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for interface in interface_additions %}
@@ -20,6 +21,7 @@
     <td>{{ interface.interface }}</td>
     <td>{{ interface.ip_address }}</td>
     <td>{{ interface.interface_status }}</td>
+    <td>{{ interface_latest_timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
@@ -35,6 +37,7 @@
     <th>Interface</th>
     <th>IP Address</th>
     <th>Status</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for interface in interface_removals %}
@@ -43,6 +46,7 @@
     <td>{{ interface.interface }}</td>
     <td>{{ interface.ip_address }}</td>
     <td>{{ interface.interface_status }}</td>
+    <td>{{ interface_new_timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>

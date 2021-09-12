@@ -293,7 +293,7 @@ def all_changes(request):
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals,'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals,'vrf_additions': vrf_additions,'version_removals': version_removals,'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
