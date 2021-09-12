@@ -28,6 +28,19 @@ class LearnVRF(models.Model):
         template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
         return template.format(self)
 
+class ShowInventory(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    part = models.TextField()
+    description = models.TextField()
+    pid = models.TextField()
+    serial_number = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.part} {0.description} {0.pid} {0.serial_number} {0.timestamp}'
+        return template.format(self)
+        
 class ShowIPIntBrief(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()

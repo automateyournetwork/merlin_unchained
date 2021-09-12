@@ -119,6 +119,60 @@
 {% else %}
 <h2>Merlin has not detected any VRF configuration removals</h2>
 {% endif %}
+{% if inventory_additions %}
+<h2>Merlin has detected the following Inventory items have been added</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for part in inventory_additions %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Inventory additons</h2>
+{% endif %}
+{% if inventory_removals %}
+<h2>Merlin has detected the following Inventory items have been removed</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for part in inventory_removals %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Inventory configuration removals</h2>
+{% endif %}
 {% if interface_additions %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
 <table class="merlin-table">

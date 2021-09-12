@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import LearnVLAN, LearnVRF, ShowIPIntBrief, ShowVersion
+from .models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -10,6 +10,11 @@ class LearnVRFSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnVRF
         fields = ('pyats_alias', 'os','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
+
+class ParseShowInventorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ShowInventory
+        fields = ('pyats_alias','os','part','description','pid','serial_number','timestamp')
 
 class ParseShowIPIntBriefSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

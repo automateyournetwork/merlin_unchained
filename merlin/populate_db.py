@@ -20,7 +20,7 @@ from pyats import topology
 from pyats.log.utils import banner
 from general_functionalities import ParseShowCommandFunction, ParseLearnFunction
 from datetime import datetime
-from merlin.models import LearnVLAN, LearnVRF, ShowVersion
+from merlin.models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # ----------------
 # AE Test Setup
@@ -66,6 +66,15 @@ class Collect_Information(aetest.Testcase):
                     learnVRF=LearnVRF(pyats_alias=device.alias,os=device.os,vrf=vrf,address_family_ipv4=self.learned_vrf['vrfs'][vrf]['address_family']['ipv4'],address_family_ipv6=self.learned_vrf['vrfs'][vrf]['address_family']['ipv6'],route_distinguisher=self.learned_vrf['vrfs'][vrf]['route_distinguisher'],timestamp=datetime.now().replace(microsecond=0))
                 # Save the objects into the database.
                     learnVRF.save()
+
+            # Show Inventory to JSON
+            self.parsed_show_inventory=ParseShowCommandFunction.parse_show_command(steps, device, "show inventory")
+            if self.parsed_show_inventory is not None:
+                for part in self.parsed_show_inventory['name']:
+                    # Set Django Database values from pyATS JSON
+                    showInventory=ShowInventory(pyats_alias=device.alias,os=device.os,part=part,description=self.parsed_show_inventory['name'][part]['description'],pid=self.parsed_show_inventory['name'][part]['pid'],serial_number=self.parsed_show_inventory['name'][part]['serial_number'],timestamp=datetime.now().replace(microsecond=0))
+                    # Save the objects into the database.
+                    showInventory.save()
 
             # Show IP Int Brief to JSON
             self.parsed_show_ip_brief=ParseShowCommandFunction.parse_show_command(steps, device, "show ip interface brief")

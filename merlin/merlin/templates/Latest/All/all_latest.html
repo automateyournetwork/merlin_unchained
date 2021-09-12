@@ -57,7 +57,30 @@
         </tr>
         </tbody></table>
 {% endfor %}
-<h2>Latest Show IP Interface Brief Results</h1>
+<h2>Latest Show Inventory Results</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for part in inventory_list %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+<h2>Latest Show IP Interface Brief Results</h2>
 <table class="merlin-table">
   <thead>
   <tr>

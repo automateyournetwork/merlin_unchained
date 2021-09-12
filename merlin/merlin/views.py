@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnVLAN, LearnVRF, ShowIPIntBrief, ShowVersion
+from .models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -55,30 +55,30 @@ def learn_vrf_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
 
-def show_version_year_archive(request, year):
-    v_list = ShowVersion.objects.filter(timestamp__year=year)
-    context = {'year': year, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_year_archive.html', context)
+def show_inventory_year_archive(request, year):
+    inventory_list = ShowInventory.objects.filter(timestamp__year=year)
+    context = {'year': year, 'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_year_archive.html', context)
 
-def show_version_month_archive(request, year, month):
-    v_list = ShowVersion.objects.filter(timestamp__year=year,timestamp__month=month)
-    context = {'year': year, 'month': month, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_month_archive.html', context)
+def show_inventory_month_archive(request, year, month):
+    inventory_list = ShowInventory.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_month_archive.html', context)
 
-def show_version_day_archive(request, year, month, day):
-    v_list = ShowVersion.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
-    context = {'year': year, 'month': month, 'day': day, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_day_archive.html', context)
+def show_inventory_day_archive(request, year, month, day):
+    inventory_list = ShowInventory.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_day_archive.html', context)
 
-def show_version_os_archive(request, os):
-    v_list = ShowVersion.objects.filter(os=os)
-    context = {'os': os, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_os_archive.html', context)
+def show_inventory_os_archive(request, os):
+    inventory_list = ShowInventory.objects.filter(os=os)
+    context = {'os': os, 'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_os_archive.html', context)
 
-def show_version_alias_archive(request, os, pyats_alias):
-    v_list = ShowVersion.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_alias_archive.html', context)
+def show_inventory_alias_archive(request, os, pyats_alias):
+    inventory_list = ShowInventory.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_alias_archive.html', context)
 
 def show_ip_int_brief_year_archive(request, year):
     interface_list = ShowIPIntBrief.objects.filter(timestamp__year=year)
@@ -104,6 +104,31 @@ def show_ip_int_brief_alias_archive(request, os, pyats_alias):
     interface_list = ShowIPIntBrief.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_alias_archive.html', context)
+
+def show_version_year_archive(request, year):
+    v_list = ShowVersion.objects.filter(timestamp__year=year)
+    context = {'year': year, 'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_year_archive.html', context)
+
+def show_version_month_archive(request, year, month):
+    v_list = ShowVersion.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_month_archive.html', context)
+
+def show_version_day_archive(request, year, month, day):
+    v_list = ShowVersion.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_day_archive.html', context)
+
+def show_version_os_archive(request, os):
+    v_list = ShowVersion.objects.filter(os=os)
+    context = {'os': os, 'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_os_archive.html', context)
+
+def show_version_alias_archive(request, os, pyats_alias):
+    v_list = ShowVersion.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_alias_archive.html', context)
 
 # CSV VIEWS
 def csv_page(request):
@@ -155,6 +180,30 @@ def learn_vrf_csv_download_latest(request):
     vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
+    return response
+
+def show_inventory_csv(request):
+    return render(request, 'CSV/ShowInventory/show_inventory_csv.html')    
+
+def show_inventory_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_inventory_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Part','Description','Part ID','Serial Number','Timestamp'])
+    inventory = ShowInventory.objects.all().values_list('pyats_alias','part','description','pid','serial_number','timestamp')
+    for part in inventory:
+        writer.writerow(part)
+    return response
+
+def show_inventory_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_inventory_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Part','Description','Part ID','Serial Number','Timestamp'])
+    latest_timestamp = ShowInventory.objects.latest('timestamp')
+    inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','part','description','pid','serial_number','timestamp')
+    for part in inventory:
+        writer.writerow(part)
     return response
 
 def show_ip_int_brief_csv(request):
@@ -222,6 +271,10 @@ def learn_vrf_ondemand(request):
     os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_vrf_result.html')
 
+def show_inventory_ondemand(request):
+    os.system('pyats run job show_inventory_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/show_inventory_result.html')
+
 def show_ip_int_brief_ondemand(request):
     os.system('pyats run job show_ip_int_brief_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/show_ip_int_brief_result.html')
@@ -239,11 +292,13 @@ def all_latest(request):
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
     vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp)
+    inventory_latest_timestamp = ShowInventory.objects.latest('timestamp')
+    inventory_list = ShowInventory.objects.filter(timestamp=inventory_latest_timestamp.timestamp)
     ip_int_brief_latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list}
+    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_vlan_latest(request):
@@ -257,6 +312,12 @@ def learn_vrf_latest(request):
     v_list = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'vrf_list': v_list}
     return render(request, 'Latest/LearnVRF/learn_vrf_latest.html', context)
+
+def show_inventory_latest(request):
+    latest_timestamp = ShowInventory.objects.latest('timestamp')
+    inventory_list = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'inventory_list': inventory_list}
+    return render(request, 'Latest/ShowInventory/show_inventory_latest.html', context)
 
 def show_ip_int_brief_latest(request):
     latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
@@ -316,6 +377,16 @@ def learn_vrf_changes(request):
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
+
+def show_inventory_changes(request):
+    latest_timestamp = ShowInventory.objects.latest('timestamp')
+    current_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
+    os.system('pyats run job show_inventory_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = ShowInventory.objects.latest('timestamp')
+    latest_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
+    inventory_removals = current_inventory.difference(latest_inventory)
+    inventory_additions = latest_inventory.difference(current_inventory)
+    return render(request, 'Changes/show_inventory_changes.html', {'inventory_removals': inventory_removals,'inventory_additions': inventory_additions})
 
 def show_ip_int_brief_changes(request):
     latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')

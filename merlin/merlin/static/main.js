@@ -1,6 +1,7 @@
 const getAllSpinnerBox = document.getElementById('get_all_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
+const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
 const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
 const showVersionSpinnerBox = document.getElementById('show_version_spinner')
 
@@ -42,6 +43,20 @@ $("#learn_vrf_button").click(function(e){
         },
         success: function(response){
             learnVRFSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#show_inventory_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/show_inventory_result/",
+        beforeSend: function(){
+            showInventorySpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            showInventorySpinnerBox.classList.add('not-visible')
         }
     })
 })
