@@ -28,6 +28,7 @@
           <th>System Compile Time</th>
           <th>System Image File</th>
           <th>System Version</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -49,6 +50,7 @@
           <td>{{ version.system_compile_time }}</td>
           <td>{{ version.system_image_file }}</td>
           <td>{{ version.system_version }}</td>
+          <td>{{ version.timestamp }}</td>
         </tr>
         </tbody>  
       </table>
@@ -89,7 +91,8 @@
           <th>ROM</th>
           <th>Router Type</th>
           <th>Version Short</th>
-          <th>XE Version</th>          
+          <th>XE Version</th>
+          <th>Timestamp</th>         
         </tr>
         </thead>
         <tbody>
@@ -126,6 +129,7 @@
           <td>{{ version.rtr_type }}</td>
           <td>{{ version.version_short }}</td>
           <td>{{ version.xe_version }}</td>
+          <td>{{ version.timestamp }}</td>
         </tr>
       </tbody>
     </table>{% endif %}

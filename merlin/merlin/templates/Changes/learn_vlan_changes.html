@@ -15,6 +15,7 @@
     <th>Shutdown</th>
     <th>Interfaces</th>
     <th>Mode</th>
+    <th>Timestamp</th>
     </tr>
     </thead>
     <tbody>{% for vlan in vlan_additions %}
@@ -26,6 +27,7 @@
       <td>{{ vlan.shutdown }}</td>
       <td>{{ vlan.interfaces }}</td>
       <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_latest_timestamp }}</td>
     </tr>{% endfor %}  
     </tbody>
   </table>
@@ -44,6 +46,7 @@
     <th>Shutdown</th>
     <th>Interfaces</th>
     <th>Mode</th>
+    <th>Timestamp</th>
     </tr>
     </thead>
     <tbody>{% for vlan in vlan_removals %}
@@ -55,6 +58,7 @@
       <td>{{ vlan.shutdown }}</td>
       <td>{{ vlan.interfaces }}</td>
       <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_new_timestamp }}</td>
     </tr>{% endfor %}  
     </tbody>
   </table>

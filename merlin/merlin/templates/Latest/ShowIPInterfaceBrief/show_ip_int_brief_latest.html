@@ -11,6 +11,7 @@
     <th>Interface</th>
     <th>IP Address</th>
     <th>Status</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for interface in interface_list %}
@@ -19,6 +20,7 @@
     <td>{{ interface.interface }}</td>
     <td>{{ interface.ip_address }}</td>
     <td>{{ interface.interface_status }}</td>
+    <td>{{ interface.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>

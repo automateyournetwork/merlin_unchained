@@ -15,6 +15,7 @@
     <th>Shutdown</th>
     <th>Interfaces</th>
     <th>Mode</th>
+    <th>Timestamp</th>
     </tr>
     </thead>
     <tbody>{% for vlan in vlan_additions %}
@@ -26,6 +27,7 @@
       <td>{{ vlan.shutdown }}</td>
       <td>{{ vlan.interfaces }}</td>
       <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_latest_timestamp }}</td>
     </tr>{% endfor %}  
     </tbody>
   </table>
@@ -44,6 +46,7 @@
     <th>Shutdown</th>
     <th>Interfaces</th>
     <th>Mode</th>
+    <th>Timestamp</th>
     </tr>
     </thead>
     <tbody>{% for vlan in vlan_removals %}
@@ -55,6 +58,7 @@
       <td>{{ vlan.shutdown }}</td>
       <td>{{ vlan.interfaces }}</td>
       <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_new_timestamp }}</td>
     </tr>{% endfor %}  
     </tbody>
   </table>
@@ -72,6 +76,7 @@
           <th>Address Family IPv4</th>
           <th>Address Family IPv6</th>
           <th>Route Distinguisher</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -81,6 +86,7 @@
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
+          <td>{{ vrf_latest_timestamp }}</td>
         </tr>
         </tbody></table>{% endfor %}
 {% else %}
@@ -97,6 +103,7 @@
           <th>Address Family IPv4</th>
           <th>Address Family IPv6</th>
           <th>Route Distinguisher</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -106,10 +113,61 @@
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
+          <td>{{ vrf_new_timestamp }}</td>
         </tr>
         </tbody></table>{% endfor %}
 {% else %}
 <h2>Merlin has not detected any VRF configuration removals</h2>
+{% endif %}
+{% if interface_additions %}
+<h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in interface_additions %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+    <td>{{ interface_latest_timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any IP Interface Brief configuration additions</h2>
+{% endif %}
+{% if interface_removals %}
+<h2>Merlin has detected the following IP Interface Brief configurations have been removed</h2>
+<table class="merlin-table">
+  <thead>
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in interface_removals %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+    <td>{{ interface_new_timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any IP Interface Brief configuration removals</h2>
 {% endif %}
 {% if version_additions %}
 <h2>Merlin has detected the following Version configurations have been added</h2>
@@ -134,6 +192,7 @@
           <th>System Compile Time</th>
           <th>System Image File</th>
           <th>System Version</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -154,6 +213,7 @@
           <td>{{ version.system_compile_time }}</td>
           <td>{{ version.system_image_file }}</td>
           <td>{{ version.system_version }}</td>
+          <td>{{ version_latest_timestamp }}</td>
         </tr>
         </tbody>  
       </table>
@@ -189,7 +249,8 @@
           <th>ROM</th>
           <th>Router Type</th>
           <th>Version Short</th>
-          <th>XE Version</th>          
+          <th>XE Version</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -223,6 +284,7 @@
           <td>{{ version.rtr_type }}</td>
           <td>{{ version.version_short }}</td>
           <td>{{ version.xe_version }}</td>
+          <td>{{ version_latest_timestamp }}</td>
         </tr>
       </tbody>
     </table>{% endif %}
@@ -253,6 +315,7 @@
           <th>System Compile Time</th>
           <th>System Image File</th>
           <th>System Version</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -273,6 +336,7 @@
           <td>{{ version.system_compile_time }}</td>
           <td>{{ version.system_image_file }}</td>
           <td>{{ version.system_version }}</td>
+          <td>{{ version_new_timestamp }}</td>
         </tr>
         </tbody>  
       </table>
@@ -308,7 +372,8 @@
           <th>ROM</th>
           <th>Router Type</th>
           <th>Version Short</th>
-          <th>XE Version</th>          
+          <th>XE Version</th>
+          <th>Timestamp</th>
         </tr>
         </thead>
         <tbody>
@@ -342,6 +407,7 @@
           <td>{{ version.rtr_type }}</td>
           <td>{{ version.version_short }}</td>
           <td>{{ version.xe_version }}</td>
+          <td>{{ version_new_timestamp }}</td>
         </tr>
       </tbody>
     </table>{% endif %}

@@ -238,10 +238,12 @@ def all_latest(request):
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
-    vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp) 
+    vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp)
+    ip_int_brief_latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
+    ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list}
+    context = {'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_vlan_latest(request):
@@ -293,7 +295,7 @@ def all_changes(request):
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals,'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals,'vrf_additions': vrf_additions,'version_removals': version_removals,'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
