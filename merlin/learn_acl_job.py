@@ -1,7 +1,7 @@
 '''
 To run the job:
 
-$ pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
+$ pyats run job learn_acl_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
 
 '''
 
@@ -23,7 +23,7 @@ def main(runtime):
         testbed = runtime.testbed
 
     # Find the location of the script in relation to the job file
-    testscript = os.path.join(os.path.dirname(__file__), 'learn_vlan.py')
+    testscript = os.path.join(os.path.dirname(__file__), 'learn_acl.py')
 
     # run script
     runtime.tasks.run(testscript=testscript, testbed=testbed)
