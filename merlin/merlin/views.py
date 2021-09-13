@@ -5,6 +5,11 @@ import os
 import csv
 
 # HTML VIEWS #
+def learn_vlan_all(request):
+    v_list = LearnVLAN.objects.all()
+    context = {'vlan_list': v_list}
+    return render(request, 'HTML/LearnVLAN/learn_vlan_all.html', context)
+
 def learn_vlan_year_archive(request, year):
     v_list = LearnVLAN.objects.filter(timestamp__year=year)
     context = {'year': year, 'vlan_list': v_list}
@@ -29,6 +34,11 @@ def learn_vlan_alias_archive(request, os, pyats_alias):
     v_list = LearnVLAN.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'vlan_list': v_list}
     return render(request, 'HTML/LearnVLAN/learn_vlan_alias_archive.html', context)
+
+def learn_vrf_all(request):
+    v_list = LearnVRF.objects.all()
+    context = {'vrf_list': v_list}
+    return render(request, 'HTML/LearnVRF/learn_vrf_all.html', context)
 
 def learn_vrf_year_archive(request, year):
     v_list = LearnVRF.objects.filter(timestamp__year=year)
@@ -55,6 +65,11 @@ def learn_vrf_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
 
+def show_inventory_all(request):
+    inventory_list = ShowInventory.objects.all()
+    context = {'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_all.html', context)
+
 def show_inventory_year_archive(request, year):
     inventory_list = ShowInventory.objects.filter(timestamp__year=year)
     context = {'year': year, 'inventory_list': inventory_list}
@@ -80,6 +95,11 @@ def show_inventory_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'inventory_list': inventory_list}
     return render(request, 'HTML/ShowInventory/show_inventory_alias_archive.html', context)
 
+def show_ip_int_brief_all(request):
+    interface_list = ShowIPIntBrief.objects.all()
+    context = {'interface_list': interface_list}
+    return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_all.html', context)
+
 def show_ip_int_brief_year_archive(request, year):
     interface_list = ShowIPIntBrief.objects.filter(timestamp__year=year)
     context = {'year': year, 'interface_list': interface_list}
@@ -104,6 +124,11 @@ def show_ip_int_brief_alias_archive(request, os, pyats_alias):
     interface_list = ShowIPIntBrief.objects.filter(pyats_alias=pyats_alias, os=os)
     context = {'os': os, 'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_alias_archive.html', context)
+
+def show_version_all(request):
+    v_list = ShowVersion.objects.all()
+    context = {'version_list': v_list}
+    return render(request, 'HTML/ShowVersion/show_version_all.html', context)
 
 def show_version_year_archive(request, year):
     v_list = ShowVersion.objects.filter(timestamp__year=year)
