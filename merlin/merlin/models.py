@@ -1,5 +1,24 @@
 from django.db import models
 
+class LearnACL(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    acl = models.TextField()
+    ace = models.TextField()
+    permission = models.TextField()
+    logging = models.TextField()
+    source_network = models.TextField()
+    destination_network = models.TextField()
+    l3_protocol = models.TextField()
+    l4_protocol = models.TextField()
+    operator = models.TextField()
+    port = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.acl} {0.ace} {0.permission} {0.logging} {0.source_network} {0.destination_network} {0.l3_protocol} {0.l4_protocol} {0.operator} {0.port} {0.timestamp}'
+        return template.format(self)
+
 class LearnVLAN(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
