@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Show Inventory{% endblock %}
+
+{% block content %}
+<h1>Show Inventory</h1>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for part in inventory_list %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>
+{% endblock %}
