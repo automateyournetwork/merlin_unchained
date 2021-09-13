@@ -5,8 +5,8 @@
 <h1>Merlin Network State Centre</h1>
 {% if inventory_additions %}
 <h2>Merlin has detected the following Inventory items have been added</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "inventory_additions" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Slot</th>
@@ -32,8 +32,8 @@
 {% endif %}
 {% if inventory_removals %}
 <h2>Merlin has detected the following Inventory items have been removed</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "inventory_removals" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Slot</th>
@@ -57,4 +57,14 @@
 {% else %}
 <h2>Merlin has not detected any Inventory configuration removals</h2>
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#inventory_additions').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#inventory_removals').DataTable();
+    });
+</script>
 {% endblock %} 

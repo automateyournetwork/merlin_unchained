@@ -4,8 +4,8 @@
 
 {% block content %}
 <h1>Latest Learn VLAN</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "learn_vlan" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
   <th>pyATS Alias</th>
   <th>VLAN</th>
@@ -30,4 +30,9 @@
   </tr>{% endfor %}  
   </tbody>
 </table>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vlan').DataTable();
+    });
+</script>
 {% endblock %}

@@ -8,8 +8,8 @@
 {%   if version.os == "nxos" %}
     <p>Device Name: {{ version.device_name }}</p>
     <p>Captured {{ version.timestamp }}</p>
-    <table class="merlin-table">
-        <thead>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -55,8 +55,8 @@
 {%   else %}
     <p>Device Name: {{ version.device_name }}</p>
     <p>Captured {{ version.timestamp }}</p>
-    <table class="merlin-table">
-      <thead>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -128,4 +128,10 @@
           <td>{{ version.xe_version }}</td>
         </tr>
       </tbody>
-    </table>{% endif %}{% endfor %}{% endblock %}
+    </table>{% endif %}{% endfor %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>    
+{% endblock %}
