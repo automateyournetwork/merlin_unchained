@@ -5,8 +5,8 @@
 {% block content %}
 <h1>Merlin's Latest Records</h1>
 <h2>Latest Learn VLAN</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "learn_vlan" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
   <th>pyATS Alias</th>
   <th>VLAN</th>
@@ -35,8 +35,8 @@
 {% for vrf in vrf_list %}
     <p>Device Name: {{ vrf.hostname }}</p>
     <p>Captured {{ vrf.timestamp }}</p>
-    <table class="merlin-table">
-      <thead>
+<table id = "learn_vrf" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -58,8 +58,8 @@
         </tbody></table>
 {% endfor %}
 <h2>Latest Show Inventory Results</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "show_inventory" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Slot</th>
@@ -81,8 +81,8 @@
   </tbody>  
 </table>
 <h2>Latest Show IP Interface Brief Results</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "show_ip_int_brief" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -106,8 +106,8 @@
 {%   if version.os == "nxos" %}
     <p>Device Name: {{ version.device_name }}</p>
     <p>Captured {{ version.timestamp }}</p>
-    <table class="merlin-table">
-        <thead>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -155,8 +155,8 @@
 {%   else %}
     <p>Device Name: {{ version.device_name }}</p>
     <p>Captured {{ version.timestamp }}</p>
-    <table class="merlin-table">
-      <thead>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -232,4 +232,29 @@
       </tbody>
     </table>{% endif %}
 {% endfor %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vlan').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_inventory').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_interface').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_version').DataTable();
+    });
+</script>
 {% endblock %}

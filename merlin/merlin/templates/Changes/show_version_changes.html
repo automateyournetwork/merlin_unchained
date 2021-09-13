@@ -7,8 +7,8 @@
 <h2>Merlin has detected the following Version configurations have been added</h2>
 {% for version in version_additions %}
 {%   if version.os == "nxos" %}
-    <table class="merlin-table">
-        <thead>
+<table id = "version_additions" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -52,8 +52,8 @@
         </tbody>  
       </table>
 {%   else %}
-    <table class="merlin-table">
-      <thead>
+<table id = "version_additions" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -130,8 +130,8 @@
 <h2>Merlin has detected the following Version configurations have been removed</h2>
 {% for version in version_removals %}
 {%   if version.os == "nxos" %}
-    <table class="merlin-table">
-        <thead>
+<table id = "version_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -175,8 +175,8 @@
         </tbody>  
       </table>
 {% else %}
-    <table class="merlin-table">
-      <thead>
+<table id = "version_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -249,4 +249,14 @@
 {% else %}
 <h2>Merlin has not detected any Version configuration removals</h2>
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_additions').DataTable();
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_removals').DataTable();
+    });
+</script>
 {% endblock %} 

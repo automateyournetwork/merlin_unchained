@@ -7,8 +7,8 @@
 {% for vrf in vrf_list %}
     <p>Device Name: {{ vrf.hostname }}</p>
     <p>Captured {{ vrf.timestamp }}</p>
-    <table class="merlin-table">
-      <thead>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -16,8 +16,8 @@
           <th>Address Family IPv6</th>
           <th>Route Distinguisher</th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+      <tbody>
         <tr>
           <td>{{ vrf.pyats_alias }}</td>
           <td>{{ vrf.vrf }}</td>
@@ -25,4 +25,12 @@
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
         </tr>
-        </tbody></table>{% endfor %}{% endblock %}
+      </tbody>
+    </table>
+{% endfor %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable();
+    });
+</script>
+{% endblock %}

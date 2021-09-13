@@ -4,8 +4,8 @@
 
 {% block content %}
 <h1>Latest Show IP Interface Brief Results</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "show_ip_int_brief" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -24,4 +24,9 @@
   </tr>{% endfor %}
   </tbody>  
 </table>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_interface').DataTable();
+    });
+</script>
 {% endblock %}
