@@ -39,6 +39,7 @@ urlpatterns = [
     path('API/', include('merlin_api.urls')),
     path('Latest/', views.latest),
     path('Latest/All/', views.all_latest),
+    path('Latest/LearnACL/', views.learn_acl_latest),
     path('Latest/LearnVLAN/', views.learn_vlan_latest),
     path('Latest/LearnVRF/', views.learn_vrf_latest),
     path('Latest/ShowInventory/', views.show_inventory_latest),
