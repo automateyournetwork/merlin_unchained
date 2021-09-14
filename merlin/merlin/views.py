@@ -5,6 +5,36 @@ import os
 import csv
 
 # HTML VIEWS #
+def learn_acl_all(request):
+    acl_list = LearnACL.objects.all()
+    context = {'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_all.html', context)
+
+def learn_acl_year_archive(request, year):
+    acl_list = LearnACL.objects.filter(timestamp__year=year)
+    context = {'year': year, 'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_year_archive.html', context)
+
+def learn_acl_month_archive(request, year, month):
+    acl_list = LearnACL.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_month_archive.html', context)
+
+def learn_acl_day_archive(request, year, month, day):
+    acl_list = LearnACL.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_day_archive.html', context)
+
+def learn_acl_os_archive(request, os):
+    acl_list = LearnACL.objects.filter(os=os)
+    context = {'os': os, 'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_os_archive.html', context)
+
+def learn_acl_alias_archive(request, os, pyats_alias):
+    acl_list = LearnACL.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'acl_list': acl_list}
+    return render(request, 'HTML/LearnACL/learn_acl_alias_archive.html', context)
+
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
     context = {'vlan_list': v_list}
