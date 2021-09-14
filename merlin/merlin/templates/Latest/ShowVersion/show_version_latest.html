@@ -137,10 +137,17 @@
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#show_version').DataTable({
+        keys: true,
         dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
     });
     });
 </script>
