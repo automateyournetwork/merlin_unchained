@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -262,6 +262,10 @@ def button(request):
 def get_all_ondemand(request):
     os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/get_all_result.html')
+
+def learn_acl_ondemand(request):
+    os.system('pyats run job learn_acl_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_acl_result.html')
 
 def learn_vlan_ondemand(request):
     os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')

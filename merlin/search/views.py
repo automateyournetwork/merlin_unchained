@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -10,7 +10,9 @@ class SearchResultView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = (LearnVLAN.objects.filter(
+        object_list = (LearnACL.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(acl=query) | Q(ace=query) | Q(permission=query) | Q(logging=query) | Q(source_network=query) | Q(destination_network=query) | Q(l3_protocol=query) | Q(l4_protocol=query) | Q(operator=query) | Q(port=query)
+        ),LearnVLAN.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(vlan=query) | Q(interfaces=query) | Q(mode=query) | Q(name=query) | Q(shutdown=query) | Q(state=query)
         ),LearnVRF.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(vrf=query) | Q(address_family_ipv4=query) | Q(address_family_ipv6=query) | Q(route_distinguisher=query)

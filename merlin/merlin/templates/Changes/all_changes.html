@@ -3,6 +3,89 @@
 {% block title %}Merlin Network State Centre{% endblock %}
 {% block content %}
 <h1>Merlin Network State Centre</h1>
+{% if acl_additions %}
+<h2>Merlin has detected the following VLAN configurations have been added</h2>
+<table class="merlin-table">
+    <thead>
+    <tr>
+    <th>pyATS Alias</th>
+    <th>VLAN</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown</th>
+    <th>Interfaces</th>
+    <th>Mode</th>
+    <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>{% for vlan in vlan_additions %}
+    <tr>
+      <td>{{ vlan.pyats_alias }}</td>
+      <td>{{ vlan.vlan }}</td>
+      <td>{{ vlan.name }}</td>
+      <td>{{ vlan.state }}</td>
+      <td>{{ vlan.shutdown }}</td>
+      <td>{{ vlan.interfaces }}</td>
+      <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_latest_timestamp }}</td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
+{% else %}
+<h2>Merlin has not detected any VLAN configuration additons</h2>
+{% endif %}
+{% if vlan_removals %}
+<h2>Merlin has detected the following VLAN configurations have been removed</h2>
+<table class="merlin-table">
+    <thead>
+    <tr>
+    <th>pyATS Alias</th>
+    <th>VLAN</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown</th>
+    <th>Interfaces</th>
+    <th>Mode</th>
+    <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>{% for vlan in vlan_removals %}
+    <tr>
+      <td>{{ vlan.pyats_alias }}</td>
+      <td>{{ vlan.vlan }}</td>
+      <td>{{ vlan.name }}</td>
+      <td>{{ vlan.state }}</td>
+      <td>{{ vlan.shutdown }}</td>
+      <td>{{ vlan.interfaces }}</td>
+      <td>{{ vlan.mode }}</td>
+      <td>{{ vlan_new_timestamp }}</td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
+{% else %}
+<h2>Merlin has not detected any VLAN configuration removals</h2>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% if vlan_additions %}
 <h2>Merlin has detected the following VLAN configurations have been added</h2>
 <table class="merlin-table">

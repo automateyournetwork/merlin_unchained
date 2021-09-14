@@ -1,4 +1,5 @@
 const getAllSpinnerBox = document.getElementById('get_all_spinner')
+const learnACLSpinnerBox = document.getElementById('learn_acl_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
@@ -15,6 +16,20 @@ $("#get_all_button").click(function(e){
         },
         success: function(response){
             getAllSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#learn_acl_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/learn_acl_result/",
+        beforeSend: function(){
+            learnACLSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            learnACLSpinnerBox.classList.add('not-visible')
         }
     })
 })
