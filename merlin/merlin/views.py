@@ -367,7 +367,7 @@ def changes(request):
 
 def all_changes(request):
     acl_latest_timestamp = LearnACL.objects.latest('timestamp')
-    current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")    
+    current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
