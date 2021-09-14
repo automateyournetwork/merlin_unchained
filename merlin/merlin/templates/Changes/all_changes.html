@@ -473,52 +473,102 @@
 {% endif %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#vlan_additions').DataTable();
+        $('#vlan_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#vlan_removals').DataTable();
+        $('#vlan_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#vrf_additions').DataTable();
+        $('#vrf_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#vrf_removals').DataTable();
+        $('#vrf_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#inventory_additions').DataTable();
+        $('#inventory_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#inventory_removals').DataTable();
+        $('#inventory_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#interface_additions').DataTable();
+        $('#interface_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#interface_removals').DataTable();
+        $('#interface_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#version_additions').DataTable();
+        $('#version_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#version_removals').DataTable();
+        $('#version_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %} 

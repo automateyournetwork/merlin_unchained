@@ -234,27 +234,52 @@
 {% endfor %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#learn_vlan').DataTable();
+        $('#learn_vlan').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#learn_vrf').DataTable();
+        $('#learn_vrf').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#show_inventory').DataTable();
+        $('#show_inventory').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#show_interface').DataTable();
+        $('#show_interface').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#show_version').DataTable();
+        $('#show_version').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %}

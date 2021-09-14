@@ -55,12 +55,22 @@
 {% endif %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#interface_additions').DataTable();
+        $('#interface_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#interface_removals').DataTable();
+        $('#interface_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %} 

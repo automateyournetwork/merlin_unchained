@@ -59,12 +59,22 @@
 {% endif %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#inventory_additions').DataTable();
+        $('#inventory_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#inventory_removals').DataTable();
+        $('#inventory_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %} 

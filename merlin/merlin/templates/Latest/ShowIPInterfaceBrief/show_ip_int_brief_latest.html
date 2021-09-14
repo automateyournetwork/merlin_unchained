@@ -26,7 +26,12 @@
 </table>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#show_interface').DataTable();
+        $('#show_interface').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %}
