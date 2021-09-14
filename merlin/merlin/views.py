@@ -159,6 +159,33 @@ def show_version_alias_archive(request, os, pyats_alias):
 def csv_page(request):
     return render(request, 'CSV/csv.html')    
 
+def all_csv_download(request):
+    return render(request, 'CSV/csv.html')  
+
+def learn_acl_csv(request):
+    return render(request, 'CSV/LearnACL/learn_acl_csv.html')
+
+def learn_acl_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_acl_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Access Control List','Access Control Entry','Permission','Logging','Source Network','Destination Network','Layer 3 Protocol','Layer 4 Protocol','Operator','Port','Timestamp'])
+    acls = LearnACL.objects.all().values_list('pyats_alias','acl', 'ace', 'permission', 'logging', 'source_network', 'destination_network', 'l3_protocol', 'l4_protocol', 'operator', 'port', 'timestamp')
+    for acl in acls:
+        writer.writerow(acl)
+    return response
+
+def learn_acl_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_acl_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Access Control List','Access Control Entry','Permission','Logging','Source Network','Destination Network','Layer 3 Protocol','Layer 4 Protocol','Operator','Port','Timestamp'])
+    latest_timestamp = LearnACL.objects.latest('timestamp')
+    acls = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','acl', 'ace', 'permission', 'logging', 'source_network', 'destination_network', 'l3_protocol', 'l4_protocol', 'operator', 'port', 'timestamp')
+    for acl in acls:
+        writer.writerow(acl)
+    return response
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 
