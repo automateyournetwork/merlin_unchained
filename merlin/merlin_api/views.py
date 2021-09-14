@@ -1,6 +1,10 @@
 from rest_framework import viewsets
-from merlin.serializers import LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
-from merlin.models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.serializers import LearnACLSerializer, LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
+from merlin.models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+
+class LearnACLViewSet(viewsets.ModelViewSet):
+    queryset = LearnACL.objects.all().order_by('timestamp')
+    serializer_class = LearnACLSerializer
 
 class LearnVLANViewSet(viewsets.ModelViewSet):
     queryset = LearnVLAN.objects.all().order_by('timestamp')
