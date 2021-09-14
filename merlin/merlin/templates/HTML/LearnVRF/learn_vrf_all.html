@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Learn VRF for {{ year }}{% endblock %}
+{% block title %}Learn VRF{% endblock %}
 
 {% block content %}
-<h1>Learn VRF for {{ year }}</h1>
+<h1>Learn VRF</h1>
 {% for vrf in vrf_list %}
     <p>Device Name: {{ vrf.hostname }}</p>
     <p>Captured {{ vrf.timestamp }}</p>

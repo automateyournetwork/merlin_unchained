@@ -5,8 +5,8 @@
 <h1>Merlin Network State Centre</h1>
 {% if interface_additions %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "interface_additions" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -30,8 +30,8 @@
 {% endif %}
 {% if interface_removals %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been removed</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "interface_removals" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -53,4 +53,38 @@
 {% else %}
 <h2>Merlin has not detected any IP Interface Brief configuration removals</h2>
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    };
+    });
+</script>
 {% endblock %} 

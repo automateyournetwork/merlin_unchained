@@ -6,8 +6,8 @@
 {% if vrf_additions %}
 <h2>Merlin has detected the following VRF configurations have been added</h2>
 {% for vrf in vrf_additions %}
-    <table class="merlin-table">
-      <thead>
+<table id = "vrf_additions" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -33,8 +33,8 @@
 {% if vrf_removals %}
 <h2>Merlin has detected the following VRF configurations have been removed</h2>
 {% for vrf in vrf_removals %}
-    <table class="merlin-table">
-      <thead>
+<table id = "vrf_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -57,4 +57,38 @@
 {% else %}
 <h2>Merlin has not detected any VRF configuration removals</h2>
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vrf_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vrf_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 {% endblock %} 

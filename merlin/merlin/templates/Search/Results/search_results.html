@@ -5,48 +5,9 @@
 {% block content %}
 <h1>Merlin Search Results</h1>
 {% if object_list.0 %}
-<h2>Learn ACL Hits</h2>
-<table class="merlin-table">
-  <thead>
-  <tr>
-  <th>pyATS Alias</th>
-  <th>VLAN</th>
-  <th>Access Control List</th>
-  <th>Access Control Entry</th>
-  <th>Permission</th>
-  <th>Logging</th>
-  <th>Source Network</th>
-  <th>Destination Network</th>
-  <th>Layer 3 Protocol</th>
-  <th>Layer 4 Protocol</th>
-  <th>Operator</th>
-  <th>Port</th>
-  <th>Timestamp</th>
-  </tr>
-  </thead>
-  <tbody>{% for acl in object_list.0 %}
-  <tr>
-    <td>{{ acl.pyats_alias }}</td>
-    <td>{{ acl.acl }}</td>
-    <td>{{ acl.ace }}</td>
-    <td>{{ acl.permission }}</td>
-    <td>{{ acl.logging }}</td>
-    <td>{{ acl.source_network }}</td>
-    <td>{{ acl.destination_network }}</td>
-    <td>{{ acl.l3_protocol }}</td>
-    <td>{{ acl.l4_protocol }}</td>
-    <td>{{ acl.l4_protocol }}</td>
-    <td>{{ acl.operator }}</td>
-    <td>{{ acl.port }}</td>
-    <td>{{ acl.timestamp }}</td>
-  </tr>{% endfor %}  
-  </tbody>
-</table>
-{% endif %}
-{% if object_list.1 %}
 <h2>Learn VLAN Hits</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "learn_vlan" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
   <th>pyATS Alias</th>
   <th>VLAN</th>
@@ -58,7 +19,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.1 %}
+  <tbody>{% for vlan in object_list.0 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -72,13 +33,13 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.2 %}
+{% if object_list.1 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.2 %}
+  {% for vrf in object_list.1 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
-  <table class="merlin-table">
-    <thead>
+<table id = "learn_vrf" class="table table-bordered">
+  <thead class = "alert-success">
       <tr>
         <th>pyATS Alias</th>          
         <th>VRF</th>
@@ -99,10 +60,10 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.2 %}
 <h1>Show Inventory Hits</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "show_inventory" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Slot</th>
@@ -112,7 +73,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.3 %}
+  <tbody>{% for part in object_list.2 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -124,10 +85,10 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.4 %}
+{% if object_list.3 %}
 <h1>Show IP Interface Brief Hits</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "show_ip_int_brief" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -136,7 +97,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.4 %}
+  <tbody>{% for interface in object_list.2 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -149,12 +110,12 @@
 {% endif %}
 {% if object_list.4 %}  
   <h2>Show Version Hits</h2>
-  {% for version in object_list.5 %}
+  {% for version in object_list.2 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
-      <table class="merlin-table">
-          <thead>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
           <tr>
             <th>pyATS Alias</th>
             <th>Hostname</th>
@@ -202,8 +163,8 @@
   {%   else %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
-      <table class="merlin-table">
-        <thead>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
           <tr>
             <th>pyATS Alias</th>
             <th>Hostname</th>          
@@ -279,4 +240,89 @@
         </tbody>
       </table>{% endif %}{% endfor %}
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vlan').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_inventory').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    };
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_interface').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_version').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 {% endblock %}

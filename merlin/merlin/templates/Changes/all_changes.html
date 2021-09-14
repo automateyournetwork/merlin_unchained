@@ -88,8 +88,8 @@
 
 {% if vlan_additions %}
 <h2>Merlin has detected the following VLAN configurations have been added</h2>
-<table class="merlin-table">
-    <thead>
+<table id = "vlan_additions" class="table table-bordered">
+  <thead class = "alert-success">
     <tr>
     <th>pyATS Alias</th>
     <th>VLAN</th>
@@ -119,8 +119,8 @@
 {% endif %}
 {% if vlan_removals %}
 <h2>Merlin has detected the following VLAN configurations have been removed</h2>
-<table class="merlin-table">
-    <thead>
+<table id = "vlan_removals" class="table table-bordered">
+  <thead class = "alert-success">
     <tr>
     <th>pyATS Alias</th>
     <th>VLAN</th>
@@ -151,8 +151,9 @@
 {% if vrf_additions %}
 <h2>Merlin has detected the following VRF configurations have been added</h2>
 {% for vrf in vrf_additions %}
+<table id = "vrf_additions" class="table table-bordered">
+  <thead class = "alert-success">
     <table class="merlin-table">
-      <thead>
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -178,8 +179,8 @@
 {% if vrf_removals %}
 <h2>Merlin has detected the following VRF configurations have been removed</h2>
 {% for vrf in vrf_removals %}
-    <table class="merlin-table">
-      <thead>
+<table id = "vrf_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -204,7 +205,8 @@
 {% endif %}
 {% if inventory_additions %}
 <h2>Merlin has detected the following Inventory items have been added</h2>
-<table class="merlin-table">
+<table id = "inventory_additions" class="table table-bordered">
+  <thead class = "alert-success">
   <thead>
   <tr>
     <th>pyATS Alias</th>
@@ -231,8 +233,8 @@
 {% endif %}
 {% if inventory_removals %}
 <h2>Merlin has detected the following Inventory items have been removed</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "inventory_removals" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Slot</th>
@@ -258,8 +260,8 @@
 {% endif %}
 {% if interface_additions %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "interface_additions" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -283,8 +285,8 @@
 {% endif %}
 {% if interface_removals %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been removed</h2>
-<table class="merlin-table">
-  <thead>
+<table id = "interface_removals" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
     <th>Interface</th>
@@ -310,8 +312,8 @@
 <h2>Merlin has detected the following Version configurations have been added</h2>
 {% for version in version_additions %}
 {%   if version.os == "nxos" %}
-    <table class="merlin-table">
-        <thead>
+<table id = "version_additions" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -355,8 +357,8 @@
         </tbody>  
       </table>
 {%   else %}
-    <table class="merlin-table">
-      <thead>
+<table id = "version_additions" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -433,8 +435,8 @@
 <h2>Merlin has detected the following Version configurations have been removed</h2>
 {% for version in version_removals %}
 {%   if version.os == "nxos" %}
-    <table class="merlin-table">
-        <thead>
+<table id = "version_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>
@@ -478,8 +480,8 @@
         </tbody>  
       </table>
 {% else %}
-    <table class="merlin-table">
-      <thead>
+<table id = "version_removals" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
           <th>Hostname</th>          
@@ -552,4 +554,174 @@
 {% else %}
 <h2>Merlin has not detected any Version configuration removals</h2>
 {% endif %}
-{% endblock %} 
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vlan_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vlan_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vrf_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#vrf_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#inventory_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#inventory_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+{% endblock %}

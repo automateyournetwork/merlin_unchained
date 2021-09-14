@@ -1,24 +1,28 @@
 {% extends "base.html" %}
 
-{% block title %}Show IP Interface Brief Results for {{ year }} {{ month }}{% endblock %}
+{% block title %}Show Inventory{% endblock %}
 
 {% block content %}
-<h1>Show IP Interface Brief Results for {{ year }} {{ month }}</h1>
+<h1>Show Inventory</h1>
 <table id = "table" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
-    <th>Interface</th>
-    <th>IP Address</th>
-    <th>Status</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in interface_list %}
-  <tr>
-    <td>{{ interface.pyats_alias }}</td>
-    <td>{{ interface.interface }}</td>
-    <td>{{ interface.ip_address }}</td>
-    <td>{{ interface.interface_status }}</td>
+  <tbody>{% for part in inventory_list %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>

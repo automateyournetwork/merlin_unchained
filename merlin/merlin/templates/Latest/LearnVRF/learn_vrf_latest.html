@@ -7,8 +7,8 @@
 {% for vrf in vrf_list %}
     <p>Device Name: {{ vrf.hostname }}</p>
     <p>Captured {{ vrf.timestamp }}</p>
-    <table class="merlin-table">
-      <thead>
+<table id = "learn_vrf" class="table table-bordered">
+  <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>          
           <th>VRF</th>
@@ -29,4 +29,21 @@
         </tr>
         </tbody></table>
 {% endfor %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 {% endblock %}

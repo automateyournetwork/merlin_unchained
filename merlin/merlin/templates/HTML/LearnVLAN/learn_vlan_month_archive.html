@@ -4,8 +4,8 @@
 
 {% block content %}
 <h1>Learn VLAN for {{ year }} {{ month }}</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
   <th>pyATS Alias</th>
   <th>VLAN</th>
@@ -30,4 +30,21 @@
   </tr>{% endfor %}  
   </tbody>
 </table>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#table').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 {% endblock %}
