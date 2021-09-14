@@ -251,12 +251,22 @@
 {% endif %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#version_additions').DataTable();
+        $('#version_additions').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#version_removals').DataTable();
+        $('#version_removals').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %} 

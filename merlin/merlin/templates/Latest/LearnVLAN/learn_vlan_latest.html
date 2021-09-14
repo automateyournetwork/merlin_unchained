@@ -32,7 +32,12 @@
 </table>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#learn_vlan').DataTable();
+        $('#learn_vlan').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
     });
 </script>
 {% endblock %}
