@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -288,6 +288,10 @@ def get_all_ondemand(request):
     os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/get_all_result.html')
 
+def learn_acl_ondemand(request):
+    os.system('pyats run job learn_acl_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_acl_result.html')
+
 def learn_vlan_ondemand(request):
     os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_vlan_result.html')
@@ -362,6 +366,8 @@ def changes(request):
     return render(request, 'Changes/changes.html')
 
 def all_changes(request):
+    acl_latest_timestamp = LearnACL.objects.latest('timestamp')
+    current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")    
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -369,19 +375,33 @@ def all_changes(request):
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
     os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    acl_new_timestamp = LearnACL.objects.latest('timestamp')
+    latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
     latest_vrfs = LearnVRF.objects.filter(timestamp=vrf_new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     version_new_timestamp = ShowVersion.objects.latest('timestamp')
     latest_version = ShowVersion.objects.filter(timestamp=version_new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")    
+    acl_removals = current_acls.difference(latest_acls)
+    acl_additions = latest_acls.difference(current_acls)
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+
+def learn_acl_changes(request):
+    latest_timestamp = LearnACL.objects.latest('timestamp')
+    current_acls = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
+    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnACL.objects.latest('timestamp')
+    latest_acls = LearnACL.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
+    acl_removals = current_acls.difference(latest_acls)
+    acl_additions = latest_acls.difference(current_acls)
+    return render(request, 'Changes/learn_acl_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')

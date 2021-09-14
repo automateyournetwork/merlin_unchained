@@ -5,6 +5,44 @@
 {% block content %}
 <h1>Merlin Search Results</h1>
 {% if object_list.0 %}
+<h2>Learn ACL Hits</h2>
+<table id = "learn_acl" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Access Control List</th>
+  <th>Access Control Entry</th>
+  <th>Permission</th>
+  <th>Logging</th>
+  <th>Source Network</th>
+  <th>Destination Network</th>
+  <th>Layer 3 Protocol</th>
+  <th>Layer 4 Protocol</th>
+  <th>Operator</th>
+  <th>Port</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for acl in object_list.0 %}
+  <tr>
+    <td>{{ acl.pyats_alias }}</td>
+    <td>{{ acl.acl }}</td>
+    <td>{{ acl.ace }}</td>
+    <td>{{ acl.permission }}</td>
+    <td>{{ acl.logging }}</td>
+    <td>{{ acl.source_network }}</td>
+    <td>{{ acl.destination_network }}</td>
+    <td>{{ acl.l3_protocol }}</td>
+    <td>{{ acl.l4_protocol }}</td>
+    <td>{{ acl.l4_protocol }}</td>
+    <td>{{ acl.operator }}</td>
+    <td>{{ acl.port }}</td>
+    <td>{{ acl.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.1 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -19,7 +57,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.0 %}
+  <tbody>{% for vlan in object_list.1 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -33,9 +71,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.1 %}
+{% if object_list.2 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.1 %}
+  {% for vrf in object_list.2 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -60,7 +98,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.2 %}
+{% if object_list.3 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -73,7 +111,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.2 %}
+  <tbody>{% for part in object_list.3 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -85,7 +123,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.4 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -97,7 +135,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.2 %}
+  <tbody>{% for interface in object_list.4 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -110,7 +148,7 @@
 {% endif %}
 {% if object_list.4 %}  
   <h2>Show Version Hits</h2>
-  {% for version in object_list.2 %}
+  {% for version in object_list.5 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -240,6 +278,23 @@
         </tbody>
       </table>{% endif %}{% endfor %}
 {% endif %}
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_acl').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#learn_vlan').DataTable({
