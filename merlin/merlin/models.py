@@ -50,6 +50,32 @@ class LearnARPStatistics(models.Model):
         template = '{0.pyats_alias} {0.os} {0.entries_total} {0.in_drops} {0.in_replies_pkts} {0.in_requests_pkts} {0.incomplete_total} {0.out_replies_pkts} {0.out_requests_pkts} {0.timestamp}'
         return template.format(self) 
 
+class LearnBGP(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    instance = models.TextField()
+    bgp_id = models.TextField()
+    state = models.TextField()
+    vrf = models.TextField()
+    router_id = models.TextField()
+    cluster_id = models.TextField()
+    confederation_id = models.TextField()
+    neighbor = models.TextField()
+    version = models.TextField()
+    hold_time = models.TextField()
+    keep_alive_interval = models.TextField()
+    local_as = models.TextField()
+    remote_as = models.TextField()
+    total_received = models.TextField()
+    total_sent = models.TextField()
+    last_reset = models.TextField()
+    reset_reason = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.instance} {0.bgp_id} {0.state} {0.vrf} {0.router_id} {0.cluster_id} {0.confederation_id} {0.neighbor} {0.version} {0.hold_time} {0.keep_alive_interval} {0.local_as} {0.remote_as} {0.total_received} {0.total_sent} {0.last_reset} {0.timestamp}'
+        return template.format(self)
+
 class LearnVLAN(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
