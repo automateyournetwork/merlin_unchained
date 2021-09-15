@@ -1,10 +1,20 @@
 from rest_framework import serializers
-from .models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class LearnACLSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnACL
         fields = ('pyats_alias', 'os', 'acl', 'ace', 'permission', 'logging', 'source_network', 'destination_network', 'l3_protocol', 'l4_protocol', 'operator', 'port', 'timestamp')
+
+class LearnARPSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnARP
+        fields = ('pyats_alias', 'os', 'interface', 'neighbor_ip', 'neighbor_mac', 'origin', 'local_proxy', 'proxy', 'timestamp')
+
+class LearnARPStatisticsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnARPStatistics
+        fields = ('pyats_alias', 'os','entries_total', 'in_drops', 'incomplete_total','timestamp')
 
 class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
