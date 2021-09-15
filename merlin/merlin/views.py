@@ -380,6 +380,10 @@ def latest(request):
 def all_latest(request):
     acl_latest_timestamp = LearnACL.objects.latest('timestamp')
     acl_list = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp)
+    arp_latest_timestamp = LearnARP.objects.latest('timestamp')
+    arp_list = LearnARP.objects.filter(timestamp=arp_latest_timestamp.timestamp)
+    arp_statistics_latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    arp_statistics_list = LearnARPStatistics.objects.filter(timestamp=arp_statistics_latest_timestamp.timestamp)
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -390,7 +394,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -398,6 +402,18 @@ def learn_acl_latest(request):
     acl_list = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'acl_list': acl_list}
     return render(request, 'Latest/LearnACL/learn_acl_latest.html', context)
+
+def learn_arp_latest(request):
+    latest_timestamp = LearnARP.objects.latest('timestamp')
+    arp_list = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'arp_list': arp_list}
+    return render(request, 'Latest/LearnARP/learn_arp_latest.html', context)
+
+def learn_arp_statistics_latest(request):
+    latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    arp_statistics_list = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'arp_statistics_list': arp_statistics_list}
+    return render(request, 'Latest/LearnARPStatistics/learn_arp_statistics_latest.html', context)    
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
