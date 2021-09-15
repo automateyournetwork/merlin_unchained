@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnACL, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -349,6 +349,10 @@ def learn_acl_ondemand(request):
     os.system('pyats run job learn_acl_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_acl_result.html')
 
+def learn_arp_ondemand(request):
+    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_arp_result.html')
+
 def learn_vlan_ondemand(request):
     os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_vlan_result.html')
@@ -433,6 +437,10 @@ def changes(request):
 def all_changes(request):
     acl_latest_timestamp = LearnACL.objects.latest('timestamp')
     current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
+    arp_latest_timestamp = LearnARP.objects.latest('timestamp')
+    current_arp = LearnARP.objects.filter(timestamp=arp_latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
+    arp_stats_latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=arp_stats_latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")    
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -442,6 +450,10 @@ def all_changes(request):
     os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
+    arp_new_timestamp = LearnARP.objects.latest('timestamp')
+    latest_arp = LearnARP.objects.filter(timestamp=arp_new_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
+    arp_stats_new_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=arp_stats_new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")    
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -450,13 +462,17 @@ def all_changes(request):
     latest_version = ShowVersion.objects.filter(timestamp=version_new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")    
     acl_removals = current_acls.difference(latest_acls)
     acl_additions = latest_acls.difference(current_acls)
+    arp_removals = current_arp.difference(latest_arp)
+    arp_additions = latest_arp.difference(current_arp)
+    arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
+    arp_statistics_additions = latest_arp_statistics.difference(current_arp_statistics)
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -467,6 +483,26 @@ def learn_acl_changes(request):
     acl_removals = current_acls.difference(latest_acls)
     acl_additions = latest_acls.difference(current_acls)
     return render(request, 'Changes/learn_acl_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions})
+
+def learn_arp_changes(request):
+    latest_timestamp = LearnARP.objects.latest('timestamp')
+    current_arp = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
+    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnARP.objects.latest('timestamp')
+    latest_arp = LearnARP.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
+    arp_removals = current_arp.difference(latest_arp)
+    arp_additions = latest_arp.difference(current_arp)
+    return render(request, 'Changes/learn_arp_changes.html', {'arp_removals': arp_removals,'arp_additions': arp_additions})
+
+def learn_arp_statistics_changes(request):
+    latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
+    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
+    arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
+    arp_statistics_additions = latest_arp_statistics.difference(current_arp_statistics)
+    return render(request, 'Changes/learn_arp_statistics_changes.html', {'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')

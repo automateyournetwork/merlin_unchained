@@ -42,6 +42,66 @@
 </table>
 {% endif %}
 {% if object_list.1 %}
+<h2>Learn ARP Hits</h2>
+<table id = "learn_arp" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Interface</th>
+  <th>Neighbor IP Address</th>
+  <th>Neighbor MAC Address</th>
+  <th>Origin</th>
+  <th>ARP Dynamic Learning Local Proxy Enabled</th>
+  <th>ARP Dynamic Learning Proxy Enable</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.1 %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.neighbor }}</td>
+    <td>{{ interface.link_layer_address }}</td>
+    <td>{{ interface.origin }}</td>
+    <td>{{ interface.local_proxy_enable }}</td>
+    <td>{{ interface.proxy_enable }}</td>
+    <td>{{ interface.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.2 %}
+<h2>Learn ARP Statistics Hits</h2>
+<table id = "learn_arp_statistics" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Total ARP Entries</th>
+  <th>Input ARP Drops</th>
+  <th>Input ARP Replies</th>
+  <th>Input ARP Requests</th>
+  <th>Incomplete ARP</th>
+  <th>Output ARP Replies</th>
+  <th>Output ARP Requests</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{ object_list.2.pyats_alias }}</td>
+    <td>{{ object_list.2.entries_total }}</td>
+    <td>{{ object_list.2.in_drops }}</td>
+    <td>{{ object_list.2.in_replies_pkts }}</td>
+    <td>{{ object_list.2.in_requests_pkts }}</td>
+    <td>{{ object_list.2.incomplete_total }}</td>
+    <td>{{ object_list.2.out_replies_pkts }}</td>
+    <td>{{ object_list.2.out_requests_pkts }}</td>
+    <td>{{ object_list.2.timestamp }}</td>
+  </tr> 
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.3 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -56,7 +116,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.1 %}
+  <tbody>{% for vlan in object_list.3 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -70,9 +130,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.2 %}
+{% if object_list.4 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.2 %}
+  {% for vrf in object_list.4 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -97,7 +157,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.5 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -110,7 +170,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.3 %}
+  <tbody>{% for part in object_list.5 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -122,7 +182,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.4 %}
+{% if object_list.6 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -134,7 +194,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.4 %}
+  <tbody>{% for interface in object_list.6 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -145,9 +205,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.4 %}  
+{% if object_list.7 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.5 %}
+  {% for version in object_list.7 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -285,6 +345,77 @@
     .appendTo('#learn_acl thead');
 
     var table = $('#learn_acl').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#learn_arp thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#learn_arp thead');
+
+    var table = $('#learn_arp').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

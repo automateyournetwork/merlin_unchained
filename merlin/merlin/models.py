@@ -16,8 +16,39 @@ class LearnACL(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.acl} {0.ace} {0.permission} {0.logging} {0.source_network} {0.destination_network} {0.l3_protocol} {0.l4_protocol} {0.operator} {0.port} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.acl} {0.ace} {0.permission} {0.logging} {0.source_network} {0.destination_network} {0.l3_protocol} {0.l4_protocol} {0.operator} {0.port} {0.timestamp}'
         return template.format(self)
+
+class LearnARP(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    interface = models.TextField()
+    neighbor_ip = models.TextField()
+    neighbor_mac = models.TextField()
+    origin = models.TextField()
+    local_proxy = models.TextField()
+    proxy = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.interface} {0.neighbor_ip} {0.neighbor_mac} {0.origin} {0.local_proxy} {0.proxy} {0.timestamp}'
+        return template.format(self)        
+
+class LearnARPStatistics(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    entries_total = models.TextField()
+    in_drops = models.TextField()
+    in_replies_pkts = models.TextField()
+    in_requests_pkts = models.TextField()
+    incomplete_total = models.TextField()
+    out_replies_pkts = models.TextField()
+    out_requests_pkts = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.entries_total} {0.in_drops} {0.in_replies_pkts} {0.in_requests_pkts} {0.incomplete_total} {0.out_replies_pkts} {0.out_requests_pkts} {0.timestamp}'
+        return template.format(self) 
 
 class LearnVLAN(models.Model):
     pyats_alias = models.TextField()

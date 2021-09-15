@@ -3,68 +3,76 @@
 {% block title %}Merlin Network State Centre{% endblock %}
 {% block content %}
 <h1>Merlin Network State Centre</h1>
-{% if inventory_additions %}
-<h2>Merlin has detected the following Inventory items have been added</h2>
-<table id = "inventory_additions" class="table table-bordered">
-  <thead class = "alert-success">
-  <tr>
+{% if arp_additions %}
+<h2>Merlin has detected the following ARP configurations have been added</h2>
+<table id = "learn_arp" class="table table-bordered">
+    <thead class = "alert-success">
+    <tr>
     <th>pyATS Alias</th>
-    <th>Slot</th>
-    <th>Description</th>
-    <th>PID</th>
-    <th>Serial Number</th>
+    <th>Interface</th>
+    <th>Neighbor IP Address</th>
+    <th>Neighbor MAC Address</th>
+    <th>Origin</th>
+    <th>ARP Dynamic Learning Local Proxy Enabled</th>
+    <th>ARP Dynamic Learning Proxy Enable</th>
     <th>Timestamp</th>
-  </tr>
-  </thead>
-  <tbody>{% for part in inventory_additions %}
-<tr>
-    <td>{{ part.pyats_alias }}</td>
-    <td>{{ part.part }}</td>
-    <td>{{ part.description }}</td>
-    <td>{{ part.pid }}</td>
-    <td>{{ part.serial_number }}</td>
-    <td>{{ part.timestamp }}</td>
-  </tr>{% endfor %}
-  </tbody>  
-</table>
+    </tr>
+    </thead>
+    <tbody>{% for interface in arp_additions %}
+    <tr>
+      <td>{{ interface.pyats_alias }}</td>
+      <td>{{ interface.interface }}</td>
+      <td>{{ interface.neighbor }}</td>
+      <td>{{ interface.link_layer_address }}</td>
+      <td>{{ interface.origin }}</td>
+      <td>{{ interface.local_proxy_enable }}</td>
+      <td>{{ interface.proxy_enable }}</td>
+      <td>{{ interface.timestamp }}</td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
 {% else %}
-<h2>Merlin has not detected any Inventory additons</h2>
+<h2>Merlin has not detected any ARP configuration additons</h2>
 {% endif %}
-{% if inventory_removals %}
-<h2>Merlin has detected the following Inventory items have been removed</h2>
-<table id = "inventory_removals" class="table table-bordered">
-  <thead class = "alert-success">
-  <tr>
+{% if arp_removals %}
+<h2>Merlin has detected the following ARP configurations have been removed</h2>
+<table id = "learn_arp" class="table table-bordered">
+    <thead class = "alert-success">
+    <tr>
     <th>pyATS Alias</th>
-    <th>Slot</th>
-    <th>Description</th>
-    <th>PID</th>
-    <th>Serial Number</th>
+    <th>Interface</th>
+    <th>Neighbor IP Address</th>
+    <th>Neighbor MAC Address</th>
+    <th>Origin</th>
+    <th>ARP Dynamic Learning Local Proxy Enabled</th>
+    <th>ARP Dynamic Learning Proxy Enable</th>
     <th>Timestamp</th>
-  </tr>
-  </thead>
-  <tbody>{% for part in inventory_removals %}
-<tr>
-    <td>{{ part.pyats_alias }}</td>
-    <td>{{ part.part }}</td>
-    <td>{{ part.description }}</td>
-    <td>{{ part.pid }}</td>
-    <td>{{ part.serial_number }}</td>
-    <td>{{ part.timestamp }}</td>
-  </tr>{% endfor %}
-  </tbody>  
-</table>
+    </tr>
+    </thead>
+    <tbody>{% for interface in arp_removals %}
+    <tr>
+      <td>{{ interface.pyats_alias }}</td>
+      <td>{{ interface.interface }}</td>
+      <td>{{ interface.neighbor }}</td>
+      <td>{{ interface.link_layer_address }}</td>
+      <td>{{ interface.origin }}</td>
+      <td>{{ interface.local_proxy_enable }}</td>
+      <td>{{ interface.proxy_enable }}</td>
+      <td>{{ interface.timestamp }}</td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
 {% else %}
-<h2>Merlin has not detected any Inventory configuration removals</h2>
+<h2>Merlin has not detected any ARP configuration removals</h2>
 {% endif %}
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#inventory_additions thead tr')
+    $('#arp_additions thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#inventory_additions thead');
+    .appendTo('#arp_additions thead');
 
-    var table = $('#inventory_additions').DataTable({
+    var table = $('#arp_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -130,12 +138,12 @@
 </script>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#inventory_removals thead tr')
+    $('#arp_removals thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#inventory_removals thead');
+    .appendTo('#arp_removals thead');
 
-    var table = $('#inventory_removals').DataTable({
+    var table = $('#arp_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
