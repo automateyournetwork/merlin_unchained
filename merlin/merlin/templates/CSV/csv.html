@@ -17,7 +17,17 @@
     <td>Learn ACL</td>
     <td><button onclick="location.href='{% url 'learn_acl_csv' %}'">Export All ACL Records</button></td>
     <td><button onclick="location.href='{% url 'learn_acl_csv_latest' %}'">Export Latest ACL Records</button></td>
-  </tr>    
+  </tr>
+  <tr>
+    <td>Learn ARP</td>
+    <td><button onclick="location.href='{% url 'learn_arp_csv' %}'">Export All ARP Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_arp_csv_latest' %}'">Export Latest ARP Records</button></td>
+  </tr>
+  <tr>
+    <td>Learn ARP Statistics</td>
+    <td><button onclick="location.href='{% url 'learn_arp_statistics_csv' %}'">Export All ARP Statistics Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_arp_statistics_csv_latest' %}'">Export Latest ARP Statistics Records</button></td>
+  </tr>  
   <tr>
     <td>Learn VLAN</td>
     <td><button onclick="location.href='{% url 'learn_vlan_csv' %}'">Export All VLAN Records</button></td>
