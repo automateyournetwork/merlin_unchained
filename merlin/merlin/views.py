@@ -216,6 +216,54 @@ def learn_acl_csv_download_latest(request):
         writer.writerow(acl)
     return response
 
+def learn_arp_csv(request):
+    return render(request, 'CSV/LearnARP/learn_arp_csv.html')
+
+def learn_arp_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_arp_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Neighbor IP','Neighbor MAC','Origin','Local Proxy','Proxy','Timestamp'])
+    interfaces = LearnARP.objects.all().values_list('pyats_alias', 'interface', 'neighbor_ip', 'neighbor_mac', 'origin', 'local_proxy', 'proxy','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
+def learn_arp_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_arp_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Neighbor IP','Neighbor MAC','Origin','Local Proxy','Proxy','Timestamp'])
+    latest_timestamp = LearnARP.objects.latest('timestamp')
+    interfaces = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias', 'interface', 'neighbor_ip', 'neighbor_mac', 'origin', 'local_proxy', 'proxy','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
+def learn_arp_statistics_csv(request):
+    return render(request, 'CSV/LearnARP/learn_arp_csv.html')
+
+def learn_arp_statistics_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_arp_statistics_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Total Entries','Input Drops','Input Replies','Input Requests','Incomplete Requests','Output Replies','Output Requests','Timestamp'])
+    statistics = LearnARPStatistics.objects.all().values_list('pyats_alias','entries_total','in_drops','in_replies_pkts','in_requests_pkts','incomplete_total','out_replies_pkts','out_requests_pkts','timestamp')
+    for stat in statistics:
+        writer.writerow(stat)
+    return response
+
+def learn_arp_statistics_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_arp_statistics_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Total Entries','Input Drops','Input Replies','Input Requests','Incomplete Requests','Output Replies','Output Requests','Timestamp'])
+    latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    statistics = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','entries_total','in_drops','in_replies_pkts','in_requests_pkts','incomplete_total','out_replies_pkts','out_requests_pkts','timestamp')
+    for stat in statistics:
+        writer.writerow(statistics)
+    return response
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 
