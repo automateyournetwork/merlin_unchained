@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnBGP, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -16,6 +16,8 @@ class SearchResultView(ListView):
             Q(pyats_alias=query) | Q(os=query) | Q(interface=query) | Q(neighbor_ip=query) | Q(neighbor_mac=query) | Q(origin=query) | Q(local_proxy=query) | Q(proxy=query)
         ),LearnARPStatistics.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(entries_total=query) | Q(in_drops=query) | Q(in_replies_pkts=query) | Q(in_requests_pkts=query) | Q(incomplete_total=query) | Q(out_replies_pkts=query) | Q(out_requests_pkts=query)
+        ),LearnBGP.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(bgp_id=query) | Q(state=query) | Q(vrf=query) | Q(router_id=query) | Q(cluster_id=query) | Q(confederation_id=query) | Q(neighbor=query) | Q(version=query) | Q(hold_time=query) | Q(keep_alive_interval=query) | Q(local_as=query) | Q(remote_as=query) | Q(total_received=query) | Q(total_sent=query) | Q(last_reset=query) | Q(reset_reason=query)
         ),LearnVLAN.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(vlan=query) | Q(interfaces=query) | Q(mode=query) | Q(name=query) | Q(shutdown=query) | Q(state=query)
         ),LearnVRF.objects.filter(
