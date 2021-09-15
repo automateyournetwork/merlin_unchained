@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Learn ARP for {{ year }} {{ month }} {{ day }}{% endblock %}
+
+{% block content %}
+<h1>Learn ARP for {{ year }} {{ month }} {{ day }}</h1>
+<table id = "learn_arp" class="table table-bordered">
+    <thead class = "alert-success">
+    <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>Neighbor IP Address</th>
+    <th>Neighbor MAC Address</th>
+    <th>Origin</th>
+    <th>ARP Dynamic Learning Local Proxy Enabled</th>
+    <th>ARP Dynamic Learning Proxy Enable</th>
+    <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>{% for interface in arp_list %}
+    <tr>
+      <td>{{ interface.pyats_alias }}</td>
+      <td>{{ interface.interface }}</td>
+      <td>{{ interface.neighbor }}</td>
+      <td>{{ interface.link_layer_address }}</td>
+      <td>{{ interface.origin }}</td>
+      <td>{{ interface.local_proxy_enable }}</td>
+      <td>{{ interface.proxy_enable }}</td>
+      <td>{{ interface.timestamp }}</td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#learn_arp thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#learn_arp thead');
+
+    var table = $('#learn_arp').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+{% endblock %}
