@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnARP, LearnBGP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -569,6 +569,8 @@ def all_changes(request):
     current_arp = LearnARP.objects.filter(timestamp=arp_latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
     arp_stats_latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
     current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=arp_stats_latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")    
+    bgp_latest_timestamp = LearnBGP.objects.latest('timestamp')
+    current_bgp = LearnBGP.objects.filter(timestamp=bgp_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -581,7 +583,9 @@ def all_changes(request):
     arp_new_timestamp = LearnARP.objects.latest('timestamp')
     latest_arp = LearnARP.objects.filter(timestamp=arp_new_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
     arp_stats_new_timestamp = LearnARPStatistics.objects.latest('timestamp')
-    latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=arp_stats_new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")    
+    latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=arp_stats_new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
+    bgp_new_timestamp = LearnBGP.objects.latest('timestamp')
+    latest_bgp = LearnBGP.objects.filter(timestamp=bgp_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )    
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -594,13 +598,15 @@ def all_changes(request):
     arp_additions = latest_arp.difference(current_arp)
     arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
     arp_statistics_additions = latest_arp_statistics.difference(current_arp_statistics)
+    bgp_removals = current_bgp.difference(latest_bgp)
+    bgp_additions = latest_bgp.difference(current_bgp)    
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_removals': bgp_removals, 'bgp_additions': bgp_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -631,6 +637,16 @@ def learn_arp_statistics_changes(request):
     arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
     arp_statistics_additions = latest_arp_statistics.difference(current_arp_statistics)
     return render(request, 'Changes/learn_arp_statistics_changes.html', {'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions})
+
+def learn_bgp_changes(request):
+    latest_timestamp = LearnBGP.objects.latest('timestamp')
+    current_bgp = LearnBGP.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )
+    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    new_timestamp = LearnBGP.objects.latest('timestamp')
+    latest_bgp = LearnBGP.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )
+    bgp_removals = current_bgp.difference(latest_bgp)
+    bgp_additions = latest_bgp.difference(current_bgp)
+    return render(request, 'Changes/learn_bgp_changes.html', {'bgp_removals': bgp_removals,'bgp_additions': bgp_additions})
 
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')

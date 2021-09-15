@@ -209,6 +209,104 @@
 {% else %}
 <h2>Merlin has not detected any ARP Statistic removals</h2>
 {% endif %}
+{% if bgp_additions %}
+<h2>Merlin has detected the following BGP configurations have been added</h2>
+<table id = "learn_bgp" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>Instance</th>
+    <th>BGP ID</th>
+    <th>State</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>Cluster ID</th>
+    <th>Confederation ID</th>
+    <th>Neighbor</th>
+    <th>Version</th>
+    <th>Hold Time</th>
+    <th>Keep Alive Interval</th>
+    <th>Local AS</th>
+    <th>Remote AS</th>
+    <th>Total Recieved Messages</th>
+    <th>Total Sent Messages</th>
+    <th>Connect Last Reset</th>
+    <th>Reset Reason</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in object_list.3 %}
+<tr>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.bgp_id }}</td>
+    <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.router_id }}</td>
+    <td>{{ instance.cluster_id }}</td>
+    <td>{{ instance.confederation_identifier }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.bgp_version }}</td>
+    <td>{{ instance.holdtime }}</td>
+    <td>{{ instance.keepalive_interval }}</td>
+    <td>{{ instance.local_as_as_no }}</td>
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.total }}</td>
+    <td>{{ instance.total }}</td>
+    <td>{{ instance.last_reset }}</td>
+    <td>{{ instance.reset_reason }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any BGP configuration additons</h2>
+{% endif %}
+{% if bgp_removals %}
+<h2>Merlin has detected the following BGP configurations have been removed</h2>
+<table id = "learn_bgp" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>Instance</th>
+    <th>BGP ID</th>
+    <th>State</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>Cluster ID</th>
+    <th>Confederation ID</th>
+    <th>Neighbor</th>
+    <th>Version</th>
+    <th>Hold Time</th>
+    <th>Keep Alive Interval</th>
+    <th>Local AS</th>
+    <th>Remote AS</th>
+    <th>Total Recieved Messages</th>
+    <th>Total Sent Messages</th>
+    <th>Connect Last Reset</th>
+    <th>Reset Reason</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in object_list.3 %}
+<tr>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.bgp_id }}</td>
+    <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.router_id }}</td>
+    <td>{{ instance.cluster_id }}</td>
+    <td>{{ instance.confederation_identifier }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.bgp_version }}</td>
+    <td>{{ instance.holdtime }}</td>
+    <td>{{ instance.keepalive_interval }}</td>
+    <td>{{ instance.local_as_as_no }}</td>
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.total }}</td>
+    <td>{{ instance.total }}</td>
+    <td>{{ instance.last_reset }}</td>
+    <td>{{ instance.reset_reason }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any BGP configuration removals</h2>
+{% endif %}
 {% if vlan_additions %}
 <h2>Merlin has detected the following VLAN configurations have been added</h2>
 <table id = "vlan_additions" class="table table-bordered">
