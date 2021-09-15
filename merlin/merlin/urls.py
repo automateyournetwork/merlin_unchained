@@ -24,6 +24,7 @@ urlpatterns = [
     path('OnDemand/get_all_result/', views.get_all_ondemand, name="get_all"),
     path('OnDemand/learn_acl_result/', views.learn_acl_ondemand, name="learn_acl"),
     path('OnDemand/learn_arp_result/', views.learn_arp_ondemand, name="learn_arp"),
+    path('OnDemand/learn_bgp_result/', views.learn_bgp_ondemand, name="learn_bgp"),
     path('OnDemand/learn_vlan_result/', views.learn_vlan_ondemand, name="learn_vlan"),
     path('OnDemand/learn_vrf_result/', views.learn_vrf_ondemand, name="learn_vrf"),
     path('OnDemand/show_inventory_result/', views.show_inventory_ondemand, name="show_inventory"),

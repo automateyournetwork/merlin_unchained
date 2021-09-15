@@ -20,7 +20,7 @@ from pyats import topology
 from pyats.log.utils import banner
 from general_functionalities import ParseShowCommandFunction, ParseLearnFunction
 from datetime import datetime
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnBGP, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # ----------------
 # AE Test Setup
@@ -102,6 +102,16 @@ class Collect_Information(aetest.Testcase):
                 
                 learnARPStatistics = LearnARPStatistics(pyats_alias=device.alias,os=device.os,entries_total=self.learned_arp['statistics']['entries_total'],in_drops=self.learned_arp['statistics']['in_drops'],in_replies_pkts=self.learned_arp['statistics']['in_replies_pkts'],in_requests_pkts=self.learned_arp['statistics']['in_requests_pkts'],incomplete_total=self.learned_arp['statistics']['incomplete_total'],out_replies_pkts=self.learned_arp['statistics']['out_replies_pkts'],out_requests_pkts=self.learned_arp['statistics']['out_requests_pkts'],timestamp=datetime.now().replace(microsecond=0))
                 learnARPStatistics.save()
+
+            # Learn BGP to JSON
+            self.learned_bgp = ParseLearnFunction.parse_learn(steps, device, "bgp")
+            if self.learned_bgp is not None:
+                # Set Django Database values from pyATS JSON
+                for instance in self.learned_bgp['instance']:
+                    for vrf in self.learned_bgp['instance'][instance]['vrf']:
+                        for neighbor in self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor']:
+                            learnBGP=LearnBGP(pyats_alias=device.alias,os=device.os,instance=instance,bgp_id=self.learned_bgp['instance'][instance]['bgp_id'],state=self.learned_bgp['instance'][instance]['protocol_state'],vrf=vrf,router_id=self.learned_bgp['instance'][instance]['vrf'][vrf]['router_id'],cluster_id=self.learned_bgp['instance'][instance]['vrf'][vrf]['cluster_id'],confederation_id=self.learned_bgp['instance'][instance]['vrf'][vrf]['confederation_identifier'],neighbor=neighbor,version=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['bgp_version'],hold_time=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['holdtime'],keep_alive_interval=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['keepalive_interval'],local_as=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['local_as_as_no'],remote_as=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['remote_as'],total_received=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['bgp_neighbor_counters']['messages']['received']['total'],total_sent=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['bgp_neighbor_counters']['messages']['sent']['total'],last_reset=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['bgp_session_transport']['connection']['last_reset'],reset_reason=self.learned_bgp['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['bgp_session_transport']['connection']['reset_reason'],timestamp=datetime.now().replace(microsecond=0))
+                    learnBGP.save()
 
             # Learn VLAN to JSON
             self.learned_vlan = ParseLearnFunction.parse_learn(steps, device, "vlan")

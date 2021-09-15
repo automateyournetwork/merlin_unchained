@@ -461,6 +461,10 @@ def learn_arp_ondemand(request):
     os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_arp_result.html')
 
+def learn_bgp_ondemand(request):
+    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    return render(request, 'OnDemand/learn_bgp_result.html')
+
 def learn_vlan_ondemand(request):
     os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     return render(request, 'OnDemand/learn_vlan_result.html')
