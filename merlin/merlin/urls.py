@@ -43,6 +43,8 @@ urlpatterns = [
     path('Latest/', views.latest),
     path('Latest/All/', views.all_latest),
     path('Latest/LearnACL/', views.learn_acl_latest),
+    path('Latest/LearnARP/', views.learn_arp_latest),
+    path('Latest/LearnARPStatistics/', views.learn_arp_statistics_latest),
     path('Latest/LearnVLAN/', views.learn_vlan_latest),
     path('Latest/LearnVRF/', views.learn_vrf_latest),
     path('Latest/ShowInventory/', views.show_inventory_latest),
