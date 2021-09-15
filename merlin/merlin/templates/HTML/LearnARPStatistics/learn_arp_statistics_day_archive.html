@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Learn ARP Statistics for {{ year }} {{ month }} {{ day }}{% endblock %}
+
+{% block content %}
+<h1>Learn ARP for Statistics {{ year }} {{ month }} {{ day }}</h1>
+<table id = "learn_arp_statistics" class="table table-bordered">
+    <thead class = "alert-success">
+    <tr>
+    <th>pyATS Alias</th>
+    <th>Total ARP Entries</th>
+    <th>Input ARP Drops</th>
+    <th>Input ARP Replies</th>
+    <th>Input ARP Requests</th>
+    <th>Incomplete ARP</th>
+    <th>Output ARP Replies</th>
+    <th>Output ARP Requests</th>
+    <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>{% for stat in arp_statistics_list %}
+    <tr>
+        <td>{{ stat.pyats_alias }}</td>
+        <td>{{ stat.entries_total }}</td>
+        <td>{{ stat.in_drops }}</td>
+        <td>{{ stat.in_replies_pkts }}</td>
+        <td>{{ stat.in_requests_pkts }}</td>
+        <td>{{ stat.incomplete_total }}</td>
+        <td>{{ stat.out_replies_pkts }}</td>
+        <td>{{ stat.out_requests_pkts }}</td>
+        <td>{{ stat.timestamp }}</td>
+    </tr>{% endfor %}
+    </tbody>
+  </table>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#learn_arp_statistics thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#learn_arp_statistics thead');
+
+    var table = $('#learn_arp_statistics').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+{% endblock %}

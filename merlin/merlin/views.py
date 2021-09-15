@@ -35,6 +35,66 @@ def learn_acl_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'acl_list': acl_list}
     return render(request, 'HTML/LearnACL/learn_acl_alias_archive.html', context)
 
+def learn_arp_all(request):
+    arp_list = LearnARP.objects.all()
+    context = {'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_all.html', context)
+
+def learn_arp_year_archive(request, year):
+    arp_list = LearnARP.objects.filter(timestamp__year=year)
+    context = {'year': year, 'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_year_archive.html', context)
+
+def learn_arp_month_archive(request, year, month):
+    arp_list = LearnARP.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_month_archive.html', context)
+
+def learn_arp_day_archive(request, year, month, day):
+    arp_list = LearnARP.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_day_archive.html', context)
+
+def learn_arp_os_archive(request, os):
+    arp_list = LearnARP.objects.filter(os=os)
+    context = {'os': os, 'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_os_archive.html', context)
+
+def learn_arp_alias_archive(request, os, pyats_alias):
+    arp_list = LearnARP.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'arp_list': arp_list}
+    return render(request, 'HTML/LearnARP/learn_arp_alias_archive.html', context)
+
+def learn_arp_statistics_all(request):
+    arp_statistics_list = LearnARPStatistics.objects.all()
+    context = {'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_all.html', context)
+
+def learn_arp_statistics_year_archive(request, year):
+    arp_statistics_list = LearnARPStatistics.objects.filter(timestamp__year=year)
+    context = {'year': year, 'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_year_archive.html', context)
+
+def learn_arp_statistics_month_archive(request, year, month):
+    arp_statistics_list = LearnARPStatistics.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_month_archive.html', context)
+
+def learn_arp_statistics_day_archive(request, year, month, day):
+    arp_statistics_list = LearnARPStatistics.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_day_archive.html', context)
+
+def learn_arp_statistics_os_archive(request, os):
+    arp_statistics_list = LearnARPStatistics.objects.filter(os=os)
+    context = {'os': os, 'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_os_archive.html', context)
+
+def learn_arp_statistics_alias_archive(request, os, pyats_alias):
+    arp_statistics_list = LearnARPStatistics.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'arp_statistics_list': arp_statistics_list}
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_alias_archive.html', context)    
+
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
     context = {'vlan_list': v_list}
