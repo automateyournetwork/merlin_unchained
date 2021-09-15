@@ -640,10 +640,10 @@ def learn_arp_statistics_changes(request):
 
 def learn_bgp_changes(request):
     latest_timestamp = LearnBGP.objects.latest('timestamp')
-    current_bgp = LearnBGP.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )
+    current_bgp = LearnBGP.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason')
     os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
     new_timestamp = LearnBGP.objects.latest('timestamp')
-    latest_bgp = LearnBGP.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason' )
+    latest_bgp = LearnBGP.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason')
     bgp_removals = current_bgp.difference(latest_bgp)
     bgp_additions = latest_bgp.difference(current_bgp)
     return render(request, 'Changes/learn_bgp_changes.html', {'bgp_removals': bgp_removals,'bgp_additions': bgp_additions})
