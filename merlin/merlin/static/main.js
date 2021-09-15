@@ -1,5 +1,6 @@
 const getAllSpinnerBox = document.getElementById('get_all_spinner')
 const learnACLSpinnerBox = document.getElementById('learn_acl_spinner')
+const learnARPSpinnerBox = document.getElementById('learn_arp_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
@@ -30,6 +31,20 @@ $("#learn_acl_button").click(function(e){
         },
         success: function(response){
             learnACLSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#learn_arp_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/learn_arp_result/",
+        beforeSend: function(){
+            learnARPSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            learnARPSpinnerBox.classList.add('not-visible')
         }
     })
 })
