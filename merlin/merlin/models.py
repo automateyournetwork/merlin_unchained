@@ -50,12 +50,15 @@ class LearnARPStatistics(models.Model):
         template = '{0.pyats_alias} {0.os} {0.entries_total} {0.in_drops} {0.in_replies_pkts} {0.in_requests_pkts} {0.incomplete_total} {0.out_replies_pkts} {0.out_requests_pkts} {0.timestamp}'
         return template.format(self) 
 
-class LearnBGP(models.Model):
+class LearnBGPInstances(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
     instance = models.TextField()
     bgp_id = models.TextField()
-    state = models.TextField()
+    protocol_state = models.TextField()
+    nexthop_trigger_delay_critical = models.TextField()
+    nexthop_trigger_delay_noncritical = models.TextField()
+    nexthop_trigger_enabled = models.TextField()
     vrf = models.TextField()
     router_id = models.TextField()
     cluster_id = models.TextField()
@@ -66,14 +69,64 @@ class LearnBGP(models.Model):
     keep_alive_interval = models.TextField()
     local_as = models.TextField()
     remote_as = models.TextField()
-    total_received = models.TextField()
-    total_sent = models.TextField()
+    neighbor_counters_received_bytes_in_queue = models.TextField()
+    neighbor_counters_received_capability = models.TextField()
+    neighbor_counters_received_keepalives = models.TextField()
+    neighbor_counters_received_notifications = models.TextField()
+    neighbor_counters_received_opens = models.TextField()
+    neighbor_counters_received_route_refresh = models.TextField()
+    neighbor_counters_received_total = models.TextField()
+    neighbor_counters_received_total_bytes = models.TextField()
+    neighbor_counters_received_updates = models.TextField()
+    neighbor_counters_sent_bytes_in_queue = models.TextField()
+    neighbor_counters_sent_capability = models.TextField()
+    neighbor_counters_sent_keepalives = models.TextField()
+    neighbor_counters_sent_notifications = models.TextField()
+    neighbor_counters_sent_opens = models.TextField()
+    neighbor_counters_sent_route_refresh = models.TextField()
+    neighbor_counters_sent_total = models.TextField()
+    neighbor_counters_sent_total_bytes = models.TextField()
+    neighbor_counters_sent_updates = models.TextField()
     last_reset = models.TextField()
     reset_reason = models.TextField()
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.instance} {0.bgp_id} {0.state} {0.vrf} {0.router_id} {0.cluster_id} {0.confederation_id} {0.neighbor} {0.version} {0.hold_time} {0.keep_alive_interval} {0.local_as} {0.remote_as} {0.total_received} {0.total_sent} {0.last_reset} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.instance} {0.bgp_id} {0.protocol_state} {0.nexthop_trigger_delay_critical} {0.nexthop_trigger_delay_noncritical} {0.nexthop_trigger_enabled} {0.vrf} {0.router_id} {0.cluster_id} {0.confederation_id} {0.neighbor} {0.version} {0.hold_time} {0.keep_alive_interval} {0.local_as} {0.remote_as} {0.neighbor_counters_received_bytes_in_queue} {0.neighbor_counters_received_capability} {0.neighbor_counters_received_keepalives} {0.neighbor_counters_received_notifications} {0.neighbor_counters_received_opens} {0.neighbor_counters_received_route_refresh} {0.neighbor_counters_received_total} {0.neighbor_counters_received_total_bytes} {0.neighbor_counters_received_updates} {0.neighbor_counters_sent_bytes_in_queue} {0.neighbor_counters_sent_capability} {0.neighbor_counters_sent_keepalives} {0.neighbor_counters_sent_notifications} {0.neighbor_counters_sent_opens} {0.neighbor_counters_sent_route_refresh} {0.neighbor_counters_sent_total} {0.neighbor_counters_sent_total_bytes} {0.neighbor_counters_sent_updates} {0.last_reset} {0.reset_reason} {0.timestamp}'
+        return template.format(self)
+
+class LearnBGPRoutesPerPeer(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    instance = models.TextField()
+    vrf = models.TextField()
+    neighbor = models.TextField()
+    advertised = models.TextField()
+    routes = models.TextField()
+    remote_as = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.instance} {0.vrf} {0.neighbor} {0.advertised} {0.routes} {0.remote_as} {0.timestamp}'
+        return template.format(self)
+
+class LearnBGPTables(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    instance = models.TextField()
+    vrf = models.TextField()
+    table_version = models.TextField()
+    prefix = models.TextField()
+    index = models.TextField()
+    localpref = models.TextField()
+    next_hop = models.TextField()
+    origin_code = models.TextField()
+    status_code = models.TextField()
+    weight = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.instance} {0.vrf} {0.table_version} {0.prefix} {0.index} {0.localpref} {0.next_hop} {0.origin_code} {0.status_code} {0.weight} {0.timestamp}'
         return template.format(self)
 
 class LearnVLAN(models.Model):

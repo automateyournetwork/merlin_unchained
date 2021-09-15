@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import LearnACL, LearnARP, LearnARPStatistics, LearnBGP, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import LearnACL, LearnARP, LearnARPStatistics, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class LearnACLSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -15,11 +15,6 @@ class LearnARPStatisticsSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnARPStatistics
         fields = ('pyats_alias', 'os','entries_total', 'in_drops', 'incomplete_total','timestamp')
-
-class LearnBGPSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = LearnBGP
-        fields = ('pyats_alias', 'os',  'instance', 'bgp_id', 'state', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'total_received', 'total_sent', 'last_reset', 'reset_reason', 'timestamp')
 
 class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
