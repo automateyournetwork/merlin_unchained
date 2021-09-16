@@ -95,6 +95,96 @@ def learn_arp_statistics_alias_archive(request, os, pyats_alias):
     context = {'os': os, 'pyats_alias': pyats_alias, 'arp_statistics_list': arp_statistics_list}
     return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_alias_archive.html', context)    
 
+def learn_bgp_instances_all(request):
+    bgp_instance_list = LearnBGPInstances.objects.all()
+    context = {'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_all.html', context)
+
+def learn_bgp_instances_year_archive(request, year):
+    bgp_instance_list = LearnBGPInstances.objects.filter(timestamp__year=year)
+    context = {'year': year, 'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_year_archive.html', context)
+
+def learn_bgp_instances_month_archive(request, year, month):
+    bgp_instance_list = LearnBGPInstances.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_month_archive.html', context)
+
+def learn_bgp_instances_day_archive(request, year, month, day):
+    bgp_instance_list = LearnBGPInstances.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_day_archive.html', context)
+
+def learn_bgp_instances_os_archive(request, os):
+    bgp_instance_list = LearnBGPInstances.objects.filter(os=os)
+    context = {'os': os, 'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_os_archive.html', context)
+
+def learn_bgp_instances_alias_archive(request, os, pyats_alias):
+    bgp_instance_list = LearnBGPInstances.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_instance_list': bgp_instance_list}
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_alias_archive.html', context)
+
+def learn_bgp_routes_all(request):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.all()
+    context = {'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_all.html', context)
+
+def learn_bgp_routes_year_archive(request, year):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(timestamp__year=year)
+    context = {'year': year, 'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_year_archive.html', context)
+
+def learn_bgp_routes_month_archive(request, year, month):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_month_archive.html', context)
+
+def learn_bgp_routes_day_archive(request, year, month, day):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_day_archive.html', context)
+
+def learn_bgp_routes_os_archive(request, os):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(os=os)
+    context = {'os': os, 'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_os_archive.html', context)
+
+def learn_bgp_routes_alias_archive(request, os, pyats_alias):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_route_list': bgp_route_list}
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_alias_archive.html', context)
+
+def learn_bgp_tables_all(request):
+    bgp_tables_list = LearnBGPTables.objects.all()
+    context = {'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_all.html', context)
+
+def learn_bgp_tables_year_archive(request, year):
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp__year=year)
+    context = {'year': year, 'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_year_archive.html', context)
+
+def learn_bgp_tables_month_archive(request, year, month):
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_month_archive.html', context)
+
+def learn_bgp_tables_day_archive(request, year, month, day):
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_day_archive.html', context)
+
+def learn_bgp_tables_os_archive(request, os):
+    bgp_tables_list = LearnBGPTables.objects.filter(os=os)
+    context = {'os': os, 'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_os_archive.html', context)
+
+def learn_bgp_tables_alias_archive(request, os, pyats_alias):
+    bgp_tables_list = LearnBGPTables.objects.filter(pyats_alias=pyats_alias, os=os)
+    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_tables_list': bgp_tables_list}
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_alias_archive.html', context)    
+
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
     context = {'vlan_list': v_list}
