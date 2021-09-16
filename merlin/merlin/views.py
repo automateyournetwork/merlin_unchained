@@ -324,6 +324,78 @@ def learn_arp_statistics_csv_download_latest(request):
         writer.writerow(statistics)
     return response
 
+def learn_bgp_instances_csv(request):
+    return render(request, 'CSV/LearnBGPInstances/learn_bgp_instances_csv.html')
+
+def learn_bgp_instances_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_instances_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','BGP ID','Protocol State','Next Hop Trigger Critial Delay','Next Hop Trigger Non-Critical Delay','Next Hop Trigger Enabled','VRF','Router ID','Cluster ID','Confederation ID','Neighbor','Version','Hold Time','Keep Alive Interval','Local AS','Remote AS','Neighbor Receive Bytes Queue','Neighbor Receive Capability','Neighbor Receive Keep Alive','Neighbor Receive Notifications','Neighbor Receive Opens','Neighbor Receive Route Refresh','Neighbor Receive Total','Neighbor Receive Total Bytes','Neighbr Receive Updates','Neighbor Sent Bytes Queue','Neighbor Sent Capability','Neighbor Sent Keep Alive','Neighbor Sent Notifications','Neighbor Sent Opens','Neighbor Sent Route Refresh','Neighbor Sent Total','Neighbor Sent Total Bytes','Neighbr Sent Updates','Last Reset','Reset Reason','Timestamp'])
+    instances = LearnBGPInstances.objects.all().values_list('pyats_alias','instance','bgp_id','protocol_state','nexthop_trigger_delay_critical','nexthop_trigger_delay_noncritical','nexthop_trigger_enabled','vrf','router_id','cluster_id','confederation_id','neighbor','version','hold_time','keep_alive_interval','local_as','remote_as','neighbor_counters_received_bytes_in_queue','neighbor_counters_received_capability','neighbor_counters_received_keepalives','neighbor_counters_received_notifications','neighbor_counters_received_opens','neighbor_counters_received_route_refresh','neighbor_counters_received_total','neighbor_counters_received_total_bytes','neighbor_counters_received_updates','neighbor_counters_sent_bytes_in_queue','neighbor_counters_sent_capability','neighbor_counters_sent_keepalives','neighbor_counters_sent_notifications','neighbor_counters_sent_opens','neighbor_counters_sent_route_refresh','neighbor_counters_sent_total','neighbor_counters_sent_total_bytes','neighbor_counters_sent_updates','last_reset','reset_reason','timestamp')
+    for instance in instances:
+        writer.writerow(instance)
+    return response
+
+def learn_bgp_instances_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_instances_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','BGP ID','Protocol State','Next Hop Trigger Critial Delay','Next Hop Trigger Non-Critical Delay','VRF','Router ID','Cluster ID','Confederation ID','Neighbor','Version','Hold Time','Keep Alive Interval','Local AS','Remote AS','Neighbor Receive Bytes Queue','Neighbor Receive Capability','Neighbor Receive Keep Alive','Neighbor Receive Notifications','Neighbor Receive Opens','Neighbor Receive Route Refresh','Neighbor Receive Total','Neighbor Receive Total Bytes','Neighbr Receive Updates','Neighbor Sent Bytes Queue','Neighbor Sent Capability','Neighbor Sent Keep Alive','Neighbor Sent Notifications','Neighbor Sent Opens','Neighbor Sent Route Refresh','Neighbor Sent Total','Neighbor Sent Total Bytes','Neighbr Sent Updates','Last Reset','Reset Reason','Timestamp'])
+    latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
+    instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','instance','bgp_id','protocol_state','nexthop_trigger_delay_critical','nexthop_trigger_delay_noncritical','nexthop_trigger_enabled','vrf','router_id','cluster_id','confederation_id','neighbor','version','hold_time','keep_alive_interval','local_as','remote_as','neighbor_counters_received_bytes_in_queue','neighbor_counters_received_capability','neighbor_counters_received_keepalives','neighbor_counters_received_notifications','neighbor_counters_received_opens','neighbor_counters_received_route_refresh','neighbor_counters_received_total','neighbor_counters_received_total_bytes','neighbor_counters_received_updates','neighbor_counters_sent_bytes_in_queue','neighbor_counters_sent_capability','neighbor_counters_sent_keepalives','neighbor_counters_sent_notifications','neighbor_counters_sent_opens','neighbor_counters_sent_route_refresh','neighbor_counters_sent_total','neighbor_counters_sent_total_bytes','neighbor_counters_sent_updates','last_reset','reset_reason','timestamp')
+    for instance in instances:
+        writer.writerow(instance)
+    return response
+
+def learn_bgp_routes_csv(request):
+    return render(request, 'CSV/LearnBGPRoutes/learn_bgp_routes_csv.html')
+
+def learn_bgp_routes_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_routes_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','VRF','Neighbor','Advertised','Routes','Remote AS','Timestamp'])
+    routes = LearnBGPRoutesPerPeer.objects.all().values_list('pyats_alias','instance','vrf','neighbor','advertised','routes','remote_as','timestamp')
+    for route in routes:
+        writer.writerow(route)
+    return response
+
+def learn_bgp_routes_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_routes_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','VRF','Neighbor','Advertised','Routes','Remote AS','Timestamp'])
+    latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
+    routes = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','instance','vrf','neighbor','advertised','routes','remote_as','timestamp')
+    for route in routes:
+        writer.writerow(route)
+    return response
+
+def learn_bgp_tables_csv(request):
+    return render(request, 'CSV/LearnBGPTables/learn_bgp_tables_csv.html')
+
+def learn_bgp_tables_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_tables_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','VRF','Table Version','Prefix','Index','Local Preference','Next Hop','Origin Code','Status Code','Weight','Timestamp'])
+    tables = LearnBGPTables.objects.all().values_list('pyats_alias','instance','vrf','table_version','prefix','index','localpref','next_hop','origin_code','status_code','weight','timestamp')
+    for table in tables:
+        writer.writerow(table)
+    return response
+
+def learn_bgp_tables_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_bgp_tables_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Instance','VRF','Table Version','Prefix','Index','Local Preference','Next Hop','Origin Code','Status Code','Weight','Timestamp'])
+    latest_timestamp = LearnBGPTables.objects.latest('timestamp')
+    tables = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','instance','vrf','table_version','prefix','index','localpref','next_hop','origin_code','status_code','weight','timestamp')
+    for table in tables:
+        writer.writerow(table)
+    return response        
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 

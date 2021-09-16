@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}CSV File for Learn BGP Tables{% endblock %}
+
+{% block content %}
+<h1>CSV Files for Learn BGP Tables</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>All Records</th>
+  <th>Latest Records</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><button onclick="location.href='{% url 'learn_bgp_tables_csv' %}'">Export All Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_bgp_tables_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}
