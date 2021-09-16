@@ -209,14 +209,18 @@
 {% else %}
 <h2>Merlin has not detected any ARP Statistic removals</h2>
 {% endif %}
-{% if bgp_additions %}
-<h2>Merlin has detected the following BGP configurations have been added</h2>
-<table id = "learn_bgp" class="table table-bordered">
+{% if bgp_instances_additions %}
+<h2>Merlin has detected the following BGP Instance configurations have been added</h2>
+<table id = "bgp_instance_additions" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
+    <th>pyATS Alias</th>
     <th>Instance</th>
     <th>BGP ID</th>
-    <th>State</th>
+    <th>Protocol State</th>
+    <th>Next Hop Trigger Critical Delay</th>
+    <th>Next Hop Trigger Non-Critical Delay</th>
+    <th>Next Hop Trigger Enabled</th>
     <th>VRF</th>
     <th>Router ID</th>
     <th>Cluster ID</th>
@@ -227,17 +231,19 @@
     <th>Keep Alive Interval</th>
     <th>Local AS</th>
     <th>Remote AS</th>
-    <th>Total Recieved Messages</th>
-    <th>Total Sent Messages</th>
-    <th>Connect Last Reset</th>
+    <th>Connection Last Reset</th>
     <th>Reset Reason</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.3 %}
+  <tbody>{% for instance in bgp_instances_additions %}
 <tr>
+    <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
     <td>{{ instance.bgp_id }}</td>
     <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.nexthop_trigger_delay_critical }}</td>
+    <td>{{ instance.nexthop_trigger_delay_noncritical }}</td>
+    <td>{{ instance.nexthop_trigger_enabled }}</td>
     <td>{{ instance.vrf }}</td>
     <td>{{ instance.router_id }}</td>
     <td>{{ instance.cluster_id }}</td>
@@ -248,24 +254,26 @@
     <td>{{ instance.keepalive_interval }}</td>
     <td>{{ instance.local_as_as_no }}</td>
     <td>{{ instance.remote_as }}</td>
-    <td>{{ instance.total }}</td>
-    <td>{{ instance.total }}</td>
     <td>{{ instance.last_reset }}</td>
     <td>{{ instance.reset_reason }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
 {% else %}
-<h2>Merlin has not detected any BGP configuration additons</h2>
+<h2>Merlin has not detected any BGP Instance configuration additons</h2>
 {% endif %}
-{% if bgp_removals %}
-<h2>Merlin has detected the following BGP configurations have been removed</h2>
-<table id = "learn_bgp" class="table table-bordered">
+{% if bgp_instances_removals %}
+<h2>Merlin has detected the following BGP Instance configurations have been removed</h2>
+<table id = "bgp_instance_removals" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
+    <th>pyATS Alias</th>
     <th>Instance</th>
     <th>BGP ID</th>
-    <th>State</th>
+    <th>Protocol State</th>
+    <th>Next Hop Trigger Critical Delay</th>
+    <th>Next Hop Trigger Non-Critical Delay</th>
+    <th>Next Hop Trigger Enabled</th>
     <th>VRF</th>
     <th>Router ID</th>
     <th>Cluster ID</th>
@@ -276,17 +284,19 @@
     <th>Keep Alive Interval</th>
     <th>Local AS</th>
     <th>Remote AS</th>
-    <th>Total Recieved Messages</th>
-    <th>Total Sent Messages</th>
-    <th>Connect Last Reset</th>
+    <th>Connection Last Reset</th>
     <th>Reset Reason</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.3 %}
+  <tbody>{% for instance in bgp_instances_additions %}
 <tr>
+    <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
     <td>{{ instance.bgp_id }}</td>
     <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.nexthop_trigger_delay_critical }}</td>
+    <td>{{ instance.nexthop_trigger_delay_noncritical }}</td>
+    <td>{{ instance.nexthop_trigger_enabled }}</td>
     <td>{{ instance.vrf }}</td>
     <td>{{ instance.router_id }}</td>
     <td>{{ instance.cluster_id }}</td>
@@ -297,15 +307,145 @@
     <td>{{ instance.keepalive_interval }}</td>
     <td>{{ instance.local_as_as_no }}</td>
     <td>{{ instance.remote_as }}</td>
-    <td>{{ instance.total }}</td>
-    <td>{{ instance.total }}</td>
     <td>{{ instance.last_reset }}</td>
     <td>{{ instance.reset_reason }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
 {% else %}
-<h2>Merlin has not detected any BGP configuration removals</h2>
+<h2>Merlin has not detected any BGP Instance configuration removals</h2>
+{% endif %}
+{% if bgp_route_additions %}
+<h2>Merlin has detected the following BGP Route configurations have been added</h2>
+<table id = "bgp_route_additions" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Instance</th>
+    <th>VRF</th>
+    <th>Neighbor</th>
+    <th>Advertised</th>
+    <th>Routes</th>
+    <th>Remote AS</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in bgp_route_additions %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.advertised }}</td>
+    <td>{{ instance.routes }}</td>            
+    <td>{{ instance.remote_as }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any BGP Route configuration additons</h2>
+{% endif %}
+{% if bgp_route_removals %}
+<h2>Merlin has detected the following BGP Route configurations have been removed</h2>
+<table id = "bgp_route_removals" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Instance</th>
+    <th>VRF</th>
+    <th>Neighbor</th>
+    <th>Advertised</th>
+    <th>Routes</th>
+    <th>Remote AS</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in bgp_route_removals %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.advertised }}</td>
+    <td>{{ instance.routes }}</td>            
+    <td>{{ instance.remote_as }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any BGP Route configuration removals</h2>
+{% endif %}
+{% if bgp_table_additions %}
+<h2>Merlin has detected the following BGP Table configurations have been added</h2>
+<table id = "bgp_table_additions" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Instance</th>
+            <th>VRF</th>
+            <th>Table Version</th>
+            <th>Prefix</th>
+            <th>Index</th>
+            <th>Local Preference</th>
+            <th>Next Hop</th>
+            <th>Origin Code</th>
+            <th>Status Code</th>
+            <th>Weight</th>
+          </tr>
+          </thead>
+          <tbody>{% for instance in bgp_table_additions %}
+        <tr>
+            <td>{{ instance.pyats_alias }}</td>
+            <td>{{ instance.instance }}</td>
+            <td>{{ instance.vrf }}</td>
+            <td>{{ instance.table_version }}</td>
+            <td>{{ instance.prefix }}</td>
+            <td>{{ instance.index }}</td>            
+            <td>{{ instance.localpref }}</td>
+            <td>{{ instance.next_hop }}</td>
+            <td>{{ instance.origin_code }}</td>
+            <td>{{ instance.status_code }}</td>
+            <td>{{ instance.weight }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>        
+{% else %}
+<h2>Merlin has not detected any BGP Table configuration additons</h2>
+{% endif %}
+{% if bgp_table_removals %}
+<h2>Merlin has detected the following BGP Table configurations have been removed</h2>
+<table id = "bgp_table_removals" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Instance</th>
+            <th>VRF</th>
+            <th>Table Version</th>
+            <th>Prefix</th>
+            <th>Index</th>
+            <th>Local Preference</th>
+            <th>Next Hop</th>
+            <th>Origin Code</th>
+            <th>Status Code</th>
+            <th>Weight</th>
+          </tr>
+          </thead>
+          <tbody>{% for instance in bgp_table_removals %}
+        <tr>
+            <td>{{ instance.pyats_alias }}</td>
+            <td>{{ instance.instance }}</td>
+            <td>{{ instance.vrf }}</td>
+            <td>{{ instance.table_version }}</td>
+            <td>{{ instance.prefix }}</td>
+            <td>{{ instance.index }}</td>            
+            <td>{{ instance.localpref }}</td>
+            <td>{{ instance.next_hop }}</td>
+            <td>{{ instance.origin_code }}</td>
+            <td>{{ instance.status_code }}</td>
+            <td>{{ instance.weight }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>         
+{% else %}
+<h2>Merlin has not detected any BGP Table configuration removals</h2>
 {% endif %}
 {% if vlan_additions %}
 <h2>Merlin has detected the following VLAN configurations have been added</h2>
@@ -1201,6 +1341,432 @@
 });
 });        
 </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_instance_additions thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_instance_additions thead');
+  
+      var table = $('#bgp_instance_additions').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_instance_removals thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_instance_removals thead');
+  
+      var table = $('#bgp_instance_removals').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_route_additions thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_route_additions thead');
+  
+      var table = $('#bgp_route_additions').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_route_removals thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_route_removals thead');
+  
+      var table = $('#bgp_route_removals').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_table_additions thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_table_additions thead');
+  
+      var table = $('#bgp_table_additions').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#bgp_table_additions thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#bgp_table_additions thead');
+  
+      var table = $('#bgp_table_additions').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>  
 <script type = "text/javascript">
   $(document).ready(function(){
     $('#vlan_additons thead tr')
