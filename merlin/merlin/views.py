@@ -496,8 +496,12 @@ def all_latest(request):
     arp_list = LearnARP.objects.filter(timestamp=arp_latest_timestamp.timestamp)
     arp_statistics_latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
     arp_statistics_list = LearnARPStatistics.objects.filter(timestamp=arp_statistics_latest_timestamp.timestamp)
-    bgp_latest_timestamp = LearnBGP.objects.latest('timestamp')
-    bgp_list = LearnBGP.objects.filter(timestamp=bgp_latest_timestamp.timestamp)
+    bgp_instances_latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
+    bgp_instances_list = LearnBGPInstances.objects.filter(timestamp=bgp_instances_latest_timestamp.timestamp)
+    bgp_routes_latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
+    bgp_routes_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_routes_latest_timestamp.timestamp)
+    bgp_tables_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)       
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -508,7 +512,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_list': bgp_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -529,11 +533,23 @@ def learn_arp_statistics_latest(request):
     context = {'arp_statistics_list': arp_statistics_list}
     return render(request, 'Latest/LearnARPStatistics/learn_arp_statistics_latest.html', context)    
 
-def learn_bgp_latest(request):
-    latest_timestamp = LearnBGP.objects.latest('timestamp')
-    bgp_list = LearnBGP.objects.filter(timestamp=latest_timestamp.timestamp)
-    context = {'bgp_list': bgp_list}
-    return render(request, 'Latest/LearnBGP/learn_bgp_latest.html', context)
+def learn_bgp_instances_latest(request):
+    latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
+    bgp_instances_list = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'bgp_instances_list': bgp_instances_list}
+    return render(request, 'Latest/LearnBGP/learn_bgp_instances_latest.html', context)
+
+def learn_bgp_routes_latest(request):
+    latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
+    bgp_routes_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'bgp_routes_list': bgp_routes_list}
+    return render(request, 'Latest/LearnBGP/learn_bgp_routes_latest.html', context)
+
+def learn_bgp_tables_latest(request):
+    latest_timestamp = LearnBGPTables.objects.latest('timestamp')
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'bgp_tables_list': bgp_tables_list}
+    return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)    
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
