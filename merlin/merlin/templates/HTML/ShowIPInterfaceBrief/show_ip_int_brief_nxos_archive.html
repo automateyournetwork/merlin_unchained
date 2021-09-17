@@ -1,51 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Learn BGP Tables for {{ os }}{% endblock %}
+{% block title %}Show IP Interface Brief Results for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Learn BGP Tables for {{ os }}</h1>
-<table id = "learn_bgp_tables" class="table table-bordered">
-    <thead class = "alert-success">
-        <tr>
-            <th>pyATS Alias</th>
-            <th>Instance</th>
-            <th>VRF</th>
-            <th>Table Version</th>
-            <th>Prefix</th>
-            <th>Index</th>
-            <th>Local Preference</th>
-            <th>Next Hop</th>
-            <th>Origin Code</th>
-            <th>Status Code</th>
-            <th>Weight</th>
-            <th>Timestamp</th>
-          </tr>
-          </thead>
-          <tbody>{% for instance in bgp_tables_list %}
-        <tr>
-            <td>{{ instance.pyats_alias }}</td>
-            <td>{{ instance.instance }}</td>
-            <td>{{ instance.vrf }}</td>
-            <td>{{ instance.table_version }}</td>
-            <td>{{ instance.prefix }}</td>
-            <td>{{ instance.index }}</td>            
-            <td>{{ instance.localpref }}</td>
-            <td>{{ instance.next_hop }}</td>
-            <td>{{ instance.origin_code }}</td>
-            <td>{{ instance.status_code }}</td>
-            <td>{{ instance.weight }}</td>
-            <td>{{ instance.timestamp }}</td>
-          </tr>{% endfor %}
-          </tbody>  
-        </table>  
+<h1>Show IP Interface Brief Results for NX-OS</h1>
+<table id = "table" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in interface_list %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#learn_bgp_tables thead tr')
+    $('#table thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_bgp_tables thead');
+    .appendTo('#learn_acl thead');
 
-    var table = $('#learn_bgp_tables').DataTable({
+    var table = $('#table').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

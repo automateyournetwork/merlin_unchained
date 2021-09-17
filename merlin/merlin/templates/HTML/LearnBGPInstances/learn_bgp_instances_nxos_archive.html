@@ -1,45 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %}Learn ARP Statistics for {{ os }}{% endblock %}
+{% block title %}Learn BGP Instances for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Learn ARP for Statistics {{ os }}</h1>
-<table id = "learn_arp_statistics" class="table table-bordered">
+<h1>Learn BGP Instances for for NX-OS</h1>
+<table id = "learn_bgp_instances" class="table table-bordered">
     <thead class = "alert-success">
-    <tr>
+  <tr>
     <th>pyATS Alias</th>
-    <th>Total ARP Entries</th>
-    <th>Input ARP Drops</th>
-    <th>Input ARP Replies</th>
-    <th>Input ARP Requests</th>
-    <th>Incomplete ARP</th>
-    <th>Output ARP Replies</th>
-    <th>Output ARP Requests</th>
+    <th>Instance</th>
+    <th>BGP ID</th>
+    <th>Protocol State</th>
+    <th>Next Hop Trigger Critical Delay</th>
+    <th>Next Hop Trigger Non-Critical Delay</th>
+    <th>Next Hop Trigger Enabled</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>Cluster ID</th>
+    <th>Confederation ID</th>
+    <th>Neighbor</th>
+    <th>Version</th>
+    <th>Hold Time</th>
+    <th>Keep Alive Interval</th>
+    <th>Local AS</th>
+    <th>Remote AS</th>
+    <th>Connection Last Reset</th>
+    <th>Reset Reason</th>
     <th>Timestamp</th>
-    </tr>
-    </thead>
-    <tbody>{% for stat in arp_statistics_list %}
-    <tr>
-        <td>{{ stat.pyats_alias }}</td>
-        <td>{{ stat.entries_total }}</td>
-        <td>{{ stat.in_drops }}</td>
-        <td>{{ stat.in_replies_pkts }}</td>
-        <td>{{ stat.in_requests_pkts }}</td>
-        <td>{{ stat.incomplete_total }}</td>
-        <td>{{ stat.out_replies_pkts }}</td>
-        <td>{{ stat.out_requests_pkts }}</td>
-        <td>{{ stat.timestamp }}</td>
-    </tr>{% endfor %}
-    </tbody>
-  </table>
+  </tr>
+  </thead>
+  <tbody>{% for instance in bgp_instance_list %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.bgp_id }}</td>
+    <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.nexthop_trigger_delay_critical }}</td>
+    <td>{{ instance.nexthop_trigger_delay_noncritical }}</td>
+    <td>{{ instance.nexthop_trigger_enabled }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.router_id }}</td>
+    <td>{{ instance.cluster_id }}</td>
+    <td>{{ instance.confederation_identifier }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.bgp_version }}</td>
+    <td>{{ instance.holdtime }}</td>
+    <td>{{ instance.keepalive_interval }}</td>
+    <td>{{ instance.local_as_as_no }}</td>
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.last_reset }}</td>
+    <td>{{ instance.reset_reason }}</td>
+    <td>{{ instance.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#learn_arp_statistics thead tr')
+    $('#learn_bgp_instances thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_arp_statistics thead');
+    .appendTo('#learn_bgp_instances thead');
 
-    var table = $('#learn_arp_statistics').DataTable({
+    var table = $('#learn_bgp_instances').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
