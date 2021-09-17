@@ -18,6 +18,7 @@
             <th>Origin Code</th>
             <th>Status Code</th>
             <th>Weight</th>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>{% for instance in bgp_tables_list %}
@@ -33,6 +34,7 @@
             <td>{{ instance.origin_code }}</td>
             <td>{{ instance.status_code }}</td>
             <td>{{ instance.weight }}</td>
+            <td>{{ instance.timestamp }}</td>
           </tr>{% endfor %}
           </tbody>  
         </table>  

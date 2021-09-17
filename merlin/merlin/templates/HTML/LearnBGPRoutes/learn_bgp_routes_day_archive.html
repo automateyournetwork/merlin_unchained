@@ -14,6 +14,7 @@
     <th>Advertised</th>
     <th>Routes</th>
     <th>Remote AS</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for instance in bgp_route_list %}
@@ -25,6 +26,7 @@
     <td>{{ instance.advertised }}</td>
     <td>{{ instance.routes }}</td>            
     <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>

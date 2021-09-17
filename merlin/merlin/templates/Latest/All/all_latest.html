@@ -116,6 +116,7 @@
       <th>Total Sent Messages</th>
       <th>Connect Last Reset</th>
       <th>Reset Reason</th>
+      <th>Timestamp</th>
     </tr>
     </thead>
     <tbody>{% for instance in bgp_list %}
@@ -137,6 +138,7 @@
       <td>{{ instance.total }}</td>
       <td>{{ instance.last_reset }}</td>
       <td>{{ instance.reset_reason }}</td>
+      <td>{{ instance.timestamp }}</td>
     </tr>{% endfor %}
     </tbody>  
   </table>
@@ -163,6 +165,7 @@
     <th>Remote AS</th>
     <th>Connection Last Reset</th>
     <th>Reset Reason</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for instance in bgp_instances_list %}
@@ -186,6 +189,7 @@
     <td>{{ instance.remote_as }}</td>
     <td>{{ instance.last_reset }}</td>
     <td>{{ instance.reset_reason }}</td>
+    <td>{{ instance.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
@@ -200,6 +204,7 @@
     <th>Advertised</th>
     <th>Routes</th>
     <th>Remote AS</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for instance in bgp_routes_list %}
@@ -211,6 +216,7 @@
     <td>{{ instance.advertised }}</td>
     <td>{{ instance.routes }}</td>            
     <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
@@ -229,6 +235,7 @@
             <th>Origin Code</th>
             <th>Status Code</th>
             <th>Weight</th>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>{% for instance in bgp_tables_list %}
@@ -244,6 +251,7 @@
             <td>{{ instance.origin_code }}</td>
             <td>{{ instance.status_code }}</td>
             <td>{{ instance.weight }}</td>
+            <td>{{ instance.timestamp }}</td>
           </tr>{% endfor %}
           </tbody>  
         </table> 

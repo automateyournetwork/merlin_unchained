@@ -26,6 +26,7 @@
     <th>Remote AS</th>
     <th>Connection Last Reset</th>
     <th>Reset Reason</th>
+    <th>Timestamp</th>
   </tr>
   </thead>
   <tbody>{% for instance in bgp_instances_list %}
@@ -49,6 +50,7 @@
     <td>{{ instance.remote_as }}</td>
     <td>{{ instance.last_reset }}</td>
     <td>{{ instance.reset_reason }}</td>
+    <td>{{ instance.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
