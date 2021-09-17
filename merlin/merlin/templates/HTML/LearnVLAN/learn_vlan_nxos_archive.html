@@ -1,26 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}Show IP Interface Brief Results for {{ os }}{% endblock %}
+{% block title %}Learn VLAN for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Show IP Interface Brief Results for {{ os }}</h1>
+<h1>Learn VLAN for NX-OS</h1>
 <table id = "table" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
-    <th>pyATS Alias</th>
-    <th>Interface</th>
-    <th>IP Address</th>
-    <th>Status</th>
+  <th>pyATS Alias</th>
+  <th>VLAN</th>
+  <th>Name</th>
+  <th>State</th>
+  <th>Shutdown</th>
+  <th>Interfaces</th>
+  <th>Mode</th>
+  <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in interface_list %}
+  <tbody>{% for vlan in vlan_list %}
   <tr>
-    <td>{{ interface.pyats_alias }}</td>
-    <td>{{ interface.interface }}</td>
-    <td>{{ interface.ip_address }}</td>
-    <td>{{ interface.interface_status }}</td>
-  </tr>{% endfor %}
-  </tbody>  
+    <td>{{ vlan.pyats_alias }}</td>
+    <td>{{ vlan.vlan }}</td>
+    <td>{{ vlan.name }}</td>
+    <td>{{ vlan.state }}</td>
+    <td>{{ vlan.shutdown }}</td>
+    <td>{{ vlan.interfaces }}</td>
+    <td>{{ vlan.mode }}</td>
+    <td>{{ vlan.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){

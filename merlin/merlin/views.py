@@ -25,14 +25,14 @@ def learn_acl_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'acl_list': acl_list}
     return render(request, 'HTML/LearnACL/learn_acl_day_archive.html', context)
 
-def learn_acl_os_archive(request, os):
-    acl_list = LearnACL.objects.filter(os=os)
+def learn_acl_nxos_archive(request):
+    acl_list = LearnACL.objects.filter(os='nxos')
     context = {'os': os, 'acl_list': acl_list}
-    return render(request, 'HTML/LearnACL/learn_acl_os_archive.html', context)
+    return render(request, 'HTML/LearnACL/learn_acl_nxos_archive.html', context)
 
-def learn_acl_alias_archive(request, os, pyats_alias):
-    acl_list = LearnACL.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'acl_list': acl_list}
+def learn_acl_alias_archive(request, pyats_alias):
+    acl_list = LearnACL.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'acl_list': acl_list}
     return render(request, 'HTML/LearnACL/learn_acl_alias_archive.html', context)
 
 def learn_arp_all(request):
@@ -55,14 +55,14 @@ def learn_arp_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'arp_list': arp_list}
     return render(request, 'HTML/LearnARP/learn_arp_day_archive.html', context)
 
-def learn_arp_os_archive(request, os):
-    arp_list = LearnARP.objects.filter(os=os)
+def learn_arp_nxos_archive(request):
+    arp_list = LearnARP.objects.filter(os='nxos')
     context = {'os': os, 'arp_list': arp_list}
-    return render(request, 'HTML/LearnARP/learn_arp_os_archive.html', context)
+    return render(request, 'HTML/LearnARP/learn_arp_nxos_archive.html', context)
 
-def learn_arp_alias_archive(request, os, pyats_alias):
-    arp_list = LearnARP.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'arp_list': arp_list}
+def learn_arp_alias_archive(request, pyats_alias):
+    arp_list = LearnARP.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'arp_list': arp_list}
     return render(request, 'HTML/LearnARP/learn_arp_alias_archive.html', context)
 
 def learn_arp_statistics_all(request):
@@ -85,14 +85,14 @@ def learn_arp_statistics_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'arp_statistics_list': arp_statistics_list}
     return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_day_archive.html', context)
 
-def learn_arp_statistics_os_archive(request, os):
-    arp_statistics_list = LearnARPStatistics.objects.filter(os=os)
+def learn_arp_statistics_nxos_archive(request):
+    arp_statistics_list = LearnARPStatistics.objects.filter(os='nxos')
     context = {'os': os, 'arp_statistics_list': arp_statistics_list}
-    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_os_archive.html', context)
+    return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_nxos_archive.html', context)
 
-def learn_arp_statistics_alias_archive(request, os, pyats_alias):
-    arp_statistics_list = LearnARPStatistics.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'arp_statistics_list': arp_statistics_list}
+def learn_arp_statistics_alias_archive(request, pyats_alias):
+    arp_statistics_list = LearnARPStatistics.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'arp_statistics_list': arp_statistics_list}
     return render(request, 'HTML/LearnARPStatistics/learn_arp_statistics_alias_archive.html', context)    
 
 def learn_bgp_instances_all(request):
@@ -115,14 +115,14 @@ def learn_bgp_instances_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'bgp_instance_list': bgp_instance_list}
     return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_day_archive.html', context)
 
-def learn_bgp_instances_os_archive(request, os):
-    bgp_instance_list = LearnBGPInstances.objects.filter(os=os)
+def learn_bgp_instances_nxos_archive(request):
+    bgp_instance_list = LearnBGPInstances.objects.filter(os='nxos')
     context = {'os': os, 'bgp_instance_list': bgp_instance_list}
-    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_os_archive.html', context)
+    return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_nxos_archive.html', context)
 
-def learn_bgp_instances_alias_archive(request, os, pyats_alias):
-    bgp_instance_list = LearnBGPInstances.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_instance_list': bgp_instance_list}
+def learn_bgp_instances_alias_archive(request, pyats_alias):
+    bgp_instance_list = LearnBGPInstances.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'bgp_instance_list': bgp_instance_list}
     return render(request, 'HTML/LearnBGPInstances/learn_bgp_instances_alias_archive.html', context)
 
 def learn_bgp_routes_all(request):
@@ -145,14 +145,14 @@ def learn_bgp_routes_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'bgp_route_list': bgp_route_list}
     return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_day_archive.html', context)
 
-def learn_bgp_routes_os_archive(request, os):
-    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(os=os)
+def learn_bgp_routes_nxos_archive(request):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(os='nxos')
     context = {'os': os, 'bgp_route_list': bgp_route_list}
-    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_os_archive.html', context)
+    return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_nxos_archive.html', context)
 
-def learn_bgp_routes_alias_archive(request, os, pyats_alias):
-    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_route_list': bgp_route_list}
+def learn_bgp_routes_alias_archive(request, pyats_alias):
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'bgp_route_list': bgp_route_list}
     return render(request, 'HTML/LearnBGPRoutes/learn_bgp_routes_alias_archive.html', context)
 
 def learn_bgp_tables_all(request):
@@ -175,14 +175,14 @@ def learn_bgp_tables_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'bgp_tables_list': bgp_tables_list}
     return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_day_archive.html', context)
 
-def learn_bgp_tables_os_archive(request, os):
-    bgp_tables_list = LearnBGPTables.objects.filter(os=os)
+def learn_bgp_tables_nxos_archive(request):
+    bgp_tables_list = LearnBGPTables.objects.filter(os='nxos')
     context = {'os': os, 'bgp_tables_list': bgp_tables_list}
-    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_os_archive.html', context)
+    return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_nxos_archive.html', context)
 
-def learn_bgp_tables_alias_archive(request, os, pyats_alias):
-    bgp_tables_list = LearnBGPTables.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'bgp_tables_list': bgp_tables_list}
+def learn_bgp_tables_alias_archive(request, pyats_alias):
+    bgp_tables_list = LearnBGPTables.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'bgp_tables_list': bgp_tables_list}
     return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_alias_archive.html', context)    
 
 def learn_vlan_all(request):
@@ -205,14 +205,14 @@ def learn_vlan_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'vlan_list': v_list}
     return render(request, 'HTML/LearnVLAN/learn_vlan_day_archive.html', context)
 
-def learn_vlan_os_archive(request, os):
-    v_list = LearnVLAN.objects.filter(os=os)
+def learn_vlan_nxos_archive(request):
+    v_list = LearnVLAN.objects.filter(os='nxos')
     context = {'os': os, 'vlan_list': v_list}
-    return render(request, 'HTML/LearnVLAN/learn_vlan_os_archive.html', context)
+    return render(request, 'HTML/LearnVLAN/learn_vlan_nxos_archive.html', context)
 
-def learn_vlan_alias_archive(request, os, pyats_alias):
-    v_list = LearnVLAN.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'vlan_list': v_list}
+def learn_vlan_alias_archive(request, pyats_alias):
+    v_list = LearnVLAN.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'vlan_list': v_list}
     return render(request, 'HTML/LearnVLAN/learn_vlan_alias_archive.html', context)
 
 def learn_vrf_all(request):
@@ -235,14 +235,14 @@ def learn_vrf_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_day_archive.html', context)
 
-def learn_vrf_os_archive(request, os):
-    v_list = LearnVRF.objects.filter(os=os)
+def learn_vrf_nxos_archive(request):
+    v_list = LearnVRF.objects.filter(os='nxos')
     context = {'os': os, 'vrf_list': v_list}
-    return render(request, 'HTML/LearnVRF/learn_vrf_os_archive.html', context)
+    return render(request, 'HTML/LearnVRF/learn_vrf_nxos_archive.html', context)
 
-def learn_vrf_alias_archive(request, os, pyats_alias):
-    v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'vrf_list': v_list}
+def learn_vrf_alias_archive(request,pyats_alias):
+    v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
 
 def show_inventory_all(request):
@@ -265,14 +265,14 @@ def show_inventory_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'inventory_list': inventory_list}
     return render(request, 'HTML/ShowInventory/show_inventory_day_archive.html', context)
 
-def show_inventory_os_archive(request, os):
-    inventory_list = ShowInventory.objects.filter(os=os)
-    context = {'os': os, 'inventory_list': inventory_list}
-    return render(request, 'HTML/ShowInventory/show_inventory_os_archive.html', context)
+def show_inventory_nxos_archive(request):
+    inventory_list = ShowInventory.objects.filter(os='nxos')
+    context = {'inventory_list': inventory_list}
+    return render(request, 'HTML/ShowInventory/show_inventory_nxos_archive.html', context)
 
-def show_inventory_alias_archive(request, os, pyats_alias):
-    inventory_list = ShowInventory.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'inventory_list': inventory_list}
+def show_inventory_alias_archive(request, pyats_alias):
+    inventory_list = ShowInventory.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'inventory_list': inventory_list}
     return render(request, 'HTML/ShowInventory/show_inventory_alias_archive.html', context)
 
 def show_ip_int_brief_all(request):
@@ -295,14 +295,14 @@ def show_ip_int_brief_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'interface_list': interface_list}
     return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_day_archive.html', context)
 
-def show_ip_int_brief_os_archive(request, os):
-    interface_list = ShowIPIntBrief.objects.filter(os=os)
+def show_ip_int_brief_nxos_archive(request):
+    interface_list = ShowIPIntBrief.objects.filter(os='nxos')
     context = {'os': os, 'interface_list': interface_list}
-    return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_os_archive.html', context)
+    return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_nxos_archive.html', context)
 
-def show_ip_int_brief_alias_archive(request, os, pyats_alias):
-    interface_list = ShowIPIntBrief.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'interface_list': interface_list}
+def show_ip_int_brief_alias_archive(request, pyats_alias):
+    interface_list = ShowIPIntBrief.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_alias_archive.html', context)
 
 def show_version_all(request):
@@ -325,14 +325,14 @@ def show_version_day_archive(request, year, month, day):
     context = {'year': year, 'month': month, 'day': day, 'version_list': v_list}
     return render(request, 'HTML/ShowVersion/show_version_day_archive.html', context)
 
-def show_version_os_archive(request, os):
-    v_list = ShowVersion.objects.filter(os=os)
+def show_version_nxos_archive(request):
+    v_list = ShowVersion.objects.filter(os='nxos')
     context = {'os': os, 'version_list': v_list}
-    return render(request, 'HTML/ShowVersion/show_version_os_archive.html', context)
+    return render(request, 'HTML/ShowVersion/show_version_nxos_archive.html', context)
 
-def show_version_alias_archive(request, os, pyats_alias):
-    v_list = ShowVersion.objects.filter(pyats_alias=pyats_alias, os=os)
-    context = {'os': os, 'pyats_alias': pyats_alias, 'version_list': v_list}
+def show_version_alias_archive(request, pyats_alias):
+    v_list = ShowVersion.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'version_list': v_list}
     return render(request, 'HTML/ShowVersion/show_version_alias_archive.html', context)
 
 # CSV VIEWS

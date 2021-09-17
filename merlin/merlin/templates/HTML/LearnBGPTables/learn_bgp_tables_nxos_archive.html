@@ -1,43 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}Learn BGP Routes for {{ os }}{% endblock %}
+{% block title %}Learn BGP Tables for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Learn BGP Routes for {{ os }}</h1>
-<table id = "learn_bgp_routes" class="table table-bordered">
+<h1>Learn BGP Tables for NX-OS</h1>
+<table id = "learn_bgp_tables" class="table table-bordered">
     <thead class = "alert-success">
-  <tr>
-    <th>pyATS Alias</th>
-    <th>Instance</th>
-    <th>VRF</th>
-    <th>Neighbor</th>
-    <th>Advertised</th>
-    <th>Routes</th>
-    <th>Remote AS</th>
-    <th>Timestamp</th>
-  </tr>
-  </thead>
-  <tbody>{% for instance in bgp_route_list %}
-<tr>
-    <td>{{ instance.pyats_alias }}</td>
-    <td>{{ instance.instance }}</td>
-    <td>{{ instance.vrf }}</td>
-    <td>{{ instance.neighbor }}</td>
-    <td>{{ instance.advertised }}</td>
-    <td>{{ instance.routes }}</td>            
-    <td>{{ instance.remote_as }}</td>
-    <td>{{ instance.timestamp }}</td>
-  </tr>{% endfor %}
-  </tbody>  
-</table>
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Instance</th>
+            <th>VRF</th>
+            <th>Table Version</th>
+            <th>Prefix</th>
+            <th>Index</th>
+            <th>Local Preference</th>
+            <th>Next Hop</th>
+            <th>Origin Code</th>
+            <th>Status Code</th>
+            <th>Weight</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for instance in bgp_tables_list %}
+        <tr>
+            <td>{{ instance.pyats_alias }}</td>
+            <td>{{ instance.instance }}</td>
+            <td>{{ instance.vrf }}</td>
+            <td>{{ instance.table_version }}</td>
+            <td>{{ instance.prefix }}</td>
+            <td>{{ instance.index }}</td>            
+            <td>{{ instance.localpref }}</td>
+            <td>{{ instance.next_hop }}</td>
+            <td>{{ instance.origin_code }}</td>
+            <td>{{ instance.status_code }}</td>
+            <td>{{ instance.weight }}</td>
+            <td>{{ instance.timestamp }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#learn_bgp_routes thead tr')
+    $('#learn_bgp_tables thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_bgp_routes thead');
+    .appendTo('#learn_bgp_tables thead');
 
-    var table = $('#learn_bgp_routes').DataTable({
+    var table = $('#learn_bgp_tables').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

@@ -1,43 +1,51 @@
 {% extends "base.html" %}
 
-{% block title %}Learn ARP for {{ os }}{% endblock %}
+{% block title %}Learn ACL for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Learn ARP for {{ os }}</h1>
-<table id = "learn_arp" class="table table-bordered">
-    <thead class = "alert-success">
-    <tr>
-    <th>pyATS Alias</th>
-    <th>Interface</th>
-    <th>Neighbor IP Address</th>
-    <th>Neighbor MAC Address</th>
-    <th>Origin</th>
-    <th>ARP Dynamic Learning Local Proxy Enabled</th>
-    <th>ARP Dynamic Learning Proxy Enable</th>
-    <th>Timestamp</th>
-    </tr>
-    </thead>
-    <tbody>{% for interface in arp_list %}
-    <tr>
-      <td>{{ interface.pyats_alias }}</td>
-      <td>{{ interface.interface }}</td>
-      <td>{{ interface.neighbor }}</td>
-      <td>{{ interface.link_layer_address }}</td>
-      <td>{{ interface.origin }}</td>
-      <td>{{ interface.local_proxy_enable }}</td>
-      <td>{{ interface.proxy_enable }}</td>
-      <td>{{ interface.timestamp }}</td>
-    </tr>{% endfor %}  
-    </tbody>
-  </table>
+<h1>Learn ACL for NX-OS</h1>
+<table id = "learn_acl" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Access Control List</th>
+  <th>Access Control Entry</th>
+  <th>Permission</th>
+  <th>Logging</th>
+  <th>Source Network</th>
+  <th>Destination Network</th>
+  <th>Layer 3 Protocol</th>
+  <th>Layer 4 Protocol</th>
+  <th>Operator</th>
+  <th>Port</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for acl in acl_list %}
+  <tr>
+    <td>{{ acl.pyats_alias }}</td>
+    <td>{{ acl.acl }}</td>
+    <td>{{ acl.ace }}</td>
+    <td>{{ acl.permission }}</td>
+    <td>{{ acl.logging }}</td>
+    <td>{{ acl.source_network }}</td>
+    <td>{{ acl.destination_network }}</td>
+    <td>{{ acl.l3_protocol }}</td>
+    <td>{{ acl.l4_protocol }}</td>
+    <td>{{ acl.operator }}</td>
+    <td>{{ acl.port }}</td>
+    <td>{{ acl.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#learn_arp thead tr')
+    $('#learn_acl thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_arp thead');
+    .appendTo('#learn_acl thead');
 
-    var table = $('#learn_arp').DataTable({
+    var table = $('#learn_acl').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

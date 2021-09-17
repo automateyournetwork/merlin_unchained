@@ -1,39 +1,43 @@
 {% extends "base.html" %}
 
-{% block title %}Show Inventory Results for {{ os }}{% endblock %}
+{% block title %}Learn BGP Routes for NX-OS{% endblock %}
 
 {% block content %}
-<h1>Show Inventory Results for {{ os }}</h1>
-<table id = "table" class="table table-bordered">
-  <thead class = "alert-success">
+<h1>Learn BGP Routes for NX-OS</h1>
+<table id = "learn_bgp_routes" class="table table-bordered">
+    <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
-    <th>Slot</th>
-    <th>Description</th>
-    <th>PID</th>
-    <th>Serial Number</th>
+    <th>Instance</th>
+    <th>VRF</th>
+    <th>Neighbor</th>
+    <th>Advertised</th>
+    <th>Routes</th>
+    <th>Remote AS</th>
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in inventory_list %}
+  <tbody>{% for instance in bgp_route_list %}
 <tr>
-    <td>{{ part.pyats_alias }}</td>
-    <td>{{ part.part }}</td>
-    <td>{{ part.description }}</td>
-    <td>{{ part.pid }}</td>
-    <td>{{ part.serial_number }}</td>
-    <td>{{ part.timestamp }}</td>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.advertised }}</td>
+    <td>{{ instance.routes }}</td>            
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_bgp_routes thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_bgp_routes thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_bgp_routes').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
