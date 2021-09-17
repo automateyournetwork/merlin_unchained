@@ -19,6 +19,7 @@
             <th>Origin Code</th>
             <th>Status Code</th>
             <th>Weight</th>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>{% for instance in bgp_table_additions %}
@@ -34,6 +35,7 @@
             <td>{{ instance.origin_code }}</td>
             <td>{{ instance.status_code }}</td>
             <td>{{ instance.weight }}</td>
+            <td>{{ instance.timestamp }}</td>
           </tr>{% endfor %}
           </tbody>  
         </table>        
@@ -56,6 +58,7 @@
             <th>Origin Code</th>
             <th>Status Code</th>
             <th>Weight</th>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>{% for instance in bgp_table_removals %}
@@ -71,6 +74,7 @@
             <td>{{ instance.origin_code }}</td>
             <td>{{ instance.status_code }}</td>
             <td>{{ instance.weight }}</td>
+            <td>{{ instance.timestamp }}</td>
           </tr>{% endfor %}
           </tbody>  
         </table>         
