@@ -5,6 +5,39 @@
 {% block content %}
 <h1>Merlin Search Results</h1>
 {% if object_list.0 %}
+<h2>Device Hits</h2>
+<table id = "devices" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>Hostname</th>
+    <th>Alias</th>
+    <th>Device Type</th>
+    <th>OS</th>
+    <th>Username</th>
+    <th>Protocol</th>
+    <th>IP Address</th>
+    <th>Port</th>
+    <th>Connection Timeout</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for device in object_list.0 %}
+  <tr>
+    <td>{{ device.hostname }}</td>
+    <td>{{ device.alias }}</td>
+    <td>{{ device.device_type }}</td>
+    <td>{{ device.os }}</td>
+    <td>{{ device.username }}</td>
+    <td>{{ device.protocol }}</td>
+    <td>{{ device.ip_address }}</td>
+    <td>{{ device.port }}</td>
+    <td>{{ device.connection_timeout }}</td>
+    <td>{{ device.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.1 %}
 <h2>Learn ACL Hits</h2>
 <table id = "learn_acl" class="table table-bordered">
   <thead class = "alert-success">
@@ -23,7 +56,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for acl in object_list.0 %}
+  <tbody>{% for acl in object_list.1 %}
   <tr>
     <td>{{ acl.pyats_alias }}</td>
     <td>{{ acl.acl }}</td>
@@ -41,7 +74,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.1 %}
+{% if object_list.2 %}
 <h2>Learn ARP Hits</h2>
 <table id = "learn_arp" class="table table-bordered">
   <thead class = "alert-success">
@@ -56,7 +89,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.1 %}
+  <tbody>{% for interface in object_list.2 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -70,7 +103,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.2 %}
+{% if object_list.3 %}
 <h2>Learn ARP Statistics Hits</h2>
 <table id = "learn_arp_statistics" class="table table-bordered">
   <thead class = "alert-success">
@@ -88,20 +121,20 @@
   </thead>
   <tbody>
   <tr>
-    <td>{{ object_list.2.pyats_alias }}</td>
-    <td>{{ object_list.2.entries_total }}</td>
-    <td>{{ object_list.2.in_drops }}</td>
-    <td>{{ object_list.2.in_replies_pkts }}</td>
-    <td>{{ object_list.2.in_requests_pkts }}</td>
-    <td>{{ object_list.2.incomplete_total }}</td>
-    <td>{{ object_list.2.out_replies_pkts }}</td>
-    <td>{{ object_list.2.out_requests_pkts }}</td>
-    <td>{{ object_list.2.timestamp }}</td>
+    <td>{{ object_list.3.pyats_alias }}</td>
+    <td>{{ object_list.3.entries_total }}</td>
+    <td>{{ object_list.3.in_drops }}</td>
+    <td>{{ object_list.3.in_replies_pkts }}</td>
+    <td>{{ object_list.3.in_requests_pkts }}</td>
+    <td>{{ object_list.3.incomplete_total }}</td>
+    <td>{{ object_list.3.out_replies_pkts }}</td>
+    <td>{{ object_list.3.out_requests_pkts }}</td>
+    <td>{{ object_list.3.timestamp }}</td>
   </tr> 
   </tbody>
 </table>
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.4 %}
 <h2>Learn BGP Instances Hits</h2>
 <table id = "learn_bgp_instances" class="table table-bordered">
     <thead class = "alert-success">
@@ -128,7 +161,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.3 %}
+  <tbody>{% for instance in object_list.4 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -154,7 +187,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.4 %}
+{% if object_list.5 %}
 <h2>Learn BGP Routes Per Peer Hits</h2>
 <table id = "learn_bgp_routes" class="table table-bordered">
     <thead class = "alert-success">
@@ -169,7 +202,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.4 %}
+  <tbody>{% for instance in object_list.5 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -183,7 +216,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.5 %}
+{% if object_list.6 %}
 <h2>Learn BGP Tables Hits</h2>
 <table id = "learn_bgp_tables" class="table table-bordered">
     <thead class = "alert-success">
@@ -202,7 +235,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.5 %}
+  <tbody>{% for instance in object_list.6 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -220,7 +253,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.6 %}
+{% if object_list.7 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -235,7 +268,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.6 %}
+  <tbody>{% for vlan in object_list.7 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -249,9 +282,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.7 %}
+{% if object_list.8 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.7 %}
+  {% for vrf in object_list.8 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -276,7 +309,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.8 %}
+{% if object_list.9 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -289,7 +322,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.8 %}
+  <tbody>{% for part in object_list.9 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -301,7 +334,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.10 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -313,7 +346,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.9 %}
+  <tbody>{% for interface in object_list.10 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -324,9 +357,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.11 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.10 %}
+  {% for version in object_list.11 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -457,13 +490,8 @@
       </table>{% endif %}{% endfor %}
 {% endif %}
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#learn_acl thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#learn_acl thead');
-
-    var table = $('#learn_acl').DataTable({
+    $(document).ready(function(){
+        $('#devices').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -471,425 +499,67 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#learn_arp thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#learn_arp thead');
-
-    var table = $('#learn_arp').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#learn_arp_statistics thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#learn_arp_statistics thead');
-  
-      var table = $('#learn_arp_statistics').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-</script>
+        $('#learn_acl').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#learn_bgp_instances thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#learn_bgp_instances thead');
-  
-      var table = $('#learn_bgp_instances').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-</script>
+        $('#learn_arp').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#learn_bgp_routes thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#learn_bgp_routes thead');
-  
-      var table = $('#learn_bgp_routes').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-</script>
+        $('#bgp_instances').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#learn_bgp_tables thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#learn_bgp_tables thead');
-  
-      var table = $('#learn_bgp_tables').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#learn_vlan thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#learn_vlan thead');
-
-    var table = $('#learn_vlan').DataTable({
+        $('#bgp_routes').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -897,70 +567,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#learn_vrf thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#learn_vrf thead');
-
-    var table = $('#learn_vrf').DataTable({
+    $(document).ready(function(){
+        $('#bgp_tables').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -968,70 +584,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>   
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#show_inventory thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#show_inventory thead');
-
-    var table = $('#show_inventory').DataTable({
+    $(document).ready(function(){
+        $('#learn_vlan').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1039,70 +601,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#show_ip_int_brief thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#show_ip_int_brief thead');
-
-    var table = $('#show_ip_int_brief').DataTable({
+    $(document).ready(function(){
+        $('#learn_vrf').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1110,70 +618,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#show_version thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#show_version thead');
-
-    var table = $('#show_version').DataTable({
+    $(document).ready(function(){
+        $('#show_inventory').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1181,60 +635,45 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_ip_int_brief').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_version').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>  
 {% endblock %}

@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from . import models
 
+admin.site.register(models.Devices)
 admin.site.register(models.LearnACL)
 admin.site.register(models.LearnARP)
 admin.site.register(models.LearnARPStatistics)

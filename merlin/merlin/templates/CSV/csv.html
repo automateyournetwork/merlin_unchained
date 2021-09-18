@@ -14,6 +14,10 @@
   </thead>
   <tbody>
   <tr>
+    <td>Devices</td>
+    <td><button onclick="location.href='{% url 'devices_csv' %}'">Export All ACL Records</button></td>
+  </tr>    
+  <tr>
     <td>Learn ACL</td>
     <td><button onclick="location.href='{% url 'learn_acl_csv' %}'">Export All ACL Records</button></td>
     <td><button onclick="location.href='{% url 'learn_acl_csv_latest' %}'">Export Latest ACL Records</button></td>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}CSV File for Devices{% endblock %}
+
+{% block content %}
+<h1>CSV Files for Devices</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>All Records</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><button onclick="location.href='{% url 'devices_csv' %}'">Export All Records</button></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}

@@ -1,10 +1,75 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
 # HTML VIEWS #
+def devices_all(request):
+    device_list = Devices.objects.all()
+    context = {'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_all.html', context)
+
+def devices_year_archive(request, year):
+    device_list = Devices.objects.filter(timestamp__year=year)
+    context = {'year': year, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_year_archive.html', context)
+
+def devices_month_archive(request, year, month):
+    device_list = Devices.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_month_archive.html', context)
+
+def devices_day_archive(request, year, month, day):
+    device_list = Devices.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_day_archive.html', context)
+
+def devices_hostname_archive(request, hostname):
+    device_list = Devices.objects.filter(hostname=hostname)
+    context = {'hostname': hostname, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_hostname_archive.html', context)
+
+def devices_alias_archive(request, alias):
+    device_list = Devices.objects.filter(alias=alias)
+    context = {'alias': alias, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_alias_archive.html', context)
+
+def devices_os_archive(request, os):
+    device_list = Devices.objects.filter(os=os)
+    context = {'os': os, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_os_archive.html', context)
+
+def devices_device_type_archive(request, device_type):
+    device_list = Devices.objects.filter(device_type=device_type)
+    context = {'device_type': device_type, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_device_type_archive.html', context)
+
+def devices_username_archive(request, username):
+    device_list = Devices.objects.filter(username=username)
+    context = {'username': username, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_username_archive.html', context)
+
+def devices_protocol_archive(request, protocol):
+    device_list = Devices.objects.filter(protocol=protocol)
+    context = {'protocol': protocol, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_protocol_archive.html', context)
+
+def devices_protocol_archive(request, protocol):
+    device_list = Devices.objects.filter(protocol=protocol)
+    context = {'protocol': protocol, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_protocol_archive.html', context)
+
+def devices_ip_address_archive(request, ip_address):
+    device_list = Devices.objects.filter(ip_address=ip_address)
+    context = {'ip_address': ip_address, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_ip_address_archive.html', context)
+
+def devices_port_archive(request, port):
+    device_list = Devices.objects.filter(port=port)
+    context = {'port': port, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_port_address_archive.html', context)
+
 def learn_acl_all(request):
     acl_list = LearnACL.objects.all()
     context = {'acl_list': acl_list}
@@ -341,6 +406,19 @@ def csv_page(request):
 
 def all_csv_download(request):
     return render(request, 'CSV/csv.html')  
+
+def devices_csv(request):
+    return render(request, 'CSV/Devices/devices_csv.html')
+
+def devices_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="all_devices.csv'
+    writer = csv.writer(response)
+    writer.writerow(['Hostname','Alias','Device Type','Operating System','Username','Password','Protocol','IP Address','Port','Connection Timeout','Timestamp'])
+    devices = Devices.objects.all().values_list('hostname','alias','device_type','os','username','password','protocol','ip_address','port','connection_timeout','timestamp')
+    for device in devices:
+        writer.writerow(device)
+    return response
 
 def learn_acl_csv(request):
     return render(request, 'CSV/LearnACL/learn_acl_csv.html')

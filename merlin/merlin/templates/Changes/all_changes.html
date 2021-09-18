@@ -928,13 +928,8 @@
 <h2>Merlin has not detected any Version configuration removals</h2>
 {% endif %}
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#acl_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#acl_additions thead');
-
-    var table = $('#acl_additions').DataTable({
+    $(document).ready(function(){
+        $('#device_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -942,851 +937,68 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
+        select: true
+    });
+    });
 
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#acl_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#acl_removals thead');
-
-    var table = $('#acl_removals').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#arp_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#arp_additions thead');
-
-    var table = $('#arp_additions').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#arp_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#arp_removals thead');
-
-    var table = $('#arp_removals').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#arp_statistics_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#arp_statistics_additions thead');
-
-    var table = $('#arp_statistics_additions').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
-</script>
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#arp_statistics_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#arp_statistics_removals thead');
-
-    var table = $('#arp_statistics_removals').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#bgp_instance_additions thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_instance_additions thead');
-  
-      var table = $('#bgp_instance_additions').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>
-  <script type = "text/javascript">
-    $(document).ready(function(){
-      $('#bgp_instance_removals thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_instance_removals thead');
-  
-      var table = $('#bgp_instance_removals').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>
+        $('#device_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#bgp_route_additions thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_route_additions thead');
-  
-      var table = $('#bgp_route_additions').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>
-  <script type = "text/javascript">
-    $(document).ready(function(){
-      $('#bgp_route_removals thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_route_removals thead');
-  
-      var table = $('#bgp_route_removals').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>
+        $('#acl_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 <script type = "text/javascript">
     $(document).ready(function(){
-      $('#bgp_table_additions thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_table_additions thead');
-  
-      var table = $('#bgp_table_additions').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>
-  <script type = "text/javascript">
+        $('#acl_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
     $(document).ready(function(){
-      $('#bgp_table_additions thead tr')
-      .clone(true)
-      .addClass('filters')
-      .appendTo('#bgp_table_additions thead');
-  
-      var table = $('#bgp_table_additions').DataTable({
-          keys: true,
-          dom: 'Bfrtip',
-          lengthMenu: [
-              [ 10, 25, 50, -1 ],
-              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-          ],
-          buttons: [
-          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-          ],
-          colReorder: true,
-          select: true,            
-          orderCellsTop: true,
-          fixedHeader: true,
-          initComplete: function () {
-          var api = this.api();
-  
-          // For each column
-          api
-              .columns()
-              .eq(0)
-              .each(function (colIdx) {
-                  // Set the header cell to contain the input element
-                  var cell = $('.filters th').eq(
-                      $(api.column(colIdx).header()).index()
-                  );
-                  var title = $(cell).text();
-                  $(cell).html('<input type="text" placeholder="' + title + '" />');
-  
-                  // On every keypress in this input
-                  $(
-                      'input',
-                      $('.filters th').eq($(api.column(colIdx).header()).index())
-                  )
-                      .off('keyup change')
-                      .on('keyup change', function (e) {
-                          e.stopPropagation();
-  
-                          // Get the search value
-                          $(this).attr('title', $(this).val());
-                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
-  
-                          var cursorPosition = this.selectionStart;
-                          // Search the column for that value
-                          api
-                              .column(colIdx)
-                              .search(
-                                  this.value != ''
-                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                      : '',
-                                  this.value != '',
-                                  this.value == ''
-                              )
-                              .draw();
-  
-                          $(this)
-                              .focus()[0]
-                              .setSelectionRange(cursorPosition, cursorPosition);
-                      });
-              });
-      },
-  });
-  });        
-  </script>  
-<script type = "text/javascript">
-  $(document).ready(function(){
-    $('#vlan_additons thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#vlan_additons thead');
-
-    var table = $('#vlan_additons').DataTable({
+        $('#arp_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1794,70 +1006,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#vlan_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#vlan_removals thead');
-
-    var table = $('#vlan_removals').DataTable({
+    $(document).ready(function(){
+        $('#arp_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1865,70 +1023,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#vrf_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#vrf_additions thead');
-
-    var table = $('#vrf_additions').DataTable({
+    $(document).ready(function(){
+        $('#bgp_instance_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -1936,70 +1040,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#vrf_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#vrf_removals thead');
-
-    var table = $('#vrf_removals').DataTable({
+    $(document).ready(function(){
+        $('#bgp_instance_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2007,70 +1057,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#inventory_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#inventory_additions thead');
-
-    var table = $('#inventory_additions').DataTable({
+    $(document).ready(function(){
+        $('#bgp_route_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2078,70 +1074,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#inventory_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#inventory_removals thead');
-
-    var table = $('#inventory_removals').DataTable({
+    $(document).ready(function(){
+        $('#bgp_route_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2149,70 +1091,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#interface_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#interface_additions thead');
-
-    var table = $('#interface_additions').DataTable({
+    $(document).ready(function(){
+        $('#bgp_table_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2220,70 +1108,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#interface_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#interface_removals thead');
-
-    var table = $('#interface_removals').DataTable({
+    $(document).ready(function(){
+        $('#bgp_table_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2291,70 +1125,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#version_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#version_additions thead');
-
-    var table = $('#version_additions').DataTable({
+    $(document).ready(function(){
+        $('#learn_vlan_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2362,70 +1142,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#version_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#version_removals thead');
-
-    var table = $('#version_removals').DataTable({
+    $(document).ready(function(){
+        $('#learn_vlan_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -2433,60 +1159,146 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
-{% endblock %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_inventory_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_inventory_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#version_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>{% endblock %}
