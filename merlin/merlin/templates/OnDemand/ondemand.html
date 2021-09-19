@@ -10,10 +10,7 @@
     <tr>
       <th>Command</th>
       <th>All Results</th>
-      <th>Hostname</th>
-      <th>Alias</th>
-      <th>Operating System</th>
-      <th>IP Address</th>
+      <th>Filter Results</th>
       <th>Status</th>
     </tr>
     </thead>
@@ -21,10 +18,7 @@
     <tr>
       <td>All</td>
       <td><button id="get_all_all_devices_button">Get All Commands - All Devices</button></td>
-      <td>Hostname</td>
-      <td>Alias</td>
-      <td>Operating System</td>
-      <td>IP Address</td>
+      <td>Filter Results</td>
       <td>
         <div id ="get_all_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
@@ -41,10 +35,7 @@
     <tr>
       <th>Command</th>
       <th>All Results</th>
-      <th>Hostname</th>
-      <th>Alias</th>
-      <th>Operating System</th>
-      <th>IP Address</th>
+      <th>Filter Results</th>
       <th>Status</th>
     </tr>
     </thead>
@@ -56,14 +47,11 @@
           <form id="learn_acl_hostname" action="LearnACL/learn_acl_hostname_result/">
             <div id ="learn_acl_hostname">
               <div class="form-group">
-                <input class="submit_on_enter" type="text" id="learn_acl_hostname_input" placeholder="Enter Hostname">
+                <input class="submit_on_enter" type="text" id="learn_acl_hostname_input" placeholder="Filter Scope">
               </div>
             </div>
         </form>
       </td>
-        <td>Alias</td>
-        <td>Operating System</td>
-        <td>IP Address</td>
         <td>
           <div id ="learn_acl_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
