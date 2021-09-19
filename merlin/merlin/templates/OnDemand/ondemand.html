@@ -11,6 +11,7 @@
       <th>Command</th>
       <th>All Results</th>
       <th>Filter Results</th>
+      <th>Available Filters</th>
       <th>Status</th>
     </tr>
     </thead>
@@ -19,6 +20,16 @@
       <td>All</td>
       <td><button id="get_all_all_devices_button">Get All Commands - All Devices</button></td>
       <td>Filter Results</td>
+      <td>
+        <ul>
+          <li>Hostname</li>
+          <li>Alias</li>
+          <li>Device Type</li>
+          <li>Operating System</li>
+          <li>Username</li>
+          <li>IP</li>
+        </ul>
+      </td>
       <td>
         <div id ="get_all_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
@@ -36,6 +47,7 @@
       <th>Command</th>
       <th>All Results</th>
       <th>Filter Results</th>
+      <th>Available Filters</th>
       <th>Status</th>
     </tr>
     </thead>
@@ -44,21 +56,27 @@
         <td>Learn ACL</td>       
         <td><button id="learn_acl_all_devices_button">Get Learn ACL - All Devices</button></td>
         <td>
-          <form id="learn_acl_hostname" action="LearnACL/learn_acl_hostname_result/">
-            <div id ="learn_acl_hostname">
-              <div class="form-group">
-                <input class="submit_on_enter" type="text" id="learn_acl_hostname_input" placeholder="Filter Scope">
-              </div>
-            </div>
+          <form action="{% url 'learn_acl_filter' %}" method="get">
+            <input name="learn_acl_filter" type="text" placeholder="Filter Devices....">
         </form>
       </td>
-        <td>
-          <div id ="learn_acl_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-warning" role="status">
-              <span class="visually-hidden"></span>
-            </div>
+      <td>
+        <ul>
+          <li>Hostname</li>
+          <li>Alias</li>
+          <li>Device Type</li>
+          <li>Operating System</li>
+          <li>Username</li>
+          <li>IP</li>
+        </ul>
+      </td>
+      <td>
+        <div id ="learn_acl_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
           </div>
-        </td>        
+        </div>
+      </td>        
       </tr>
       <tr>
         <td>Learn ARP</td>

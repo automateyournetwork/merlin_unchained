@@ -36,20 +36,6 @@ $("#learn_acl_all_devices_button").click(function(e){
     })
 })
 
-$("#learn_acl_hostname").submit(function(e){
-    e.preventDefault();
-    $.ajax({
-        type: 'GET',
-        url: "/OnDemand/LearnACL/learn_acl_hostname_result/",
-        beforeSend: function(){
-            learnACLSpinnerBox.classList.remove('not-visible')
-        },
-        success: function(data){
-            learnACLSpinnerBox.classList.add('not-visible')
-        }
-    })
-})
-
 $("#learn_arp_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({

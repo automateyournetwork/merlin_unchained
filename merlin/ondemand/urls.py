@@ -13,5 +13,5 @@ urlpatterns = [
     path('OnDemand/ShowInventory/show_inventory_all_result/', views.show_inventory_all_ondemand, name="show_inventory_all"),
     path('OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_all_result/', views.show_ip_int_brief_all_ondemand, name="show_ip_int_brief_all"),
     path('OnDemand/ShowVersion/show_version_all_result/', views.show_version_all_ondemand, name="show_version_all"),
-
+    path('OnDemand/LearnACL/learn_acl_filter_result/', OnDemandResult.as_view(), name="learn_acl_filter"),
 ]

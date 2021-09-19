@@ -20,7 +20,7 @@ from pyats import topology
 from pyats.log.utils import banner
 from general_functionalities import ParseLearnFunction
 from datetime import datetime
-from merlin.models import LearnACL
+from merlin.models import LearnACL, DynamicJobInput
 
 # ----------------
 # AE Test Setup

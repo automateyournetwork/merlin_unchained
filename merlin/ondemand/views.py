@@ -1,9 +1,10 @@
+import os
+from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices
-import os
+from merlin.models import Devices, DynamicJobInput
 
 # On DEMAND VIEWS
 def button(request):
@@ -46,4 +47,10 @@ def show_version_all_ondemand(request):
     return render(request, 'OnDemand/ondemand_result.html')
 
 class OnDemandResult(ListView):
-    template_name = 'OnDemand/ondemand_result.html'    
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('learn_acl_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_acl_filter_job.py')
