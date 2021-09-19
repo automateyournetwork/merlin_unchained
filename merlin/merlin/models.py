@@ -17,6 +17,14 @@ class Devices(models.Model):
         template = '{0.hostname} {0.alias} {0.device_type} {0.os} {0.username} {0.password} {0.protocol} {0.ip_address} {0.port} {0.connection_timeout} {0.timestamp}'
         return template.format(self)
 
+class DynamicJobInput(models.Model):
+    input_field = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.input_field} {0.timestamp}'
+        return template.format(self)
+
 class LearnACL(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()

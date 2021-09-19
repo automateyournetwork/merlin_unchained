@@ -684,51 +684,6 @@ def show_version_csv_download_latest(request):
         writer.writerow(version)
     return response
 
-# On DEMAND VIEWS
-
-def button(request):
-    return render(request, 'OnDemand/ondemand.html')
-
-def get_all_all_ondemand(request):
-    os.system('pyats run job populate_db_job.py')
-    return render(request, 'OnDemand/GetAll/get_all_all_result.html')
-
-def learn_acl_all_ondemand(request):
-    os.system('pyats run job learn_acl_all_job.py')
-    return render(request, 'OnDemand/LearnACL/learn_acl_all_result.html')
-
-def learn_acl_hostname_ondemand(request):
-    os.system('pyats run job learn_acl_hostname_job.py')
-    return render(request, 'OnDemand/LearnACL/learn_acl_hostname_result.html')
-
-def learn_arp_all_ondemand(request):
-    os.system('pyats run job learn_arp_job.py')
-    return render(request, 'OnDemand/LearnARP/learn_arp_all_result.html')
-
-def learn_bgp_all_ondemand(request):
-    os.system('pyats run job learn_bgp_job.py')
-    return render(request, 'OnDemand/LearnBGP/learn_bgp_all_result.html')
-
-def learn_vlan_all_ondemand(request):
-    os.system('pyats run job learn_vlan_job.py')
-    return render(request, 'OnDemand/LearnVLAN/learn_vlan_all_result.html')
-
-def learn_vrf_all_ondemand(request):
-    os.system('pyats run job learn_vrf_job.py')
-    return render(request, 'OnDemand/LearnVRF/learn_vrf_all_result.html')
-
-def show_inventory_all_ondemand(request):
-    os.system('pyats run job show_inventory_job.py')
-    return render(request, 'OnDemand/ShowInventory/show_inventory_all_result.html')
-
-def show_ip_int_brief_all_ondemand(request):
-    os.system('pyats run job show_ip_int_brief_job.py')
-    return render(request, 'OnDemand/ShowIPIntBrief/show_ip_int_brief_all_result.html')
-
-def show_version_all_ondemand(request):
-    os.system('pyats run job show_version_job.py')
-    return render(request, 'OnDemand/ShowVersion/show_version_all_result.html')
-
 # Latest
 def latest(request):
     return render(request, 'Latest/latest.html')
