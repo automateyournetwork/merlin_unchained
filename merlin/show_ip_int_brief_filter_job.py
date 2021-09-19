@@ -15,7 +15,7 @@ def main(runtime):
     # Flush Search
     delete_records = DynamicJobInput.objects.all()
     delete_records.delete()
-    
+
     # Create Testbed
     testbed = Testbed('dynamicallyCreatedTestbed')
 
@@ -41,9 +41,9 @@ def main(runtime):
                             }
                         }
                     })
-                    
         # define the relationship.
         testbed_device.testbed = testbed
+   
         # ----------------
         # Load the testbed
         # ----------------
@@ -56,6 +56,7 @@ def main(runtime):
             testbed = runtime.testbed
 
         # Find the location of the script in relation to the job file
-        testscript = os.path.join(os.path.dirname(__file__), 'learn_acl.py')
+        testscript = os.path.join(os.path.dirname(__file__), 'show_ip_int_brief.py')
+
         # run script
         runtime.tasks.run(testscript=testscript, testbed=testbed)

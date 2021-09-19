@@ -5,8 +5,8 @@
 {% block content %}
 <h1>Merlin On-Demand Centre</h1>
 <h2>Refresh All</h2>
-<table class="merlin-table">
-    <thead>
+<table id = "on_demand" class="table table-bordered">
+  <thead class = "alert-success">
     <tr>
       <th>Command</th>
       <th>All Results</th>
@@ -19,16 +19,15 @@
     <tr>
       <td>All</td>
       <td><button id="get_all_all_devices_button">Get All Commands - All Devices</button></td>
-      <td>Filter Results</td>
       <td>
-        <ul>
-          <li>Hostname</li>
-          <li>Alias</li>
-          <li>Device Type</li>
-          <li>Operating System</li>
-          <li>Username</li>
-          <li>IP</li>
-        </ul>
+        <div id ="get_all_filter">
+          <form id = "get_all_filter" action="{% url 'get_all_filter' %}" method="get">
+            <input name="get_all_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
       </td>
       <td>
         <div id ="get_all_spinner" class="d-flex not-visible">
@@ -38,37 +37,18 @@
         </div>
       </td>
     </tr>
-    </tbody>  
-  </table>
-  <h2>Refresh Individual Commands</h2>
-  <table class="merlin-table">
-    <thead>
     <tr>
-      <th>Command</th>
-      <th>All Results</th>
-      <th>Filter Results</th>
-      <th>Available Filters</th>
-      <th>Status</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Learn ACL</td>       
+      <td>Learn ACL</td>       
         <td><button id="learn_acl_all_devices_button">Get Learn ACL - All Devices</button></td>
         <td>
-          <form action="{% url 'learn_acl_filter' %}" method="get">
-            <input name="learn_acl_filter" type="text" placeholder="Filter Devices....">
-        </form>
+          <div id ="learn_acl_filter">
+            <form id = "learn_acl_filter" action="{% url 'learn_acl_filter' %}" method="get">
+              <input name="learn_acl_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
       </td>
       <td>
-        <ul>
-          <li>Hostname</li>
-          <li>Alias</li>
-          <li>Device Type</li>
-          <li>Operating System</li>
-          <li>Username</li>
-          <li>IP</li>
-        </ul>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
       </td>
       <td>
         <div id ="learn_acl_spinner" class="d-flex not-visible">
@@ -82,6 +62,16 @@
         <td>Learn ARP</td>
         <td><button id="learn_arp_all_devices_button">Get Learn ARP - All Devices</button></td>
         <td>
+          <div id ="learn_arp_filter">
+            <form id = "learn_arp_filter" action="{% url 'learn_arp_filter' %}" method="get">
+              <input name="learn_arp_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>
+        <td>
           <div id ="learn_arp_spinner" class="d-flex not-visible">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
@@ -92,6 +82,16 @@
       <tr>
         <td>Learn BGP</td>
         <td><button id="learn_bgp_all_devices_button">Get Learn BGP - All Devices</button></td>
+        <td>
+          <div id ="learn_bgp_filter">
+            <form id = "learn_bgp_filter" action="{% url 'learn_bgp_filter' %}" method="get">
+              <input name="learn_bgp_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>
         <td>
           <div id ="learn_bgp_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
@@ -104,6 +104,16 @@
         <td>Learn VLAN</td>
         <td><button id="learn_vlan_all_devices_button">Get Learn VLAN - All Devices</button></td>
         <td>
+          <div id ="learn_vlan_filter">
+            <form id = "learn_vlan_filter" action="{% url 'learn_vlan_filter' %}" method="get">
+              <input name="learn_vlan_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>
+        <td>
           <div id ="learn_vlan_spinner" class="d-flex not-visible">
             <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
@@ -114,6 +124,16 @@
       <tr>
         <td>Learn VRF</td>
         <td><button id="learn_vrf_all_devices_button">Get Learn VRF - All Devices</button></td>
+        <td>
+          <div id ="learn_vrf_filter">
+            <form id = "learn_vrf_filter" action="{% url 'learn_vrf_filter' %}" method="get">
+              <input name="learn_vrf_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>
         <td>
           <div id ="learn_vrf_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
@@ -126,6 +146,16 @@
       <td>Show Inventory</td>
       <td><button id="show_inventory_all_devices_button">Get Show Inventory - All Devices</button></td>
       <td>
+        <div id ="show_inventory_filter">
+          <form id = "show_inventory_filter" action="{% url 'show_inventory_filter' %}" method="get">
+            <input name="show_inventory_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
@@ -137,6 +167,16 @@
       <td>Show IP Interface Brief</td>
       <td><button id="show_ip_int_brief_all_devices_button">Get Show IP Interface Brief - All Devices</button></td>
       <td>
+        <div id ="show_ip_int_brief_filter">
+          <form id = "show_ip_int_brief_filter" action="{% url 'show_ip_int_brief_filter' %}" method="get">
+            <input name="show_ip_int_brief_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
           <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
@@ -148,6 +188,16 @@
       <td>Show Version</td>
       <td><button id="show_version_all_devices_button">Get Show Version- All Devices</button></td>
       <td>
+        <div id ="show_version_filter">
+          <form id = "show_version_filter" action="{% url 'show_version_filter' %}" method="get">
+            <input name="show_version_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
@@ -157,4 +207,19 @@
     </tr>
     </tbody>  
   </table>
+<script>
+  $(document).ready( function () {
+    $('#on_demand').DataTable({
+      columnDefs: [
+        {
+        targets: -1,
+        className: 'dt-body-center'
+        }
+      ],
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
 {% endblock %}  

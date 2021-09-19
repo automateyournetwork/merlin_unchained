@@ -5,17 +5,17 @@ from pyats.topology import Testbed, Device
 from genie.testbed import load
 from merlin.models import Devices, DynamicJobInput
 from django.db.models import Q
-   
+
 def main(runtime):
 
     # Query the database for Filtered Devices
     search_input = DynamicJobInput.objects.latest('timestamp')
     device_list = Devices.objects.filter(Q(hostname=search_input.input_field) | Q(alias=search_input.input_field) | Q(device_type=search_input.input_field) | Q(os=search_input.input_field) | Q(username=search_input.input_field) | Q(ip_address=search_input.input_field))
-    
+
     # Flush Search
     delete_records = DynamicJobInput.objects.all()
     delete_records.delete()
-    
+
     # Create Testbed
     testbed = Testbed('dynamicallyCreatedTestbed')
 
@@ -41,9 +41,9 @@ def main(runtime):
                             }
                         }
                     })
-                    
         # define the relationship.
         testbed_device.testbed = testbed
+   
         # ----------------
         # Load the testbed
         # ----------------
@@ -56,6 +56,7 @@ def main(runtime):
             testbed = runtime.testbed
 
         # Find the location of the script in relation to the job file
-        testscript = os.path.join(os.path.dirname(__file__), 'learn_acl.py')
+        testscript = os.path.join(os.path.dirname(__file__), 'learn_vlan.py')
+
         # run script
         runtime.tasks.run(testscript=testscript, testbed=testbed)
