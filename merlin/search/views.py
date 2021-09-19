@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -10,7 +10,9 @@ class SearchResultView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = (LearnACL.objects.filter(
+        object_list = (Devices.objects.filter(
+            Q(hostname=query) | Q(alias=query) | Q(device_type=query) | Q(os=query) | Q(username=query) | Q(password=query) | Q(protocol=query) | Q(ip_address=query) | Q(port=query) | Q(connection_timeout=query)
+        ),LearnACL.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(acl=query) | Q(ace=query) | Q(permission=query) | Q(logging=query) | Q(source_network=query) | Q(destination_network=query) | Q(l3_protocol=query) | Q(l4_protocol=query) | Q(operator=query) | Q(port=query)
         ),LearnARP.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(interface=query) | Q(neighbor_ip=query) | Q(neighbor_mac=query) | Q(origin=query) | Q(local_proxy=query) | Q(proxy=query)

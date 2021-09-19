@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from .models import LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+
+class DevicesSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Devices
+        fields = ('hostname', 'alias', 'device_type', 'os', 'username', 'protocol', 'ip_address', 'port', 'connection_timeout', 'timestamp')
 
 class LearnACLSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

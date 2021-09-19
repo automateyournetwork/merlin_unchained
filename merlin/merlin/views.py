@@ -1,10 +1,75 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
 # HTML VIEWS #
+def devices_all(request):
+    device_list = Devices.objects.all()
+    context = {'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_all.html', context)
+
+def devices_year_archive(request, year):
+    device_list = Devices.objects.filter(timestamp__year=year)
+    context = {'year': year, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_year_archive.html', context)
+
+def devices_month_archive(request, year, month):
+    device_list = Devices.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_month_archive.html', context)
+
+def devices_day_archive(request, year, month, day):
+    device_list = Devices.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_day_archive.html', context)
+
+def devices_hostname_archive(request, hostname):
+    device_list = Devices.objects.filter(hostname=hostname)
+    context = {'hostname': hostname, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_hostname_archive.html', context)
+
+def devices_alias_archive(request, alias):
+    device_list = Devices.objects.filter(alias=alias)
+    context = {'alias': alias, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_alias_archive.html', context)
+
+def devices_os_archive(request, os):
+    device_list = Devices.objects.filter(os=os)
+    context = {'os': os, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_os_archive.html', context)
+
+def devices_device_type_archive(request, device_type):
+    device_list = Devices.objects.filter(device_type=device_type)
+    context = {'device_type': device_type, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_device_type_archive.html', context)
+
+def devices_username_archive(request, username):
+    device_list = Devices.objects.filter(username=username)
+    context = {'username': username, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_username_archive.html', context)
+
+def devices_protocol_archive(request, protocol):
+    device_list = Devices.objects.filter(protocol=protocol)
+    context = {'protocol': protocol, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_protocol_archive.html', context)
+
+def devices_protocol_archive(request, protocol):
+    device_list = Devices.objects.filter(protocol=protocol)
+    context = {'protocol': protocol, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_protocol_archive.html', context)
+
+def devices_ip_address_archive(request, ip_address):
+    device_list = Devices.objects.filter(ip_address=ip_address)
+    context = {'ip_address': ip_address, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_ip_address_archive.html', context)
+
+def devices_port_archive(request, port):
+    device_list = Devices.objects.filter(port=port)
+    context = {'port': port, 'device_list': device_list}
+    return render(request, 'HTML/Devices/devices_port_address_archive.html', context)
+
 def learn_acl_all(request):
     acl_list = LearnACL.objects.all()
     context = {'acl_list': acl_list}
@@ -342,6 +407,19 @@ def csv_page(request):
 def all_csv_download(request):
     return render(request, 'CSV/csv.html')  
 
+def devices_csv(request):
+    return render(request, 'CSV/Devices/devices_csv.html')
+
+def devices_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="all_devices.csv'
+    writer = csv.writer(response)
+    writer.writerow(['Hostname','Alias','Device Type','Operating System','Username','Password','Protocol','IP Address','Port','Connection Timeout','Timestamp'])
+    devices = Devices.objects.all().values_list('hostname','alias','device_type','os','username','password','protocol','ip_address','port','connection_timeout','timestamp')
+    for device in devices:
+        writer.writerow(device)
+    return response
+
 def learn_acl_csv(request):
     return render(request, 'CSV/LearnACL/learn_acl_csv.html')
 
@@ -611,41 +689,45 @@ def show_version_csv_download_latest(request):
 def button(request):
     return render(request, 'OnDemand/ondemand.html')
 
-def get_all_ondemand(request):
-    os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/get_all_result.html')
+def get_all_all_ondemand(request):
+    os.system('pyats run job populate_db_job.py')
+    return render(request, 'OnDemand/GetAll/get_all_all_result.html')
 
-def learn_acl_ondemand(request):
-    os.system('pyats run job learn_acl_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/learn_acl_result.html')
+def learn_acl_all_ondemand(request):
+    os.system('pyats run job learn_acl_all_job.py')
+    return render(request, 'OnDemand/LearnACL/learn_acl_all_result.html')
 
-def learn_arp_ondemand(request):
-    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/learn_arp_result.html')
+def learn_acl_hostname_ondemand(request):
+    os.system('pyats run job learn_acl_hostname_job.py')
+    return render(request, 'OnDemand/LearnACL/learn_acl_hostname_result.html')
 
-def learn_bgp_ondemand(request):
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/learn_bgp_result.html')
+def learn_arp_all_ondemand(request):
+    os.system('pyats run job learn_arp_job.py')
+    return render(request, 'OnDemand/LearnARP/learn_arp_all_result.html')
 
-def learn_vlan_ondemand(request):
-    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/learn_vlan_result.html')
+def learn_bgp_all_ondemand(request):
+    os.system('pyats run job learn_bgp_job.py')
+    return render(request, 'OnDemand/LearnBGP/learn_bgp_all_result.html')
 
-def learn_vrf_ondemand(request):
-    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/learn_vrf_result.html')
+def learn_vlan_all_ondemand(request):
+    os.system('pyats run job learn_vlan_job.py')
+    return render(request, 'OnDemand/LearnVLAN/learn_vlan_all_result.html')
 
-def show_inventory_ondemand(request):
-    os.system('pyats run job show_inventory_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/show_inventory_result.html')
+def learn_vrf_all_ondemand(request):
+    os.system('pyats run job learn_vrf_job.py')
+    return render(request, 'OnDemand/LearnVRF/learn_vrf_all_result.html')
 
-def show_ip_int_brief_ondemand(request):
-    os.system('pyats run job show_ip_int_brief_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/show_ip_int_brief_result.html')
+def show_inventory_all_ondemand(request):
+    os.system('pyats run job show_inventory_job.py')
+    return render(request, 'OnDemand/ShowInventory/show_inventory_all_result.html')
 
-def show_version_ondemand(request):
-    os.system('pyats run job show_version_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-    return render(request, 'OnDemand/show_version_result.html')
+def show_ip_int_brief_all_ondemand(request):
+    os.system('pyats run job show_ip_int_brief_job.py')
+    return render(request, 'OnDemand/ShowIPIntBrief/show_ip_int_brief_all_result.html')
+
+def show_version_all_ondemand(request):
+    os.system('pyats run job show_version_job.py')
+    return render(request, 'OnDemand/ShowVersion/show_version_all_result.html')
 
 # Latest
 def latest(request):
@@ -792,8 +874,8 @@ def all_changes(request):
     arp_additions = latest_arp.difference(current_arp)
     arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
     arp_statistics_additions = latest_arp_statistics.difference(current_arp_statistics)
-    bgp_removals = current_bgp.difference(latest_bgp)
-    bgp_additions = latest_bgp.difference(current_bgp)
+    bgp_instances_removals = current_bgp_instances.difference(latest_bgp_instances)
+    bgp_instances_additions = latest_bgp_instances.difference(current_bgp_instances)
     bgp_route_removals = current_bgp_route.difference(latest_bgp_route)
     bgp_route_additions = latest_bgp_route.difference(current_bgp_route)
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
