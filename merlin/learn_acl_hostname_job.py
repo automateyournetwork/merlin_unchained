@@ -1,16 +1,17 @@
 import os
+import json
+import sys
 from pyats.topology import Testbed, Device
 from genie.testbed import load
 from merlin.models import Devices
-
+   
 def main(runtime):
 
     # Query the database for All Devices
-    device_list = Devices.objects.all()
-
+    device_list = Devices.objects.filter(hostname=)
+    print(device_list)
     # Create Testbed
     testbed = Testbed('dynamicallyCreatedTestbed')
-
     # Create Devices
     for device in device_list:
         testbed_device = Device(device.hostname,
@@ -35,7 +36,7 @@ def main(runtime):
                     })
         # define the relationship.
         testbed_device.testbed = testbed
-   
+ 
         # ----------------
         # Load the testbed
         # ----------------
@@ -46,9 +47,7 @@ def main(runtime):
         else:
             # Use the one provided
             testbed = runtime.testbed
-
         # Find the location of the script in relation to the job file
-        testscript = os.path.join(os.path.dirname(__file__), 'learn_arp.py')
-
+        testscript = os.path.join(os.path.dirname(__file__), 'learn_acl.py')
         # run script
         runtime.tasks.run(testscript=testscript, testbed=testbed)

@@ -8,11 +8,11 @@ const showInventorySpinnerBox = document.getElementById('show_inventory_spinner'
 const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
 const showVersionSpinnerBox = document.getElementById('show_version_spinner')
 
-$("#get_all_button").click(function(e){
+$("#get_all_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/get_all_result/",
+        url: "/OnDemand/get_all_all_result/",
         beforeSend: function(){
             getAllSpinnerBox.classList.remove('not-visible')
         },
@@ -22,11 +22,11 @@ $("#get_all_button").click(function(e){
     })
 })
 
-$("#learn_acl_button").click(function(e){
+$("#learn_acl_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/learn_acl_result/",
+        url: "/OnDemand/LearnACL/learn_acl_all_result/",
         beforeSend: function(){
             learnACLSpinnerBox.classList.remove('not-visible')
         },
@@ -36,11 +36,25 @@ $("#learn_acl_button").click(function(e){
     })
 })
 
-$("#learn_arp_button").click(function(e){
+$("#learn_acl_hostname").submit(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/learn_arp_result/",
+        url: "/OnDemand/LearnACL/learn_acl_hostname_result/",
+        beforeSend: function(){
+            learnACLSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(data){
+            learnACLSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#learn_arp_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/LearnARP/learn_arp_all_result/",
         beforeSend: function(){
             learnARPSpinnerBox.classList.remove('not-visible')
         },
@@ -50,11 +64,11 @@ $("#learn_arp_button").click(function(e){
     })
 })
 
-$("#learn_bgp_button").click(function(e){
+$("#learn_bgp_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/learn_bgp_result/",
+        url: "/OnDemand/LearnBGP/learn_bgp_all_result/",
         beforeSend: function(){
             learnBGPSpinnerBox.classList.remove('not-visible')
         },
@@ -64,11 +78,11 @@ $("#learn_bgp_button").click(function(e){
     })
 })
 
-$("#learn_vlan_button").click(function(e){
+$("#learn_vlan_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/learn_vlan_result/",
+        url: "/OnDemand/LearnVLAN/learn_vlan_all_result/",
         beforeSend: function(){
             learnVLANSpinnerBox.classList.remove('not-visible')
         },
@@ -78,11 +92,11 @@ $("#learn_vlan_button").click(function(e){
     })
 })
 
-$("#learn_vrf_button").click(function(e){
+$("#learn_vrf_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/learn_vrf_result/",
+        url: "/OnDemand/LearnVRF/learn_vrf_all_result/",
         beforeSend: function(){
             learnVRFSpinnerBox.classList.remove('not-visible')
         },
@@ -92,11 +106,11 @@ $("#learn_vrf_button").click(function(e){
     })
 })
 
-$("#show_inventory_button").click(function(e){
+$("#show_inventory_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/show_inventory_result/",
+        url: "/OnDemand/ShowInventory/show_inventory_all_result/",
         beforeSend: function(){
             showInventorySpinnerBox.classList.remove('not-visible')
         },
@@ -106,11 +120,11 @@ $("#show_inventory_button").click(function(e){
     })
 })
 
-$("#show_ip_int_brief_button").click(function(e){
+$("#show_ip_int_brief_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/show_ip_int_brief_result/",
+        url: "/OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_all_result/",
         beforeSend: function(){
             showIPIntBriefSpinnerBox.classList.remove('not-visible')
         },
@@ -120,11 +134,11 @@ $("#show_ip_int_brief_button").click(function(e){
     })
 })
 
-$("#show_version_button").click(function(e){
+$("#show_version_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/show_version_result/",
+        url: "/OnDemand/ShowVersion/show_version_all_result/",
         beforeSend: function(){
             showVersionSpinnerBox.classList.remove('not-visible')
         },

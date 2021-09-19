@@ -48,7 +48,7 @@ def main(runtime):
             testbed = runtime.testbed
 
         # Find the location of the script in relation to the job file
-        testscript = os.path.join(os.path.dirname(__file__), 'learn_arp.py')
+        testscript = os.path.join(os.path.dirname(__file__), 'learn_acl.py')
 
         # run script
         runtime.tasks.run(testscript=testscript, testbed=testbed)

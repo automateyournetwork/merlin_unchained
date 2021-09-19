@@ -9,21 +9,29 @@
     <thead>
     <tr>
       <th>Command</th>
-      <th>Click Here</th>
+      <th>All Results</th>
+      <th>Hostname</th>
+      <th>Alias</th>
+      <th>Operating System</th>
+      <th>IP Address</th>
       <th>Status</th>
     </tr>
     </thead>
     <tbody>
     <tr>
       <td>All</td>
-      <td><button id="get_all_button">Get All</button></td>
+      <td><button id="get_all_all_devices_button">Get All Commands - All Devices</button></td>
+      <td>Hostname</td>
+      <td>Alias</td>
+      <td>Operating System</td>
+      <td>IP Address</td>
       <td>
         <div id ="get_all_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
-      </td>      
+      </td>
     </tr>
     </tbody>  
   </table>
@@ -32,25 +40,41 @@
     <thead>
     <tr>
       <th>Command</th>
-      <th>Click Here</th>
+      <th>All Results</th>
+      <th>Hostname</th>
+      <th>Alias</th>
+      <th>Operating System</th>
+      <th>IP Address</th>
       <th>Status</th>
     </tr>
     </thead>
     <tbody>
       <tr>
-        <td>Learn ACL</td>
-        <td><button id="learn_acl_button">Get Learn ACL</button></td>
+        <td>Learn ACL</td>       
+        <td><button id="learn_acl_all_devices_button">Get Learn ACL - All Devices</button></td>
+        <td>
+          <form id="learn_acl_hostname" action="LearnACL/learn_acl_hostname_result/">
+            <div id ="learn_acl_hostname">
+              <div class="form-group">
+                <input class="submit_on_enter" type="text" id="learn_acl_hostname_input" placeholder="Enter Hostname">
+              </div>
+            </div>
+        </form>
+      </td>
+        <td>Alias</td>
+        <td>Operating System</td>
+        <td>IP Address</td>
         <td>
           <div id ="learn_acl_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
-        </td>      
+        </td>        
       </tr>
       <tr>
         <td>Learn ARP</td>
-        <td><button id="learn_arp_button">Get Learn ARP</button></td>
+        <td><button id="learn_arp_all_devices_button">Get Learn ARP - All Devices</button></td>
         <td>
           <div id ="learn_arp_spinner" class="d-flex not-visible">
             <div class="spinner-border text-primary" role="status">
@@ -61,7 +85,7 @@
       </tr>
       <tr>
         <td>Learn BGP</td>
-        <td><button id="learn_bgp_button">Get Learn BGP</button></td>
+        <td><button id="learn_bgp_all_devices_button">Get Learn BGP - All Devices</button></td>
         <td>
           <div id ="learn_bgp_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
@@ -72,7 +96,7 @@
       </tr>                    
       <tr>
         <td>Learn VLAN</td>
-        <td><button id="learn_vlan_button">Get Learn VLAN</button></td>
+        <td><button id="learn_vlan_all_devices_button">Get Learn VLAN - All Devices</button></td>
         <td>
           <div id ="learn_vlan_spinner" class="d-flex not-visible">
             <div class="spinner-border text-primary" role="status">
@@ -83,7 +107,7 @@
       </tr>      
       <tr>
         <td>Learn VRF</td>
-        <td><button id="learn_vrf_button">Get Learn VRF</button></td>
+        <td><button id="learn_vrf_all_devices_button">Get Learn VRF - All Devices</button></td>
         <td>
           <div id ="learn_vrf_spinner" class="d-flex not-visible">
             <div class="spinner-border text-warning" role="status">
@@ -94,7 +118,7 @@
       </tr>      
     <tr>
       <td>Show Inventory</td>
-      <td><button id="show_inventory_button">Get Show Inventory</button></td>
+      <td><button id="show_inventory_all_devices_button">Get Show Inventory - All Devices</button></td>
       <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">
@@ -105,7 +129,7 @@
     </tr>    
     <tr>
       <td>Show IP Interface Brief</td>
-      <td><button id="show_ip_int_brief_button">Get Show IP Interface Brief</button></td>
+      <td><button id="show_ip_int_brief_all_devices_button">Get Show IP Interface Brief - All Devices</button></td>
       <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
           <div class="spinner-border text-warning" role="status">
@@ -116,7 +140,7 @@
     </tr>      
     <tr>
       <td>Show Version</td>
-      <td><button id="show_version_button">Get Show Version</button></td>
+      <td><button id="show_version_all_devices_button">Get Show Version- All Devices</button></td>
       <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
           <div class="spinner-border text-primary" role="status">

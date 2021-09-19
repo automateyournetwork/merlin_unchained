@@ -1,29 +1,54 @@
-'''
-To run the job:
-
-$ pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml
-
-'''
-
 import os
+from pyats.topology import Testbed, Device
 from genie.testbed import load
+from merlin.models import Devices
 
 def main(runtime):
 
-    # ----------------
-    # Load the testbed
-    # ----------------
-    if not runtime.testbed:
-        # If no testbed is provided, load the default one.
-        # Load default location of Testbed
-        testbedfile = os.path.join('testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
-        testbed = load(testbedfile)
-    else:
-        # Use the one provided
-        testbed = runtime.testbed
+    # Query the database for All Devices
+    device_list = Devices.objects.all()
 
-    # Find the location of the script in relation to the job file
-    testscript = os.path.join(os.path.dirname(__file__), 'populate_db.py')
+    # Create Testbed
+    testbed = Testbed('dynamicallyCreatedTestbed')
 
-    # run script
-    runtime.tasks.run(testscript=testscript, testbed=testbed)
+    # Create Devices
+    for device in device_list:
+        testbed_device = Device(device.hostname,
+                    alias = device.alias,
+                    type = device.device_type,
+                    os = device.os,
+                    credentials = {
+                        'default': {
+                            'username': device.username,
+                            'password': device.password,
+                        }
+                    },
+                    connections = {
+                        'cli': {
+                            'protocol': device.protocol,
+                            'ip': device.ip_address,
+                            'port': device.port,
+                            'arguements': {
+                                'connection_timeout': device.connection_timeout
+                            }
+                        }
+                    })
+        # define the relationship.
+        testbed_device.testbed = testbed
+   
+        # ----------------
+        # Load the testbed
+        # ----------------
+        if not runtime.testbed:
+            # If no testbed is provided, load the default one.
+            # Load default location of Testbed
+            testbed = load(testbed)
+        else:
+            # Use the one provided
+            testbed = runtime.testbed
+
+        # Find the location of the script in relation to the job file
+        testscript = os.path.join(os.path.dirname(__file__), 'populate_db.py')
+
+        # run script
+        runtime.tasks.run(testscript=testscript, testbed=testbed)
