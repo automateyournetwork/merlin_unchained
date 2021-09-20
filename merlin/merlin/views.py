@@ -700,7 +700,9 @@ def all_latest(request):
     bgp_routes_latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     bgp_routes_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_routes_latest_timestamp.timestamp)
     bgp_tables_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
-    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)       
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)
+    interface_latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=interface_latest_timestamp.timestamp)
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -711,7 +713,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -748,7 +750,13 @@ def learn_bgp_tables_latest(request):
     latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'bgp_tables_list': bgp_tables_list}
-    return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)    
+    return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)
+
+def learn_interface_latest(request):
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'interface_list': interface_list}
+    return render(request, 'Latest/LearnInterface/learn_interface_latest.html', context)
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
@@ -798,6 +806,8 @@ def all_changes(request):
     current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
+    current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -817,6 +827,8 @@ def all_changes(request):
     latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_new_timestamp = LearnBGPTables.objects.latest('timestamp')
     latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    new_timestamp = LearnInterface.objects.latest('timestamp')
+    latest_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -835,13 +847,15 @@ def all_changes(request):
     bgp_route_additions = latest_bgp_route.difference(current_bgp_route)
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
+    interface_removals = current_interface.difference(latest_interface)
+    interface_additions = latest_interface.difference(current_interface)
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
