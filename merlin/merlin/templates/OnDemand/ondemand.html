@@ -18,7 +18,7 @@
     <tbody>
     <tr>
       <td>All</td>
-      <td><button id="get_all_all_devices_button">Get All Commands - All Devices</button></td>
+      <td><button id="get_all_all_devices_button">All Commands - All Devices</button></td>
       <td>
         <div id ="get_all_filter">
           <form id = "get_all_filter" action="{% url 'get_all_filter' %}" method="get">
@@ -39,7 +39,7 @@
     </tr>
     <tr>
       <td>Learn ACL</td>       
-        <td><button id="learn_acl_all_devices_button">Get Learn ACL - All Devices</button></td>
+        <td><button id="learn_acl_all_devices_button">Learn ACL - All Devices</button></td>
         <td>
           <div id ="learn_acl_filter">
             <form id = "learn_acl_filter" action="{% url 'learn_acl_filter' %}" method="get">
@@ -60,7 +60,7 @@
       </tr>
       <tr>
         <td>Learn ARP</td>
-        <td><button id="learn_arp_all_devices_button">Get Learn ARP - All Devices</button></td>
+        <td><button id="learn_arp_all_devices_button">Learn ARP - All Devices</button></td>
         <td>
           <div id ="learn_arp_filter">
             <form id = "learn_arp_filter" action="{% url 'learn_arp_filter' %}" method="get">
@@ -81,7 +81,7 @@
       </tr>
       <tr>
         <td>Learn BGP</td>
-        <td><button id="learn_bgp_all_devices_button">Get Learn BGP - All Devices</button></td>
+        <td><button id="learn_bgp_all_devices_button">Learn BGP - All Devices</button></td>
         <td>
           <div id ="learn_bgp_filter">
             <form id = "learn_bgp_filter" action="{% url 'learn_bgp_filter' %}" method="get">
@@ -101,8 +101,30 @@
         </td>      
       </tr>                    
       <tr>
+      <tr>
+        <td>Learn Interface</td>
+        <td><button id="learn_interface_all_devices_button">Learn Interface - All Devices</button></td>
+        <td>
+          <div id ="learn_interface_filter">
+            <form id = "learn_interface_filter" action="{% url 'learn_interface_filter' %}" method="get">
+              <input name="learn_interface_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>
+        <td>
+          <div id ="learn_interface_spinner" class="d-flex not-visible">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden"></span>
+            </div>
+          </div>
+        </td>      
+      </tr>                    
+      <tr>        
         <td>Learn VLAN</td>
-        <td><button id="learn_vlan_all_devices_button">Get Learn VLAN - All Devices</button></td>
+        <td><button id="learn_vlan_all_devices_button">Learn VLAN - All Devices</button></td>
         <td>
           <div id ="learn_vlan_filter">
             <form id = "learn_vlan_filter" action="{% url 'learn_vlan_filter' %}" method="get">
@@ -115,7 +137,7 @@
       </td>
         <td>
           <div id ="learn_vlan_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -123,7 +145,7 @@
       </tr>      
       <tr>
         <td>Learn VRF</td>
-        <td><button id="learn_vrf_all_devices_button">Get Learn VRF - All Devices</button></td>
+        <td><button id="learn_vrf_all_devices_button">Learn VRF - All Devices</button></td>
         <td>
           <div id ="learn_vrf_filter">
             <form id = "learn_vrf_filter" action="{% url 'learn_vrf_filter' %}" method="get">
@@ -136,7 +158,7 @@
       </td>
         <td>
           <div id ="learn_vrf_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-warning" role="status">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -144,7 +166,7 @@
       </tr>      
     <tr>
       <td>Show Inventory</td>
-      <td><button id="show_inventory_all_devices_button">Get Show Inventory - All Devices</button></td>
+      <td><button id="show_inventory_all_devices_button">Show Inventory - All Devices</button></td>
       <td>
         <div id ="show_inventory_filter">
           <form id = "show_inventory_filter" action="{% url 'show_inventory_filter' %}" method="get">
@@ -157,7 +179,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -165,7 +187,7 @@
     </tr>    
     <tr>
       <td>Show IP Interface Brief</td>
-      <td><button id="show_ip_int_brief_all_devices_button">Get Show IP Interface Brief - All Devices</button></td>
+      <td><button id="show_ip_int_brief_all_devices_button">Show IP Interface Brief - All Devices</button></td>
       <td>
         <div id ="show_ip_int_brief_filter">
           <form id = "show_ip_int_brief_filter" action="{% url 'show_ip_int_brief_filter' %}" method="get">
@@ -178,7 +200,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -186,7 +208,7 @@
     </tr>      
     <tr>
       <td>Show Version</td>
-      <td><button id="show_version_all_devices_button">Get Show Version- All Devices</button></td>
+      <td><button id="show_version_all_devices_button">Show Version- All Devices</button></td>
       <td>
         <div id ="show_version_filter">
           <form id = "show_version_filter" action="{% url 'show_version_filter' %}" method="get">
@@ -199,7 +221,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>

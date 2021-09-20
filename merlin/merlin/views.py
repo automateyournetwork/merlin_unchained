@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -804,7 +804,7 @@ def all_changes(request):
     current_vrfs = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
-    os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job populate_db_job.py')
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     arp_new_timestamp = LearnARP.objects.latest('timestamp')
@@ -846,7 +846,7 @@ def all_changes(request):
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
     current_acls = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
-    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vlan_job.py')
     new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     acl_removals = current_acls.difference(latest_acls)
@@ -856,7 +856,7 @@ def learn_acl_changes(request):
 def learn_arp_changes(request):
     latest_timestamp = LearnARP.objects.latest('timestamp')
     current_arp = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
-    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_arp_job.py')
     new_timestamp = LearnARP.objects.latest('timestamp')
     latest_arp = LearnARP.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
     arp_removals = current_arp.difference(latest_arp)
@@ -866,7 +866,7 @@ def learn_arp_changes(request):
 def learn_arp_statistics_changes(request):
     latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
     current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
-    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_arp_job.py')
     new_timestamp = LearnARPStatistics.objects.latest('timestamp')
     latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
     arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
@@ -876,7 +876,7 @@ def learn_arp_statistics_changes(request):
 def learn_bgp_instances_changes(request):
     latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
     current_bgp_instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'protocol_state', 'nexthop_trigger_delay_critical', 'nexthop_trigger_delay_noncritical', 'nexthop_trigger_enabled', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'last_reset', 'reset_reason')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPInstances.objects.latest('timestamp')
     latest_bgp_instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'protocol_state', 'nexthop_trigger_delay_critical', 'nexthop_trigger_delay_noncritical', 'nexthop_trigger_enabled', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'last_reset', 'reset_reason')
     bgp_instances_removals = current_bgp_instances.difference(latest_bgp_instances)
@@ -886,7 +886,7 @@ def learn_bgp_instances_changes(request):
 def learn_bgp_route_changes(request):
     latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_route_removals = current_bgp_route.difference(latest_bgp_route)
@@ -896,17 +896,27 @@ def learn_bgp_route_changes(request):
 def learn_bgp_table_changes(request):
     latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     current_bgp_table = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPTables.objects.latest('timestamp')
     latest_bgp_table = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
     return render(request, 'Changes/learn_bgp_table_changes.html', {'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions})
 
+def learn_interface_changes(request):
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    current_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    os.system('pyats run job learn_interface_job.py')
+    new_timestamp = LearnInterface.objects.latest('timestamp')
+    latest_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    interface_removals = current_interface.difference(latest_interface)
+    interface_additions = latest_interface.difference(current_interface)
+    return render(request, 'Changes/learn_interface_changes.html', {'interface_removals': interface_removals,'interface_additions': interface_additions})
+
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
-    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vlan_job.py')
     new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vlan_removals = current_vlans.difference(latest_vlans)
@@ -916,7 +926,7 @@ def learn_vlan_changes(request):
 def learn_vrf_changes(request):
     latest_timestamp = LearnVRF.objects.latest('timestamp')
     current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
-    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vrf_job.py')
     new_timestamp = LearnVRF.objects.latest('timestamp')
     latest_vrfs = LearnVRF.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     vrf_removals = current_vrfs.difference(latest_vrfs)
@@ -926,7 +936,7 @@ def learn_vrf_changes(request):
 def show_inventory_changes(request):
     latest_timestamp = ShowInventory.objects.latest('timestamp')
     current_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
-    os.system('pyats run job show_inventory_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job show_inventory_job.py')
     new_timestamp = ShowInventory.objects.latest('timestamp')
     latest_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
     inventory_removals = current_inventory.difference(latest_inventory)
@@ -936,7 +946,7 @@ def show_inventory_changes(request):
 def show_ip_int_brief_changes(request):
     latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
     current_interfaces = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","interface","interface_status","ip_address")
-    os.system('pyats run job show_ip_int_brief_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job show_ip_int_brief_job.py')
     new_timestamp = ShowIPIntBrief.objects.latest('timestamp')
     latest_interfaces = ShowIPIntBrief.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias","os","interface","interface_status","ip_address")
     interface_removals = current_interfaces.difference(latest_interfaces)
@@ -946,7 +956,7 @@ def show_ip_int_brief_changes(request):
 def show_version_changes(request):
     latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
-    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vrf_job.py')
     new_timestamp = ShowVersion.objects.latest('timestamp')
     latest_version = ShowVersion.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
     version_removals = current_version.difference(latest_version)

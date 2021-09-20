@@ -29,6 +29,7 @@ urlpatterns = [
     path('Changes/learn_bgp_instances_changes/', views.learn_bgp_instances_changes, name="learn_bgp_instances_changes"),
     path('Changes/learn_bgp_route_changes/', views.learn_bgp_route_changes, name="learn_bgp_route_changes"),
     path('Changes/learn_bgp_table_changes/', views.learn_bgp_table_changes, name="learn_bgp_table_changes"),
+    path('Changes/learn_interface_changes/', views.learn_interface_changes, name="learn_interface_changes"),
     path('Changes/learn_vlan_changes/', views.learn_vlan_changes, name="learn_vlan_changes"),
     path('Changes/learn_vrf_changes/', views.learn_vrf_changes, name="learn_vrf_changes"),
     path('Changes/show_inventory_changes/', views.show_inventory_changes, name="show_inventory_changes"),

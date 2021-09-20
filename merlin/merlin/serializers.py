@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -35,6 +35,11 @@ class LearnBGPTablesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnBGPTables
         fields = ('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight', 'timestamp')
+
+class LearnInterfaceSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnInterface
+        fields = ('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_broadcast', 'input_crc_errors', 'input_errors', 'input_mac_pause_frames', 'input_multicast', 'input_octets', 'input_unicast', 'input_unknown', 'input_total', 'output_broadcast', 'output_discard', 'output_errors', 'output_mac_pause_frames', 'output_multicast', 'output_unicast', 'output_total', 'last_clear', 'input_rate', 'load_interval', 'output_rate', 'timestamp')
 
 class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

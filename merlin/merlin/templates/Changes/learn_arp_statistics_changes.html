@@ -20,17 +20,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>{{ arp_statistics_additions.pyats_alias }}</td>
-      <td>{{ arp_statistics_additions.entries_total }}</td>
-      <td>{{ arp_statistics_additions.in_drops }}</td>
-      <td>{{ arp_statistics_additions.in_replies_pkts }}</td>
-      <td>{{ arp_statistics_additions.in_requests_pkts }}</td>
-      <td>{{ arp_statistics_additions.incomplete_total }}</td>
-      <td>{{ arp_statistics_additions.out_replies_pkts }}</td>
-      <td>{{ arp_statistics_additions.out_requests_pkts }}</td>
-      <td>{{ arp_statistics_additions.timestamp }}</td>
-    </tr> 
+    <tr>{% for stat in arp_statistics_additions %}
+      <td>{{ stat.pyats_alias }}</td>
+      <td>{{ stat.entries_total }}</td>
+      <td>{{ stat.in_drops }}</td>
+      <td>{{ stat.in_replies_pkts }}</td>
+      <td>{{ stat.in_requests_pkts }}</td>
+      <td>{{ stat.incomplete_total }}</td>
+      <td>{{ stat.out_replies_pkts }}</td>
+      <td>{{ stat.out_requests_pkts }}</td>
+      <td>{{ stat.timestamp }}</td>
+    </tr>{% endfor %}
     </tbody>
   </table>
 {% else %}
@@ -53,17 +53,17 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>{{ arp_statistics_removals.pyats_alias }}</td>
-      <td>{{ arp_statistics_removals.entries_total }}</td>
-      <td>{{ arp_statistics_removals.in_drops }}</td>
-      <td>{{ arp_statistics_removals.in_replies_pkts }}</td>
-      <td>{{ arp_statistics_removals.in_requests_pkts }}</td>
-      <td>{{ arp_statistics_removals.incomplete_total }}</td>
-      <td>{{ arp_statistics_removals.out_replies_pkts }}</td>
-      <td>{{ arp_statistics_removals.out_requests_pkts }}</td>
-      <td>{{ arp_statistics_removals.timestamp }}</td>
-    </tr> 
+    <tr>{% for stat in arp_statistics_removals %}
+      <td>{{ stat.pyats_alias }}</td>
+      <td>{{ stat.entries_total }}</td>
+      <td>{{ stat.in_drops }}</td>
+      <td>{{ stat.in_replies_pkts }}</td>
+      <td>{{ stat.in_requests_pkts }}</td>
+      <td>{{ stat.incomplete_total }}</td>
+      <td>{{ stat.out_replies_pkts }}</td>
+      <td>{{ stat.out_requests_pkts }}</td>
+      <td>{{ stat.timestamp }}</td>
+    </tr>{% endfor %} 
     </tbody>
   </table>
 {% else %}

@@ -120,17 +120,17 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td>{{ object_list.3.pyats_alias }}</td>
-    <td>{{ object_list.3.entries_total }}</td>
-    <td>{{ object_list.3.in_drops }}</td>
-    <td>{{ object_list.3.in_replies_pkts }}</td>
-    <td>{{ object_list.3.in_requests_pkts }}</td>
-    <td>{{ object_list.3.incomplete_total }}</td>
-    <td>{{ object_list.3.out_replies_pkts }}</td>
-    <td>{{ object_list.3.out_requests_pkts }}</td>
-    <td>{{ object_list.3.timestamp }}</td>
-  </tr> 
+  <tr>{% for stat in object_list.3 %}
+    <td>{{ stat.pyats_alias }}</td>
+    <td>{{ stat.entries_total }}</td>
+    <td>{{ stat.in_drops }}</td>
+    <td>{{ stat.in_replies_pkts }}</td>
+    <td>{{ stat.in_requests_pkts }}</td>
+    <td>{{ stat.incomplete_total }}</td>
+    <td>{{ stat.out_replies_pkts }}</td>
+    <td>{{ stat.out_requests_pkts }}</td>
+    <td>{{ stat.timestamp }}</td>
+  </tr>{% endfor %}
   </tbody>
 </table>
 {% endif %}
@@ -254,6 +254,117 @@
 </table>
 {% endif %}
 {% if object_list.7 %}
+<h2>Learn Interface Hits</h2>
+<table id = "learn_interface" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Interface</th>
+    <th>Description</th>
+    <th>Enabled</th>
+    <th>Status</th>
+    <th>Access VLAN</th>
+    <th>Native VLAN</th>
+    <th>Switchport</th>
+    <th>Switchport Mode</th>
+    <th>Interface Type</th>
+    <th>Bandwidth</th>
+    <th>Auto Negotiate</th>
+    <th>Speed</th>
+    <th>Duplex</th>
+    <th>MTU</th>
+    <th>MAC Address</th>
+    <th>Physical Address</th>
+    <th>IP Address</th>
+    <th>Medium</th>
+    <th>Delay</th>
+    <th>Encapsulation</th>
+    <th>Flow Control Receive</th>
+    <th>Flow Control Send</th>
+    <th>Port Channel</th>
+    <th>Port Channel Member Interfaces</th>
+    <th>Port Channel Member</th>
+    <th>Last Change</th>
+    <th>Input Broadcast</th>
+    <th>Input CRC Errors</th>
+    <th>Input Errors</th>
+    <th>Input MAC Pause Frames</th>
+    <th>Input Multicast</th>
+    <th>Input Octets</th>
+    <th>Input Unicast</th>
+    <th>Input Unknown</th>
+    <th>Input Total</th>
+    <th>Output Broadcast</th>
+    <th>Output Discard</th>
+    <th>Output Errors</th>
+    <th>Output MAC Pause Frames</th>
+    <th>Output Multicast</th>
+    <th>Output Unicast</th>
+    <th>Output Total</th>
+    <th>Last Clear</th>
+    <th>Input Rate</th>
+    <th>Load Interval</th>
+    <th>Output Rate</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.7 %}
+<tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.os }}</td> 
+    <td>{{ interface.interface }}</td> 
+    <td>{{ interface.description }}</td> 
+    <td>{{ interface.enabled }}</td> 
+    <td>{{ interface.status }}</td> 
+    <td>{{ interface.access_vlan }}</td> 
+    <td>{{ interface.native_vlan }}</td> 
+    <td>{{ interface.switchport }}</td> 
+    <td>{{ interface.switchport_mode }}</td> 
+    <td>{{ interface.interface_type }}</td> 
+    <td>{{ interface.bandwidth }}</td> 
+    <td>{{ interface.auto_negotiate }}</td> 
+    <td>{{ interface.speed }}</td> 
+    <td>{{ interface.duplex }}</td> 
+    <td>{{ interface.mtu }}</td> 
+    <td>{{ interface.mac_address }}</td> 
+    <td>{{ interface.physical_address }}</td> 
+    <td>{{ interface.ip_address }}</td> 
+    <td>{{ interface.medium }}</td> 
+    <td>{{ interface.delay }}</td> 
+    <td>{{ interface.encapsulation }}</td> 
+    <td>{{ interface.flow_control_receive }}</td> 
+    <td>{{ interface.flow_control_send }}</td> 
+    <td>{{ interface.port_channel }}</td> 
+    <td>{{ interface.port_channel_member_interfaces }}</td> 
+    <td>{{ interface.port_channel_member }}</td> 
+    <td>{{ interface.last_change }}</td> 
+    <td>{{ interface.input_broadcast }}</td> 
+    <td>{{ interface.input_crc_errors }}</td> 
+    <td>{{ interface.input_errors }}</td> 
+    <td>{{ interface.input_mac_pause_frames }}</td> 
+    <td>{{ interface.input_multicast }}</td> 
+    <td>{{ interface.input_octets }}</td> 
+    <td>{{ interface.input_unicast }}</td> 
+    <td>{{ interface.input_unknown }}</td> 
+    <td>{{ interface.input_total }}</td> 
+    <td>{{ interface.output_broadcast }}</td> 
+    <td>{{ interface.output_discard }}</td> 
+    <td>{{ interface.output_errors }}</td> 
+    <td>{{ interface.output_mac_pause_frames }}</td> 
+    <td>{{ interface.output_multicast }}</td> 
+    <td>{{ interface.output_unicast }}</td> 
+    <td>{{ interface.output_total }}</td> 
+    <td>{{ interface.last_clear }}</td> 
+    <td>{{ interface.input_rate }}</td> 
+    <td>{{ interface.load_interval }}</td> 
+    <td>{{ interface.output_rate }}</td> 
+    <td>{{ interface.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.8 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -268,7 +379,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.7 %}
+  <tbody>{% for vlan in object_list.8 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -282,9 +393,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.8 %}
+{% if object_list.9 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.8 %}
+  {% for vrf in object_list.9 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -309,7 +420,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.10 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -322,7 +433,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.9 %}
+  <tbody>{% for part in object_list.10 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -334,7 +445,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.11 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -346,7 +457,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.10 %}
+  <tbody>{% for interface in object_list.11 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -357,9 +468,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.11 %}
+{% if object_list.12 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.11 %}
+  {% for version in object_list.12 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -541,8 +652,25 @@
     });
   </script>
 <script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_arp_statistics').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>  
+<script type = "text/javascript">
     $(document).ready(function(){
-        $('#bgp_instances').DataTable({
+        $('#learn_bgp_instances').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -559,7 +687,7 @@
   </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#bgp_routes').DataTable({
+        $('#learn_bgp_routes').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -576,7 +704,7 @@
   </script>
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#bgp_tables').DataTable({
+        $('#learn_bgp_tables').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -591,6 +719,23 @@
     });
     });
   </script>   
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_interface').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>     
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#learn_vlan').DataTable({
