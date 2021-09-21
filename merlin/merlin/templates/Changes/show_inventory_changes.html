@@ -5,7 +5,7 @@
 <h1>Merlin Network State Centre</h1>
 {% if inventory_additions %}
 <h2>Merlin has detected the following Inventory items have been added</h2>
-<table id = "inventory_additions" class="table table-bordered">
+<table id = "show_inventory_additions" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -32,7 +32,7 @@
 {% endif %}
 {% if inventory_removals %}
 <h2>Merlin has detected the following Inventory items have been removed</h2>
-<table id = "inventory_removals" class="table table-bordered">
+<table id = "show_inventory_removals" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -58,13 +58,8 @@
 <h2>Merlin has not detected any Inventory configuration removals</h2>
 {% endif %}
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#inventory_additions thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#inventory_additions thead');
-
-    var table = $('#inventory_additions').DataTable({
+    $(document).ready(function(){
+        $('#show_inventory_additions').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -72,70 +67,16 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
-  $(document).ready(function(){
-    $('#inventory_removals thead tr')
-    .clone(true)
-    .addClass('filters')
-    .appendTo('#inventory_removals thead');
-
-    var table = $('#inventory_removals').DataTable({
+    $(document).ready(function(){
+        $('#show_inventory_removals').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -143,60 +84,11 @@
             [ '10 rows', '25 rows', '50 rows', 'Show all' ]
         ],
         buttons: [
-        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
         ],
         colReorder: true,
-        select: true,            
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function () {
-        var api = this.api();
-
-        // For each column
-        api
-            .columns()
-            .eq(0)
-            .each(function (colIdx) {
-                // Set the header cell to contain the input element
-                var cell = $('.filters th').eq(
-                    $(api.column(colIdx).header()).index()
-                );
-                var title = $(cell).text();
-                $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-                // On every keypress in this input
-                $(
-                    'input',
-                    $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                    .off('keyup change')
-                    .on('keyup change', function (e) {
-                        e.stopPropagation();
-
-                        // Get the search value
-                        $(this).attr('title', $(this).val());
-                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                        var cursorPosition = this.selectionStart;
-                        // Search the column for that value
-                        api
-                            .column(colIdx)
-                            .search(
-                                this.value != ''
-                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                    : '',
-                                this.value != '',
-                                this.value == ''
-                            )
-                            .draw();
-
-                        $(this)
-                            .focus()[0]
-                            .setSelectionRange(cursorPosition, cursorPosition);
-                    });
-            });
-    },
-});
-});        
+        select: true
+    });
+    });
 </script>
 {% endblock %} 

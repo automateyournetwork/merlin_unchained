@@ -145,7 +145,7 @@
 {% endif %}
 {% if arp_statistics_additions %}
 <h2>Merlin has detected the following ARP Statistics have been added</h2>
-<table id = "learn_arp_statistics" class="table table-bordered">
+<table id = "arp_statistics_additions" class="table table-bordered">
     <thead class = "alert-success">
     <tr>
     <th>pyATS Alias</th>
@@ -178,7 +178,7 @@
 {% endif %}
 {% if arp_statistics_removals %}
 <h2>Merlin has detected the following ARP Statistics removals</h2>
-<table id = "learn_arp_statistics" class="table table-bordered">
+<table id = "arp_statistics_removals" class="table table-bordered">
     <thead class = "alert-success">
     <tr>
     <th>pyATS Alias</th>
@@ -859,7 +859,7 @@
 {% endif %}
 {% if interface_additions %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
-<table id = "interface_additions" class="table table-bordered">
+<table id = "ip_int_brief_additions" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -884,7 +884,7 @@
 {% endif %}
 {% if interface_removals %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been removed</h2>
-<table id = "interface_removals" class="table table-bordered">
+<table id = "ip_int_brief_removals" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -1257,6 +1257,40 @@
     });
 </script>
 <script type = "text/javascript">
+  $(document).ready(function(){
+      $('#arp_statistics_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#arp_statistics_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
     $(document).ready(function(){
         $('#bgp_instance_additions').DataTable({
         keys: true,
@@ -1357,6 +1391,40 @@
         select: true
     });
     });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#interface_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#interface_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
@@ -1461,38 +1529,38 @@
     });
 </script>
 <script type = "text/javascript">
-    $(document).ready(function(){
-        $('#interface_additions').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true
-    });
-    });
+  $(document).ready(function(){
+      $('#ip_int_brief_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
 </script>
 <script type = "text/javascript">
-    $(document).ready(function(){
-        $('#interface_removals').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true
-    });
-    });
+  $(document).ready(function(){
+      $('#ip_int_brief_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){
@@ -1527,4 +1595,5 @@
         select: true
     });
     });
-</script>{% endblock %}
+</script>
+{% endblock %}
