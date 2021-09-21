@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Learn Interface for {{ year }} {{ month }}{% endblock %}
+
+{% block content %}
+<h1>Learn Interface for {{ year }} {{ month }}</h1>
+<table id = "interface_additions" class="table table-bordered">
+  <thead class = "alert-success">
+<tr>
+  <th>pyATS Alias</th>
+  <th>Operating System</th>
+  <th>Interface</th>
+  <th>Description</th>
+  <th>Enabled</th>
+  <th>Status</th>
+  <th>Access VLAN</th>
+  <th>Native VLAN</th>
+  <th>Switchport</th>
+  <th>Switchport Mode</th>
+  <th>Interface Type</th>
+  <th>Bandwidth</th>
+  <th>Auto Negotiate</th>
+  <th>Speed</th>
+  <th>Duplex</th>
+  <th>MTU</th>
+  <th>MAC Address</th>
+  <th>Physical Address</th>
+  <th>IP Address</th>
+  <th>Medium</th>
+  <th>Delay</th>
+  <th>Encapsulation</th>
+  <th>Flow Control Receive</th>
+  <th>Flow Control Send</th>
+  <th>Port Channel</th>
+  <th>Port Channel Member Interfaces</th>
+  <th>Port Channel Member</th>
+  <th>Last Change</th>
+  <th>Input Broadcast</th>
+  <th>Input CRC Errors</th>
+  <th>Input Errors</th>
+  <th>Input MAC Pause Frames</th>
+  <th>Input Multicast</th>
+  <th>Input Octets</th>
+  <th>Input Unicast</th>
+  <th>Input Unknown</th>
+  <th>Input Total</th>
+  <th>Output Broadcast</th>
+  <th>Output Discard</th>
+  <th>Output Errors</th>
+  <th>Output MAC Pause Frames</th>
+  <th>Output Multicast</th>
+  <th>Output Unicast</th>
+  <th>Output Total</th>
+  <th>Last Clear</th>
+  <th>Input Rate</th>
+  <th>Load Interval</th>
+  <th>Output Rate</th>
+  <th>Timestamp</th>
+</tr>
+</thead>
+<tbody>{% for interface in interface_list %}
+<tr>
+  <td>{{ interface.pyats_alias }}</td>
+  <td>{{ interface.os }}</td> 
+  <td>{{ interface.interface }}</td> 
+  <td>{{ interface.description }}</td> 
+  <td>{{ interface.enabled }}</td> 
+  <td>{{ interface.status }}</td> 
+  <td>{{ interface.access_vlan }}</td> 
+  <td>{{ interface.native_vlan }}</td> 
+  <td>{{ interface.switchport }}</td> 
+  <td>{{ interface.switchport_mode }}</td> 
+  <td>{{ interface.interface_type }}</td> 
+  <td>{{ interface.bandwidth }}</td> 
+  <td>{{ interface.auto_negotiate }}</td> 
+  <td>{{ interface.speed }}</td> 
+  <td>{{ interface.duplex }}</td> 
+  <td>{{ interface.mtu }}</td> 
+  <td>{{ interface.mac_address }}</td> 
+  <td>{{ interface.physical_address }}</td> 
+  <td>{{ interface.ip_address }}</td> 
+  <td>{{ interface.medium }}</td> 
+  <td>{{ interface.delay }}</td> 
+  <td>{{ interface.encapsulation }}</td> 
+  <td>{{ interface.flow_control_receive }}</td> 
+  <td>{{ interface.flow_control_send }}</td> 
+  <td>{{ interface.port_channel }}</td> 
+  <td>{{ interface.port_channel_member_interfaces }}</td> 
+  <td>{{ interface.port_channel_member }}</td> 
+  <td>{{ interface.last_change }}</td> 
+  <td>{{ interface.input_broadcast }}</td> 
+  <td>{{ interface.input_crc_errors }}</td> 
+  <td>{{ interface.input_errors }}</td> 
+  <td>{{ interface.input_mac_pause_frames }}</td> 
+  <td>{{ interface.input_multicast }}</td> 
+  <td>{{ interface.input_octets }}</td> 
+  <td>{{ interface.input_unicast }}</td> 
+  <td>{{ interface.input_unknown }}</td> 
+  <td>{{ interface.input_total }}</td> 
+  <td>{{ interface.output_broadcast }}</td> 
+  <td>{{ interface.output_discard }}</td> 
+  <td>{{ interface.output_errors }}</td> 
+  <td>{{ interface.output_mac_pause_frames }}</td> 
+  <td>{{ interface.output_multicast }}</td> 
+  <td>{{ interface.output_unicast }}</td> 
+  <td>{{ interface.output_total }}</td> 
+  <td>{{ interface.last_clear }}</td> 
+  <td>{{ interface.input_rate }}</td> 
+  <td>{{ interface.load_interval }}</td> 
+  <td>{{ interface.output_rate }}</td> 
+  <td>{{ interface.timestamp }}</td>
+</tr>{% endfor %}
+</tbody>  
+</table>    
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#table thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#learn_acl thead');
+
+    var table = $('#table').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -249,6 +249,36 @@ def learn_bgp_tables_alias_archive(request, pyats_alias):
     bgp_tables_list = LearnBGPTables.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'bgp_tables_list': bgp_tables_list}
     return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_alias_archive.html', context)    
+
+def learn_interface_all(request):
+    interface_list = LearnInterface.objects.all()
+    context = {'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_all.html', context)
+
+def learn_interface_year_archive(request, year):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year)
+    context = {'year': year, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_year_archive.html', context)
+
+def learn_interface_month_archive(request, year, month):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_month_archive.html', context)
+
+def learn_interface_day_archive(request, year, month, day):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_day_archive.html', context)
+
+def learn_interface_nxos_archive(request):
+    interface_list = LearnInterface.objects.filter(os='nxos')
+    context = {'os': os, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_nxos_archive.html', context)
+
+def learn_interface_alias_archive(request, pyats_alias):
+    interface_list = LearnInterface.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_alias_archive.html', context)
 
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
@@ -564,6 +594,30 @@ def learn_bgp_tables_csv_download_latest(request):
         writer.writerow(table)
     return response        
 
+def learn_interface_csv(request):
+    return render(request, 'CSV/LearnInterface/learn_interface_csv.html')
+
+def learn_interface_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_interface_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Description','Enabled','Status','Access VLAN','Native VLAN','Switchport','Switchport Mode','Interface Type','Bandwidth','Auto Negotiate','Speed','Duplex','MTU','MAC Address','Physical Address','Medium','Delay','Encapsulation','Flow Control Receive','Flow Control Send','Port Channel','Port Channel Member Interfaces','Port Channel Member','Last Change','Input Broadcast','Input CRC Errors','Input MAC Pause Frames','Input Multicast','Input Octets','Input Unicast','Input Unknown','Input Total','Output Broadcast','Output Discard','Output Errors','Output MAC Pause Frames','Output Multicast','Output Unicast','Output Total','Last Clear','Input Rate','Load Interval','Output Rate','Timestamp'])
+    interfaces = LearnInterface.objects.all().values_list('pyats_alias','interface','description','enabled','status','access_vlan','native_vlan','switchport','switchport_mode','interface_type','bandwidth','auto_negotiate','speed','duplex','mtu','mac_address','physical_address','ip_address','medium','delay','encapsulation','flow_control_receive','flow_control_send','port_channel','port_channel_member_interfaces','port_channel_member','last_change','input_broadcast','input_crc_errors','input_errors','input_mac_pause_frames','input_multicast','input_octets','input_unicast','input_unknown','input_total','output_broadcast','output_discard','output_errors','output_mac_pause_frames','output_multicast','output_unicast','output_total','last_clear','input_rate','load_interval','output_rate','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
+def learn_interface_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_interface_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Description','Enabled','Status','Access VLAN','Native VLAN','Switchport','Switchport Mode','Interface Type','Bandwidth','Auto Negotiate','Speed','Duplex','MTU','MAC Address','Physical Address','Medium','Delay','Encapsulation','Flow Control Receive','Flow Control Send','Port Channel','Port Channel Member Interfaces','Port Channel Member','Last Change','Input Broadcast','Input CRC Errors','Input MAC Pause Frames','Input Multicast','Input Octets','Input Unicast','Input Unknown','Input Total','Output Broadcast','Output Discard','Output Errors','Output MAC Pause Frames','Output Multicast','Output Unicast','Output Total','Last Clear','Input Rate','Load Interval','Output Rate','Timestamp'])
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interfaces = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','interface','description','enabled','status','access_vlan','native_vlan','switchport','switchport_mode','interface_type','bandwidth','auto_negotiate','speed','duplex','mtu','mac_address','physical_address','ip_address','medium','delay','encapsulation','flow_control_receive','flow_control_send','port_channel','port_channel_member_interfaces','port_channel_member','last_change','input_broadcast','input_crc_errors','input_errors','input_mac_pause_frames','input_multicast','input_octets','input_unicast','input_unknown','input_total','output_broadcast','output_discard','output_errors','output_mac_pause_frames','output_multicast','output_unicast','output_total','last_clear','input_rate','load_interval','output_rate','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 
@@ -700,7 +754,9 @@ def all_latest(request):
     bgp_routes_latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     bgp_routes_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_routes_latest_timestamp.timestamp)
     bgp_tables_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
-    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)       
+    bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)
+    interface_latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=interface_latest_timestamp.timestamp)
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -711,7 +767,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -748,7 +804,13 @@ def learn_bgp_tables_latest(request):
     latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'bgp_tables_list': bgp_tables_list}
-    return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)    
+    return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)
+
+def learn_interface_latest(request):
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'interface_list': interface_list}
+    return render(request, 'Latest/LearnInterface/learn_interface_latest.html', context)
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
@@ -798,13 +860,15 @@ def all_changes(request):
     current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
+    current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
     current_vrfs = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
-    os.system('pyats run job populate_db_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job populate_db_job.py')
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     arp_new_timestamp = LearnARP.objects.latest('timestamp')
@@ -817,6 +881,8 @@ def all_changes(request):
     latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_new_timestamp = LearnBGPTables.objects.latest('timestamp')
     latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    new_timestamp = LearnInterface.objects.latest('timestamp')
+    latest_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -835,18 +901,20 @@ def all_changes(request):
     bgp_route_additions = latest_bgp_route.difference(current_bgp_route)
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
+    interface_removals = current_interface.difference(latest_interface)
+    interface_additions = latest_interface.difference(current_interface)
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
     current_acls = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
-    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vlan_job.py')
     new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     acl_removals = current_acls.difference(latest_acls)
@@ -856,7 +924,7 @@ def learn_acl_changes(request):
 def learn_arp_changes(request):
     latest_timestamp = LearnARP.objects.latest('timestamp')
     current_arp = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
-    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_arp_job.py')
     new_timestamp = LearnARP.objects.latest('timestamp')
     latest_arp = LearnARP.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
     arp_removals = current_arp.difference(latest_arp)
@@ -866,7 +934,7 @@ def learn_arp_changes(request):
 def learn_arp_statistics_changes(request):
     latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
     current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
-    os.system('pyats run job learn_arp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_arp_job.py')
     new_timestamp = LearnARPStatistics.objects.latest('timestamp')
     latest_arp_statistics = LearnARPStatistics.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
     arp_statistics_removals = current_arp_statistics.difference(latest_arp_statistics)
@@ -876,7 +944,7 @@ def learn_arp_statistics_changes(request):
 def learn_bgp_instances_changes(request):
     latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
     current_bgp_instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'protocol_state', 'nexthop_trigger_delay_critical', 'nexthop_trigger_delay_noncritical', 'nexthop_trigger_enabled', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'last_reset', 'reset_reason')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPInstances.objects.latest('timestamp')
     latest_bgp_instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'protocol_state', 'nexthop_trigger_delay_critical', 'nexthop_trigger_delay_noncritical', 'nexthop_trigger_enabled', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'last_reset', 'reset_reason')
     bgp_instances_removals = current_bgp_instances.difference(latest_bgp_instances)
@@ -886,7 +954,7 @@ def learn_bgp_instances_changes(request):
 def learn_bgp_route_changes(request):
     latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_route_removals = current_bgp_route.difference(latest_bgp_route)
@@ -896,17 +964,27 @@ def learn_bgp_route_changes(request):
 def learn_bgp_table_changes(request):
     latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     current_bgp_table = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
-    os.system('pyats run job learn_bgp_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_bgp_job.py')
     new_timestamp = LearnBGPTables.objects.latest('timestamp')
     latest_bgp_table = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
     return render(request, 'Changes/learn_bgp_table_changes.html', {'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions})
 
+def learn_interface_changes(request):
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    current_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    os.system('pyats run job learn_interface_job.py')
+    new_timestamp = LearnInterface.objects.latest('timestamp')
+    latest_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    interface_removals = current_interface.difference(latest_interface)
+    interface_additions = latest_interface.difference(current_interface)
+    return render(request, 'Changes/learn_interface_changes.html', {'interface_removals': interface_removals,'interface_additions': interface_additions})
+
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
-    os.system('pyats run job learn_vlan_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vlan_job.py')
     new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vlan_removals = current_vlans.difference(latest_vlans)
@@ -916,7 +994,7 @@ def learn_vlan_changes(request):
 def learn_vrf_changes(request):
     latest_timestamp = LearnVRF.objects.latest('timestamp')
     current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
-    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vrf_job.py')
     new_timestamp = LearnVRF.objects.latest('timestamp')
     latest_vrfs = LearnVRF.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     vrf_removals = current_vrfs.difference(latest_vrfs)
@@ -926,7 +1004,7 @@ def learn_vrf_changes(request):
 def show_inventory_changes(request):
     latest_timestamp = ShowInventory.objects.latest('timestamp')
     current_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
-    os.system('pyats run job show_inventory_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job show_inventory_job.py')
     new_timestamp = ShowInventory.objects.latest('timestamp')
     latest_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
     inventory_removals = current_inventory.difference(latest_inventory)
@@ -936,7 +1014,7 @@ def show_inventory_changes(request):
 def show_ip_int_brief_changes(request):
     latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
     current_interfaces = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","interface","interface_status","ip_address")
-    os.system('pyats run job show_ip_int_brief_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job show_ip_int_brief_job.py')
     new_timestamp = ShowIPIntBrief.objects.latest('timestamp')
     latest_interfaces = ShowIPIntBrief.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias","os","interface","interface_status","ip_address")
     interface_removals = current_interfaces.difference(latest_interfaces)
@@ -946,7 +1024,7 @@ def show_ip_int_brief_changes(request):
 def show_version_changes(request):
     latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
-    os.system('pyats run job learn_vrf_job.py --testbed-file testbed/testbed_DevNet_Nexus9k_Sandbox.yaml')
+    os.system('pyats run job learn_vrf_job.py')
     new_timestamp = ShowVersion.objects.latest('timestamp')
     latest_version = ShowVersion.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
     version_removals = current_version.difference(latest_version)

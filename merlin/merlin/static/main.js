@@ -2,6 +2,7 @@ const getAllSpinnerBox = document.getElementById('get_all_spinner')
 const learnACLSpinnerBox = document.getElementById('learn_acl_spinner')
 const learnARPSpinnerBox = document.getElementById('learn_arp_spinner')
 const learnBGPSpinnerBox = document.getElementById('learn_bgp_spinner')
+const learnInterfaceSpinnerBox = document.getElementById('learn_interface_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
@@ -60,6 +61,20 @@ $("#learn_bgp_all_devices_button").click(function(e){
         },
         success: function(response){
             learnBGPSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#learn_interface_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/LearnInterface/learn_interface_all_result/",
+        beforeSend: function(){
+            learnInterfaceSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            learnInterfaceSpinnerBox.classList.add('not-visible')
         }
     })
 })

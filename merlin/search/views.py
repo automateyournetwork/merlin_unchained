@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -24,6 +24,8 @@ class SearchResultView(ListView):
             Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(vrf=query) | Q(neighbor=query) | Q(advertised=query) | Q(routes=query) | Q(remote_as=query)
         ),LearnBGPTables.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(vrf=query) | Q(table_version=query) | Q(prefix=query) | Q(index=query) | Q(localpref=query) | Q(next_hop=query) | Q(origin_code=query) | Q(status_code=query) | Q(weight=query) 
+        ),LearnInterface.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(interface=query) | Q(description=query) | Q(access_vlan=query) | Q(native_vlan=query) | Q(switchport_mode=query) | Q(interface_type=query) | Q(bandwidth=query) | Q(speed=query) | Q(duplex=query) | Q(mtu=query) | Q(mac_address=query) | Q(physical_address=query) | Q(ip_address=query) | Q(encapsulation=query)
         ),LearnVLAN.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(vlan=query) | Q(interfaces=query) | Q(mode=query) | Q(name=query) | Q(shutdown=query) | Q(state=query)
         ),LearnVRF.objects.filter(
