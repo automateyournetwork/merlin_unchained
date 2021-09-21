@@ -250,6 +250,36 @@ def learn_bgp_tables_alias_archive(request, pyats_alias):
     context = {'pyats_alias': pyats_alias, 'bgp_tables_list': bgp_tables_list}
     return render(request, 'HTML/LearnBGPTables/learn_bgp_tables_alias_archive.html', context)    
 
+def learn_interface_all(request):
+    interface_list = LearnInterface.objects.all()
+    context = {'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_all.html', context)
+
+def learn_interface_year_archive(request, year):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year)
+    context = {'year': year, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_year_archive.html', context)
+
+def learn_interface_month_archive(request, year, month):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_month_archive.html', context)
+
+def learn_interface_day_archive(request, year, month, day):
+    interface_list = LearnInterface.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_day_archive.html', context)
+
+def learn_interface_nxos_archive(request):
+    interface_list = LearnInterface.objects.filter(os='nxos')
+    context = {'os': os, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_nxos_archive.html', context)
+
+def learn_interface_alias_archive(request, pyats_alias):
+    interface_list = LearnInterface.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
+    return render(request, 'HTML/LearnInterface/learn_interface_alias_archive.html', context)
+
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
     context = {'vlan_list': v_list}
@@ -563,6 +593,30 @@ def learn_bgp_tables_csv_download_latest(request):
     for table in tables:
         writer.writerow(table)
     return response        
+
+def learn_interface_csv(request):
+    return render(request, 'CSV/LearnInterface/learn_interface_csv.html')
+
+def learn_interface_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_interface_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Description','Enabled','Status','Access VLAN','Native VLAN','Switchport','Switchport Mode','Interface Type','Bandwidth','Auto Negotiate','Speed','Duplex','MTU','MAC Address','Physical Address','Medium','Delay','Encapsulation','Flow Control Receive','Flow Control Send','Port Channel','Port Channel Member Interfaces','Port Channel Member','Last Change','Input Broadcast','Input CRC Errors','Input MAC Pause Frames','Input Multicast','Input Octets','Input Unicast','Input Unknown','Input Total','Output Broadcast','Output Discard','Output Errors','Output MAC Pause Frames','Output Multicast','Output Unicast','Output Total','Last Clear','Input Rate','Load Interval','Output Rate','Timestamp'])
+    interfaces = LearnInterface.objects.all().values_list('pyats_alias','interface','description','enabled','status','access_vlan','native_vlan','switchport','switchport_mode','interface_type','bandwidth','auto_negotiate','speed','duplex','mtu','mac_address','physical_address','ip_address','medium','delay','encapsulation','flow_control_receive','flow_control_send','port_channel','port_channel_member_interfaces','port_channel_member','last_change','input_broadcast','input_crc_errors','input_errors','input_mac_pause_frames','input_multicast','input_octets','input_unicast','input_unknown','input_total','output_broadcast','output_discard','output_errors','output_mac_pause_frames','output_multicast','output_unicast','output_total','last_clear','input_rate','load_interval','output_rate','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
+
+def learn_interface_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_interface_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Interface','Description','Enabled','Status','Access VLAN','Native VLAN','Switchport','Switchport Mode','Interface Type','Bandwidth','Auto Negotiate','Speed','Duplex','MTU','MAC Address','Physical Address','Medium','Delay','Encapsulation','Flow Control Receive','Flow Control Send','Port Channel','Port Channel Member Interfaces','Port Channel Member','Last Change','Input Broadcast','Input CRC Errors','Input MAC Pause Frames','Input Multicast','Input Octets','Input Unicast','Input Unknown','Input Total','Output Broadcast','Output Discard','Output Errors','Output MAC Pause Frames','Output Multicast','Output Unicast','Output Total','Last Clear','Input Rate','Load Interval','Output Rate','Timestamp'])
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interfaces = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','interface','description','enabled','status','access_vlan','native_vlan','switchport','switchport_mode','interface_type','bandwidth','auto_negotiate','speed','duplex','mtu','mac_address','physical_address','ip_address','medium','delay','encapsulation','flow_control_receive','flow_control_send','port_channel','port_channel_member_interfaces','port_channel_member','last_change','input_broadcast','input_crc_errors','input_errors','input_mac_pause_frames','input_multicast','input_octets','input_unicast','input_unknown','input_total','output_broadcast','output_discard','output_errors','output_mac_pause_frames','output_multicast','output_unicast','output_total','last_clear','input_rate','load_interval','output_rate','timestamp')
+    for interface in interfaces:
+        writer.writerow(interface)
+    return response
 
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')

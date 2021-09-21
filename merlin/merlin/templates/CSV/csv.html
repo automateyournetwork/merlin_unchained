@@ -4,8 +4,8 @@
 
 {% block content %}
 <h1>Business Ready Document Centre</h1>
-<table class="merlin-table">
-  <thead>
+<table id = "csv" class="table table-bordered">
+  <thead class = "alert-success">
   <tr>
   <th>Command</th>
   <th>All Records</th>
@@ -15,7 +15,8 @@
   <tbody>
   <tr>
     <td>Devices</td>
-    <td><button onclick="location.href='{% url 'devices_csv' %}'">Export All ACL Records</button></td>
+    <td><button onclick="location.href='{% url 'devices_csv' %}'">Export All Device Records</button></td>
+    <td>N/A</td>
   </tr>    
   <tr>
     <td>Learn ACL</td>
@@ -46,6 +47,11 @@
     <td>Learn BGP Tables</td>
     <td><button onclick="location.href='{% url 'learn_bgp_tables_csv' %}'">Export All Records</button></td>
     <td><button onclick="location.href='{% url 'learn_bgp_tables_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  <tr>
+    <td>Learn Interface</td>
+    <td><button onclick="location.href='{% url 'learn_interface_csv' %}'">Export All Inteface Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_interface_csv_latest' %}'">Export Latest Interface Records</button></td>
   </tr>  
   <tr>
     <td>Learn VLAN</td>
@@ -74,4 +80,13 @@
   </tr>
   </tbody>
 </table>
+<script>
+  $(document).ready( function () {
+    $('#csv').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
 {% endblock %}
