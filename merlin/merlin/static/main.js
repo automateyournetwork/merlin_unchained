@@ -13,7 +13,7 @@ $("#get_all_all_devices_button").click(function(e){
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/OnDemand/get_all_all_result/",
+        url: "/OnDemand/GetAll/get_all_all_result/",
         beforeSend: function(){
             getAllSpinnerBox.classList.remove('not-visible')
         },

@@ -20,7 +20,7 @@ from pyats import topology
 from pyats.log.utils import banner
 from general_functionalities import ParseShowCommandFunction, ParseLearnFunction
 from datetime import datetime
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics,  LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import LearnACL, LearnARP, LearnARPStatistics,  LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # ----------------
 # AE Test Setup

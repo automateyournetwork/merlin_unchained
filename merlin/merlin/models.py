@@ -209,6 +209,15 @@ class LearnInterface(models.Model):
         template = '{0.pyats_alias} {0.os} {0.interface} {0.description} {0.enabled} {0.status} {0.access_vlan} {0.native_vlan} {0.switchport} {0.switchport_mode} {0.interface_type} {0.bandwidth} {0.auto_negotiate} {0.speed} {0.duplex} {0.mtu} {0.mac_address} {0.physical_address} {0.ip_address} {0.medium} {0.delay} {0.encapsulation} {0.flow_control_receive} {0.flow_control_send} {0.port_channel} {0.port_channel_member} {0.last_change} {0.input_broadcast} {0.input_crc_errors} {0.input_errors} {0.input_mac_pause_frames} {0.input_multicast} {0.input_octets} {0.input_unicast} {0.input_unknown} {0.input_total} {0.output_broadcast} {0.output_discard} {0.output_errors} {0.output_mac_pause_frames} {0.output_multicast} {0.output_unicast} {0.output_total} {0.last_clear} {0.input_rate} {0.load_interval} {0.output_rate} {0.timestamp}'
         return template.format(self)
 
+class LearnPlatform(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        return template.format(self)
+
 class LearnVLAN(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
