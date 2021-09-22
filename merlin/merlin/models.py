@@ -212,10 +212,51 @@ class LearnInterface(models.Model):
 class LearnPlatform(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
+    chassis = models.TextField()
+    chassis_sn = models.TextField()
+    disk_free_space = models.TextField()
+    disk_total_space = models.TextField()
+    disk_used_space = models.TextField()
+    image = models.TextField()
+    installed_packages = models.TextField()
+    main_mem = models.TextField()
+    rp_uptime = models.TextField()
+    rtr_type = models.TextField()
+    version = models.TextField()
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.chassis} {0.chassis_sn} {0.disk_free_space} {0.disk_total_space} {0.disk_used_space} {0.image} {0.installed_packages} {0.main_mem} {0.rp_uptime} {0.rtr_type} {0.version} {0.timestamp}'
+        return template.format(self)
+
+class LearnPlatformSlots(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    slot = models.TextField()
+    slot_name = models.TextField()
+    slot_sn = models.TextField()
+    slot_state = models.TextField()
+    slot_redundancy_state = models.TextField()
+    rp_boot_image = models.TextField()
+    slot_rp_uptime = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.slot} {0.slot_name} {0.slot_sn} {0.slot_state} {0.slot_redundancy_state} {0.rp_boot_image} {0.slot_rp_uptime} {0.timestamp}'
+        return template.format(self)
+
+class LearnPlatformVirtual(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()    
+    virtual_device_name = models.TextField()
+    virtual_device_status = models.TextField()
+    virtual_device_member = models.TextField()
+    virtual_device_member_status = models.TextField()
+    virtual_device_member_type = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.virtual_device_name} {0.virtual_device_status} {0.virtual_device_member} {0.virtual_device_member_status} {0.virtual_device_member_type} {0.timestamp}'
         return template.format(self)
 
 class LearnVLAN(models.Model):

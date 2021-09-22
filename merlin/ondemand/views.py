@@ -30,6 +30,10 @@ def learn_interface_all_ondemand(request):
     os.system('pyats run job learn_interface_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def learn_platform_all_ondemand(request):
+    os.system('pyats run job learn_platform_job.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def learn_vlan_all_ondemand(request):
     os.system('pyats run job learn_vlan_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
@@ -96,6 +100,15 @@ class OnDemandResultInterface(ListView):
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_interface_filter_job.py')
+
+class OnDemandResultPlatform(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('learn_platform_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_platform_filter_job.py')
 
 class OnDemandResultVLAN(ListView):
     template_name = 'OnDemand/ondemand.html'
