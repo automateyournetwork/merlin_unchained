@@ -406,8 +406,8 @@
 </table>
 {% endif %}
 {% if object_list.9 %}
-<h2>Learn Platform Hits</h2>
-<table id = "learn_platform" class="table table-bordered">
+<h2>Learn Platform Slots Hits</h2>
+<table id = "learn_platform_slots" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -439,8 +439,8 @@
 </table>
 {% endif %}
 {% if object_list.10 %}
-<h2>Learn Platform Hits</h2>
-<table id = "learn_platform" class="table table-bordered">
+<h2>Learn Platform Virtual Hits</h2>
+<table id = "learn_platform_virtual" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -838,7 +838,58 @@
       select: true
   });
   });
-</script>     
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform_slots').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform_virtual').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>    
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#learn_vlan').DataTable({

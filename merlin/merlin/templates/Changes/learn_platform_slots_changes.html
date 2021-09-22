@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if platform_additions %}
+<h2>Merlin has detected the following Platform Slot configurations have been added</h2>
+<table id = "platform_additions" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Slot</th>
+    <th>Slot Name</th>
+    <th>Slot Serial Number</th>
+    <th>Slot State</th>
+    <th>Slot Redundancy State</th>
+    <th>RP Boot Image</th>
+    <th>Slot RP Uptime</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in platform_additions %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.slot }}</td>
+    <td>{{ platform.slot_name }}</td>
+    <td>{{ platform.slot_sn }}</td>
+    <td>{{ platform.slot_state }}</td>
+    <td>{{ platform.slot_redundancy_state }}</td>
+    <td>{{ platform.rp_boot_image }}</td>
+    <td>{{ platform.slot_rp_uptime }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>  
+{% else %}
+<h2>Merlin has not detected any Platform Slot configuration additons</h2>
+{% endif %}
+{% if platform_removals %}
+<h2>Merlin has detected the following Platform Slot configurations have been removed</h2>
+<table id = "platform_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Slot</th>
+    <th>Slot Name</th>
+    <th>Slot Serial Number</th>
+    <th>Slot State</th>
+    <th>Slot Redundancy State</th>
+    <th>RP Boot Image</th>
+    <th>Slot RP Uptime</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in platform_removals %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.slot }}</td>
+    <td>{{ platform.slot_name }}</td>
+    <td>{{ platform.slot_sn }}</td>
+    <td>{{ platform.slot_state }}</td>
+    <td>{{ platform.slot_redundancy_state }}</td>
+    <td>{{ platform.rp_boot_image }}</td>
+    <td>{{ platform.slot_rp_uptime }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>     
+{% else %}
+<h2>Merlin has not detected any Platform Slot configuration removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#platform_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+        $('#platform_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+{% endblock %} 

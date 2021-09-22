@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
@@ -26,6 +26,8 @@ def all_changes(request):
     current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
     interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
     current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    current_platform = LearnPlatform.objects.filter(timestamp=platform_latest_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -47,6 +49,8 @@ def all_changes(request):
     latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
     interface_new_timestamp = LearnInterface.objects.latest('timestamp')
     latest_interface = LearnInterface.objects.filter(timestamp=interface_new_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+    platform_new_timestamp = LearnPlatform.objects.latest('timestamp')
+    latest_platform = LearnPlatform.objects.filter(timestamp=platform_new_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")    
     vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
     latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -67,13 +71,15 @@ def all_changes(request):
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
     interface_removals = current_interface.difference(latest_interface)
     interface_additions = latest_interface.difference(current_interface)
+    platform_removals = current_platform.difference(latest_platform)
+    platform_additions = latest_platform.difference(current_platform)    
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vlan_latest_timestamp': vlan_latest_timestamp.timestamp, 'vlan_new_timestamp': vlan_new_timestamp.timestamp, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions, 'version_latest_timestamp': version_latest_timestamp.timestamp, 'version_new_timestamp': version_new_timestamp.timestamp})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -145,6 +151,36 @@ def learn_interface_changes(request):
     interface_additions = latest_interface.difference(current_interface)
     return render(request, 'Changes/learn_interface_changes.html', {'interface_removals': interface_removals,'interface_additions': interface_additions})
 
+def learn_platform_changes(request):
+    latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    current_platform = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+    os.system('pyats run job learn_platform_job.py')
+    new_timestamp = LearnPlatform.objects.latest('timestamp')
+    latest_platform = LearnPlatform.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+    platform_removals = current_platform.difference(latest_platform)
+    platform_additions = latest_platform.difference(current_platform)
+    return render(request, 'Changes/learn_platform_changes.html', {'platform_removals': platform_removals,'platform_additions': platform_additions})
+
+def learn_platform_slots_changes(request):
+    latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    current_platform_slots = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+    os.system('pyats run job learn_platform_job.py')
+    new_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    latest_platform_slots = LearnPlatformSlots.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+    platform_slot_removals = current_platform_slots.difference(latest_platform_slots)
+    platform_slot_additions = latest_platform_slots.difference(current_platform_slots)
+    return render(request, 'Changes/learn_platform_slots_changes.html', {'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions})
+
+def learn_platform_virtual_changes(request):
+    latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    current_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
+    os.system('pyats run job learn_platform_job.py')
+    new_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    latest_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
+    platform_virtual_removals = current_platform_virtual.difference(latest_platform_virtual)
+    platform_virtual_additions = latest_platform_virtual.difference(current_platform_virtual)
+    return render(request, 'Changes/learn_platform_virtual_changes.html', {'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions})        
+
 def learn_vlan_changes(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
     current_vlans = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
@@ -215,6 +251,12 @@ class ChangesResultAll(ListView):
         current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
         interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
         current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+        platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
+        current_platform = LearnPlatform.objects.filter(timestamp=platform_latest_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+        platform_slots_latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+        current_platform_slots = LearnPlatformSlots.objects.filter(timestamp=platform_slots_latest_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+        platform_virtual_latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+        current_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=platform_virtual_latest_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")        
         vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
         current_vlans = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
         vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -239,6 +281,12 @@ class ChangesResultAll(ListView):
         latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
         interface_new_timestamp = LearnInterface.objects.latest('timestamp')
         latest_interface = LearnInterface.objects.filter(timestamp=interface_new_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+        platform_new_timestamp = LearnPlatform.objects.latest('timestamp')
+        latest_platform = LearnPlatform.objects.filter(timestamp=platform_new_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+        platform_slots_new_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+        latest_platform_slots = LearnPlatformSlots.objects.filter(timestamp=platform_slots_new_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+        platform_virtual_new_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+        latest_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=platform_virtual_new_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
         vlan_new_timestamp = LearnVLAN.objects.latest('timestamp')
         latest_vlans = LearnVLAN.objects.filter(timestamp=vlan_new_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
         vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -259,13 +307,19 @@ class ChangesResultAll(ListView):
         bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
         interface_removals = current_interface.difference(latest_interface)
         interface_additions = latest_interface.difference(current_interface)
+        platform_removals = current_platform.difference(latest_platform)
+        platform_additions = latest_platform.difference(current_platform)
+        platform_slot_removals = current_platform_slots.difference(latest_platform_slots)
+        platform_slot_additions = latest_platform_slots.difference(current_platform_slots)
+        platform_virtual_removals = current_platform_virtual.difference(latest_platform_virtual)
+        platform_virtual_additions = latest_platform_virtual.difference(current_platform_virtual)        
         vlan_removals = current_vlans.difference(latest_vlans)
         vlan_additions = latest_vlans.difference(current_vlans)
         vrf_removals = current_vrfs.difference(latest_vrfs)
         vrf_additions = latest_vrfs.difference(current_vrfs)
         version_removals = current_version.difference(latest_version)
         version_additions = latest_version.difference(current_version)
-        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
+        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
 
 class ChangesResultACL(ListView):
     template_name = 'Changes/changes.html'
@@ -378,6 +432,54 @@ class ChangesResultInterface(ListView):
         interface_removals = current_interface.difference(latest_interface)
         interface_additions = latest_interface.difference(current_interface)
         return render(request, 'Changes/learn_interface_changes.html', {'interface_removals': interface_removals,'interface_additions': interface_additions})
+
+class ChangesResultPlatform(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = LearnPlatform.objects.latest('timestamp')
+        current_platform = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+        query = self.request.GET.get('learn_platform_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_platform_filter_job.py')
+        new_timestamp = LearnPlatform.objects.latest('timestamp')
+        latest_platform = LearnPlatform.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
+        platform_removals = current_platform.difference(latest_platform)
+        platform_additions = latest_platform.difference(current_platform)
+        return render(request, 'Changes/learn_platform_changes.html', {'platform_removals': platform_removals,'platform_additions': platform_additions})
+
+class ChangesResultPlatformSlots(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+        current_platform_slots = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+        query = self.request.GET.get('learn_platform_slots_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_platform_filter_job.py')
+        new_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+        latest_platform_slots = LearnPlatformSlots.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
+        platform_slot_removals = current_platform_slots.difference(latest_platform_slots)
+        platform_slot_additions = latest_platform_slots.difference(current_platform_slots)
+        return render(request, 'Changes/learn_platform_slots_changes.html', {'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions})
+
+class ChangesResultPlatformVirtual(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+        current_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
+        query = self.request.GET.get('learn_platform_virtual_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_platform_filter_job.py')
+        new_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+        latest_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
+        platform_virtual_removals = current_platform_virtual.difference(latest_platform_virtual)
+        platform_virtual_additions = latest_platform_virtual.difference(current_platform_virtual)
+        return render(request, 'Changes/learn_platform_virtual_changes.html', {'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions})
 
 class ChangesResultVLAN(ListView):
     template_name = 'Changes/changes.html'
