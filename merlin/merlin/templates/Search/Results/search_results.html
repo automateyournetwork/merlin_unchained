@@ -365,6 +365,109 @@
 </table>
 {% endif %}
 {% if object_list.8 %}
+<h2>Learn Platform Hits</h2>
+<table id = "learn_platform" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Chassis</th>
+    <th>Chassis Serial Number</th>
+    <th>Free Disk Space</th>
+    <th>Total Disk Space</th>
+    <th>Used Disk Space</th>
+    <th>Image</th>
+    <th>Installed Packages</th>
+    <th>Main Memory</th>
+    <th>RP Uptime</th>
+    <th>Router Type</th>
+    <th>Version</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.8 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.chassis }}</td>
+    <td>{{ platform.chassis_sn }}</td>
+    <td>{{ platform.disk_free_space }}</td>
+    <td>{{ platform.disk_total_space }}</td>
+    <td>{{ platform.disk_used_space }}</td>
+    <td>{{ platform.image }}</td>
+    <td>{{ platform.installed_packages }}</td>
+    <td>{{ platform.main_mem }}</td>
+    <td>{{ platform.rp_uptime }}</td>
+    <td>{{ platform.rtr_type }}</td>
+    <td>{{ platform.version }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.9 %}
+<h2>Learn Platform Hits</h2>
+<table id = "learn_platform" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Slot</th>
+    <th>Slot Name</th>
+    <th>Slot Serial Number</th>
+    <th>Slot State</th>
+    <th>Slot Redundancy State</th>
+    <th>RP Boot Image</th>
+    <th>Slot RP Uptime</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.9 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.slot }}</td>
+    <td>{{ platform.slot_name }}</td>
+    <td>{{ platform.slot_sn }}</td>
+    <td>{{ platform.slot_state }}</td>
+    <td>{{ platform.slot_redundancy_state }}</td>
+    <td>{{ platform.rp_boot_image }}</td>
+    <td>{{ platform.slot_rp_uptime }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.10 %}
+<h2>Learn Platform Hits</h2>
+<table id = "learn_platform" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Virtual Device Name</th>
+    <th>Virtual Device Status</th>
+    <th>Virtual Device Member</th>
+    <th>Virtual Device Member Status</th>
+    <th>Virtual Device Member Type</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.10 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.virtual_device_name }}</td>
+    <td>{{ platform.virtual_device_status }}</td>
+    <td>{{ platform.virtual_device_member }}</td>
+    <td>{{ platform.virtual_device_member_status }}</td>
+    <td>{{ platform.virtual_device_member_type }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.11 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -379,7 +482,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.8 %}
+  <tbody>{% for vlan in object_list.11 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -393,9 +496,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.12 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.9 %}
+  {% for vrf in object_list.12 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -420,7 +523,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.13 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -433,7 +536,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.10 %}
+  <tbody>{% for part in object_list.13 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -445,7 +548,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.11 %}
+{% if object_list.14 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -457,7 +560,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.11 %}
+  <tbody>{% for interface in object_list.14 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -468,9 +571,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.12 %}
+{% if object_list.15 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.12 %}
+  {% for version in object_list.15 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
