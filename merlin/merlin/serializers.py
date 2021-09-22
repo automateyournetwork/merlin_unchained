@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -40,6 +40,21 @@ class LearnInterfaceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnInterface
         fields = ('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_broadcast', 'input_crc_errors', 'input_errors', 'input_mac_pause_frames', 'input_multicast', 'input_octets', 'input_unicast', 'input_unknown', 'input_total', 'output_broadcast', 'output_discard', 'output_errors', 'output_mac_pause_frames', 'output_multicast', 'output_unicast', 'output_total', 'last_clear', 'input_rate', 'load_interval', 'output_rate', 'timestamp')
+
+class LearnPlatformSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnPlatform
+        fields = ('pyats_alias', 'os', 'chassis', 'chassis_sn', 'disk_free_space', 'disk_total_space','disk_used_space','image','installed_packages','main_mem','rp_uptime','rtr_type','version', 'timestamp')
+
+class LearnPlatformSlotsSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnPlatformSlots
+        fields = ('pyats_alias', 'os', 'slot', 'slot_name', 'slot_sn', 'slot_state', 'slot_redundancy_state', 'rp_boot_image', 'slot_rp_uptime', 'timestamp')
+
+class LearnPlatformVirtualSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnPlatformVirtual
+        fields = ('pyats_alias', 'os', 'virtual_device_name', 'virtual_device_status', 'virtual_device_member', 'virtual_device_member_status', 'virtual_device_member_type', 'timestamp')
 
 class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
