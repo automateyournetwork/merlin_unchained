@@ -618,6 +618,78 @@ def learn_interface_csv_download_latest(request):
         writer.writerow(interface)
     return response
 
+def learn_platform_csv(request):
+    return render(request, 'CSV/LearnPlatform/learn_platform_csv.html')
+
+def learn_platform_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Chassis','Chassis Serial Number','Free Disk Space','Total Disk Space','Used Disk Space','Image','Installed Packages','Main Memory','RP Uptime','Router Type','Version','Timestamp'])
+    platforms = LearnPlatform.objects.all().values_list('pyats_alias','chassis','chassis_sn','disk_free_space','disk_total_space','disk_used_space','image','installed_packages','main_mem','rp_uptime','rtr_type','version','timestamp')
+    for platform in platforms:
+        writer.writerow(platform)
+    return response
+
+def learn_platform_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Chassis','Chassis Serial Number','Free Disk Space','Total Disk Space','Used Disk Space','Image','Installed Packages','Main Memory','RP Uptime','Router Type','Version','Timestamp'])
+    latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platforms = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','chassis','chassis_sn','disk_free_space','disk_total_space','disk_used_space','image','installed_packages','main_mem','rp_uptime','rtr_type','version','timestamp')
+    for platform in platforms:
+        writer.writerow(platform)
+    return response
+
+def learn_platform_slots_csv(request):
+    return render(request, 'CSV/LearnPlatformSlots/learn_platform_slots_csv.html')
+
+def learn_platform_slots_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_slots_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Slot','Slot Name','Slot Serial Number','Slot State','Slot Redundancy State','RP Boot Image','Slot RP Uptime','Timestamp'])
+    platform_slots = LearnPlatformSlots.objects.all().values_list('pyats_alias','slot','slot_name','slot_sn','slot_state','slot_redundancy_state','rp_boot_image','slot_rp_uptime','timestamp')
+    for platform_slot in platform_slots:
+        writer.writerow(platform_slot)
+    return response
+
+def learn_platform_slots_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_slots_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Slot','Slot Name','Slot Serial Number','Slot State','Slot Redundancy State','RP Boot Image','Slot RP Uptime','Timestamp'])
+    latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','slot','slot_name','slot_sn','slot_state','slot_redundancy_state','rp_boot_image','slot_rp_uptime','timestamp')
+    for platform_slot in platform_slots:
+        writer.writerow(platform_slot)
+    return response      
+
+def learn_platform_virtual_csv(request):
+    return render(request, 'CSV/LearnPlatformVirtual/learn_platform_virtual_csv.html')
+
+def learn_platform_virtual_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_virtual_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Virtual Device Name','Virtual Device Status','Virtual Device Member','Virtual Device Member Status','Virtual Device Member Type','Timestamp'])
+    platform_virtuals = LearnPlatformVirtual.objects.all().values_list('pyats_alias','virtual_device_name','virtual_device_status','virtual_device_member','virtual_device_member_status','virtual_device_member_type','timestamp')
+    for platform_virtual in platform_virtuals:
+        writer.writerow(platform_virtual)
+    return response
+
+def learn_platform_virtual_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_virtual_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Virtual Device Name','Virtual Device Status','Virtual Device Member','Virtual Device Member Status','Virtual Device Member Type','Timestamp'])
+    latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtuals = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','virtual_device_name','virtual_device_status','virtual_device_member','virtual_device_member_status','virtual_device_member_type','timestamp')
+    for platform_virtual in platform_virtuals:
+        writer.writerow(platform_virtual)
+    return response
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 
