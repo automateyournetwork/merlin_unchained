@@ -280,6 +280,96 @@ def learn_interface_alias_archive(request, pyats_alias):
     context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/LearnInterface/learn_interface_alias_archive.html', context)
 
+def learn_platform_all(request):
+    platform_list = LearnPlatform.objects.all()
+    context = {'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_all.html', context)
+
+def learn_platform_year_archive(request, year):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_year_archive.html', context)
+
+def learn_platform_month_archive(request, year, month):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_month_archive.html', context)
+
+def learn_platform_day_archive(request, year, month, day):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_day_archive.html', context)
+
+def learn_platform_nxos_archive(request):
+    platform_list = LearnPlatform.objects.filter(os='nxos')
+    context = {'os': os, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_nxos_archive.html', context)
+
+def learn_platform_alias_archive(request, pyats_alias):
+    platform_list = LearnPlatform.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_alias_archive.html', context)
+
+def learn_platform_slots_all(request):
+    platform_slots_list = LearnPlatformSlots.objects.all()
+    context = {'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_all.html', context)
+
+def learn_platform_slots_year_archive(request, year):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_year_archive.html', context)
+
+def learn_platform_slots_month_archive(request, year, month):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_month_archive.html', context)
+
+def learn_platform_slots_day_archive(request, year, month, day):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_day_archive.html', context)
+
+def learn_platform_slots_nxos_archive(request):
+    platform_slots_list = LearnPlatformSlots.objects.filter(os='nxos')
+    context = {'os': os, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_nxos_archive.html', context)
+
+def learn_platform_slots_alias_archive(request, pyats_alias):
+    platform_slots_list = LearnPlatformSlots.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_alias_archive.html', context)
+
+def learn_platform_virtual_all(request):
+    platform_virtual_list = LearnPlatformVirtual.objects.all()
+    context = {'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_all.html', context)
+
+def learn_platform_virtual_year_archive(request, year):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_year_archive.html', context)
+
+def learn_platform_virtual_month_archive(request, year, month):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_month_archive.html', context)
+
+def learn_platform_virtual_day_archive(request, year, month, day):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_day_archive.html', context)
+
+def learn_platform_virtual_nxos_archive(request):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(os='nxos')
+    context = {'os': os, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_nxos_archive.html', context)
+
+def learn_platform_virtual_alias_archive(request, pyats_alias):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_alias_archive.html', context)        
+
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
     context = {'vlan_list': v_list}
