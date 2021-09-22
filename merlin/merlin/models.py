@@ -209,6 +209,56 @@ class LearnInterface(models.Model):
         template = '{0.pyats_alias} {0.os} {0.interface} {0.description} {0.enabled} {0.status} {0.access_vlan} {0.native_vlan} {0.switchport} {0.switchport_mode} {0.interface_type} {0.bandwidth} {0.auto_negotiate} {0.speed} {0.duplex} {0.mtu} {0.mac_address} {0.physical_address} {0.ip_address} {0.medium} {0.delay} {0.encapsulation} {0.flow_control_receive} {0.flow_control_send} {0.port_channel} {0.port_channel_member} {0.last_change} {0.input_broadcast} {0.input_crc_errors} {0.input_errors} {0.input_mac_pause_frames} {0.input_multicast} {0.input_octets} {0.input_unicast} {0.input_unknown} {0.input_total} {0.output_broadcast} {0.output_discard} {0.output_errors} {0.output_mac_pause_frames} {0.output_multicast} {0.output_unicast} {0.output_total} {0.last_clear} {0.input_rate} {0.load_interval} {0.output_rate} {0.timestamp}'
         return template.format(self)
 
+class LearnPlatform(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    chassis = models.TextField()
+    chassis_sn = models.TextField()
+    disk_free_space = models.TextField()
+    disk_total_space = models.TextField()
+    disk_used_space = models.TextField()
+    image = models.TextField()
+    installed_packages = models.TextField()
+    main_mem = models.TextField()
+    rp_uptime = models.TextField()
+    rtr_type = models.TextField()
+    version = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.chassis} {0.chassis_sn} {0.disk_free_space} {0.disk_total_space} {0.disk_used_space} {0.image} {0.installed_packages} {0.main_mem} {0.rp_uptime} {0.rtr_type} {0.version} {0.timestamp}'
+        return template.format(self)
+
+class LearnPlatformSlots(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    slot = models.TextField()
+    slot_name = models.TextField()
+    slot_sn = models.TextField()
+    slot_state = models.TextField()
+    slot_redundancy_state = models.TextField()
+    rp_boot_image = models.TextField()
+    slot_rp_uptime = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.slot} {0.slot_name} {0.slot_sn} {0.slot_state} {0.slot_redundancy_state} {0.rp_boot_image} {0.slot_rp_uptime} {0.timestamp}'
+        return template.format(self)
+
+class LearnPlatformVirtual(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()    
+    virtual_device_name = models.TextField()
+    virtual_device_status = models.TextField()
+    virtual_device_member = models.TextField()
+    virtual_device_member_status = models.TextField()
+    virtual_device_member_type = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.virtual_device_name} {0.virtual_device_status} {0.virtual_device_member} {0.virtual_device_member_status} {0.virtual_device_member_type} {0.timestamp}'
+        return template.format(self)
+
 class LearnVLAN(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()

@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -26,6 +26,12 @@ class SearchResultView(ListView):
             Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(vrf=query) | Q(table_version=query) | Q(prefix=query) | Q(index=query) | Q(localpref=query) | Q(next_hop=query) | Q(origin_code=query) | Q(status_code=query) | Q(weight=query) 
         ),LearnInterface.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(interface=query) | Q(description=query) | Q(access_vlan=query) | Q(native_vlan=query) | Q(switchport_mode=query) | Q(interface_type=query) | Q(bandwidth=query) | Q(speed=query) | Q(duplex=query) | Q(mtu=query) | Q(mac_address=query) | Q(physical_address=query) | Q(ip_address=query) | Q(encapsulation=query)
+        ),LearnPlatform.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(chassis=query) | Q(chassis_sn=query) | Q(image=query) | Q(installed_packages=query) | Q(rtr_type=query) | Q(version=query) 
+        ),LearnPlatformSlots.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(slot=query) | Q(slot_name=query) | Q(slot_sn=query) | Q(slot_state=query) | Q(slot_redundancy_state=query) | Q(rp_boot_image=query)
+        ),LearnPlatformVirtual.objects.filter(
+            Q(pyats_alias=query) | Q(os=query) | Q(virtual_device_name=query) | Q(virtual_device_status=query) | Q(virtual_device_member=query) | Q(virtual_device_member_status=query) | Q(virtual_device_member_type=query)
         ),LearnVLAN.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(vlan=query) | Q(interfaces=query) | Q(mode=query) | Q(name=query) | Q(shutdown=query) | Q(state=query)
         ),LearnVRF.objects.filter(

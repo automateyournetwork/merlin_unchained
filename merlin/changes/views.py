@@ -374,7 +374,7 @@ class ChangesResultInterface(ListView):
         input_field.save()
         os.system('pyats run job learn_interface_filter_job.py')
         new_timestamp = LearnInterface.objects.latest('timestamp')
-        latest_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
+        latest_interface = LearnInterface.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
         interface_removals = current_interface.difference(latest_interface)
         interface_additions = latest_interface.difference(current_interface)
         return render(request, 'Changes/learn_interface_changes.html', {'interface_removals': interface_removals,'interface_additions': interface_additions})
