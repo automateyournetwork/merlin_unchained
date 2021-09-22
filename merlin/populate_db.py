@@ -384,6 +384,56 @@ class Collect_Information(aetest.Testcase):
                     learnInterface=LearnInterface(pyats_alias=device.alias,os=device.os,interface=interface,description=description,enabled=enabled,status=oper_status,access_vlan=access_vlan,native_vlan=native_vlan,switchport=switchport_enable,switchport_mode=switchport_mode,interface_type=interface_type,bandwidth=bandwidth,auto_negotiate=auto_negotiate,speed=speed,duplex=duplex,mtu=mtu,mac_address=mac_address,physical_address=physical_address,ip_address=ip_address,medium=medium,delay=delay,encapsulation=encapsulation,flow_control_receive=flow_control_receive,flow_control_send=flow_control_send,port_channel=port_channel_int,port_channel_member_interfaces=port_channel_member_intfs,port_channel_member=port_channel_member,last_change=last_change,input_broadcast=in_broadcast_pkts,input_crc_errors=in_crc_errors,input_errors=in_errors,input_mac_pause_frames=in_mac_pause_frames,input_multicast=in_multicast_pkts,input_octets=in_octets,input_unicast=in_unicast_pkts,input_unknown=in_unknown_protos,input_total=in_pkts,output_broadcast=out_broadcast_pkts,output_discard=out_discard,output_errors=out_errors,output_mac_pause_frames=out_mac_pause_frames,output_multicast=out_multicast_pkts,output_unicast=out_unicast_pkts,output_total=out_pkts,last_clear=last_clear,input_rate=input_rate,load_interval=load_interval,output_rate=output_rate,timestamp=datetime.now().replace(microsecond=0))
                     learnInterface.save()
 
+            # Learn Platform to JSON
+            self.learned_platform = ParseDictFunction.parse_learn(steps, device, "platform")
+            if self.learned_platform is not None:
+                for slot in self.learned_platform['slot']:
+                    for part in self.learned_platform['slot'][slot]:
+                        slot = slot
+                        slot_name = self.learned_platform['slot'][slot][part]['name']
+                        slot_sn = self.learned_platform['slot'][slot][part]['sn']
+                        slot_state = self.learned_platform['slot'][slot][part]['state']
+                        if 'redundancy_state' in self.learned_platform['slot'][slot][part]:
+                            slot_redundancy_state = self.learned_platform['slot'][slot][part]['redundancy_state']
+                        else:
+                            slot_redundancy_state = 'null'
+
+                        if 'rp_boot_image' in self.learned_platform['slot'][slot][part]:
+                            rp_boot_image = self.learned_platform['slot'][slot][part]['rp_boot_image']
+                        else:
+                            rp_boot_image = 'null'
+
+                        if 'rp_uptime' in self.learned_platform['slot'][slot][part]:
+                            rp_uptime = self.learned_platform['slot'][slot][part]['rp_uptime']
+                        else:
+                            rp_uptime = 'null'
+
+                    # Set Django Database values from pyATS JSON
+                    learnPlatformSlots=LearnPlatformSlots(pyats_alias=device.alias,os=device.os,slot=slot,slot_name=slot_name,slot_sn=slot_sn,slot_state=slot_state,slot_redundancy_state=slot_redundancy_state,rp_boot_image=rp_boot_image,slot_rp_uptime=rp_uptime,timestamp=datetime.now().replace(microsecond=0))
+
+                    # Save the objects into the database.
+                    learnPlatformSlots.save()
+
+                for virtual_device in self.learned_platform['virtual_device']:
+                    virtual_device_name = self.learned_platform['virtual_device'][virtual_device]['vd_name']
+                    virtual_device_status = self.learned_platform['virtual_device'][virtual_device]['vd_status']
+                    for member in self.learned_platform['virtual_device'][virtual_device]['membership']:
+                        virtual_device_member = member
+                        virtual_device_member_status = self.learned_platform['virtual_device'][virtual_device]['membership'][member]['status']
+                        virtual_device_member_type = self.learned_platform['virtual_device'][virtual_device]['membership'][member]['type']
+                
+                        # Set Django Database values from pyATS JSON
+                        learnPlatformVirtual=LearnPlatformVirtual(pyats_alias=device.alias,os=device.os,virtual_device_name=virtual_device_name,virtual_device_status=virtual_device_status,virtual_device_member=member,virtual_device_member_status=virtual_device_member_status,virtual_device_member_type=virtual_device_member_type,timestamp=datetime.now().replace(microsecond=0))
+
+                        # Save the objects into the database.
+                        learnPlatformVirtual.save()
+
+                # Set Django Database values from pyATS JSON
+                learnPlatform=LearnPlatform(pyats_alias=device.alias,os=device.os,chassis=self.learned_platform['chassis'],chassis_sn=self.learned_platform['chassis_sn'],disk_free_space=self.learned_platform['disk_free_space'],disk_total_space=self.learned_platform['disk_total_space'],disk_used_space=self.learned_platform['disk_used_space'],image=self.learned_platform['image'],installed_packages=self.learned_platform['installed_packages'],main_mem=self.learned_platform['main_mem'],rp_uptime=self.learned_platform['rp_uptime'],rtr_type=self.learned_platform['rtr_type'],version=self.learned_platform['version'],timestamp=datetime.now().replace(microsecond=0))
+
+                # Save the objects into the database.
+                learnPlatform.save()
+
             # Learn VLAN to JSON
             self.learned_vlan = ParseLearnFunction.parse_learn(steps, device, "vlan")
             if self.learned_vlan is not None:

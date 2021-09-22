@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnInterfaceSerializer, LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesViewSet(viewsets.ModelViewSet):
     queryset = Devices.objects.all().order_by('timestamp')
@@ -33,6 +33,18 @@ class LearnBGPTablesViewSet(viewsets.ModelViewSet):
 class LearnInterfaceViewSet(viewsets.ModelViewSet):
     queryset = LearnInterface.objects.all().order_by('timestamp')
     serializer_class = LearnInterfaceSerializer
+
+class LearnPlatformViewSet(viewsets.ModelViewSet):
+    queryset = LearnPlatform.objects.all().order_by('timestamp')
+    serializer_class = LearnPlatformSerializer
+
+class LearnPlatformSlotsViewSet(viewsets.ModelViewSet):
+    queryset = LearnPlatformSlots.objects.all().order_by('timestamp')
+    serializer_class = LearnPlatformSlotsSerializer
+
+class LearnPlatformVirtualViewSet(viewsets.ModelViewSet):
+    queryset = LearnPlatformVirtual.objects.all().order_by('timestamp')
+    serializer_class = LearnPlatformVirtualSerializer        
 
 class LearnVLANViewSet(viewsets.ModelViewSet):
     queryset = LearnVLAN.objects.all().order_by('timestamp')

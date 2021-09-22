@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -279,6 +279,96 @@ def learn_interface_alias_archive(request, pyats_alias):
     interface_list = LearnInterface.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/LearnInterface/learn_interface_alias_archive.html', context)
+
+def learn_platform_all(request):
+    platform_list = LearnPlatform.objects.all()
+    context = {'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_all.html', context)
+
+def learn_platform_year_archive(request, year):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_year_archive.html', context)
+
+def learn_platform_month_archive(request, year, month):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_month_archive.html', context)
+
+def learn_platform_day_archive(request, year, month, day):
+    platform_list = LearnPlatform.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_day_archive.html', context)
+
+def learn_platform_nxos_archive(request):
+    platform_list = LearnPlatform.objects.filter(os='nxos')
+    context = {'os': os, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_nxos_archive.html', context)
+
+def learn_platform_alias_archive(request, pyats_alias):
+    platform_list = LearnPlatform.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_list': platform_list}
+    return render(request, 'HTML/LearnPlatform/learn_platform_alias_archive.html', context)
+
+def learn_platform_slots_all(request):
+    platform_slots_list = LearnPlatformSlots.objects.all()
+    context = {'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_all.html', context)
+
+def learn_platform_slots_year_archive(request, year):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_year_archive.html', context)
+
+def learn_platform_slots_month_archive(request, year, month):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_month_archive.html', context)
+
+def learn_platform_slots_day_archive(request, year, month, day):
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_day_archive.html', context)
+
+def learn_platform_slots_nxos_archive(request):
+    platform_slots_list = LearnPlatformSlots.objects.filter(os='nxos')
+    context = {'os': os, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_nxos_archive.html', context)
+
+def learn_platform_slots_alias_archive(request, pyats_alias):
+    platform_slots_list = LearnPlatformSlots.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_slots_list': platform_slots_list}
+    return render(request, 'HTML/LearnPlatformSlots/learn_platform_slots_alias_archive.html', context)
+
+def learn_platform_virtual_all(request):
+    platform_virtual_list = LearnPlatformVirtual.objects.all()
+    context = {'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_all.html', context)
+
+def learn_platform_virtual_year_archive(request, year):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year)
+    context = {'year': year, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_year_archive.html', context)
+
+def learn_platform_virtual_month_archive(request, year, month):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_month_archive.html', context)
+
+def learn_platform_virtual_day_archive(request, year, month, day):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_day_archive.html', context)
+
+def learn_platform_virtual_nxos_archive(request):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(os='nxos')
+    context = {'os': os, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_nxos_archive.html', context)
+
+def learn_platform_virtual_alias_archive(request, pyats_alias):
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'platform_virtual_list': platform_virtual_list}
+    return render(request, 'HTML/LearnPlatformVirtual/learn_platform_virtual_alias_archive.html', context)        
 
 def learn_vlan_all(request):
     v_list = LearnVLAN.objects.all()
@@ -618,6 +708,78 @@ def learn_interface_csv_download_latest(request):
         writer.writerow(interface)
     return response
 
+def learn_platform_csv(request):
+    return render(request, 'CSV/LearnPlatform/learn_platform_csv.html')
+
+def learn_platform_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Chassis','Chassis Serial Number','Free Disk Space','Total Disk Space','Used Disk Space','Image','Installed Packages','Main Memory','RP Uptime','Router Type','Version','Timestamp'])
+    platforms = LearnPlatform.objects.all().values_list('pyats_alias','chassis','chassis_sn','disk_free_space','disk_total_space','disk_used_space','image','installed_packages','main_mem','rp_uptime','rtr_type','version','timestamp')
+    for platform in platforms:
+        writer.writerow(platform)
+    return response
+
+def learn_platform_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Chassis','Chassis Serial Number','Free Disk Space','Total Disk Space','Used Disk Space','Image','Installed Packages','Main Memory','RP Uptime','Router Type','Version','Timestamp'])
+    latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platforms = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','chassis','chassis_sn','disk_free_space','disk_total_space','disk_used_space','image','installed_packages','main_mem','rp_uptime','rtr_type','version','timestamp')
+    for platform in platforms:
+        writer.writerow(platform)
+    return response
+
+def learn_platform_slots_csv(request):
+    return render(request, 'CSV/LearnPlatformSlots/learn_platform_slots_csv.html')
+
+def learn_platform_slots_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_slots_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Slot','Slot Name','Slot Serial Number','Slot State','Slot Redundancy State','RP Boot Image','Slot RP Uptime','Timestamp'])
+    platform_slots = LearnPlatformSlots.objects.all().values_list('pyats_alias','slot','slot_name','slot_sn','slot_state','slot_redundancy_state','rp_boot_image','slot_rp_uptime','timestamp')
+    for platform_slot in platform_slots:
+        writer.writerow(platform_slot)
+    return response
+
+def learn_platform_slots_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_slots_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Slot','Slot Name','Slot Serial Number','Slot State','Slot Redundancy State','RP Boot Image','Slot RP Uptime','Timestamp'])
+    latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','slot','slot_name','slot_sn','slot_state','slot_redundancy_state','rp_boot_image','slot_rp_uptime','timestamp')
+    for platform_slot in platform_slots:
+        writer.writerow(platform_slot)
+    return response      
+
+def learn_platform_virtual_csv(request):
+    return render(request, 'CSV/LearnPlatformVirtual/learn_platform_virtual_csv.html')
+
+def learn_platform_virtual_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_virtual_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Virtual Device Name','Virtual Device Status','Virtual Device Member','Virtual Device Member Status','Virtual Device Member Type','Timestamp'])
+    platform_virtuals = LearnPlatformVirtual.objects.all().values_list('pyats_alias','virtual_device_name','virtual_device_status','virtual_device_member','virtual_device_member_status','virtual_device_member_type','timestamp')
+    for platform_virtual in platform_virtuals:
+        writer.writerow(platform_virtual)
+    return response
+
+def learn_platform_virtual_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="learn_platform_virtual_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Virtual Device Name','Virtual Device Status','Virtual Device Member','Virtual Device Member Status','Virtual Device Member Type','Timestamp'])
+    latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtuals = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','virtual_device_name','virtual_device_status','virtual_device_member','virtual_device_member_status','virtual_device_member_type','timestamp')
+    for platform_virtual in platform_virtuals:
+        writer.writerow(platform_virtual)
+    return response
+
 def learn_vlan_csv(request):
     return render(request, 'CSV/LearnVLAN/learn_vlan_csv.html')
 
@@ -757,6 +919,12 @@ def all_latest(request):
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)
     interface_latest_timestamp = LearnInterface.objects.latest('timestamp')
     interface_list = LearnInterface.objects.filter(timestamp=interface_latest_timestamp.timestamp)
+    platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platform_list = LearnPlatform.objects.filter(timestamp=platform_latest_timestamp.timestamp)
+    platform_slots_latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp=platform_slots_latest_timestamp.timestamp)
+    platform_virtual_latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp=platform_virtual_latest_timestamp.timestamp)
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -767,7 +935,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -811,6 +979,24 @@ def learn_interface_latest(request):
     interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'interface_list': interface_list}
     return render(request, 'Latest/LearnInterface/learn_interface_latest.html', context)
+
+def learn_platform_latest(request):
+    latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platform_list = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_list': platform_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_latest.html', context)
+
+def learn_platform_slots_latest(request):
+    latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_slots_list': platform_slots_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_slots_latest.html', context)
+
+def learn_platform_virtual_latest(request):
+    latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_virtual_list': platform_virtual_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_virtual_latest.html', context)        
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')

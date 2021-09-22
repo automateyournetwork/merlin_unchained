@@ -125,7 +125,49 @@
       <td>
         <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
       </td>        
-      </tr>          
+      </tr>
+      <tr>
+        <td>Learn Platform</td>
+        <td><a href="http://localhost:8000/Changes/learn_platform_changes/"><button id="learn_platform_changes_button">Get Learn Platform Changes</button></a></td>
+        <td>
+          <div id ="learn_platform_filter">
+            <form id = "learn_platform_filter" action="{% url 'learn_platform_filter' %}" method="get">
+              <input name="learn_platform_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>
+      <tr>
+        <td>Learn Platform Slots</td>
+        <td><a href="http://localhost:8000/Changes/learn_platform_slots_changes/"><button id="learn_platform_slots_changes_button">Get Learn Platform Slot Changes</button></a></td>
+        <td>
+          <div id ="learn_platform_slots_filter">
+            <form id = "learn_platform_slots_filter" action="{% url 'learn_platform_slots_filter' %}" method="get">
+              <input name="learn_platform_slots_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>
+      <tr>
+        <td>Learn Platform Virtual</td>
+        <td><a href="http://localhost:8000/Changes/learn_platform_virtual_changes/"><button id="learn_platform_virtual_changes_button">Get Learn Platform Virtual Changes</button></a></td>
+        <td>
+          <div id ="learn_platform_virtual_filter">
+            <form id = "learn_platform_virtual_filter" action="{% url 'learn_platform_virtual_filter' %}" method="get">
+              <input name="learn_platform_virtual_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>      
       <tr>
         <td>Learn VLAN</td>
         <td><a href="http://localhost:8000/Changes/learn_vlan_changes/"><button id="learn_vlan_changes_button">Get Learn VLAN Changes</button></a></td>

@@ -45,7 +45,7 @@ class Collect_Information(aetest.Testcase):
         # Loop over devices
         # ---------------------------------------
         for device in testbed:
-            # Show Version to JSON
+            # Learn Platform to JSON
             self.learned_platform = ParseDictFunction.parse_learn(steps, device, "platform")
             if self.learned_platform is not None:
                 for slot in self.learned_platform['slot']:

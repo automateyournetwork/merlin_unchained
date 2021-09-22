@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}CSV File for Learn Platform Virtual{% endblock %}
+
+{% block content %}
+<h1>CSV Files for Learn Platform Virtual</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>All Records</th>
+  <th>Latest Records</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><button onclick="location.href='{% url 'learn_platform_virtual_csv' %}'">Export All Records</button></td>
+    <td><button onclick="location.href='{% url 'learn_platform_virtual_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}
