@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}Latest Learn Platform Virtual{% endblock %}
+
+{% block content %}
+<h1>Latest Learn Platform Virtual</h1>
+<table id = "learn_platform_virtual" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Operating System</th>
+            <th>Virtual Device Name</th>
+            <th>Virtual Device Status</th>
+            <th>Virtual Device Member</th>
+            <th>Virtual Device Member Status</th>
+            <th>Virtual Device Member Type</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for platform in platform_virtual_list %}
+        <tr>
+            <td>{{ platform.pyats_alias }}</td>
+            <td>{{ platform.os }}</td>
+            <td>{{ platform.virtual_device_name }}</td>
+            <td>{{ platform.virtual_device_status }}</td>
+            <td>{{ platform.virtual_device_member }}</td>
+            <td>{{ platform.virtual_device_member_status }}</td>
+            <td>{{ platform.virtual_device_member_type }}</td>
+            <td>{{ platform.timestamp }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#learn_platform_virtual thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#learn_platform_virtual thead');
+
+    var table = $('#learn_platform_virtual').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+{% endblock %}

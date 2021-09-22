@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -757,6 +757,12 @@ def all_latest(request):
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)
     interface_latest_timestamp = LearnInterface.objects.latest('timestamp')
     interface_list = LearnInterface.objects.filter(timestamp=interface_latest_timestamp.timestamp)
+    platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platform_list = LearnPlatform.objects.filter(timestamp=platform_latest_timestamp.timestamp)
+    platform_slots_latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp=platform_slots_latest_timestamp.timestamp)
+    platform_virtual_latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp=platform_virtual_latest_timestamp.timestamp)
     vlan_latest_timestamp = LearnVLAN.objects.latest('timestamp')
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
@@ -767,7 +773,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -811,6 +817,24 @@ def learn_interface_latest(request):
     interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'interface_list': interface_list}
     return render(request, 'Latest/LearnInterface/learn_interface_latest.html', context)
+
+def learn_platform_latest(request):
+    latest_timestamp = LearnPlatform.objects.latest('timestamp')
+    platform_list = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_list': platform_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_latest.html', context)
+
+def learn_platform_slots_latest(request):
+    latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
+    platform_slots_list = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_slots_list': platform_slots_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_slots_latest.html', context)
+
+def learn_platform_virtual_latest(request):
+    latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
+    platform_virtual_list = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'platform_virtual_list': platform_virtual_list}
+    return render(request, 'Latest/LearnPlatform/learn_platform_virtual_latest.html', context)        
 
 def learn_vlan_latest(request):
     latest_timestamp = LearnVLAN.objects.latest('timestamp')
