@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
+from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
 
 urlpatterns = [
     path('OnDemand/', views.button),
@@ -8,6 +8,7 @@ urlpatterns = [
     path('OnDemand/LearnACL/learn_acl_all_result/', views.learn_acl_all_ondemand, name="learn_acl_all"),
     path('OnDemand/LearnARP/learn_arp_all_result/', views.learn_arp_all_ondemand, name="learn_arp_all"),
     path('OnDemand/LearnBGP/learn_bgp_all_result/', views.learn_bgp_all_ondemand, name="learn_bgp_all"),
+    path('OnDemand/LearnConfig/learn_config_all_result/', views.learn_config_all_ondemand, name="learn_config_all"),
     path('OnDemand/LearnInterface/learn_interface_all_result/', views.learn_interface_all_ondemand, name="learn_interface_all"),
     path('OnDemand/LearnPlatform/learn_platform_all_result/', views.learn_platform_all_ondemand, name="learn_platform_all"),
     path('OnDemand/LearnVLAN/learn_vlan_all_result/', views.learn_vlan_all_ondemand, name="learn_vlan_all"),
@@ -19,6 +20,7 @@ urlpatterns = [
     path('OnDemand/LearnACL/learn_acl_filter_result/', OnDemandResultACL.as_view(), name="learn_acl_filter"),
     path('OnDemand/LearnARP/learn_arp_filter_result/', OnDemandResultARP.as_view(), name="learn_arp_filter"),
     path('OnDemand/LearnBGP/learn_bgp_filter_result/', OnDemandResultBGP.as_view(), name="learn_bgp_filter"),
+    path('OnDemand/LearnConfig/learn_config_filter_result/', OnDemandResultConfig.as_view(), name="learn_config_filter"),
     path('OnDemand/LearnInterface/learn_interface_filter_result/', OnDemandResultInterface.as_view(), name="learn_interface_filter"),
     path('OnDemand/LearnPlatform/learn_platform_filter_result/', OnDemandResultPlatform.as_view(), name="learn_platform_filter"),
     path('OnDemand/LearnVLAN/learn_vlan_filter_result/', OnDemandResultVLAN.as_view(), name="learn_vlan_filter"),

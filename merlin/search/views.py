@@ -1,6 +1,6 @@
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -24,7 +24,10 @@ class SearchResultView(ListView):
             Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(vrf=query) | Q(neighbor=query) | Q(advertised=query) | Q(routes=query) | Q(remote_as=query)
         ),LearnBGPTables.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(instance=query) | Q(vrf=query) | Q(table_version=query) | Q(prefix=query) | Q(index=query) | Q(localpref=query) | Q(next_hop=query) | Q(origin_code=query) | Q(status_code=query) | Q(weight=query) 
-        ),LearnInterface.objects.filter(
+        ),LearnConfig.objects.filter(
+            Q(pyats_alias=query) | Q(os=query)
+        ),LearnConfig.objects.filter(config__contains=query)
+        ,LearnInterface.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(interface=query) | Q(description=query) | Q(access_vlan=query) | Q(native_vlan=query) | Q(switchport_mode=query) | Q(interface_type=query) | Q(bandwidth=query) | Q(speed=query) | Q(duplex=query) | Q(mtu=query) | Q(mac_address=query) | Q(physical_address=query) | Q(ip_address=query) | Q(encapsulation=query)
         ),LearnPlatform.objects.filter(
             Q(pyats_alias=query) | Q(os=query) | Q(chassis=query) | Q(chassis_sn=query) | Q(image=query) | Q(installed_packages=query) | Q(rtr_type=query) | Q(version=query) 

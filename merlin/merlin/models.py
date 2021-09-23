@@ -154,6 +154,16 @@ class LearnBGPTables(models.Model):
         template = '{0.pyats_alias} {0.os} {0.instance} {0.vrf} {0.table_version} {0.prefix} {0.index} {0.localpref} {0.next_hop} {0.origin_code} {0.status_code} {0.weight} {0.timestamp}'
         return template.format(self)
 
+class LearnConfig(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    config = models.JSONField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.config} {0.timestamp}'
+        return template.format(self)
+
 class LearnInterface(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
