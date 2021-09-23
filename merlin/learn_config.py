@@ -45,7 +45,7 @@ class Collect_Information(aetest.Testcase):
         # Loop over devices
         # ---------------------------------------
         for device in testbed:
-            # Learn VRF to JSON
+            # Learn Config to JSON
             self.learned_config = ParseConfigFunction.parse_learn(steps, device, "config")            
             if self.learned_config is not None:
                 # Set Django Database values from pyATS JSON
