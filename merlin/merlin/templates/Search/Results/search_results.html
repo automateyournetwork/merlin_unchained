@@ -254,6 +254,44 @@
 </table>
 {% endif %}
 {% if object_list.7 %}
+<h2>Learn Config Hits</h2>
+<table id = "learn_config" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Config</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for config in object_list.7 %}
+<tr>
+    <td>{{ config.pyats_alias }}</td>
+    <td>{{ config.config }}</td>
+    <td>{{ config.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.8 %}
+<h2>Learn Config Configuration Hits</h2>
+<table id = "learn_config_objects" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>Config Key</th>
+    <th>Config Value</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for key,value in object_list.8 %}
+<tr>
+    <td>{{ key }}</td>
+    <td>{{ value }}</td>
+    <td>{{ object_list.8.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.9 %}
 <h2>Learn Interface Hits</h2>
 <table id = "learn_interface" class="table table-bordered">
     <thead class = "alert-success">
@@ -309,7 +347,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.7 %}
+  <tbody>{% for interface in object_list.9 %}
 <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.os }}</td> 
@@ -364,7 +402,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.8 %}
+{% if object_list.10 %}
 <h2>Learn Platform Hits</h2>
 <table id = "learn_platform" class="table table-bordered">
     <thead class = "alert-success">
@@ -385,7 +423,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.8 %}
+  <tbody>{% for platform in object_list.10 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -405,7 +443,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.11 %}
 <h2>Learn Platform Slots Hits</h2>
 <table id = "learn_platform_slots" class="table table-bordered">
     <thead class = "alert-success">
@@ -422,7 +460,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.9 %}
+  <tbody>{% for platform in object_list.11 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -438,7 +476,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.12 %}
 <h2>Learn Platform Virtual Hits</h2>
 <table id = "learn_platform_virtual" class="table table-bordered">
     <thead class = "alert-success">
@@ -453,7 +491,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.10 %}
+  <tbody>{% for platform in object_list.12 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -467,7 +505,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.11 %}
+{% if object_list.13 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -482,7 +520,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.11 %}
+  <tbody>{% for vlan in object_list.13 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -496,9 +534,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.12 %}
+{% if object_list.14 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.12 %}
+  {% for vrf in object_list.14 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -523,7 +561,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.13 %}
+{% if object_list.15 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -536,7 +574,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.13 %}
+  <tbody>{% for part in object_list.15 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -548,7 +586,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.14 %}
+{% if object_list.16 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -560,7 +598,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.14 %}
+  <tbody>{% for interface in object_list.16 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -571,9 +609,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.15 %}
+{% if object_list.17 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.15 %}
+  {% for version in object_list.17 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -623,7 +661,7 @@
           </tr>
           </tbody>  
         </table>
-  {%   else %}
+  {% else %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
 <table id = "show_version" class="table table-bordered">
@@ -821,7 +859,41 @@
         select: true
     });
     });
-  </script>   
+  </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_config').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_config_objects').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>    
 <script type = "text/javascript">
   $(document).ready(function(){
       $('#learn_interface').DataTable({
