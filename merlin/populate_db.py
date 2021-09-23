@@ -18,9 +18,9 @@ import requests
 from pyats import aetest
 from pyats import topology
 from pyats.log.utils import banner
-from general_functionalities import ParseShowCommandFunction, ParseLearnFunction
+from general_functionalities import ParseShowCommandFunction, ParseLearnFunction, ParseConfigFunction, ParseDictFunction
 from datetime import datetime
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics,  LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import LearnACL, LearnARP, LearnARPStatistics,  LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # ----------------
 # AE Test Setup
@@ -133,6 +133,14 @@ class Collect_Information(aetest.Testcase):
                                 for index in self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index']:
                                     learnBGPTables = LearnBGPTables(pyats_alias=device.alias,os=device.os,instance=instance,vrf=vrf,table_version=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['bgp_table_version'],prefix=prefix,index=index,localpref=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index'][index]['localpref'],next_hop=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index'][index]['next_hop'],origin_code=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index'][index]['origin_codes'],status_code=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index'][index]['status_codes'],weight=self.learned_bgp.table['instance'][instance]['vrf'][vrf]['address_family']['ipv4 unicast']['prefixes'][prefix]['index'][index]['weight'],timestamp=datetime.now().replace(microsecond=0))
                         learnBGPTables.save()
+
+            # Learn Config to JSON
+            self.learned_config = ParseConfigFunction.parse_learn(steps, device, "config")            
+            if self.learned_config is not None:
+                # Set Django Database values from pyATS JSON
+                learnConfig=LearnConfig(pyats_alias=device.alias,os=device.os,config=self.learned_config,timestamp=datetime.now().replace(microsecond=0))
+                # Save the objects into the database.
+                learnConfig.save()
 
             # Learn Interface to JSON
             self.learned_interface = ParseLearnFunction.parse_learn(steps, device, "interface")
