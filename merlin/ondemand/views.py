@@ -65,7 +65,7 @@ class OnDemandResultAll(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('get_all_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job populate_db_filter_job.py')
 
@@ -74,7 +74,7 @@ class OnDemandResultACL(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_acl_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_acl_filter_job.py')
 
@@ -83,7 +83,7 @@ class OnDemandResultARP(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_arp_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_arp_filter_job.py')
 
@@ -92,7 +92,7 @@ class OnDemandResultBGP(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_bgp_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_bgp_filter_job.py')
 
@@ -101,7 +101,7 @@ class OnDemandResultConfig(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_config_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_config_filter_job.py')
 
@@ -110,7 +110,7 @@ class OnDemandResultInterface(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_interface_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_interface_filter_job.py')
 
@@ -119,7 +119,7 @@ class OnDemandResultPlatform(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_platform_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_platform_filter_job.py')
 
@@ -128,7 +128,7 @@ class OnDemandResultVLAN(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_vlan_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_vlan_filter_job.py')
 
@@ -137,7 +137,7 @@ class OnDemandResultVRF(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('learn_vrf_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_vrf_filter_job.py')
 
@@ -146,7 +146,7 @@ class OnDemandResultInventory(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('show_inventory_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_inventory_filter_job.py')
 
@@ -155,7 +155,7 @@ class OnDemandResultIPInterfaceBrief(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('show_ip_int_brief_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_ip_int_brief_filter_job.py')
 
@@ -164,6 +164,6 @@ class OnDemandResultVersion(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('show_version_filter')
-        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_version_filter_job.py')        
