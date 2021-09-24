@@ -104,7 +104,6 @@ class SearchResultConfigView(ListView):
             for key,value in config.config.items():
                 if query in key:
                     inner_object_list.append({'pyats_alias': config.pyats_alias,key: value,'timestamp': config.timestamp})
-            for value in config.config.values():
                 for value_item in value:
                     if query in value_item:
                         inner_object_list.append({'pyats_alias': config.pyats_alias,key: value,'timestamp': config.timestamp})
