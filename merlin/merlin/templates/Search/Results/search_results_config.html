@@ -18,8 +18,8 @@
   <tbody>{% for hit in object_list %}{% for key,value in hit.items %}{% if key != 'pyats_alias' and key != 'timestamp' %}
   <tr>
     <td>{{ hit.pyats_alias }}</td>
-    <td>{{ key }}</td>
-    <td>{{ value }}</td>
+    <td>{{ key | pprint }}</td>
+    <td>{{ value | pprint }}</td>
     <td>{{ hit.timestamp }}</td>
   </tr>{% endif %}{% endfor %}{% endfor %}
   </tbody>  
