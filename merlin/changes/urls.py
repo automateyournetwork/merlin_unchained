@@ -11,6 +11,7 @@ urlpatterns = [
     path('Changes/learn_bgp_instances_changes/', views.learn_bgp_instances_changes, name="learn_bgp_instances_changes"),
     path('Changes/learn_bgp_route_changes/', views.learn_bgp_route_changes, name="learn_bgp_route_changes"),
     path('Changes/learn_bgp_table_changes/', views.learn_bgp_table_changes, name="learn_bgp_table_changes"),
+    
     path('Changes/learn_interface_changes/', views.learn_interface_changes, name="learn_interface_changes"),
     path('Changes/learn_platform_changes/', views.learn_platform_changes, name="learn_platform_changes"),
     path('Changes/learn_platform_slots_changes/', views.learn_platform_slots_changes, name="learn_platform_slots_changes"),
@@ -27,6 +28,7 @@ urlpatterns = [
     path('Changes/learn_bgp_instance_changes_filter/', ChangesResultBGPInstance.as_view(), name="learn_bgp_instance_filter"),
     path('Changes/learn_bgp_route_changes_filter/', ChangesResultBGPRoute.as_view(), name="learn_bgp_route_filter"),
     path('Changes/learn_bgp_table_changes_filter/', ChangesResultBGPTable.as_view(), name="learn_bgp_table_filter"),
+    
     path('Changes/learn_interface_changes_filter/', ChangesResultInterface.as_view(), name="learn_interface_filter"),
     path('Changes/learn_platform_changes_filter/', ChangesResultPlatform.as_view(), name="learn_platform_filter"),
     path('Changes/learn_platform_slots_changes_filter/', ChangesResultPlatformSlots.as_view(), name="learn_platform_slots_filter"),

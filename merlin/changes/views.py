@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
