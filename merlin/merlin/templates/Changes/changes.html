@@ -113,6 +113,20 @@
       </td>         
       </tr>
       <tr>
+        <td>Learn Config</td>
+        <td><a href="http://localhost:8000/Changes/learn_config_changes/"><button id="learn_config_changes_button">Get Learn Config Changes</button></a></td>
+        <td>
+          <div id ="learn_config_filter">
+            <form id = "learn_config_filter" action="{% url 'learn_config_filter' %}" method="get">
+              <input name="learn_config_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>         
+      </tr>      
+      <tr>
         <td>Learn Interface</td>
         <td><a href="http://localhost:8000/Changes/learn_interface_changes/"><button id="learn_interface_changes_button">Get Learn Interface Changes</button></a></td>
         <td>

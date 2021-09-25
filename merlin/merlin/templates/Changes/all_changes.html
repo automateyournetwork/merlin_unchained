@@ -572,6 +572,52 @@
 {% else %}
 <h2>Merlin has not detected any Interface configuration additons</h2>
 {% endif %}
+{% if config_additions %}
+<h2>Merlin has detected the following Configuration additions</h2>
+<table id = "config_additions" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Configuration Key</th>
+    <th>Configuration Value</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for config in config_additions %}{% for key,value in config.items %}{% if key != 'pyats_alias' and key != 'os' %}
+<tr>
+    <td>{{ config.pyats_alias }}</td>
+    <td>{{ key }}</td>
+    <td>{{ value }}</td>
+    <td>{{ config.latest_timestamp }}</td>
+  </tr>{% endif %}{% endfor %}{% endfor %}
+  </tbody>  
+</table>       
+{% else %}
+<h2>Merlin has not detected any Configuration additons</h2>
+{% endif %}
+{% if config_removals %}
+<h2>Merlin has detected the following Configuration removals</h2>
+<table id = "config_removals" class="table table-bordered">
+  <thead class = "alert-success">
+    <tr>
+      <th>pyATS Alias</th>
+      <th>Configuration Key</th>
+      <th>Configuration Value</th>
+      <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>{% for config in config_removals %}{% for key,value in config.items %}{% if key != 'pyats_alias' and key != 'os' %}
+      <tr>
+          <td>{{ config.pyats_alias }}</td>
+          <td>{{ key }}</td>
+          <td>{{ value }}</td>
+          <td>{{ config.new_timestamp }}</td>
+        </tr>{% endif %}{% endfor %}{% endfor %}
+        </tbody>
+  </table>     
+{% else %}
+<h2>Merlin has not detected any Configuration removals</h2>
+{% endif %}
 {% if interface_removals %}
 <h2>Merlin has detected the following Interface configurations have been removed</h2>
 <table id = "interface_removals" class="table table-bordered">
@@ -1391,6 +1437,40 @@
         select: true
     });
     });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#config_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#config_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
 </script>
 <script type = "text/javascript">
   $(document).ready(function(){

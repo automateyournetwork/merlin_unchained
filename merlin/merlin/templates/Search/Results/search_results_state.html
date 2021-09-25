@@ -1,0 +1,995 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network StateSearch Results{% endblock %}
+
+{% block content %}
+<h1>Merlin Network State Search Results</h1>
+{% if object_list.0 %}
+<h2>Device Hits</h2>
+<table id = "devices" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>Hostname</th>
+    <th>Alias</th>
+    <th>Device Type</th>
+    <th>OS</th>
+    <th>Username</th>
+    <th>Protocol</th>
+    <th>IP Address</th>
+    <th>Port</th>
+    <th>Connection Timeout</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for device in object_list.0 %}
+  <tr>
+    <td>{{ device.hostname }}</td>
+    <td>{{ device.alias }}</td>
+    <td>{{ device.device_type }}</td>
+    <td>{{ device.os }}</td>
+    <td>{{ device.username }}</td>
+    <td>{{ device.protocol }}</td>
+    <td>{{ device.ip_address }}</td>
+    <td>{{ device.port }}</td>
+    <td>{{ device.connection_timeout }}</td>
+    <td>{{ device.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.1 %}
+<h2>Learn ACL Hits</h2>
+<table id = "learn_acl" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Access Control List</th>
+  <th>Access Control Entry</th>
+  <th>Permission</th>
+  <th>Logging</th>
+  <th>Source Network</th>
+  <th>Destination Network</th>
+  <th>Layer 3 Protocol</th>
+  <th>Layer 4 Protocol</th>
+  <th>Operator</th>
+  <th>Port</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for acl in object_list.1 %}
+  <tr>
+    <td>{{ acl.pyats_alias }}</td>
+    <td>{{ acl.acl }}</td>
+    <td>{{ acl.ace }}</td>
+    <td>{{ acl.permission }}</td>
+    <td>{{ acl.logging }}</td>
+    <td>{{ acl.source_network }}</td>
+    <td>{{ acl.destination_network }}</td>
+    <td>{{ acl.l3_protocol }}</td>
+    <td>{{ acl.l4_protocol }}</td>
+    <td>{{ acl.operator }}</td>
+    <td>{{ acl.port }}</td>
+    <td>{{ acl.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.2 %}
+<h2>Learn ARP Hits</h2>
+<table id = "learn_arp" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Interface</th>
+  <th>Neighbor IP Address</th>
+  <th>Neighbor MAC Address</th>
+  <th>Origin</th>
+  <th>ARP Dynamic Learning Local Proxy Enabled</th>
+  <th>ARP Dynamic Learning Proxy Enable</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.2 %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.neighbor }}</td>
+    <td>{{ interface.link_layer_address }}</td>
+    <td>{{ interface.origin }}</td>
+    <td>{{ interface.local_proxy_enable }}</td>
+    <td>{{ interface.proxy_enable }}</td>
+    <td>{{ interface.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.3 %}
+<h2>Learn ARP Statistics Hits</h2>
+<table id = "learn_arp_statistics" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Total ARP Entries</th>
+  <th>Input ARP Drops</th>
+  <th>Input ARP Replies</th>
+  <th>Input ARP Requests</th>
+  <th>Incomplete ARP</th>
+  <th>Output ARP Replies</th>
+  <th>Output ARP Requests</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>{% for stat in object_list.3 %}
+    <td>{{ stat.pyats_alias }}</td>
+    <td>{{ stat.entries_total }}</td>
+    <td>{{ stat.in_drops }}</td>
+    <td>{{ stat.in_replies_pkts }}</td>
+    <td>{{ stat.in_requests_pkts }}</td>
+    <td>{{ stat.incomplete_total }}</td>
+    <td>{{ stat.out_replies_pkts }}</td>
+    <td>{{ stat.out_requests_pkts }}</td>
+    <td>{{ stat.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.4 %}
+<h2>Learn BGP Instances Hits</h2>
+<table id = "learn_bgp_instances" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Instance</th>
+    <th>BGP ID</th>
+    <th>State</th>
+    <th>Next Hop Trigger Critical Delay</th>
+    <th>Next Hop Trigger Non-Critical Delay</th>
+    <th>Next Hop Trigger Enabled</th>
+    <th>VRF</th>
+    <th>Router ID</th>
+    <th>Cluster ID</th>
+    <th>Confederation ID</th>
+    <th>Neighbor</th>
+    <th>Version</th>
+    <th>Hold Time</th>
+    <th>Keep Alive Interval</th>
+    <th>Local AS</th>
+    <th>Remote AS</th>
+    <th>Connect Last Reset</th>
+    <th>Reset Reason</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in object_list.4 %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.bgp_id }}</td>
+    <td>{{ instance.protocol_state }}</td>
+    <td>{{ instance.nexthop_trigger_delay_critical }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.nexthop_trigger_delay_noncritical }}</td>            
+    <td>{{ instance.nexthop_trigger_enabled }}</td>
+    <td>{{ instance.router_id }}</td>
+    <td>{{ instance.cluster_id }}</td>
+    <td>{{ instance.confederation_identifier }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.bgp_version }}</td>
+    <td>{{ instance.holdtime }}</td>
+    <td>{{ instance.keepalive_interval }}</td>
+    <td>{{ instance.local_as_as_no }}</td>
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.last_reset }}</td>
+    <td>{{ instance.reset_reason }}</td>
+    <td>{{ instance.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.5 %}
+<h2>Learn BGP Routes Per Peer Hits</h2>
+<table id = "learn_bgp_routes" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Instance</th>
+    <th>VRF</th>
+    <th>Neighbor</th>
+    <th>Advertised</th>
+    <th>Routes</th>
+    <th>Remote AS</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in object_list.5 %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.neighbor }}</td>
+    <td>{{ instance.advertised }}</td>
+    <td>{{ instance.routes }}</td>            
+    <td>{{ instance.remote_as }}</td>
+    <td>{{ instance.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.6 %}
+<h2>Learn BGP Tables Hits</h2>
+<table id = "learn_bgp_tables" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Instance</th>
+    <th>VRF</th>
+    <th>Table Version</th>
+    <th>Prefix</th>
+    <th>Index</th>
+    <th>Local Preference</th>
+    <th>Next Hop</th>
+    <th>Origin Code</th>
+    <th>Status Code</th>
+    <th>Weight</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for instance in object_list.6 %}
+<tr>
+    <td>{{ instance.pyats_alias }}</td>
+    <td>{{ instance.instance }}</td>
+    <td>{{ instance.vrf }}</td>
+    <td>{{ instance.table_version }}</td>
+    <td>{{ instance.prefix }}</td>
+    <td>{{ instance.index }}</td>            
+    <td>{{ instance.localpref }}</td>
+    <td>{{ instance.next_hop }}</td>
+    <td>{{ instance.origin_code }}</td>
+    <td>{{ instance.status_code }}</td>
+    <td>{{ instance.weight }}</td>
+    <td>{{ instance.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.7 %}
+<h2>Learn Interface Hits</h2>
+<table id = "learn_interface" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Interface</th>
+    <th>Description</th>
+    <th>Enabled</th>
+    <th>Status</th>
+    <th>Access VLAN</th>
+    <th>Native VLAN</th>
+    <th>Switchport</th>
+    <th>Switchport Mode</th>
+    <th>Interface Type</th>
+    <th>Bandwidth</th>
+    <th>Auto Negotiate</th>
+    <th>Speed</th>
+    <th>Duplex</th>
+    <th>MTU</th>
+    <th>MAC Address</th>
+    <th>Physical Address</th>
+    <th>IP Address</th>
+    <th>Medium</th>
+    <th>Delay</th>
+    <th>Encapsulation</th>
+    <th>Flow Control Receive</th>
+    <th>Flow Control Send</th>
+    <th>Port Channel</th>
+    <th>Port Channel Member Interfaces</th>
+    <th>Port Channel Member</th>
+    <th>Last Change</th>
+    <th>Input Broadcast</th>
+    <th>Input CRC Errors</th>
+    <th>Input Errors</th>
+    <th>Input MAC Pause Frames</th>
+    <th>Input Multicast</th>
+    <th>Input Octets</th>
+    <th>Input Unicast</th>
+    <th>Input Unknown</th>
+    <th>Input Total</th>
+    <th>Output Broadcast</th>
+    <th>Output Discard</th>
+    <th>Output Errors</th>
+    <th>Output MAC Pause Frames</th>
+    <th>Output Multicast</th>
+    <th>Output Unicast</th>
+    <th>Output Total</th>
+    <th>Last Clear</th>
+    <th>Input Rate</th>
+    <th>Load Interval</th>
+    <th>Output Rate</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.7 %}
+<tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.os }}</td> 
+    <td>{{ interface.interface }}</td> 
+    <td>{{ interface.description }}</td> 
+    <td>{{ interface.enabled }}</td> 
+    <td>{{ interface.status }}</td> 
+    <td>{{ interface.access_vlan }}</td> 
+    <td>{{ interface.native_vlan }}</td> 
+    <td>{{ interface.switchport }}</td> 
+    <td>{{ interface.switchport_mode }}</td> 
+    <td>{{ interface.interface_type }}</td> 
+    <td>{{ interface.bandwidth }}</td> 
+    <td>{{ interface.auto_negotiate }}</td> 
+    <td>{{ interface.speed }}</td> 
+    <td>{{ interface.duplex }}</td> 
+    <td>{{ interface.mtu }}</td> 
+    <td>{{ interface.mac_address }}</td> 
+    <td>{{ interface.physical_address }}</td> 
+    <td>{{ interface.ip_address }}</td> 
+    <td>{{ interface.medium }}</td> 
+    <td>{{ interface.delay }}</td> 
+    <td>{{ interface.encapsulation }}</td> 
+    <td>{{ interface.flow_control_receive }}</td> 
+    <td>{{ interface.flow_control_send }}</td> 
+    <td>{{ interface.port_channel }}</td> 
+    <td>{{ interface.port_channel_member_interfaces }}</td> 
+    <td>{{ interface.port_channel_member }}</td> 
+    <td>{{ interface.last_change }}</td> 
+    <td>{{ interface.input_broadcast }}</td> 
+    <td>{{ interface.input_crc_errors }}</td> 
+    <td>{{ interface.input_errors }}</td> 
+    <td>{{ interface.input_mac_pause_frames }}</td> 
+    <td>{{ interface.input_multicast }}</td> 
+    <td>{{ interface.input_octets }}</td> 
+    <td>{{ interface.input_unicast }}</td> 
+    <td>{{ interface.input_unknown }}</td> 
+    <td>{{ interface.input_total }}</td> 
+    <td>{{ interface.output_broadcast }}</td> 
+    <td>{{ interface.output_discard }}</td> 
+    <td>{{ interface.output_errors }}</td> 
+    <td>{{ interface.output_mac_pause_frames }}</td> 
+    <td>{{ interface.output_multicast }}</td> 
+    <td>{{ interface.output_unicast }}</td> 
+    <td>{{ interface.output_total }}</td> 
+    <td>{{ interface.last_clear }}</td> 
+    <td>{{ interface.input_rate }}</td> 
+    <td>{{ interface.load_interval }}</td> 
+    <td>{{ interface.output_rate }}</td> 
+    <td>{{ interface.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.8 %}
+<h2>Learn Platform Hits</h2>
+<table id = "learn_platform" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Chassis</th>
+    <th>Chassis Serial Number</th>
+    <th>Free Disk Space</th>
+    <th>Total Disk Space</th>
+    <th>Used Disk Space</th>
+    <th>Image</th>
+    <th>Installed Packages</th>
+    <th>Main Memory</th>
+    <th>RP Uptime</th>
+    <th>Router Type</th>
+    <th>Version</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.8 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.chassis }}</td>
+    <td>{{ platform.chassis_sn }}</td>
+    <td>{{ platform.disk_free_space }}</td>
+    <td>{{ platform.disk_total_space }}</td>
+    <td>{{ platform.disk_used_space }}</td>
+    <td>{{ platform.image }}</td>
+    <td>{{ platform.installed_packages }}</td>
+    <td>{{ platform.main_mem }}</td>
+    <td>{{ platform.rp_uptime }}</td>
+    <td>{{ platform.rtr_type }}</td>
+    <td>{{ platform.version }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.9 %}
+<h2>Learn Platform Slots Hits</h2>
+<table id = "learn_platform_slots" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Slot</th>
+    <th>Slot Name</th>
+    <th>Slot Serial Number</th>
+    <th>Slot State</th>
+    <th>Slot Redundancy State</th>
+    <th>RP Boot Image</th>
+    <th>Slot RP Uptime</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.9 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.slot }}</td>
+    <td>{{ platform.slot_name }}</td>
+    <td>{{ platform.slot_sn }}</td>
+    <td>{{ platform.slot_state }}</td>
+    <td>{{ platform.slot_redundancy_state }}</td>
+    <td>{{ platform.rp_boot_image }}</td>
+    <td>{{ platform.slot_rp_uptime }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.10 %}
+<h2>Learn Platform Virtual Hits</h2>
+<table id = "learn_platform_virtual" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Operating System</th>
+    <th>Virtual Device Name</th>
+    <th>Virtual Device Status</th>
+    <th>Virtual Device Member</th>
+    <th>Virtual Device Member Status</th>
+    <th>Virtual Device Member Type</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for platform in object_list.10 %}
+<tr>
+    <td>{{ platform.pyats_alias }}</td>
+    <td>{{ platform.os }}</td>
+    <td>{{ platform.virtual_device_name }}</td>
+    <td>{{ platform.virtual_device_status }}</td>
+    <td>{{ platform.virtual_device_member }}</td>
+    <td>{{ platform.virtual_device_member_status }}</td>
+    <td>{{ platform.virtual_device_member_type }}</td>
+    <td>{{ platform.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.11 %}
+<h2>Learn VLAN Hits</h2>
+<table id = "learn_vlan" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>VLAN</th>
+  <th>Name</th>
+  <th>State</th>
+  <th>Shutdown</th>
+  <th>Interfaces</th>
+  <th>Mode</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vlan in object_list.11 %}
+  <tr>
+    <td>{{ vlan.pyats_alias }}</td>
+    <td>{{ vlan.vlan }}</td>
+    <td>{{ vlan.name }}</td>
+    <td>{{ vlan.state }}</td>
+    <td>{{ vlan.shutdown }}</td>
+    <td>{{ vlan.interfaces }}</td>
+    <td>{{ vlan.mode }}</td>
+    <td>{{ vlan.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.12 %}
+  <h2>Learn VRF Hits</h2>
+  {% for vrf in object_list.12 %}
+  <p>Device Name: {{ vrf.hostname }}</p>
+  <p>Captured {{ vrf.timestamp }}</p>
+<table id = "learn_vrf" class="table table-bordered">
+  <thead class = "alert-success">
+      <tr>
+        <th>pyATS Alias</th>          
+        <th>VRF</th>
+        <th>Address Family IPv4</th>
+        <th>Address Family IPv6</th>
+        <th>Route Distinguisher</th>
+        <th>Timestamp</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ vrf.pyats_alias }}</td>
+        <td>{{ vrf.vrf }}</td>
+        <td>{{ vrf.address_family_ipv4 }}</td>
+        <td>{{ vrf.address_family_ipv6 }}</td>
+        <td>{{ vrf.route_distinguisher }}</td>
+        <td>{{ vrf.timestamp }}</td>
+      </tr>
+      </tbody></table>{% endfor %}
+{% endif %}
+{% if object_list.13 %}
+<h1>Show Inventory Hits</h1>
+<table id = "show_inventory" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Slot</th>
+    <th>Description</th>
+    <th>PID</th>
+    <th>Serial Number</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for part in object_list.13 %}
+<tr>
+    <td>{{ part.pyats_alias }}</td>
+    <td>{{ part.part }}</td>
+    <td>{{ part.description }}</td>
+    <td>{{ part.pid }}</td>
+    <td>{{ part.serial_number }}</td>
+    <td>{{ part.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.14 %}
+<h1>Show IP Interface Brief Hits</h1>
+<table id = "show_ip_int_brief" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>IP Address</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for interface in object_list.14 %}
+  <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td>
+    <td>{{ interface.ip_address }}</td>
+    <td>{{ interface.interface_status }}</td>
+    <td>{{ interface.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.15 %}
+  <h2>Show Version Hits</h2>
+  {% for version in object_list.15 %}
+  {%   if version.os == "nxos" %}
+      <p>Device Name: {{ version.device_name }}</p>
+      <p>Captured {{ version.timestamp }}</p>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
+          <tr>
+            <th>pyATS Alias</th>
+            <th>Hostname</th>
+            <th>Bootflash</th>
+            <th>Chassis</th>
+            <th>CPU</th>
+            <th>Memory</th>
+            <th>Model</th>
+            <th>Processor Board ID</th>
+            <th>RP</th>
+            <th>Slots</th>
+            <th>Kernel Uptime</th>
+            <th>Name</th>
+            <th>OS</th>
+            <th>Last Reload Reason</th>
+            <th>System Compile Time</th>
+            <th>System Image File</th>
+            <th>System Version</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ version.pyats_alias }}</td>
+            <td>{{ version.device_name }}</td>          
+            <td>{{ version.bootflash }}</td>
+            <td>{{ version.chassis }}</td>
+            <td>{{ version.cpu }}</td>
+            <td>{{ version.memory }}</td>
+            <td>{{ version.model }}</td>
+            <td>{{ version.processor_board_id }}</td>
+            <td>{{ version.rp }}</td>
+            <td>{{ version.slots }}</td>
+            <td>{{ version.days }} {{ version.hours }} {{ version.minutes }} {{ version.seconds }}</td>
+            <td>{{ version.name }}</td>
+            <td>{{ version.os }}</td>
+            <td>{{ version.reason }}</td>
+            <td>{{ version.system_compile_time }}</td>
+            <td>{{ version.system_image_file }}</td>
+            <td>{{ version.system_version }}</td>
+            <td>{{ version.timestamp }}</td>
+          </tr>
+          </tbody>  
+        </table>
+  {% else %}
+      <p>Device Name: {{ version.device_name }}</p>
+      <p>Captured {{ version.timestamp }}</p>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
+          <tr>
+            <th>pyATS Alias</th>
+            <th>Hostname</th>          
+            <th>Bootflash</th>
+            <th>Chassis</th>
+            <th>Chassis Serial Number</th>
+            <th>Platform</th>
+            <th>Processor Type</th>
+            <th>Memory</th>
+            <th>Model</th>
+            <th>Kernel Uptime</th>
+            <th>OS</th>
+            <th>Last Reload Reason</th>
+            <th>Uptime</th>
+            <th>Uptime This CP</th>
+            <th>System Compile Time</th>
+            <th>System Image File</th>
+            <th>System Version</th>
+            <th>Compiled By</th>
+            <th>Current Config Register</th>
+            <th>Image ID</th>
+            <th>Image Type</th>
+            <th>Label</th>
+            <th>License Level</th>
+            <th>License Type</th>
+            <th>Next Reload License Level</th>
+            <th>Non Volatile Memory</th>
+            <th>Physical Memory</th>
+            <th>Returned to ROM By</th>
+            <th>ROM</th>
+            <th>Router Type</th>
+            <th>Version Short</th>
+            <th>XE Version</th>
+            <th>Timstamp</th>     
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>{{ version.pyats_alias }}</td>
+            <td>{{ version.device_name }}</td>
+            <td>{{ version.bootflash }}</td>
+            <td>{{ version.chassis }}</td>
+            <td>{{ version.chassis_sn }}</td>
+            <td>{{ version.platform }}</td>
+            <td>{{ version.processor_type }}</td>
+            <td>{{ version.memory }}</td>
+            <td>{{ version.model }}</td>
+            <td>{{ version.uptime }}</td>
+            <td>{{ version.os }}</td>
+            <td>{{ version.reason }}</td>
+            <td>{{ version.uptime }}</td>
+            <td>{{ version.uptime_this_cp }}</td>
+            <td>{{ version.system_compile_time }}</td>
+            <td>{{ version.system_image_file }}</td>
+            <td>{{ version.system_version }}</td>
+            <td>{{ version.compiled_by }}</td>
+            <td>{{ version.curr_config_register }}</td>
+            <td>{{ version.image_id }}</td>
+            <td>{{ version.image_type }}</td>
+            <td>{{ version.label }}</td>
+            <td>{{ version.license_level }}</td>
+            <td>{{ version.license_type }}</td>
+            <td>{{ version.next_reload_license_level }}</td>
+            <td>{{ version.non_volatile }}</td>
+            <td>{{ version.physical }}</td>
+            <td>{{ version.returned_to_rom_by }}</td>
+            <td>{{ version.rom }}</td>
+            <td>{{ version.rtr_type }}</td>
+            <td>{{ version.version_short }}</td>
+            <td>{{ version.xe_version }}</td>
+            <td>{{ version.timestamp }}</td>
+          </tr>
+        </tbody>
+      </table>{% endif %}{% endfor %}
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#devices').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_acl').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_arp').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_arp_statistics').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>  
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_bgp_instances').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_bgp_routes').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_bgp_tables').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_config_objects').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>    
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_interface').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform_slots').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_platform_virtual').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>    
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vlan').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#learn_vrf').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_inventory').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_ip_int_brief').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_version').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>  
+{% endblock %}

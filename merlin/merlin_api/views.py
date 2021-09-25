@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnConfigSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesViewSet(viewsets.ModelViewSet):
     queryset = Devices.objects.all().order_by('timestamp')
@@ -29,6 +29,10 @@ class LearnBGPRoutesViewSet(viewsets.ModelViewSet):
 class LearnBGPTablesViewSet(viewsets.ModelViewSet):
     queryset = LearnBGPTables.objects.all().order_by('timestamp')
     serializer_class = LearnBGPTablesSerializer
+
+class LearnConfigViewSet(viewsets.ModelViewSet):
+    queryset = LearnConfig.objects.all().order_by('timestamp')
+    serializer_class = LearnConfigSerializer
 
 class LearnInterfaceViewSet(viewsets.ModelViewSet):
     queryset = LearnInterface.objects.all().order_by('timestamp')

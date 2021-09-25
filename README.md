@@ -16,3 +16,6 @@ celery -A merlin beat -l info --logfile=celery.beat.log --detach
 celery -A merlin worker -l info --logfile=celery.log --detach
 
 kill -9 $(ps aux | grep celery | grep -v grep | awk '{print $2}' | tr '\n'  ' ') > /dev/null 2>&1
+
+sudo service postgresql restart
+python manage.py runserver

@@ -4,7 +4,16 @@
 
 {% block content %}
 <h1>Merlin Search</h1>
-<form action="{% url 'search_results' %}" method="get">
-    <input name="q" type="text" placeholder="Search...">
+<h2>Search All Records</h2>
+<form action="{% url 'search_results_all' %}" method="get">
+    <input name="q" type="text" placeholder="Search All...">
+</form><br>
+<h2>Search Network State Records</h2>
+<form action="{% url 'search_results_state' %}" method="get">
+    <input name="q" type="text" placeholder="Search Network State...">
+</form><br>
+<h2>Search Network Configuration Records</h2>
+<form action="{% url 'search_results_config' %}" method="get">
+    <input name="q" type="text" placeholder="Search Network Configurations...">
 </form>
 {% endblock %}

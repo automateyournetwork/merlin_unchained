@@ -19,8 +19,8 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('search.urls')),
     path('', include('ondemand.urls')),
+    path('', include('search.urls')),
     path('', include('changes.urls')),
     path('API/', include('merlin_api.urls')),
     path('Latest/', views.latest),
@@ -31,6 +31,7 @@ urlpatterns = [
     path('Latest/LearnBGPInstances/', views.learn_bgp_instances_latest),
     path('Latest/LearnBGPRoutes/', views.learn_bgp_routes_latest),
     path('Latest/LearnBGPTables/', views.learn_bgp_tables_latest),
+    path('Latest/LearnConfig/', views.learn_config_latest),
     path('Latest/LearnInterface/', views.learn_interface_latest),
     path('Latest/LearnPlatform/', views.learn_platform_latest),
     path('Latest/LearnPlatformSlots/', views.learn_platform_slots_latest),

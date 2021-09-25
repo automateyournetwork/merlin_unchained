@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 import csv
 
@@ -917,6 +917,8 @@ def all_latest(request):
     bgp_routes_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_routes_latest_timestamp.timestamp)
     bgp_tables_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=bgp_tables_latest_timestamp.timestamp)
+    config_latest_timestamp = LearnConfig.objects.latest('timestamp')
+    config_list = LearnConfig.objects.filter(timestamp=config_latest_timestamp.timestamp)    
     interface_latest_timestamp = LearnInterface.objects.latest('timestamp')
     interface_list = LearnInterface.objects.filter(timestamp=interface_latest_timestamp.timestamp)
     platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -935,7 +937,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'config_list': config_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -973,6 +975,12 @@ def learn_bgp_tables_latest(request):
     bgp_tables_list = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'bgp_tables_list': bgp_tables_list}
     return render(request, 'Latest/LearnBGP/learn_bgp_tables_latest.html', context)
+
+def learn_config_latest(request):
+    latest_timestamp = LearnConfig.objects.latest('timestamp')
+    config_list = LearnConfig.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'config_list': config_list}
+    return render(request, 'Latest/LearnConfig/learn_config_latest.html', context)
 
 def learn_interface_latest(request):
     latest_timestamp = LearnInterface.objects.latest('timestamp')

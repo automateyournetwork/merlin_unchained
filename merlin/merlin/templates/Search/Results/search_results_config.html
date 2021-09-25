@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Config Search Results{% endblock %}
+
+{% block content %}
+<h1>Merlin Config Search Results</h1>
+{% if object_list %}
+<h2>Learn Config Hits</h2>
+<table id = "learn_config" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Key</th>
+    <th>Value</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for hit in object_list %}{% for key,value in hit.items %}{% if key != 'pyats_alias' and key != 'timestamp' %}
+  <tr>
+    <td>{{ hit.pyats_alias }}</td>
+    <td>{{ key | pprint }}</td>
+    <td>{{ value | pprint }}</td>
+    <td>{{ hit.timestamp }}</td>
+  </tr>{% endif %}{% endfor %}{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_config').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+{% endblock %}

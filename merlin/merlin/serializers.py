@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -35,6 +35,11 @@ class LearnBGPTablesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnBGPTables
         fields = ('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight', 'timestamp')
+
+class LearnConfigSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = LearnConfig
+        fields = ('pyats_alias', 'os', 'config', 'timestamp')
 
 class LearnInterfaceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
