@@ -208,6 +208,25 @@
           </tr>{% endfor %}
           </tbody>  
         </table>
+<h2>Latest Learn Config</h2>
+<table id = "learn_config" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Configuration Key</th>
+            <th>Configuration Value</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for context in config_list %}{% for key,value in context.config.items %}
+        <tr>
+            <td>{{ context.pyats_alias }}</td>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            <td>{{ context.timestamp }}</td>
+          </tr>{% endfor %}{% endfor %}
+          </tbody>  
+        </table>        
 <h2>Latest Learn Interface</h2>
 <table id = "learn_interface" class="table table-bordered">
   <thead class = "alert-success">
@@ -744,6 +763,23 @@
     });
     });
   </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#learn_config').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>  
 <script type = "text/javascript">
   $(document).ready(function(){
       $('#learn_interface').DataTable({
