@@ -23,7 +23,12 @@ def all_changes(request):
     bgp_route_latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
-    current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
+    config_latest_timestamp = LearnConfig.objects.latest('timestamp')
+    current_config = LearnConfig.objects.filter(timestamp=config_latest_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+    current_inner_config = []
+    for key, value in current_config[0]['config'].items():
+        current_inner_config.append({'pyats_alias': current_config[0]['pyats_alias'],'os': current_config[0]['os'],key: value})
     interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
     current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -46,7 +51,12 @@ def all_changes(request):
     bgp_route_new_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
     latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
     bgp_table_new_timestamp = LearnBGPTables.objects.latest('timestamp')
-    latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+    latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
+    config_new_timestamp = LearnConfig.objects.latest('timestamp')
+    latest_config = LearnConfig.objects.filter(timestamp=config_new_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+    latest_inner_config = []
+    for key, value in latest_config[0]['config'].items():
+        latest_inner_config.append({'pyats_alias': latest_config[0]['pyats_alias'],'os': latest_config[0]['os'],key: value})
     interface_new_timestamp = LearnInterface.objects.latest('timestamp')
     latest_interface = LearnInterface.objects.filter(timestamp=interface_new_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
     platform_new_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -69,6 +79,8 @@ def all_changes(request):
     bgp_route_additions = latest_bgp_route.difference(current_bgp_route)
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
+    config_removals = [item for item in current_inner_config if item not in latest_inner_config]
+    config_additions = [item for item in latest_inner_config if item not in current_inner_config]    
     interface_removals = current_interface.difference(latest_interface)
     interface_additions = latest_interface.difference(current_interface)
     platform_removals = current_platform.difference(latest_platform)
@@ -79,7 +91,7 @@ def all_changes(request):
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -140,6 +152,22 @@ def learn_bgp_table_changes(request):
     bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
     bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
     return render(request, 'Changes/learn_bgp_table_changes.html', {'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions})
+
+def learn_config_changes(request):
+    latest_timestamp = LearnConfig.objects.latest('timestamp')
+    current_config = LearnConfig.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+    current_inner_config = []
+    for key, value in current_config[0]['config'].items():
+        current_inner_config.append({'pyats_alias': current_config[0]['pyats_alias'],'os': current_config[0]['os'],key: value})
+    os.system('pyats run job learn_config_job.py')
+    new_timestamp = LearnConfig.objects.latest('timestamp')
+    latest_config = LearnConfig.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+    latest_inner_config = []
+    for key, value in latest_config[0]['config'].items():
+        latest_inner_config.append({'pyats_alias': latest_config[0]['pyats_alias'],'os': latest_config[0]['os'],key: value})
+    config_removals = [item for item in current_inner_config if item not in latest_inner_config]
+    config_additions = [item for item in latest_inner_config if item not in current_inner_config]
+    return render(request, 'Changes/learn_config_changes.html', {'config_removals': config_removals,'config_additions': config_additions, 'latest_timestamp': latest_timestamp, 'new_timestamp': new_timestamp})
 
 def learn_interface_changes(request):
     latest_timestamp = LearnInterface.objects.latest('timestamp')
@@ -248,7 +276,12 @@ class ChangesResultAll(ListView):
         bgp_route_latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
         current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
         bgp_table_latest_timestamp = LearnBGPTables.objects.latest('timestamp')
-        current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+        current_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
+        config_latest_timestamp = LearnConfig.objects.latest('timestamp')
+        current_config = LearnConfig.objects.filter(timestamp=config_latest_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+        current_inner_config = []
+        for key, value in current_config[0]['config'].items():
+            current_inner_config.append({'pyats_alias': current_config[0]['pyats_alias'],'os': current_config[0]['os'],key: value})
         interfaces_latest_timestamp = LearnInterface.objects.latest('timestamp')
         current_interface = LearnInterface.objects.filter(timestamp=interfaces_latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
         platform_latest_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -264,7 +297,7 @@ class ChangesResultAll(ListView):
         version_latest_timestamp = ShowVersion.objects.latest('timestamp')
         current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")        
         query = self.request.GET.get('get_all_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()          
         os.system('pyats run job populate_db_filter_job.py')
         acl_new_timestamp = LearnACL.objects.latest('timestamp')
@@ -278,7 +311,12 @@ class ChangesResultAll(ListView):
         bgp_route_new_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
         latest_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=bgp_route_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
         bgp_table_new_timestamp = LearnBGPTables.objects.latest('timestamp')
-        latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')    
+        latest_bgp_table = LearnBGPTables.objects.filter(timestamp=bgp_table_new_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
+        config_new_timestamp = LearnConfig.objects.latest('timestamp')
+        latest_config = LearnConfig.objects.filter(timestamp=config_new_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+        latest_inner_config = []
+        for key, value in latest_config[0]['config'].items():
+            latest_inner_config.append({'pyats_alias': latest_config[0]['pyats_alias'],'os': latest_config[0]['os'],key: value})
         interface_new_timestamp = LearnInterface.objects.latest('timestamp')
         latest_interface = LearnInterface.objects.filter(timestamp=interface_new_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
         platform_new_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -305,6 +343,8 @@ class ChangesResultAll(ListView):
         bgp_route_additions = latest_bgp_route.difference(current_bgp_route)
         bgp_table_removals = current_bgp_table.difference(latest_bgp_table)
         bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
+        config_removals = [item for item in current_inner_config if item not in latest_inner_config]
+        config_additions = [item for item in latest_inner_config if item not in current_inner_config]        
         interface_removals = current_interface.difference(latest_interface)
         interface_additions = latest_interface.difference(current_interface)
         platform_removals = current_platform.difference(latest_platform)
@@ -319,7 +359,7 @@ class ChangesResultAll(ListView):
         vrf_additions = latest_vrfs.difference(current_vrfs)
         version_removals = current_version.difference(latest_version)
         version_additions = latest_version.difference(current_version)
-        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
+        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
 
 class ChangesResultACL(ListView):
     template_name = 'Changes/changes.html'
@@ -328,7 +368,7 @@ class ChangesResultACL(ListView):
         latest_timestamp = LearnACL.objects.latest('timestamp')
         current_acls = LearnACL.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
         query = self.request.GET.get('learn_acl_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_acl_filter_job.py')
         new_timestamp = LearnACL.objects.latest('timestamp')
@@ -344,7 +384,7 @@ class ChangesResultARP(ListView):
         latest_timestamp = LearnARP.objects.latest('timestamp')
         current_arp = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "interface", "neighbor_ip", "neighbor_mac", "origin", "local_proxy", "proxy")
         query = self.request.GET.get('learn_arp_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_arp_filter_job.py')
         new_timestamp = LearnARP.objects.latest('timestamp')
@@ -360,7 +400,7 @@ class ChangesResultARPStatistics(ListView):
         latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
         current_arp_statistics = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "entries_total", "in_drops", "incomplete_total")
         query = self.request.GET.get('learn_arp_statistics_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_arp_filter_job.py')
         new_timestamp = LearnARPStatistics.objects.latest('timestamp')
@@ -376,7 +416,7 @@ class ChangesResultBGPInstance(ListView):
         latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
         current_bgp_instances = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'bgp_id', 'protocol_state', 'nexthop_trigger_delay_critical', 'nexthop_trigger_delay_noncritical', 'nexthop_trigger_enabled', 'vrf', 'router_id', 'cluster_id', 'confederation_id', 'neighbor', 'version', 'hold_time', 'keep_alive_interval', 'local_as', 'remote_as', 'last_reset', 'reset_reason')
         query = self.request.GET.get('learn_bgp_instance_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_bgp_filter_job.py')
         new_timestamp = LearnBGPInstances.objects.latest('timestamp')
@@ -392,7 +432,7 @@ class ChangesResultBGPRoute(ListView):
         latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
         current_bgp_route = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'neighbor', 'advertised', 'routes', 'remote_as')
         query = self.request.GET.get('learn_bgp_route_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_bgp_filter_job.py')
         new_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
@@ -408,7 +448,7 @@ class ChangesResultBGPTable(ListView):
         latest_timestamp = LearnBGPTables.objects.latest('timestamp')
         current_bgp_table = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'instance', 'vrf', 'table_version', 'prefix', 'index', 'localpref', 'next_hop', 'origin_code', 'status_code', 'weight')
         query = self.request.GET.get('learn_bgp_table_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_bgp_filter_job.py')
         new_timestamp = LearnBGPTables.objects.latest('timestamp')
@@ -417,6 +457,28 @@ class ChangesResultBGPTable(ListView):
         bgp_table_additions = latest_bgp_table.difference(current_bgp_table)
         return render(request, 'Changes/learn_bgp_table_changes.html', {'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions})        
 
+class ChangesResultConfig(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = LearnConfig.objects.latest('timestamp')
+        current_config = LearnConfig.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+        current_inner_config = []
+        for key, value in current_config[0]['config'].items():
+            current_inner_config.append({'pyats_alias': current_config[0]['pyats_alias'],'os': current_config[0]['os'],key: value})
+        query = self.request.GET.get('learn_config_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_config_filter_job.py')
+        new_timestamp = LearnConfig.objects.latest('timestamp')
+        latest_config = LearnConfig.objects.filter(timestamp=new_timestamp.timestamp).values('pyats_alias', 'os', 'config')
+        latest_inner_config = []
+        for key, value in latest_config[0]['config'].items():
+            latest_inner_config.append({'pyats_alias': latest_config[0]['pyats_alias'],'os': latest_config[0]['os'],key: value})
+        config_removals = [item for item in current_inner_config if item not in latest_inner_config]
+        config_additions = [item for item in latest_inner_config if item not in current_inner_config]
+        return render(request, 'Changes/learn_config_changes.html', {'config_removals': config_removals,'config_additions': config_additions, 'latest_timestamp': latest_timestamp, 'new_timestamp': new_timestamp})
+
 class ChangesResultInterface(ListView):
     template_name = 'Changes/changes.html'
 
@@ -424,7 +486,7 @@ class ChangesResultInterface(ListView):
         latest_timestamp = LearnInterface.objects.latest('timestamp')
         current_interface = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp).values('pyats_alias', 'os', 'interface', 'description', 'enabled', 'status', 'access_vlan', 'native_vlan', 'switchport', 'switchport_mode', 'interface_type', 'bandwidth', 'auto_negotiate', 'speed', 'duplex', 'mtu', 'mac_address', 'physical_address', 'ip_address', 'medium', 'delay', 'encapsulation', 'flow_control_receive', 'flow_control_send', 'port_channel', 'port_channel_member_interfaces', 'port_channel_member', 'last_change', 'input_crc_errors', 'input_errors', 'input_unknown', 'output_discard', 'output_errors', 'last_clear')
         query = self.request.GET.get('learn_interface_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_interface_filter_job.py')
         new_timestamp = LearnInterface.objects.latest('timestamp')
@@ -440,7 +502,7 @@ class ChangesResultPlatform(ListView):
         latest_timestamp = LearnPlatform.objects.latest('timestamp')
         current_platform = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "chassis", "chassis_sn", "image", "installed_packages", "rtr_type", "version")
         query = self.request.GET.get('learn_platform_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_platform_filter_job.py')
         new_timestamp = LearnPlatform.objects.latest('timestamp')
@@ -456,7 +518,7 @@ class ChangesResultPlatformSlots(ListView):
         latest_timestamp = LearnPlatformSlots.objects.latest('timestamp')
         current_platform_slots = LearnPlatformSlots.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "slot", "slot_name", "slot_sn", "slot_state", "slot_redundancy_state", "rp_boot_image")
         query = self.request.GET.get('learn_platform_slots_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_platform_filter_job.py')
         new_timestamp = LearnPlatformSlots.objects.latest('timestamp')
@@ -472,7 +534,7 @@ class ChangesResultPlatformVirtual(ListView):
         latest_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
         current_platform_virtual = LearnPlatformVirtual.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "virtual_device_name", "virtual_device_status", "virtual_device_member", "virtual_device_member_status", "virtual_device_member_type")
         query = self.request.GET.get('learn_platform_virtual_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_platform_filter_job.py')
         new_timestamp = LearnPlatformVirtual.objects.latest('timestamp')
@@ -488,7 +550,7 @@ class ChangesResultVLAN(ListView):
         latest_timestamp = LearnVLAN.objects.latest('timestamp')
         current_vlans = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vlan", "interfaces", "mode", "name", "shutdown", "state")
         query = self.request.GET.get('learn_vlan_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_vlan_filter_job.py')
         new_timestamp = LearnVLAN.objects.latest('timestamp')
@@ -504,7 +566,7 @@ class ChangesResultVRF(ListView):
         latest_timestamp = LearnVRF.objects.latest('timestamp')
         current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
         query = self.request.GET.get('learn_vrf_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_vrf_filter_job.py')
         new_timestamp = LearnVRF.objects.latest('timestamp')
@@ -520,7 +582,7 @@ class ChangesResultInventory(ListView):
         latest_timestamp = ShowInventory.objects.latest('timestamp')
         current_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
         query = self.request.GET.get('show_inventory_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_inventory_filter_job.py')
         new_timestamp = ShowInventory.objects.latest('timestamp')
@@ -536,7 +598,7 @@ class ChangesResultIPInterfaceBrief(ListView):
         latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
         current_interfaces = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","interface","interface_status","ip_address")
         query = self.request.GET.get('show_ip_int_brief_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_ip_int_brief_filter_job.py')
         new_timestamp = ShowIPIntBrief.objects.latest('timestamp')
@@ -552,7 +614,7 @@ class ChangesResultVersion(ListView):
         latest_timestamp = ShowVersion.objects.latest('timestamp')
         current_version = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
         query = self.request.GET.get('show_version_filter')
-        input_field = DynamicJobInput(input_field__icontains=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job show_version_filter_job.py')
         new_timestamp = ShowVersion.objects.latest('timestamp')

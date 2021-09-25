@@ -19,8 +19,8 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('search.urls')),
     path('', include('ondemand.urls')),
+    path('', include('search.urls')),
     path('', include('changes.urls')),
     path('API/', include('merlin_api.urls')),
     path('Latest/', views.latest),
