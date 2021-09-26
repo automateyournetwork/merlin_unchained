@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import path
 from . import views
 from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
