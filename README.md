@@ -34,7 +34,7 @@ Featuring presentation enhancements with
 
 * In the interest of agility and accessibility and due to demand I've decided to make a working README for the project in it's current Alpha state so others can start to use the tool 
 
-* The project has ** only ** been tested against a single device and has not taken scale into conideration at this point yet - once I scale out and confirm 1+n devices work this bullet point will be removed
+* The project has ** only ** been tested against a single device and has not taken scale into consideration at this point yet - once I scale out and confirm 1+n devices work this bullet point will be removed
 
 # Install Guide 
 These instructions are for Windows 10 using WSL2 + Ubuntu 
@@ -144,7 +144,7 @@ ERROR: aiohttp-swagger 1.0.15 has requirement markupsafe~=1.1.1, but you'll have
 ```console
 
 ## get into the application folder
-(merlin)$ cd merlin_unchained/merlin/merlin
+(merlin)$ cd merlin_unchained/merlin
 
 ## setup your environment variable
 (merlin)$ export DJANGO_SETTINGS_MODULE=merlin.settings
