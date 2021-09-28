@@ -19,7 +19,7 @@
         <td><a href="http://localhost:8000/Changes/all_changes/"><button id="all_changes_button">Get All Changes</button></a></td>
         <td>
           <div id ="get_all_filter">
-            <form id = "get_all_filter" action="{% url 'get_all_filter' %}" method="get">
+            <form id = "get_all_filter" action="{% url 'get_all_changes_filter' %}" method="get">
               <input name="get_all_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -33,7 +33,7 @@
         <td><a href="http://localhost:8000/Changes/learn_acl_changes/"><button id="learn_acl_changes_button">Get Learn ACL Changes</button></a></td>
         <td>
           <div id ="learn_acl_filter">
-            <form id = "learn_acl_filter" action="{% url 'learn_acl_filter' %}" method="get">
+            <form id = "learn_acl_filter" action="{% url 'learn_acl_changes_filter' %}" method="get">
               <input name="learn_acl_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -47,7 +47,7 @@
         <td><a href="http://localhost:8000/Changes/learn_arp_changes/"><button id="learn_arp_changes_button">Get Learn ARP Changes</button></a></td>
         <td>
           <div id ="learn_arp_filter">
-            <form id = "learn_arp_filter" action="{% url 'learn_arp_filter' %}" method="get">
+            <form id = "learn_arp_filter" action="{% url 'learn_arp_changes_filter' %}" method="get">
               <input name="learn_arp_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -61,7 +61,7 @@
         <td><a href="http://localhost:8000/Changes/learn_arp_statistics_changes/"><button id="learn_arp_statistics_changes_button">Get Learn ARP Statistics Changes</button></a></td>
         <td>
           <div id ="learn_arp_statistics_filter">
-            <form id = "learn_arp_statistics_filter" action="{% url 'learn_arp_statistics_filter' %}" method="get">
+            <form id = "learn_arp_statistics_filter" action="{% url 'learn_arp_statistics_changes_filter' %}" method="get">
               <input name="learn_arp_statistics_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -75,7 +75,7 @@
         <td><a href="http://localhost:8000/Changes/learn_bgp_instance_changes/"><button id="learn_bgp_instances_changes_button">Get Learn BGP Instances Changes</button></a></td>
         <td>
           <div id ="learn_bgp_instance_filter">
-            <form id = "learn_bgp_instance_filter" action="{% url 'learn_bgp_instance_filter' %}" method="get">
+            <form id = "learn_bgp_instance_filter" action="{% url 'learn_bgp_instance_changes_filter' %}" method="get">
               <input name="learn_bgp_instance_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -89,7 +89,7 @@
         <td><a href="http://localhost:8000/Changes/learn_bgp_route_changes/"><button id="learn_bgp_route_changes_button">Get Learn BGP Route Changes</button></a></td>
         <td>
           <div id ="learn_bgp_route_filter">
-            <form id = "learn_bgp_route_filter" action="{% url 'learn_bgp_route_filter' %}" method="get">
+            <form id = "learn_bgp_route_filter" action="{% url 'learn_bgp_route_changes_filter' %}" method="get">
               <input name="learn_bgp_route_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -103,7 +103,7 @@
         <td><a href="http://localhost:8000/Changes/learn_bgp_table_changes/"><button id="learn_bgp_route_changes_button">Get Learn BGP Table Changes</button></a></td>
         <td>
           <div id ="learn_bgp_table_filter">
-            <form id = "learn_bgp_table_filter" action="{% url 'learn_bgp_table_filter' %}" method="get">
+            <form id = "learn_bgp_table_filter" action="{% url 'learn_bgp_table_changes_filter' %}" method="get">
               <input name="learn_bgp_table_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -117,7 +117,7 @@
         <td><a href="http://localhost:8000/Changes/learn_config_changes/"><button id="learn_config_changes_button">Get Learn Config Changes</button></a></td>
         <td>
           <div id ="learn_config_filter">
-            <form id = "learn_config_filter" action="{% url 'learn_config_filter' %}" method="get">
+            <form id = "learn_config_filter" action="{% url 'learn_config_changes_filter' %}" method="get">
               <input name="learn_config_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -131,7 +131,7 @@
         <td><a href="http://localhost:8000/Changes/learn_interface_changes/"><button id="learn_interface_changes_button">Get Learn Interface Changes</button></a></td>
         <td>
           <div id ="learn_interface_filter">
-            <form id = "learn_interface_filter" action="{% url 'learn_interface_filter' %}" method="get">
+            <form id = "learn_interface_filter" action="{% url 'learn_interface_changes_filter' %}" method="get">
               <input name="learn_interface_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -145,7 +145,7 @@
         <td><a href="http://localhost:8000/Changes/learn_platform_changes/"><button id="learn_platform_changes_button">Get Learn Platform Changes</button></a></td>
         <td>
           <div id ="learn_platform_filter">
-            <form id = "learn_platform_filter" action="{% url 'learn_platform_filter' %}" method="get">
+            <form id = "learn_platform_filter" action="{% url 'learn_platform_changes_filter' %}" method="get">
               <input name="learn_platform_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -159,7 +159,7 @@
         <td><a href="http://localhost:8000/Changes/learn_platform_slots_changes/"><button id="learn_platform_slots_changes_button">Get Learn Platform Slot Changes</button></a></td>
         <td>
           <div id ="learn_platform_slots_filter">
-            <form id = "learn_platform_slots_filter" action="{% url 'learn_platform_slots_filter' %}" method="get">
+            <form id = "learn_platform_slots_filter" action="{% url 'learn_platform_slots_changes_filter' %}" method="get">
               <input name="learn_platform_slots_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -173,7 +173,7 @@
         <td><a href="http://localhost:8000/Changes/learn_platform_virtual_changes/"><button id="learn_platform_virtual_changes_button">Get Learn Platform Virtual Changes</button></a></td>
         <td>
           <div id ="learn_platform_virtual_filter">
-            <form id = "learn_platform_virtual_filter" action="{% url 'learn_platform_virtual_filter' %}" method="get">
+            <form id = "learn_platform_virtual_filter" action="{% url 'learn_platform_virtual_changes_filter' %}" method="get">
               <input name="learn_platform_virtual_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -187,7 +187,7 @@
         <td><a href="http://localhost:8000/Changes/learn_vlan_changes/"><button id="learn_vlan_changes_button">Get Learn VLAN Changes</button></a></td>
         <td>
           <div id ="learn_vlan_filter">
-            <form id = "learn_vlan_filter" action="{% url 'learn_vlan_filter' %}" method="get">
+            <form id = "learn_vlan_filter" action="{% url 'learn_vlan_changes_filter' %}" method="get">
               <input name="learn_vlan_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -201,7 +201,7 @@
         <td><a href="http://localhost:8000/Changes/learn_vrf_changes/"><button id="learn_vrf_changes_button">Get Learn VRF Changes</button></a></td>
         <td>
           <div id ="learn_vrf_filter">
-            <form id = "learn_vrf_filter" action="{% url 'learn_vrf_filter' %}" method="get">
+            <form id = "learn_vrf_filter" action="{% url 'learn_vrf_changes_filter' %}" method="get">
               <input name="learn_vrf_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -215,7 +215,7 @@
         <td><a href="http://localhost:8000/Changes/show_inventory_changes/"><button id="show_inventory_changes_button">Get Show Inventory Changes</button></a></td>
         <td>
           <div id ="show_inventory_filter">
-            <form id = "show_inventory_filter" action="{% url 'show_inventory_filter' %}" method="get">
+            <form id = "show_inventory_filter" action="{% url 'show_inventory_changes_filter' %}" method="get">
               <input name="show_inventory_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -229,7 +229,7 @@
         <td><a href="http://localhost:8000/Changes/show_ip_int_brief_changes/"><button id="show_ip_int_brief_changes_button">Get Show IP Interface Brief Changes</button></a></td>
         <td>
           <div id ="show_ip_int_brief_filter">
-            <form id = "show_ip_int_brief_filter" action="{% url 'show_ip_int_brief_filter' %}" method="get">
+            <form id = "show_ip_int_brief_filter" action="{% url 'show_ip_int_brief_changes_filter' %}" method="get">
               <input name="show_ip_int_brief_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
@@ -243,7 +243,7 @@
         <td><a href="http://localhost:8000/Changes/show_version_changes/"><button id="show_version_changes_button">Get Show Version Changes</button></a></td>
         <td>
           <div id ="show_version_filter">
-            <form id = "show_version_filter" action="{% url 'show_version_filter' %}" method="get">
+            <form id = "show_version_filter" action="{% url 'show_version_changes_filter' %}" method="get">
               <input name="show_version_filter" type="text" placeholder="Filter Devices....">
           </form>
         </div>
