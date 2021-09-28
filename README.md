@@ -31,9 +31,14 @@ Featuring presentation enhancements with
 
 ## Merlin Installation Guide 
 
-### Part One - https://www.youtube.com/watch?v=ryUfWYu_DUM
+### Part One Installing Merlin - https://www.youtube.com/watch?v=ryUfWYu_DUM
 
-### Part Two - https://www.youtube.com/watch?v=8iyQLXPtGg0
+### Part Two Installing Merlin - https://www.youtube.com/watch?v=8iyQLXPtGg0
+
+### Part Three Starting up the Services - https://www.youtube.com/watch?v=YSpmN3N6BQc
+
+
+
 
 # Considerations for current Alpha build
 
