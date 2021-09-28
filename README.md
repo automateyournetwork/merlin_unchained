@@ -39,6 +39,14 @@ Featuring presentation enhancements with
 
 ### Part Four Subsequent Startups - https://www.youtube.com/watch?v=3GvSWLYkOJk
 
+## Merlin User Guide
+
+### The Admin Panel - https://youtu.be/svuKgtc4mWI
+
+### DevNet Sandbox Integration - https://www.youtube.com/watch?v=VBAqD9SiHxg
+
+
+
 # Considerations for current Alpha build
 
 * Please note - these instructions are currently to install all of the required packages, clone the repository, and start a pre-packaged database and server. 
