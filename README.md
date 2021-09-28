@@ -35,10 +35,9 @@ Featuring presentation enhancements with
 
 ### Part Two Installing Merlin - https://www.youtube.com/watch?v=8iyQLXPtGg0
 
-### Part Three Starting up the Services - https://www.youtube.com/watch?v=YSpmN3N6BQc
+### Part Three Starting up the Services for the first time - https://www.youtube.com/watch?v=YSpmN3N6BQc
 
-
-
+### Part Four Subsequent Startups - https://www.youtube.com/watch?v=3GvSWLYkOJk
 
 # Considerations for current Alpha build
 
