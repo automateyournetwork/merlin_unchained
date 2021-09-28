@@ -45,7 +45,7 @@ Featuring presentation enhancements with
 
 ### DevNet Sandbox Integration - https://www.youtube.com/watch?v=VBAqD9SiHxg
 
-
+### Working with Devices - https://www.youtube.com/watch?v=d7g2ywKf1PM
 
 # Considerations for current Alpha build
 
