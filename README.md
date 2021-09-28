@@ -26,6 +26,11 @@ And
 Featuring presentation enhancements with 
 
 ![Datatables](images/datatables.png)
+
+# Video Installation Guide
+
+Merlin Installation Guide Part One - https://www.youtube.com/watch?v=ryUfWYu_DUM
+
 # Considerations for current Alpha build
 
 * Please note - these instructions are currently to install all of the required packages, clone the repository, and start a pre-packaged database and server. 
