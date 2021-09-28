@@ -29,7 +29,11 @@ Featuring presentation enhancements with
 
 # Video Installation Guide
 
-Merlin Installation Guide Part One - https://www.youtube.com/watch?v=ryUfWYu_DUM
+## Merlin Installation Guide 
+
+### Part One - https://www.youtube.com/watch?v=ryUfWYu_DUM
+
+### Part Two - https://www.youtube.com/watch?v=8iyQLXPtGg0
 
 # Considerations for current Alpha build
 
