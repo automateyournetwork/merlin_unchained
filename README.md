@@ -388,7 +388,7 @@ As of this build the following pyATS functions have been transformed into Merlin
 
 # On-Demand Centre
 
-## https://localhost:8000/OnDemand/
+## http://localhost:8000/OnDemand/
 
 Merlin allows users to capture either the full network state or individual functions using the On-Demand Centre.
 
@@ -408,7 +408,7 @@ While the pyATS job collects and transforms the network state a spinner will be 
 
 # Search Engine
 
-## https://localhost:8000/Search/
+## http://localhost:8000/Search/
 
 The Merlin Search Engine allows users to keyword search against the database.
 
