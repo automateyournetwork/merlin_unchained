@@ -162,6 +162,25 @@ ERROR: aiohttp-swagger 1.0.15 has requirement markupsafe~=1.1.1, but you'll have
 
 ```
 
+### Preparing the database for the first time
+
+After you have completed the installation steps we need to initialize the database 
+
+```console
+
+(merlin)$ sudo service postgresql restart
+
+(merlin)$ sudo -u postgres psql
+
+psql (12.8 (Ubuntu 12.8-0ubuntu0.20.04.1))
+Type "help" for help.
+
+postgres=# CREATE USER username merlin SUPERUSER WITH PASWORD 'merlin';
+postgres=# CREATE DATABASE merlin OWNER merlin
+postgres=# exit
+
+```
+
 ### Start everything up
 
 ```console
@@ -171,10 +190,6 @@ ERROR: aiohttp-swagger 1.0.15 has requirement markupsafe~=1.1.1, but you'll have
 
 ## setup your environment variable
 (merlin)$ export DJANGO_SETTINGS_MODULE=merlin.settings
-
-## start postgresql server - you need to do this everytime you close down your virtual environment and restart your virutal environment 
-
-(merlin)$ sudo service postgresql restart
 
 ## migrate the database (one time / first time post installation steps only)
 (merlin)$ python manage.py makemigrations merlin
