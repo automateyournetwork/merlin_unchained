@@ -43,7 +43,8 @@ From your terminal
 
 git clone https://github.com/automateyournetwork/merlin_unchained.git &&
 cd merlin_unchained/merlin/ &&
-docker-compose up
+docker-compose build merlin &&
+docker-compose up merlin
 
 ```
 
