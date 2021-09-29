@@ -65,19 +65,6 @@ docker-compose up
 
 * The project has ** only ** been tested against a single device and has not taken scale into consideration at this point yet - once I scale out and confirm 1+n devices work this bullet point will be removed
 
-# Install Guide 
-These instructions are for Windows 10 using WSL2 + Ubuntu 
-
-## Create a virtual environment 
-
-```console
-
-git clone https://github.com/automateyournetwork/merlin_unchained.git &&
-cd merlin_unchained/merlin &&
-docker compose up 
-
-```
-
 # Log In - Admin Panel 
 
 You should now be able to visit http://localhost:8000/admin 
