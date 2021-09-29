@@ -2,7 +2,7 @@ version: '3'
  
 services:
   merlin_unchained:
-    image: johncapobianco/merlin_unchained
+    image: johncapobianco/merlin_unchained:merlin
     build: 
       context: ./
       dockerfile: ./docker/dockerfile
