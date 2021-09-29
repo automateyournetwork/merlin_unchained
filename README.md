@@ -29,17 +29,23 @@ Featuring presentation enhancements with
 
 ![Datatables](images/datatables.png)
 
-# Video Installation Guide
+Containerized with 
 
-## Merlin Installation Guide 
+![Docker](images/Moby-logo.png)
 
-### Part One Installing Merlin - https://www.youtube.com/watch?v=ryUfWYu_DUM
+# Merlin Installation Guide 
 
-### Part Two Installing Merlin - https://www.youtube.com/watch?v=8iyQLXPtGg0
+## Install Docker Engine and Docker Compose (already included on macOS and Windows)
 
-### Part Three Starting up the Services for the first time - https://www.youtube.com/watch?v=YSpmN3N6BQc
+From your terminal 
 
-### Part Four Subsequent Startups - https://www.youtube.com/watch?v=3GvSWLYkOJk
+```console
+
+git clone https://github.com/automateyournetwork/merlin_unchained.git &&
+cd merlin_unchained/merlin/ &&
+docker-compose up
+
+```
 
 ## Merlin User Guide
 

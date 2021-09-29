@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'merlin.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'merlin',
         'USER': 'merlin',
         'PASSWORD': 'merlin',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 

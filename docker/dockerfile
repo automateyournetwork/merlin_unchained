@@ -1,0 +1,53 @@
+FROM ubuntu:latest
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV DJANGO_SETTINGS_MODULE=merlin.settings
+ENV DJANGO_SUPERUSER_EMAIL=admin@automateyournetwork.ca
+ENV DJANGO_SUPERUSER_USERNAME=admin
+ENV DJANGO_SUPERUSER_PASSWORD=admin
+
+RUN echo "==> Upgrading apk and system ...." \
+ && apt -y update \
+ && apt-get install -y wget \
+ && apt-get -y install sudo
+
+RUN echo "==> Installing Python3 and pip ...." \  
+ && apt-get install python3 -y \
+ && apt install python3-pip -y \
+ && apt install openssh-client -y
+
+RUN echo "==> Adding pyATS ..." \
+ && pip install pyats[full] \ 
+ && pip uninstall --yes markupsafe \
+ && pip install markupsafe==1.1.1
+
+RUN echo "==> Adding Django ..." \
+ && pip install django 
+
+RUN echo "==> Adding Django REST Framework ..." \
+ && pip install djangorestframework
+
+RUN echo "==> Adding Celery ..." \
+ && pip install -U Celery \
+ && pip install django-celery-beat
+
+RUN echo "==> Adding  ..." \
+ && pip install -U Celery \
+ && pip install django-celery-beat 
+
+RUN echo "==> Adding  ..." \
+ && wget http://download.redis.io/redis-stable.tar.gz \
+ && tar xzf redis-stable.tar.gz \
+ && cd redis-stable \
+ && sudo make install \
+ && pip install redis
+
+RUN echo "==> Adding PostgreSQL ..." \
+ && pip install install psycopg2-binary
+
+COPY /images /images/
+COPY /merlin /merlin/
+COPY /scripts /scripts/
+
+CMD ["/bin/bash", "/scripts/startup.sh"]

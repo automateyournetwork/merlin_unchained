@@ -11,51 +11,51 @@ def button(request):
     return render(request, 'OnDemand/ondemand.html')
 
 def get_all_all_ondemand(request):
-    os.system('pyats run job populate_db_job.py')
+    os.system('pyats run job merlin/populate_db_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_acl_all_ondemand(request):
-    os.system('pyats run job learn_acl_all_job.py')
+    os.system('pyats run job merlin/learn_acl_all_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_arp_all_ondemand(request):
-    os.system('pyats run job learn_arp_job.py')
+    os.system('pyats run job merlin/learn_arp_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_bgp_all_ondemand(request):
-    os.system('pyats run job learn_bgp_job.py')
+    os.system('pyats run job merlin/learn_bgp_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_config_all_ondemand(request):
-    os.system('pyats run job learn_config_job.py')
+    os.system('pyats run job merlin/learn_config_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_interface_all_ondemand(request):
-    os.system('pyats run job learn_interface_job.py')
+    os.system('pyats run job merlin/learn_interface_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_platform_all_ondemand(request):
-    os.system('pyats run job learn_platform_job.py')
+    os.system('pyats run job merlin/learn_platform_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_vlan_all_ondemand(request):
-    os.system('pyats run job learn_vlan_job.py')
+    os.system('pyats run job merlin/learn_vlan_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_vrf_all_ondemand(request):
-    os.system('pyats run job learn_vrf_job.py')
+    os.system('pyats run job merlin/learn_vrf_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def show_inventory_all_ondemand(request):
-    os.system('pyats run job show_inventory_job.py')
+    os.system('pyats run job merlin/show_inventory_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def show_ip_int_brief_all_ondemand(request):
-    os.system('pyats run job show_ip_int_brief_job.py')
+    os.system('pyats run job merlin/show_ip_int_brief_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def show_version_all_ondemand(request):
-    os.system('pyats run job show_version_job.py')
+    os.system('pyats run job merlin/show_version_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 # ON DEMAND VIEWS - FILTERS / USER INPUT
@@ -67,7 +67,7 @@ class OnDemandResultAll(ListView):
         query = self.request.GET.get('get_all_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job populate_db_filter_job.py')
+        os.system('pyats run job merlin/populate_db_filter_job.py')
 
 class OnDemandResultACL(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -76,7 +76,7 @@ class OnDemandResultACL(ListView):
         query = self.request.GET.get('learn_acl_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_acl_filter_job.py')
+        os.system('pyats run job merlin/learn_acl_filter_job.py')
 
 class OnDemandResultARP(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -85,7 +85,7 @@ class OnDemandResultARP(ListView):
         query = self.request.GET.get('learn_arp_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_arp_filter_job.py')
+        os.system('pyats run job merlin/learn_arp_filter_job.py')
 
 class OnDemandResultBGP(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -94,7 +94,7 @@ class OnDemandResultBGP(ListView):
         query = self.request.GET.get('learn_bgp_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_bgp_filter_job.py')
+        os.system('pyats run job merlin/learn_bgp_filter_job.py')
 
 class OnDemandResultConfig(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -103,7 +103,7 @@ class OnDemandResultConfig(ListView):
         query = self.request.GET.get('learn_config_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_config_filter_job.py')
+        os.system('pyats run job merlin/learn_config_filter_job.py')
 
 class OnDemandResultInterface(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -112,7 +112,7 @@ class OnDemandResultInterface(ListView):
         query = self.request.GET.get('learn_interface_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_interface_filter_job.py')
+        os.system('pyats run job merlin/learn_interface_filter_job.py')
 
 class OnDemandResultPlatform(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -121,7 +121,7 @@ class OnDemandResultPlatform(ListView):
         query = self.request.GET.get('learn_platform_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_platform_filter_job.py')
+        os.system('pyats run job merlin/learn_platform_filter_job.py')
 
 class OnDemandResultVLAN(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -130,7 +130,7 @@ class OnDemandResultVLAN(ListView):
         query = self.request.GET.get('learn_vlan_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_vlan_filter_job.py')
+        os.system('pyats run job merlin/learn_vlan_filter_job.py')
 
 class OnDemandResultVRF(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -139,7 +139,7 @@ class OnDemandResultVRF(ListView):
         query = self.request.GET.get('learn_vrf_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job learn_vrf_filter_job.py')
+        os.system('pyats run job merlin/learn_vrf_filter_job.py')
 
 class OnDemandResultInventory(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -148,7 +148,7 @@ class OnDemandResultInventory(ListView):
         query = self.request.GET.get('show_inventory_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job show_inventory_filter_job.py')
+        os.system('pyats run job merlin/show_inventory_filter_job.py')
 
 class OnDemandResultIPInterfaceBrief(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -157,7 +157,7 @@ class OnDemandResultIPInterfaceBrief(ListView):
         query = self.request.GET.get('show_ip_int_brief_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job show_ip_int_brief_filter_job.py')
+        os.system('pyats run job merlin/show_ip_int_brief_filter_job.py')
 
 class OnDemandResultVersion(ListView):
     template_name = 'OnDemand/ondemand.html'
@@ -166,4 +166,4 @@ class OnDemandResultVersion(ListView):
         query = self.request.GET.get('show_version_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job show_version_filter_job.py')        
+        os.system('pyats run job merlin/show_version_filter_job.py')        
