@@ -42,12 +42,13 @@ From your terminal
 ```console
 
 git clone https://github.com/automateyournetwork/merlin_unchained.git &&
-cd merlin_unchained/merlin/ &&
+cd merlin_unchained/merlin/merlin
+```
+Note: If you will be accessing Merlin from a different PC, edit `ALLOWED_HOSTS` in the `settings.py` file **before** building the container.
+```
 docker-compose build merlin_unchained &&
 docker-compose up -d merlin_unchained
-
 ```
-
 ## Merlin User Guide
 
 ### The Admin Panel - https://youtu.be/svuKgtc4mWI
