@@ -23,7 +23,8 @@ RUN echo "==> Adding pyATS ..." \
  && pip install markupsafe==1.1.1
 
 RUN echo "==> Adding Django ..." \
- && pip install django 
+ && pip install django \
+ && pip install waitress
 
 RUN echo "==> Adding Django REST Framework ..." \
  && pip install djangorestframework
