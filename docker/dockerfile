@@ -24,7 +24,6 @@ RUN echo "==> Adding pyATS ..." \
 
 RUN echo "==> Adding Django ..." \
  && pip install django \
- && pip install waitress
 
 RUN echo "==> Adding Django REST Framework ..." \
  && pip install djangorestframework
