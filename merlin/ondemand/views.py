@@ -11,7 +11,7 @@ def button(request):
     return render(request, 'OnDemand/ondemand.html')
 
 def get_all_all_ondemand(request):
-    os.system('pyats run job merlin/populate_db_job.py')
+    os.system('pyats run job populate_db_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_acl_all_ondemand(request):
