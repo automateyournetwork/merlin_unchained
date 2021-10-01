@@ -297,6 +297,41 @@ class LearnVRF(models.Model):
         template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
         return template.format(self)
 
+class PSIRTCredentials(models.Model):
+    key = models.TextField()
+    client_secret = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.key} {0.client_secret} {0.timestamp}'
+        return template.format(self)
+
+class PSIRT(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    advisory_id = models.TextField()
+    advisory_title = models.TextField()
+    bug_ids = models.TextField()
+    ips_signatures = models.TextField()
+    cves = models.TextField()
+    cvrf_url = models.TextField()
+    cvss_base_score = models.TextField()
+    cwe = models.TextField()
+    ios_release = models.TextField()
+    first_fixed = models.TextField()
+    first_published = models.TextField()
+    last_updated = models.TextField()
+    status = models.TextField()
+    version = models.TextField()
+    publication_url = models.TextField()
+    sir = models.TextField()
+    summary = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        return template.format(self)
+
 class RecommendedReleaseCredentials(models.Model):
     key = models.TextField()
     client_secret = models.TextField()
