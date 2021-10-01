@@ -4,6 +4,8 @@ from . import models
 
 admin.site.register(models.Devices)
 admin.site.register(models.DynamicJobInput)
+admin.site.register(models.RecommendedReleaseCredentials)
+admin.site.register(models.RecommendedRelease)
 admin.site.register(models.LearnACL)
 admin.site.register(models.LearnARP)
 admin.site.register(models.LearnARPStatistics)

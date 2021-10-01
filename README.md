@@ -37,6 +37,8 @@ Containerized with
 
 ## Install Docker Engine and Docker Compose (already included on macOS and Windows)
 
+### First make sure you have Docker Compose https://docs.docker.com/compose/install/
+
 From your terminal 
 
 ```console
