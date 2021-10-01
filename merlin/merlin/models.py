@@ -317,6 +317,7 @@ class PSIRT(models.Model):
     cvrf_url = models.TextField()
     cvss_base_score = models.TextField()
     cwe = models.TextField()
+    platform_name = models.TextField()
     ios_release = models.TextField()
     first_fixed = models.TextField()
     first_published = models.TextField()
@@ -329,7 +330,7 @@ class PSIRT(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.advisory_id} {0.advisory_title} {0.bug_ids} {0.ips_signatures} {0.cves} {0.cvrf_url} {0.cvss_base_score} {0.cwe} {0.platform_name} {0.ios_release} {0.first_fixed} {0.first_published} {0.last_updated} {0.status} {0.version} {0.publication_url} {0.sir} {0.summary} {0.timestamp}'
         return template.format(self)
 
 class RecommendedReleaseCredentials(models.Model):

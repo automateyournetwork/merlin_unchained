@@ -7,6 +7,7 @@ const learnInterfaceSpinnerBox = document.getElementById('learn_interface_spinne
 const learnPlatformSpinnerBox = document.getElementById('learn_platform_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
+const psirtSpinnerBox = document.getElementById('psirt_spinner')
 const recommendedSpinnerBox = document.getElementById('recommended_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
 const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
@@ -134,6 +135,20 @@ $("#learn_vrf_all_devices_button").click(function(e){
         },
         success: function(response){
             learnVRFSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#psirt_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/PSIRT/psirt_all_result/",
+        beforeSend: function(){
+            psirtSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            psirtSpinnerBox.classList.add('not-visible')
         }
     })
 })

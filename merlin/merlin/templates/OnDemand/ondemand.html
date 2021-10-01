@@ -205,6 +205,27 @@
         </td>                
       </tr>
     <tr>
+      <td>Product Security Incident Response Team</td>
+      <td><button id="psirt_all_devices_button">PSIRT</button></td>
+      <td>
+        <div id ="psirt_filter">
+          <form id = "psirt_filter" action="{% url 'psirt_ondemand_filter' %}" method="get">
+            <input name="psirt_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
+        <div id ="psirt_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </td>        
+    </tr>       
+    <tr>
       <td>Recommended Release</td>
       <td><button id="recommended_all_devices_button">Recommended Release</button></td>
       <td>
@@ -219,7 +240,7 @@
     </td>
     <td>
         <div id ="recommended_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -240,7 +261,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -261,7 +282,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -282,7 +303,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
