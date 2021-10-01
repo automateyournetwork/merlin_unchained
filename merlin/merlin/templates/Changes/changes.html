@@ -211,6 +211,21 @@
       </td>        
       </tr>
       <tr>
+      <tr>
+        <td>Recommended Release</td>
+        <td><a href="http://localhost:8000/Changes/recommended_changes/"><button id="recommended_changes_button">Get Recommended Release Changes</button></a></td>
+        <td>
+          <div id ="recommended_filter">
+            <form id = "recommended_filter" action="{% url 'recommended_changes_filter' %}" method="get">
+              <input name="recommended_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>
+      <tr>        
         <td>Show Inventory</td>
         <td><a href="http://localhost:8000/Changes/show_inventory_changes/"><button id="show_inventory_changes_button">Get Show Inventory Changes</button></a></td>
         <td>

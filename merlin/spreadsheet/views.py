@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -347,6 +347,30 @@ def learn_vrf_csv_download_latest(request):
     vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
+    return response
+
+def recommended_csv(request):
+    return render(request, 'CSV/Recommended/recommended_csv.html')    
+
+def recommended_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="recommended_release_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Base PID','Product Name','Software Type','Image Name','Description','Feature Set','Image Size','Suggested Release','Major Release','Release Train','Release Display Name','Release Date','Release Lifecycle','Currently Installed Version','Complaint','Timestamp'])
+    recommendations = RecommendedRelease.objects.all().values_list('pyats_alias','basePID','productName','softwareType','imageName','description','featureSet','imageSize','isSuggested','majorRelease','releaseTrain','relDispName','releaseDate','releaseLifeCycle','installed_version', 'compliant','timestamp')
+    for recommended in recommendations:
+        writer.writerow(recommended)
+    return response
+
+def recommended_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="recommended_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Base PID','Product Name','Software Type','Image Name','Description','Feature Set','Image Size','Suggested Release','Major Release','Release Train','Release Display Name','Release Date','Release Lifecycle','Currently Installed Version','Complaint','Timestamp'])
+    latest_timestamp = RecommendedRelease.objects.latest('timestamp')
+    recommendations = RecommendedRelease.objects.all().values_list('pyats_alias','basePID','productName','softwareType','imageName','description','featureSet','imageSize','isSuggested','majorRelease','releaseTrain','relDispName','releaseDate','releaseLifeCycle','installed_version', 'compliant','timestamp')
+    for recommended in recommendations:
+        writer.writerow(recommended)
     return response
 
 def show_inventory_csv(request):

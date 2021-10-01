@@ -1,7 +1,7 @@
 import json
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -39,6 +39,8 @@ class SearchResultAllView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vlan__icontains=query) | Q(interfaces__icontains=query) | Q(mode__icontains=query) | Q(name__icontains=query) | Q(shutdown__icontains=query) | Q(state__icontains=query)
         ),LearnVRF.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(address_family_ipv4__icontains=query) | Q(address_family_ipv6__icontains=query) | Q(route_distinguisher__icontains=query)
+        ),RecommendedRelease.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(basePID=query) | Q(productName=query) | Q(softwareType=query) | Q(imageName=query) | Q(description=query) | Q(featureSet=query) | Q(majorRelease=query) | Q(releaseTrain=query) | Q(relDispName=query) | Q(installed_version=query)
         ),ShowInventory.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(
@@ -81,6 +83,8 @@ class SearchResultStateView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vlan__icontains=query) | Q(interfaces__icontains=query) | Q(mode__icontains=query) | Q(name__icontains=query) | Q(shutdown__icontains=query) | Q(state__icontains=query)
         ),LearnVRF.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(address_family_ipv4__icontains=query) | Q(address_family_ipv6__icontains=query) | Q(route_distinguisher__icontains=query)
+        ),RecommendedRelease.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(basePID=query) | Q(productName=query) | Q(softwareType=query) | Q(imageName=query) | Q(description=query) | Q(featureSet=query) | Q(majorRelease=query) | Q(releaseTrain=query) | Q(relDispName=query) | Q(installed_version=query)
         ),ShowInventory.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(

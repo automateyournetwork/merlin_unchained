@@ -25,39 +25,6 @@ class DynamicJobInput(models.Model):
         template = '{0.input_field} {0.timestamp}'
         return template.format(self)
 
-class RecommendedReleaseCredentials(models.Model):
-    key = models.TextField()
-    client_secret = models.TextField()
-    timestamp = models.DateTimeField()
-
-    def __str__(self):
-        template = '{0.key} {0.client_secret} {0.timestamp}'
-        return template.format(self)
-
-class RecommendedRelease(models.Model):
-    pyats_alias = models.TextField()
-    os = models.TextField()
-    basePID = models.TextField()
-    productName = models.TextField()
-    softwareType = models.TextField()
-    imageName = models.TextField()
-    description = models.TextField()
-    featureSet = models.TextField()   
-    imageSize = models.TextField()
-    isSuggested = models.TextField()
-    majorRelease = models.TextField()
-    releaseTrain = models.TextField()
-    relDispName = models.TextField()
-    releaseDate = models.TextField()
-    releaseLifeCycle = models.TextField()
-    installed_version= models.TextField()
-    compliant = models.TextField()
-    timestamp = models.DateTimeField()
-
-    def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.basePID} {0.productName} {0.softwareType} {0.imageName} {0.description} {0.featureSet} {0.imageSize} {0.isSuggested} {0.majorRelease} {0.releaseTrain} {0.relDispName} {0.releaseDate} {0.releaseLifeCycle} {0.installed_version} {0.compliant} {0.timestamp}'
-        return template.format(self)
-
 class LearnACL(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
@@ -328,6 +295,39 @@ class LearnVRF(models.Model):
 
     def __str__(self):
         template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
+        return template.format(self)
+
+class RecommendedReleaseCredentials(models.Model):
+    key = models.TextField()
+    client_secret = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.key} {0.client_secret} {0.timestamp}'
+        return template.format(self)
+
+class RecommendedRelease(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    basePID = models.TextField()
+    productName = models.TextField()
+    softwareType = models.TextField()
+    imageName = models.TextField()
+    description = models.TextField()
+    featureSet = models.TextField()   
+    imageSize = models.TextField()
+    isSuggested = models.TextField()
+    majorRelease = models.TextField()
+    releaseTrain = models.TextField()
+    relDispName = models.TextField()
+    releaseDate = models.TextField()
+    releaseLifeCycle = models.TextField()
+    installed_version= models.TextField()
+    compliant = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.basePID} {0.productName} {0.softwareType} {0.imageName} {0.description} {0.featureSet} {0.imageSize} {0.isSuggested} {0.majorRelease} {0.releaseTrain} {0.relDispName} {0.releaseDate} {0.releaseLifeCycle} {0.installed_version} {0.compliant} {0.timestamp}'
         return template.format(self)
 
 class ShowInventory(models.Model):

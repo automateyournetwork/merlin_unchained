@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
@@ -39,6 +39,8 @@ def all_changes(request):
     current_vrfs = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     current_version = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
+    recommended_latest_timestamp = RecommendedRelease.objects.latest('timestamp')
+    current_recommended = RecommendedRelease.objects.filter(timestamp=recommended_latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")    
     os.system('pyats run job populate_db_job.py')
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
@@ -66,7 +68,9 @@ def all_changes(request):
     vrf_new_timestamp = LearnVRF.objects.latest('timestamp')
     latest_vrfs = LearnVRF.objects.filter(timestamp=vrf_new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
     version_new_timestamp = ShowVersion.objects.latest('timestamp')
-    latest_version = ShowVersion.objects.filter(timestamp=version_new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")    
+    latest_version = ShowVersion.objects.filter(timestamp=version_new_timestamp.timestamp).values("pyats_alias","bootflash","chassis","cpu","device_name","memory","model","processor_board_id","rp","slots","name","os","reason","system_compile_time","system_image_file","system_version","chassis_sn","compiled_by","curr_config_register","image_id","image_type","label","license_level","license_type","non_volatile","physical","next_reload_license_level","platform","processor_type","returned_to_rom_by","rom","rtr_type","version_short","xe_version")
+    recommended_new_timestamp = RecommendedRelease.objects.latest('timestamp')
+    latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")    
     acl_removals = current_acls.difference(latest_acls)
     acl_additions = latest_acls.difference(current_acls)
     arp_removals = current_arp.difference(latest_arp)
@@ -84,14 +88,16 @@ def all_changes(request):
     interface_removals = current_interface.difference(latest_interface)
     interface_additions = latest_interface.difference(current_interface)
     platform_removals = current_platform.difference(latest_platform)
-    platform_additions = latest_platform.difference(current_platform)    
+    platform_additions = latest_platform.difference(current_platform)
+    recommended_removals = current_recommended.difference(latest_recommended)
+    recommended_additions = latest_recommended.difference(current_recommended)     
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'vrf_latest_timestamp': vrf_latest_timestamp.timestamp, 'vrf_new_timestamp': vrf_new_timestamp.timestamp, 'version_removals': version_removals, 'version_additions': version_additions})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -228,6 +234,16 @@ def learn_vrf_changes(request):
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
+
+def recommended_changes(request):
+    latest_timestamp = RecommendedRelease.objects.latest('timestamp')
+    current_recommended = RecommendedRelease.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+    os.system('pyats run job recommended_job.py')
+    new_timestamp = RecommendedRelease.objects.latest('timestamp')
+    latest_recommended = RecommendedRelease.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+    recommended_removals = current_recommended.difference(latest_recommended)
+    recommended_additions = latest_recommended.difference(current_recommended)
+    return render(request, 'Changes/recommended_changes.html', {'recommended_removals': recommended_removals,'recommended_additions': recommended_additions})
 
 def show_inventory_changes(request):
     latest_timestamp = ShowInventory.objects.latest('timestamp')
@@ -574,6 +590,22 @@ class ChangesResultVRF(ListView):
         vrf_removals = current_vrfs.difference(latest_vrfs)
         vrf_additions = latest_vrfs.difference(current_vrfs)
         return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
+
+class ChangesResultRecommended(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = RecommendedRelease.objects.latest('timestamp')
+        current_recommended = RecommendedRelease.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+        query = self.request.GET.get('recommended_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job recommended_filter_job.py')
+        new_timestamp = RecommendedRelease.objects.latest('timestamp')
+        latest_recommended = RecommendedRelease.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+        recommended_removals = current_recommended.difference(latest_recommended)
+        recommended_additions = latest_recommended.difference(current_recommended)
+        return render(request, 'Changes/recommended_changes.html', {'recommended_removals': recommended_removals,'recommended_additions': recommended_additions})
 
 class ChangesResultInventory(ListView):
     template_name = 'Changes/changes.html'
