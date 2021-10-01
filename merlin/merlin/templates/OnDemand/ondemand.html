@@ -17,7 +17,7 @@
     <tbody>
     <tr>
       <td>All</td>
-      <td><button id="get_all_all_devices_button">All Commands - All Devices</button></td>
+      <td><button id="get_all_all_devices_button">All Commands</button></td>
       <td>
         <div id ="get_all_filter">
           <form id = "get_all_filter" action="{% url 'get_all_ondemand_filter' %}" method="get">
@@ -38,7 +38,7 @@
     </tr>
     <tr>
       <td>Learn ACL</td>       
-        <td><button id="learn_acl_all_devices_button">Learn ACL - All Devices</button></td>
+        <td><button id="learn_acl_all_devices_button">Learn ACL</button></td>
         <td>
           <div id ="learn_acl_filter">
             <form id = "learn_acl_filter" action="{% url 'learn_acl_ondemand_filter' %}" method="get">
@@ -59,7 +59,7 @@
       </tr>
       <tr>
         <td>Learn ARP</td>
-        <td><button id="learn_arp_all_devices_button">Learn ARP - All Devices</button></td>
+        <td><button id="learn_arp_all_devices_button">Learn ARP</button></td>
         <td>
           <div id ="learn_arp_filter">
             <form id = "learn_arp_filter" action="{% url 'learn_arp_ondemand_filter' %}" method="get">
@@ -80,7 +80,7 @@
       </tr>
       <tr>
         <td>Learn BGP</td>
-        <td><button id="learn_bgp_all_devices_button">Learn BGP - All Devices</button></td>
+        <td><button id="learn_bgp_all_devices_button">Learn BGP</button></td>
         <td>
           <div id ="learn_bgp_filter">
             <form id = "learn_bgp_filter" action="{% url 'learn_bgp_ondemand_filter' %}" method="get">
@@ -101,7 +101,7 @@
       </tr>
       <tr>
         <td>Learn Config</td>
-        <td><button id="learn_config_all_devices_button">Learn Config - All Devices</button></td>
+        <td><button id="learn_config_all_devices_button">Learn Config</button></td>
         <td>
           <div id ="learn_config_filter">
             <form id = "learn_config_filter" action="{% url 'learn_config_ondemand_filter' %}" method="get">
@@ -122,7 +122,7 @@
       </tr>                          
       <tr>
         <td>Learn Interface</td>
-        <td><button id="learn_interface_all_devices_button">Learn Interface - All Devices</button></td>
+        <td><button id="learn_interface_all_devices_button">Learn Interface</button></td>
         <td>
           <div id ="learn_interface_filter">
             <form id = "learn_interface_filter" action="{% url 'learn_interface_ondemand_filter' %}" method="get">
@@ -143,7 +143,7 @@
       </tr>
       <tr>        
         <td>Learn Platform</td>
-        <td><button id="learn_platform_all_devices_button">Learn Platform - All Devices</button></td>
+        <td><button id="learn_platform_all_devices_button">Learn Platform</button></td>
         <td>
           <div id ="learn_platform_filter">
             <form id = "learn_platform_filter" action="{% url 'learn_platform_ondemand_filter' %}" method="get">
@@ -164,7 +164,7 @@
       </tr>      
       <tr>        
         <td>Learn VLAN</td>
-        <td><button id="learn_vlan_all_devices_button">Learn VLAN - All Devices</button></td>
+        <td><button id="learn_vlan_all_devices_button">Learn VLAN</button></td>
         <td>
           <div id ="learn_vlan_filter">
             <form id = "learn_vlan_filter" action="{% url 'learn_vlan_ondemand_filter' %}" method="get">
@@ -185,7 +185,7 @@
       </tr>      
       <tr>
         <td>Learn VRF</td>
-        <td><button id="learn_vrf_all_devices_button">Learn VRF - All Devices</button></td>
+        <td><button id="learn_vrf_all_devices_button">Learn VRF</button></td>
         <td>
           <div id ="learn_vrf_filter">
             <form id = "learn_vrf_filter" action="{% url 'learn_vrf_ondemand_filter' %}" method="get">
@@ -203,10 +203,31 @@
             </div>
           </div>
         </td>                
-      </tr>      
+      </tr>
+    <tr>
+      <td>Recommended Release</td>
+      <td><button id="recommended_all_devices_button">Recommended Release</button></td>
+      <td>
+        <div id ="recommended_filter">
+          <form id = "recommended_filter" action="{% url 'recommended_ondemand_filter' %}" method="get">
+            <input name="recommended_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
+        <div id ="recommended_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </td>        
+    </tr>          
     <tr>
       <td>Show Inventory</td>
-      <td><button id="show_inventory_all_devices_button">Show Inventory - All Devices</button></td>
+      <td><button id="show_inventory_all_devices_button">Show Inventory</button></td>
       <td>
         <div id ="show_inventory_filter">
           <form id = "show_inventory_filter" action="{% url 'show_inventory_ondemand_filter' %}" method="get">
@@ -219,7 +240,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -227,7 +248,7 @@
     </tr>    
     <tr>
       <td>Show IP Interface Brief</td>
-      <td><button id="show_ip_int_brief_all_devices_button">Show IP Interface Brief - All Devices</button></td>
+      <td><button id="show_ip_int_brief_all_devices_button">Show IP Interface Brief</button></td>
       <td>
         <div id ="show_ip_int_brief_filter">
           <form id = "show_ip_int_brief_filter" action="{% url 'show_ip_int_brief_ondemand_filter' %}" method="get">
@@ -240,7 +261,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -248,7 +269,7 @@
     </tr>      
     <tr>
       <td>Show Version</td>
-      <td><button id="show_version_all_devices_button">Show Version- All Devices</button></td>
+      <td><button id="show_version_all_devices_button">Show Version</button></td>
       <td>
         <div id ="show_version_filter">
           <form id = "show_version_filter" action="{% url 'show_version_ondemand_filter' %}" method="get">
@@ -261,7 +282,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>

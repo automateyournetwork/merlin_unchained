@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
+from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultRecommended, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
 
 urlpatterns = [
     path('OnDemand/', views.button),
@@ -17,6 +17,7 @@ urlpatterns = [
     path('OnDemand/ShowInventory/show_inventory_all_result/', views.show_inventory_all_ondemand, name="show_inventory_all"),
     path('OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_all_result/', views.show_ip_int_brief_all_ondemand, name="show_ip_int_brief_all"),
     path('OnDemand/ShowVersion/show_version_all_result/', views.show_version_all_ondemand, name="show_version_all"),
+    path('OnDemand/Recommended/recommended_all_result/', views.recommended_all_ondemand, name="recommended_all"),
     path('OnDemand/GetAll/get_all_filter_result/', OnDemandResultAll.as_view(), name="get_all_ondemand_filter"),
     path('OnDemand/LearnACL/learn_acl_filter_result/', OnDemandResultACL.as_view(), name="learn_acl_ondemand_filter"),
     path('OnDemand/LearnARP/learn_arp_filter_result/', OnDemandResultARP.as_view(), name="learn_arp_ondemand_filter"),
@@ -29,4 +30,5 @@ urlpatterns = [
     path('OnDemand/ShowInventory/show_inventory_filter_result/', OnDemandResultInventory.as_view(), name="show_inventory_ondemand_filter"),
     path('OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_filter_result/', OnDemandResultIPInterfaceBrief.as_view(), name="show_ip_int_brief_ondemand_filter"),
     path('OnDemand/ShowVersion/show_version_filter_result/', OnDemandResultVersion.as_view(), name="show_version_ondemand_filter"),
+    path('OnDemand/Recommended/recommended_filter_result/', OnDemandResultRecommended.as_view(), name="recommended_ondemand_filter"),
 ]
