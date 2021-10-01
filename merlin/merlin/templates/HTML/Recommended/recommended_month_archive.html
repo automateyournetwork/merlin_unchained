@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Recommended Release for {{ year }} {{ month }}{% endblock %}
+
+{% block content %}
+<h1>Recommended Release for {{ year }} {{ month }}</h1>
+<table id = "table" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in recommended_list %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#table thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#learn_acl thead');
+  
+      var table = $('#table').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  {% endblock %}

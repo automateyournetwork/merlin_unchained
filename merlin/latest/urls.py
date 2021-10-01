@@ -18,6 +18,7 @@ urlpatterns = [
     path('Latest/LearnPlatformVirtual/', views.learn_platform_virtual_latest),
     path('Latest/LearnVLAN/', views.learn_vlan_latest),
     path('Latest/LearnVRF/', views.learn_vrf_latest),
+    path('Latest/Recommended/', views.recommended_latest),
     path('Latest/ShowInventory/', views.show_inventory_latest),
     path('Latest/ShowIPInterfaceBrief/', views.show_ip_int_brief_latest),
     path('Latest/ShowVersion/', views.show_version_latest),

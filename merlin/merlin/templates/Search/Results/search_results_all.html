@@ -543,6 +543,53 @@
       </tbody></table>{% endfor %}
 {% endif %}
 {% if object_list.14 %}
+<h1>Recommended Release Hits</h1>
+<table id = "recommended" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in object_list.14 %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.15 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -555,7 +602,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.14 %}
+  <tbody>{% for part in object_list.15 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -567,7 +614,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.15 %}
+{% if object_list.16 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -579,7 +626,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.15 %}
+  <tbody>{% for interface in object_list.16 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -590,9 +637,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.16 %}
+{% if object_list.17 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.16 %}
+  {% for version in object_list.17 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -977,6 +1024,23 @@
     });
     });
   </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#recommended').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>  
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#show_inventory').DataTable({

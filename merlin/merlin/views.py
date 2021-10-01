@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -513,6 +513,36 @@ def learn_vrf_alias_archive(request,pyats_alias):
     v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
+
+def recommended_all(request):
+    recommended_list = RecommendedRelease.objects.all()
+    context = {'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_all.html', context)
+
+def recommended_year_archive(request, year):
+    recommended_list = RecommendedRelease.objects.filter(timestamp__year=year)
+    context = {'year': year, 'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_year_archive.html', context)
+
+def recommended_month_archive(request, year, month):
+    recommended_list = RecommendedRelease.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_month_archive.html', context)
+
+def recommended_day_archive(request, year, month, day):
+    recommended_list = RecommendedRelease.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_day_archive.html', context)
+
+def recommended_nxos_archive(request):
+    recommended_list = RecommendedRelease.objects.filter(os='nxos')
+    context = {'os': os, 'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_nxos_archive.html', context)
+
+def recommended_alias_archive(request,pyats_alias):
+    recommended_list = RecommendedRelease.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'recommended_list': recommended_list}
+    return render(request, 'HTML/Recommended/recommended_alias_archive.html', context) 
 
 def show_inventory_all(request):
     inventory_list = ShowInventory.objects.all()

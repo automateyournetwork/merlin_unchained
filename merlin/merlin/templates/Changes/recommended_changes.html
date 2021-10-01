@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if recommended_additions %}
+<h2>Merlin has detected the following Recommended Release have been added</h2>
+{% for vrf in recommended_additions %}
+<table id = "recommended_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in object_list.14 %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Recommended Release additons</h2>
+{% endif %}
+{% if recommended_removals %}
+<h2>Merlin has detected the following Recommended Releases have been removed</h2>
+{% for vrf in recommended_removals %}
+<table id = "recommended_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in object_list.14 %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Recommended Release removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#recommended_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#recommended_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+{% endblock %} 
