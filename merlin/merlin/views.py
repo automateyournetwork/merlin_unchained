@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -513,6 +513,36 @@ def learn_vrf_alias_archive(request,pyats_alias):
     v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
+
+def psirt_all(request):
+    psirt_list = PSIRT.objects.all()
+    context = {'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_all.html', context)
+
+def psirt_year_archive(request, year):
+    psirt_list = PSIRT.objects.filter(timestamp__year=year)
+    context = {'year': year, 'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_year_archive.html', context)
+
+def psirt_month_archive(request, year, month):
+    psirt_list = PSIRT.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_month_archive.html', context)
+
+def psirt_day_archive(request, year, month, day):
+    psirt_list = PSIRT.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_day_archive.html', context)
+
+def psirt_nxos_archive(request):
+    psirt_list = PSIRT.objects.filter(os='nxos')
+    context = {'os': os, 'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_nxos_archive.html', context)
+
+def psirt_alias_archive(request,pyats_alias):
+    psirt_list = PSIRT.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'psirt_list': psirt_list}
+    return render(request, 'HTML/PSIRT/psirt_alias_archive.html', context) 
 
 def recommended_all(request):
     recommended_list = RecommendedRelease.objects.all()

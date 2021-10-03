@@ -848,6 +848,216 @@
 {% else %}
 <h2>Merlin has not detected any VRF configuration removals</h2>
 {% endif %}
+{% if recommended_additions %}
+<h2>Merlin has detected the following PSIRT have been added</h2>
+<table id = "psirt_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Advisory ID</th>
+    <th>Advisory Title</th>
+    <th>Bug IDs</th>
+    <th>IPS Signatures</th>
+    <th>Common Vulnerabilities and Exposures</th>
+    <th>Common Vulnerability Reporting Framework Url</th>
+    <th>Common Vulnerability Scoring System Base Score</th>
+    <th>Common Weakness Enumeration</th>
+    <th>Platform Name</th>
+    <th>IOS Release</th>
+    <th>First Fixed</th>
+    <th>First Published</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Publication URL</th>
+    <th>Security Impact Rating</th>
+    <th>Summary</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vulnerability in recommended_additions %}
+<tr>
+    <td>{{ vulnerability.pyats_alias }}</td>
+    <td>{{ vulnerability.advisory_id }}</td>
+    <td>{{ vulnerability.advisory_title }}</td>
+    <td>{{ vulnerability.bug_ids }}</td>
+    <td>{{ vulnerability.ips_signatures }}</td>
+    <td>{{ vulnerability.cves }}</td>
+    <td><a href="{{ vulnerability.cvrf_url }}">{{ vulnerability.cvrf_url }}</a></td>
+    <td>{{ vulnerability.cvss_base_score }}</td>
+    <td>{{ vulnerability.cwe }}</td>
+    <td>{{ vulnerability.platform_name }}</td>
+    <td>{{ vulnerability.ios_release }}</td>
+    <td>{{ vulnerability.first_fixed }}</td>
+    <td>{{ vulnerability.first_published }}</td>
+    <td>{{ vulnerability.last_updated }}</td>
+    <td>{{ vulnerability.status }}</td>
+    <td>{{ vulnerability.version }}</td>
+    <td><a href="{{ vulnerability.publication_url }}">{{ vulnerability.publication_url }}</a></td>
+    <td>{{ vulnerability.sir }}</td>
+    <td>{{ vulnerability.summary }}</td>
+    <td>{{ vulnerability.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>    
+{% else %}
+<h2>Merlin has not detected any PSIRT additons</h2>
+{% endif %}
+{% if recommended_removals %}
+<h2>Merlin has detected the following PSIRT have been removed</h2>
+<table id = "psirt_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Advisory ID</th>
+    <th>Advisory Title</th>
+    <th>Bug IDs</th>
+    <th>IPS Signatures</th>
+    <th>Common Vulnerabilities and Exposures</th>
+    <th>Common Vulnerability Reporting Framework Url</th>
+    <th>Common Vulnerability Scoring System Base Score</th>
+    <th>Common Weakness Enumeration</th>
+    <th>Platform Name</th>
+    <th>IOS Release</th>
+    <th>First Fixed</th>
+    <th>First Published</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Publication URL</th>
+    <th>Security Impact Rating</th>
+    <th>Summary</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vulnerability in psirt_removals %}
+<tr>
+    <td>{{ vulnerability.pyats_alias }}</td>
+    <td>{{ vulnerability.advisory_id }}</td>
+    <td>{{ vulnerability.advisory_title }}</td>
+    <td>{{ vulnerability.bug_ids }}</td>
+    <td>{{ vulnerability.ips_signatures }}</td>
+    <td>{{ vulnerability.cves }}</td>
+    <td><a href="{{ vulnerability.cvrf_url }}">{{ vulnerability.cvrf_url }}</a></td>
+    <td>{{ vulnerability.cvss_base_score }}</td>
+    <td>{{ vulnerability.cwe }}</td>
+    <td>{{ vulnerability.platform_name }}</td>
+    <td>{{ vulnerability.ios_release }}</td>
+    <td>{{ vulnerability.first_fixed }}</td>
+    <td>{{ vulnerability.first_published }}</td>
+    <td>{{ vulnerability.last_updated }}</td>
+    <td>{{ vulnerability.status }}</td>
+    <td>{{ vulnerability.version }}</td>
+    <td><a href="{{ vulnerability.publication_url }}">{{ vulnerability.publication_url }}</a></td>
+    <td>{{ vulnerability.sir }}</td>
+    <td>{{ vulnerability.summary }}</td>
+    <td>{{ vulnerability.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>    
+{% else %}
+<h2>Merlin has not detected any PSIRT removals</h2>
+{% endif %}
+{% if recommended_additions %}
+<h2>Merlin has detected the following Recommended Release have been added</h2>
+{% for vrf in recommended_additions %}
+<table id = "recommended_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in object_list.14 %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Recommended Release additons</h2>
+{% endif %}
+{% if recommended_removals %}
+<h2>Merlin has detected the following Recommended Releases have been removed</h2>
+{% for vrf in recommended_removals %}
+<table id = "recommended_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in object_list.14 %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Recommended Release removals</h2>
+{% endif %}
 {% if inventory_additions %}
 <h2>Merlin has detected the following Inventory items have been added</h2>
 <table id = "inventory_additions" class="table table-bordered">
@@ -1573,6 +1783,74 @@
         select: true
     });
     });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#psirt_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#psirt_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#recommended_additions').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#recommended_removals').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){

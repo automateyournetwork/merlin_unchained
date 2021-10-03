@@ -17,4 +17,6 @@ services:
       - POSTGRES_PASSWORD=merlin
       - POSTGRES_DB=merlin
     volumes:
-      - ./data/db:/var/lib/postgresql/data      
+      - ./data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"

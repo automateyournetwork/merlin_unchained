@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -70,6 +70,11 @@ class LearnVRFSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnVRF
         fields = ('pyats_alias', 'os', 'vrf', 'address_family_ipv4', 'address_family_ipv6', 'route_distinguisher', 'timestamp')
+
+class PSIRTSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = PSIRT
+        fields = ('pyats_alias', 'os', 'advisory_id', 'advisory_title', 'bug_ids', 'ips_signatures', 'cves', 'cvrf_url', 'cvss_base_score', 'cwe', 'platform_name', 'ios_release', 'first_fixed', 'first_published', 'last_updated', 'status', 'version', 'publication_url', 'sir', 'summary', 'timestamp')
 
 class RecommendedSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
