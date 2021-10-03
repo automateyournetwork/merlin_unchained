@@ -9,6 +9,7 @@ const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
 const psirtSpinnerBox = document.getElementById('psirt_spinner')
 const recommendedSpinnerBox = document.getElementById('recommended_spinner')
+const serial2contractSpinnerBox = document.getElementById('serial2contract_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
 const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
 const showVersionSpinnerBox = document.getElementById('show_version_spinner')
@@ -163,6 +164,20 @@ $("#recommended_all_devices_button").click(function(e){
         },
         success: function(response){
             recommendedSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#serial2contract_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/Serial2Contract/serial2contract_all_result/",
+        beforeSend: function(){
+            serial2contractSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            serial2contractSpinnerBox.classList.add('not-visible')
         }
     })
 })

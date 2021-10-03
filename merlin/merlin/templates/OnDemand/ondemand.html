@@ -245,7 +245,28 @@
           </div>
         </div>
       </td>        
-    </tr>          
+    </tr>
+    <tr>
+      <td>Serial 2 Contract</td>
+      <td><button id="serial2contract_all_devices_button">Serial 2 Contract</button></td>
+      <td>
+        <div id ="serial2contract_filter">
+          <form id = "serial2contract_filter" action="{% url 'serial2contract_ondemand_filter' %}" method="get">
+            <input name="serial2contract_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+    </td>
+    <td>
+        <div id ="serial2contract" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </td>        
+    </tr>              
     <tr>
       <td>Show Inventory</td>
       <td><button id="show_inventory_all_devices_button">Show Inventory</button></td>
@@ -261,7 +282,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -282,7 +303,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -303,7 +324,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
