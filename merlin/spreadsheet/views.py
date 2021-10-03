@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -347,6 +347,30 @@ def learn_vrf_csv_download_latest(request):
     vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
+    return response
+
+def psirt_csv(request):
+    return render(request, 'CSV/PSIRT/psirt_csv.html')    
+
+def psirt_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="psirt_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Advisory ID','Advisory Title','Bug ID','IPS Signatures','CVEs','CVRF URL','CVSS Base Score','CWE','Platform Name','IOS Release','First Fixed','First Published','Last Updated','Status','Version','Publication URL','SIR','Summary','Timestamp'])
+    psirts = PSIRT.objects.all().values_list('pyats_alias','advisory_id','advisory_title','bug_ids','ips_signatures','cves','cvrf_url','cvss_base_score','cwe','platform_name','ios_release','first_fixed','first_published','last_updated','status','version','publication_url','sir','summary','timestamp')
+    for psirt in psirts:
+        writer.writerow(psirt)
+    return response
+
+def psirt_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="psirt_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Advisory ID','Advisory Title','Bug ID','IPS Signatures','CVEs','CVRF URL','CVSS Base Score','CWE','Platform Name','IOS Release','First Fixed','First Published','Last Updated','Status','Version','Publication URL','SIR','Summary','Timestamp'])
+    latest_timestamp = PSIRT.objects.latest('timestamp')
+    psirts = PSIRT.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','advisory_id','advisory_title','bug_ids','ips_signatures','cves','cvrf_url','cvss_base_score','cwe','platform_name','ios_release','first_fixed','first_published','last_updated','status','version','publication_url','sir','summary','timestamp')
+    for psirt in psirts:
+        writer.writerow(psirt)
     return response
 
 def recommended_csv(request):

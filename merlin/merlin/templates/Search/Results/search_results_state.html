@@ -524,6 +524,59 @@
       </tbody></table>{% endfor %}
 {% endif %}
 {% if object_list.13 %}
+<h1>PSIRT Hits</h1>
+<table id = "psirt" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Advisory ID</th>
+    <th>Advisory Title</th>
+    <th>Bug IDs</th>
+    <th>IPS Signatures</th>
+    <th>Common Vulnerabilities and Exposures</th>
+    <th>Common Vulnerability Reporting Framework Url</th>
+    <th>Common Vulnerability Scoring System Base Score</th>
+    <th>Common Weakness Enumeration</th>
+    <th>Platform Name</th>
+    <th>IOS Release</th>
+    <th>First Fixed</th>
+    <th>First Published</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Publication URL</th>
+    <th>Security Impact Rating</th>
+    <th>Summary</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vulnerability in object_list.13 %}
+<tr>
+    <td>{{ vulnerability.pyats_alias }}</td>
+    <td>{{ vulnerability.advisory_id }}</td>
+    <td>{{ vulnerability.advisory_title }}</td>
+    <td>{{ vulnerability.bug_ids }}</td>
+    <td>{{ vulnerability.ips_signatures }}</td>
+    <td>{{ vulnerability.cves }}</td>
+    <td><a href="{{ vulnerability.cvrf_url }}">{{ vulnerability.cvrf_url }}</a></td>
+    <td>{{ vulnerability.cvss_base_score }}</td>
+    <td>{{ vulnerability.cwe }}</td>
+    <td>{{ vulnerability.platform_name }}</td>
+    <td>{{ vulnerability.ios_release }}</td>
+    <td>{{ vulnerability.first_fixed }}</td>
+    <td>{{ vulnerability.first_published }}</td>
+    <td>{{ vulnerability.last_updated }}</td>
+    <td>{{ vulnerability.status }}</td>
+    <td>{{ vulnerability.version }}</td>
+    <td><a href="{{ vulnerability.publication_url }}">{{ vulnerability.publication_url }}</a></td>
+    <td>{{ vulnerability.sir }}</td>
+    <td>{{ vulnerability.summary }}</td>
+    <td>{{ vulnerability.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.14 %}
 <h1>Recommended Release Hits</h1>
 <table id = "recommended" class="table table-bordered">
   <thead class = "alert-success">
@@ -547,7 +600,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for suggestion in object_list.13 %}
+  <tbody>{% for suggestion in object_list.14 %}
 <tr>
     <td>{{ suggestion.pyats_alias }}</td>
     <td>{{ suggestion.basePID }}</td>
@@ -570,7 +623,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.14 %}
+{% if object_list.15 %}
 <h1>Show Inventory Hits</h1>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -583,7 +636,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.14 %}
+  <tbody>{% for part in object_list.15 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -595,7 +648,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.15 %}
+{% if object_list.16 %}
 <h1>Show IP Interface Brief Hits</h1>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -607,7 +660,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.15 %}
+  <tbody>{% for interface in object_list.16 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -618,9 +671,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.16 %}
+{% if object_list.17 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.16 %}
+  {% for version in object_list.17 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -988,6 +1041,23 @@
     });
     });
   </script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#psirt').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>    
 <script type = "text/javascript">
   $(document).ready(function(){
       $('#recommended').DataTable({

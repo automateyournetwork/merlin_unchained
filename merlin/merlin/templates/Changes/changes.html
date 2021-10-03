@@ -211,6 +211,20 @@
       </td>        
       </tr>
       <tr>
+        <td>PSIRT</td>
+        <td><a href="http://localhost:8000/Changes/psirt_changes/"><button id="psirt_changes_button">Get PSIRT Changes</button></a></td>
+        <td>
+          <div id ="psirt_filter">
+            <form id = "psirt_filter" action="{% url 'psirt_changes_filter' %}" method="get">
+              <input name="psirt_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>
+      <tr>
       <tr>
         <td>Recommended Release</td>
         <td><a href="http://localhost:8000/Changes/recommended_changes/"><button id="recommended_changes_button">Get Recommended Release Changes</button></a></td>

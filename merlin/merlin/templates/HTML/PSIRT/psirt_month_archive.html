@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}PSIRT for {{ year }} {{ month }}{% endblock %}
+
+{% block content %}
+<h1>PSIRT for {{ year }} {{ month }}</h1>
+<table id = "table" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Advisory ID</th>
+            <th>Advisory Title</th>
+            <th>Bug IDs</th>
+            <th>IPS Signatures</th>
+            <th>Common Vulnerabilities and Exposures</th>
+            <th>Common Vulnerability Reporting Framework Url</th>
+            <th>Common Vulnerability Scoring System Base Score</th>
+            <th>Common Weakness Enumeration</th>
+            <th>Platform Name</th>
+            <th>IOS Release</th>
+            <th>First Fixed</th>
+            <th>First Published</th>
+            <th>Last Updated</th>
+            <th>Status</th>
+            <th>Version</th>
+            <th>Publication URL</th>
+            <th>Security Impact Rating</th>
+            <th>Summary</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for vulnerability in psirt_list %}
+        <tr>
+            <td>{{ vulnerability.pyats_alias }}</td>
+            <td>{{ vulnerability.advisory_id }}</td>
+            <td>{{ vulnerability.advisory_title }}</td>
+            <td>{{ vulnerability.bug_ids }}</td>
+            <td>{{ vulnerability.ips_signatures }}</td>
+            <td>{{ vulnerability.cves }}</td>
+            <td><a href="{{ vulnerability.cvrf_url }}">{{ vulnerability.cvrf_url }}</a></td>
+            <td>{{ vulnerability.cvss_base_score }}</td>
+            <td>{{ vulnerability.cwe }}</td>
+            <td>{{ vulnerability.platform_name }}</td>
+            <td>{{ vulnerability.ios_release }}</td>
+            <td>{{ vulnerability.first_fixed }}</td>
+            <td>{{ vulnerability.first_published }}</td>
+            <td>{{ vulnerability.last_updated }}</td>
+            <td>{{ vulnerability.status }}</td>
+            <td>{{ vulnerability.version }}</td>
+            <td><a href="{{ vulnerability.publication_url }}">{{ vulnerability.publication_url }}</a></td>
+            <td>{{ vulnerability.sir }}</td>
+            <td>{{ vulnerability.summary }}</td>
+            <td>{{ vulnerability.timestamp }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#table thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#learn_acl thead');
+  
+      var table = $('#table').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  {% endblock %}
