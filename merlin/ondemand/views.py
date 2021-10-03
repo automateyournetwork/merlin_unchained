@@ -54,6 +54,10 @@ def recommended_all_ondemand(request):
     os.system('pyats run job recommended_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def serial2contract_all_ondemand(request):
+    os.system('pyats run job serial2contract_job.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def show_inventory_all_ondemand(request):
     os.system('pyats run job show_inventory_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
@@ -166,6 +170,15 @@ class OnDemandResultRecommended(ListView):
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job recommended_filter_job.py')
+
+class OnDemandResultSerial2Contract(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('serial2contract_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job serial2contract_filter_job.py')
 
 class OnDemandResultInventory(ListView):
     template_name = 'OnDemand/ondemand.html'

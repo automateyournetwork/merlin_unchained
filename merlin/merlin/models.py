@@ -5,6 +5,7 @@ class Devices(models.Model):
     alias = models.TextField()
     device_type = models.TextField()
     os = models.TextField()
+    platform = models.TextField()
     username = models.TextField()
     password = models.TextField()
     protocol = models.TextField()
@@ -14,7 +15,7 @@ class Devices(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.hostname} {0.alias} {0.device_type} {0.os} {0.username} {0.password} {0.protocol} {0.ip_address} {0.port} {0.connection_timeout} {0.timestamp}'
+        template = '{0.hostname} {0.alias} {0.device_type} {0.os} {0.platform} {0.username} {0.password} {0.protocol} {0.ip_address} {0.port} {0.connection_timeout} {0.timestamp}'
         return template.format(self)
 
 class DynamicJobInput(models.Model):
