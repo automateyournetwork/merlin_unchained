@@ -366,6 +366,43 @@ class RecommendedRelease(models.Model):
         template = '{0.pyats_alias} {0.os} {0.basePID} {0.productName} {0.softwareType} {0.imageName} {0.description} {0.featureSet} {0.imageSize} {0.isSuggested} {0.majorRelease} {0.releaseTrain} {0.relDispName} {0.releaseDate} {0.releaseLifeCycle} {0.installed_version} {0.compliant} {0.timestamp}'
         return template.format(self)
 
+class Serial2ContractCredentials(models.Model):
+    key = models.TextField()
+    client_secret = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.key} {0.client_secret} {0.timestamp}'
+        return template.format(self)
+
+class Serial2Contract(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    base_pid = models.TextField()
+    customer_name = models.TextField()
+    address = models.TextField()
+    city = models.TextField()
+    state_province = models.TextField()
+    country = models.TextField()
+    product_line_end_date = models.TextField()
+    is_covered = models.TextField()
+    item_description = models.TextField()
+    item_type = models.TextField()
+    orderable_pid = models.TextField()
+    pillar_code = models.TextField()
+    parent_sn = models.TextField()
+    service_contract = models.TextField()
+    service_description = models.TextField()
+    serial_number = models.TextField()
+    warranty_end = models.TextField()
+    warranty_type = models.TextField()
+    warranty_description = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.base_pid} {0.customer_name} {0.address} {0.city} {0.state_province} {0.country} {0.product_line_end_date} {0.is_covered} {0.item_description} {0.item_type} {0.orderable_pid} {0.pillar_code} {0.parent_sn} {0.service_contract} {0.service_description} {0.serial_number} {0.warranty_end} {0.warranty_type} {0.warranty_description} {0.timestamp}'
+        return template.format(self)
+
 class ShowInventory(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
