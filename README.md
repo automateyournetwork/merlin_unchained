@@ -118,6 +118,7 @@ devices:
       alias: 'DevNet_Sandbox_Nexus9k'
       type: Nexus 9000
       os: 'nxos'
+      platform: n9k
       credentials:
         default:
           username: admin
