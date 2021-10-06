@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}CSV File for Serial 2 Contract{% endblock %}
+
+{% block content %}
+<h1>CSV Files for Serial 2 Contract</h1>
+<table class="merlin-table">
+  <thead>
+  <tr>
+  <th>All Records</th>
+  <th>Latest Records</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><button onclick="location.href='{% url 'serial2contract_csv' %}'">Export CSV</button></td>
+    <td><button onclick="location.href='{% url 'serial2contract_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  </tbody>
+</table>
+{% endblock %}

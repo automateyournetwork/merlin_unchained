@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ChangesResultAll, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
+from .views import ChangesResultAll, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
 
 urlpatterns = [
     path('Changes/', views.changes),
@@ -20,6 +20,7 @@ urlpatterns = [
     path('Changes/learn_vrf_changes/', views.learn_vrf_changes, name="learn_vrf_changes"),
     path('Changes/psirt_changes/', views.psirt_changes, name="psirt_changes"),
     path('Changes/recommended_changes/', views.recommended_changes, name="recommended_changes"),
+    path('Changes/serial2contract_changes/', views.serial2contract_changes, name="_changes"),
     path('Changes/show_inventory_changes/', views.show_inventory_changes, name="show_inventory_changes"),
     path('Changes/show_ip_int_brief_changes/', views.show_ip_int_brief_changes, name="show_ip_int_brief_changes"),
     path('Changes/show_version_changes/', views.show_version_changes, name="show_version_changes"),
@@ -39,6 +40,7 @@ urlpatterns = [
     path('Changes/learn_vrf_changes_filter/', ChangesResultVRF.as_view(), name="learn_vrf_changes_filter"),
     path('Changes/psirt_changes_filter/', ChangesResultPSIRT.as_view(), name="psirt_changes_filter"),
     path('Changes/recommended_changes_filter/', ChangesResultRecommended.as_view(), name="recommended_changes_filter"),
+    path('Changes/serial2contract_changes_filter/', ChangesResultSerial2Contract.as_view(), name="serial2contract_changes_filter"),
     path('Changes/show_inventory_changes_filter/', ChangesResultInventory.as_view(), name="show_inventory_changes_filter"),
     path('Changes/show_ip_int_brief_changes_filter/', ChangesResultIPInterfaceBrief.as_view(), name="show_ip_int_brief_changes_filter"),
     path('Changes/show_version_changes_filter/', ChangesResultVersion.as_view(), name="show_version_changes_filter"),

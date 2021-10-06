@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Serial 2 Contract for NX-OS{% endblock %}
+
+{% block content %}
+<h1>Serial 2 Contract for NX-OS</h1>
+<table id = "table" class="table table-bordered">
+    <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Customer Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State / Province</th>
+    <th>Country</th>
+    <th>Product Line End Date</th>
+    <th>Is Covered</th>
+    <th>Item Description</th>
+    <th>Item Type</th>
+    <th>Orderable Part ID</th>
+    <th>Pillar Code</th>
+    <th>Parent Serial Number</th>
+    <th>Service Contract</th>
+    <th>Service Description</th>
+    <th>Serial Number</th>
+    <th>Warranty End</th>
+    <th>Warranty Type</th>
+    <th>Warranty Description</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for serial in serial2contract_list %}
+<tr>
+    <td>{{ serial.pyats_alias }}</td>
+    <td>{{ serial.basePID }}</td>
+    <td>{{ serial.customer_name }}</td>
+    <td>{{ serial.address }}</td>
+    <td>{{ serial.city }}</td>
+    <td>{{ serial.state_province }}</td>
+    <td>{{ serial.country }}</td>
+    <td>{{ serial.product_line_end_date }}</td>
+    <td>{{ serial.is_covered }}</td>
+    <td>{{ serial.item_description }}</td>
+    <td>{{ serial.item_type }}</td>
+    <td>{{ serial.orderable_pid }}</td>
+    <td>{{ serial.pillar_code }}</td>
+    <td>{{ serial.parent_sn }}</td>
+    <td>{{ serial.service_contract }}</td>
+    <td>{{ serial.service_description }}</td>
+    <td>{{ serial.serial_number }}</td>
+    <td>{{ serial.warranty_end }}</td>
+    <td>{{ serial.warranty_type }}</td>
+    <td>{{ serial.warranty_description }}</td>
+    <td>{{ serial.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+      $('#table thead tr')
+      .clone(true)
+      .addClass('filters')
+      .appendTo('#learn_acl thead');
+  
+      var table = $('#table').DataTable({
+          keys: true,
+          dom: 'Bfrtip',
+          lengthMenu: [
+              [ 10, 25, 50, -1 ],
+              [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+          ],
+          buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+          ],
+          colReorder: true,
+          select: true,            
+          orderCellsTop: true,
+          fixedHeader: true,
+          initComplete: function () {
+          var api = this.api();
+  
+          // For each column
+          api
+              .columns()
+              .eq(0)
+              .each(function (colIdx) {
+                  // Set the header cell to contain the input element
+                  var cell = $('.filters th').eq(
+                      $(api.column(colIdx).header()).index()
+                  );
+                  var title = $(cell).text();
+                  $(cell).html('<input type="text" placeholder="' + title + '" />');
+  
+                  // On every keypress in this input
+                  $(
+                      'input',
+                      $('.filters th').eq($(api.column(colIdx).header()).index())
+                  )
+                      .off('keyup change')
+                      .on('keyup change', function (e) {
+                          e.stopPropagation();
+  
+                          // Get the search value
+                          $(this).attr('title', $(this).val());
+                          var regexr = '({search})'; //$(this).parents('th').find('select').val();
+  
+                          var cursorPosition = this.selectionStart;
+                          // Search the column for that value
+                          api
+                              .column(colIdx)
+                              .search(
+                                  this.value != ''
+                                      ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                      : '',
+                                  this.value != '',
+                                  this.value == ''
+                              )
+                              .draw();
+  
+                          $(this)
+                              .focus()[0]
+                              .setSelectionRange(cursorPosition, cursorPosition);
+                      });
+              });
+      },
+  });
+  });        
+  </script>
+  {% endblock %}

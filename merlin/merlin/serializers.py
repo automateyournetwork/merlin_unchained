@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -80,6 +80,11 @@ class RecommendedSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = RecommendedRelease
         fields = ('pyats_alias', 'os', 'basePID', 'productName', 'softwareType', 'imageName', 'description', 'featureSet', 'imageSize', 'isSuggested', 'majorRelease', 'releaseTrain', 'relDispName', 'releaseDate', 'releaseLifeCycle', 'installed_version', 'compliant', 'timestamp')
+
+class Serial2ContractSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Serial2Contract
+        fields = ('pyats_alias', 'os', 'base_pid', 'customer_name', 'address', 'city', 'state_province', 'country', 'product_line_end_date', 'is_covered', 'item_description', 'item_type', 'orderable_pid', 'pillar_code', 'parent_sn', 'service_contract', 'service_description', 'serial_number', 'warranty_end', 'warranty_type', 'warranty_description', 'timestamp')
 
 class ParseShowInventorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

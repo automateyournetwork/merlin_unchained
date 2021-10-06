@@ -20,6 +20,7 @@ urlpatterns = [
     path('Latest/LearnVRF/', views.learn_vrf_latest),
     path('Latest/PSIRT/', views.psirt_latest),    
     path('Latest/Recommended/', views.recommended_latest),
+    path('Latest/Serial2Contract/', views.serial2contract_latest),
     path('Latest/ShowInventory/', views.show_inventory_latest),
     path('Latest/ShowIPInterfaceBrief/', views.show_ip_int_brief_latest),
     path('Latest/ShowVersion/', views.show_version_latest),

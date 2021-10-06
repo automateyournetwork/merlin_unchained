@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -573,6 +573,36 @@ def recommended_alias_archive(request,pyats_alias):
     recommended_list = RecommendedRelease.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'recommended_list': recommended_list}
     return render(request, 'HTML/Recommended/recommended_alias_archive.html', context) 
+
+def serial2contract_all(request):
+    serial2contract_list = Serial2Contract.objects.all()
+    context = {'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_all.html', context)
+
+def serial2contract_year_archive(request, year):
+    serial2contract_list = Serial2Contract.objects.filter(timestamp__year=year)
+    context = {'year': year, 'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_year_archive.html', context)
+
+def serial2contract_month_archive(request, year, month):
+    serial2contract_list = Serial2Contract.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_month_archive.html', context)
+
+def serial2contract_day_archive(request, year, month, day):
+    serial2contract_list = Serial2Contract.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_day_archive.html', context)
+
+def serial2contract_nxos_archive(request):
+    serial2contract_list = Serial2Contract.objects.filter(os='nxos')
+    context = {'os': os, 'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_nxos_archive.html', context)
+
+def serial2contract_alias_archive(request,pyats_alias):
+    serial2contract_list = Serial2Contract.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'serial2contract_list': serial2contract_list}
+    return render(request, 'HTML/Serial2Contract/serial2contract_alias_archive.html', context) 
 
 def show_inventory_all(request):
     inventory_list = ShowInventory.objects.all()

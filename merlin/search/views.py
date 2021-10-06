@@ -1,7 +1,7 @@
 import json
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -43,6 +43,8 @@ class SearchResultAllView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(advisory_id__icontains=query) | Q(advisory_title__icontains=query) | Q(bug_ids__icontains=query) | Q(ips_signatures__icontains=query) | Q(cves__icontains=query) | Q(cvrf_url__icontains=query) | Q(cvss_base_score__icontains=query) | Q(cwe__icontains=query) | Q(platform_name__icontains=query) | Q(ios_release__icontains=query) | Q(first_fixed__icontains=query) | Q(first_published__icontains=query) | Q(last_updated__icontains=query) | Q(status__icontains=query) | Q(version__icontains=query) | Q(publication_url__icontains=query) | Q(sir__icontains=query) | Q(summary__icontains=query)
         ),RecommendedRelease.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(basePID__icontains=query) | Q(productName__icontains=query) | Q(softwareType__icontains=query) | Q(imageName__icontains=query) | Q(description__icontains=query) | Q(featureSet__icontains=query) | Q(majorRelease__icontains=query) | Q(releaseTrain__icontains=query) | Q(relDispName__icontains=query) | Q(installed_version__icontains=query)
+        ),Serial2Contract.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(base_pid__icontains=query) | Q(customer_name=query) | Q(address=query) | Q(city=query) | Q(state_province=query) | Q(country=query) | Q(product_line_end_date=query) | Q(is_covered=query) | Q(item_description=query) | Q(item_type=query) | Q(orderable_pid=query) | Q(pillar_code=query) | Q(parent_sn=query) | Q(service_contract=query) | Q(serial_number=query) | Q(warranty_type=query) | Q(warranty_description=query)
         ),ShowInventory.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(
@@ -89,6 +91,8 @@ class SearchResultStateView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(advisory_id__icontains=query) | Q(advisory_title__icontains=query) | Q(bug_ids__icontains=query) | Q(ips_signatures__icontains=query) | Q(cves__icontains=query) | Q(cvrf_url__icontains=query) | Q(cvss_base_score__icontains=query) | Q(cwe__icontains=query) | Q(platform_name__icontains=query) | Q(ios_release__icontains=query) | Q(first_fixed__icontains=query) | Q(first_published__icontains=query) | Q(last_updated__icontains=query) | Q(status__icontains=query) | Q(version__icontains=query) | Q(publication_url__icontains=query) | Q(sir__icontains=query) | Q(summary__icontains=query)
         ),RecommendedRelease.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(basePID__icontains=query) | Q(productName__icontains=query) | Q(softwareType__icontains=query) | Q(imageName__icontains=query) | Q(description__icontains=query) | Q(featureSet__icontains=query) | Q(majorRelease__icontains=query) | Q(releaseTrain__icontains=query) | Q(relDispName__icontains=query) | Q(installed_version__icontains=query)
+        ),Serial2Contract.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(base_pid__icontains=query) | Q(customer_name=query) | Q(address=query) | Q(city=query) | Q(state_province=query) | Q(country=query) | Q(product_line_end_date=query) | Q(is_covered=query) | Q(item_description=query) | Q(item_type=query) | Q(orderable_pid=query) | Q(pillar_code=query) | Q(parent_sn=query) | Q(service_contract=query) | Q(serial_number=query) | Q(warranty_type=query) | Q(warranty_description=query)
         ),ShowInventory.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(

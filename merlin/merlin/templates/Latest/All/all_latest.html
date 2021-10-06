@@ -486,6 +486,155 @@
         </tr>
         </tbody></table>
 {% endfor %}
+<h2>Latest PSIRT</h2>
+<table id = "psirt" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Advisory ID</th>
+    <th>Advisory Title</th>
+    <th>Bug IDs</th>
+    <th>IPS Signatures</th>
+    <th>Common Vulnerabilities and Exposures</th>
+    <th>Common Vulnerability Reporting Framework Url</th>
+    <th>Common Vulnerability Scoring System Base Score</th>
+    <th>Common Weakness Enumeration</th>
+    <th>Platform Name</th>
+    <th>IOS Release</th>
+    <th>First Fixed</th>
+    <th>First Published</th>
+    <th>Last Updated</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Publication URL</th>
+    <th>Security Impact Rating</th>
+    <th>Summary</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for vulnerability in psirt_list %}
+<tr>
+    <td>{{ vulnerability.pyats_alias }}</td>
+    <td>{{ vulnerability.advisory_id }}</td>
+    <td>{{ vulnerability.advisory_title }}</td>
+    <td>{{ vulnerability.bug_ids }}</td>
+    <td>{{ vulnerability.ips_signatures }}</td>
+    <td>{{ vulnerability.cves }}</td>
+    <td><a href="{{ vulnerability.cvrf_url }}">{{ vulnerability.cvrf_url }}</a></td>
+    <td>{{ vulnerability.cvss_base_score }}</td>
+    <td>{{ vulnerability.cwe }}</td>
+    <td>{{ vulnerability.platform_name }}</td>
+    <td>{{ vulnerability.ios_release }}</td>
+    <td>{{ vulnerability.first_fixed }}</td>
+    <td>{{ vulnerability.first_published }}</td>
+    <td>{{ vulnerability.last_updated }}</td>
+    <td>{{ vulnerability.status }}</td>
+    <td>{{ vulnerability.version }}</td>
+    <td><a href="{{ vulnerability.publication_url }}">{{ vulnerability.publication_url }}</a></td>
+    <td>{{ vulnerability.sir }}</td>
+    <td>{{ vulnerability.summary }}</td>
+    <td>{{ vulnerability.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>  
+<h2>Latest Recommended Releases</h2>
+<table id = "recommend" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Product Name</th>
+    <th>Software Type</th>
+    <th>Image Name</th>
+    <th>Description</th>
+    <th>Feature Set</th>
+    <th>Image Size</th>
+    <th>Suggested Release</th>
+    <th>Major Release</th>
+    <th>Release Train</th>
+    <th>Release Display Name</th>
+    <th>Release Date</th>
+    <th>Release Lifecycle</th>
+    <th>Installed Version</th>
+    <th>Complaint</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for suggestion in recommended_list %}
+<tr>
+    <td>{{ suggestion.pyats_alias }}</td>
+    <td>{{ suggestion.basePID }}</td>
+    <td>{{ suggestion.productName }}</td>
+    <td>{{ suggestion.softwareType }}</td>
+    <td>{{ suggestion.imageName }}</td>
+    <td>{{ suggestion.description }}</td>
+    <td>{{ suggestion.featureSet }}</td>
+    <td>{{ suggestion.imageSize }}</td>
+    <td>{{ suggestion.isSuggested }}</td>
+    <td>{{ suggestion.majorRelease }}</td>
+    <td>{{ suggestion.releaseTrain }}</td>
+    <td>{{ suggestion.relDispName }}</td>
+    <td>{{ suggestion.releaseDate }}</td>
+    <td>{{ suggestion.releaseLifeCycle }}</td>
+    <td>{{ suggestion.installed_version }}</td>
+    <td>{{ suggestion.compliant }}</td>
+    <td>{{ suggestion.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+<h2>Latest Serial 2 Contract</h2>
+<table id = "serial2contract" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Customer Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State / Province</th>
+    <th>Country</th>
+    <th>Product Line End Date</th>
+    <th>Is Covered</th>
+    <th>Item Description</th>
+    <th>Item Type</th>
+    <th>Orderable Part ID</th>
+    <th>Pillar Code</th>
+    <th>Parent Serial Number</th>
+    <th>Service Contract</th>
+    <th>Service Description</th>
+    <th>Serial Number</th>
+    <th>Warranty End</th>
+    <th>Warranty Type</th>
+    <th>Warranty Description</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for serial in serial2contract_list %}
+<tr>
+    <td>{{ serial.pyats_alias }}</td>
+    <td>{{ serial.basePID }}</td>
+    <td>{{ serial.customer_name }}</td>
+    <td>{{ serial.address }}</td>
+    <td>{{ serial.city }}</td>
+    <td>{{ serial.state_province }}</td>
+    <td>{{ serial.country }}</td>
+    <td>{{ serial.product_line_end_date }}</td>
+    <td>{{ serial.is_covered }}</td>
+    <td>{{ serial.item_description }}</td>
+    <td>{{ serial.item_type }}</td>
+    <td>{{ serial.orderable_pid }}</td>
+    <td>{{ serial.pillar_code }}</td>
+    <td>{{ serial.parent_sn }}</td>
+    <td>{{ serial.service_contract }}</td>
+    <td>{{ serial.service_description }}</td>
+    <td>{{ serial.serial_number }}</td>
+    <td>{{ serial.warranty_end }}</td>
+    <td>{{ serial.warranty_type }}</td>
+    <td>{{ serial.warranty_description }}</td>
+    <td>{{ serial.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
 <h2>Latest Show Inventory Results</h2>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -882,6 +1031,57 @@
     });
     });
   </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#psirt').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#recommend').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#serial2contract').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>   
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#show_inventory').DataTable({
