@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
@@ -42,7 +42,9 @@ def all_changes(request):
     psirt_latest_timestamp = PSIRT.objects.latest('timestamp')
     current_psirt = PSIRT.objects.filter(timestamp=psirt_latest_timestamp.timestamp).values("pyats_alias", "os", "advisory_id", "advisory_title", "bug_ids", "ips_signatures", "cves", "cvrf_url", "cvss_base_score", "cwe", "platform_name", "ios_release", "first_fixed", "first_published", "last_updated", "status", "version", "publication_url", "sir", "summary")
     recommended_latest_timestamp = RecommendedRelease.objects.latest('timestamp')
-    current_recommended = RecommendedRelease.objects.filter(timestamp=recommended_latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")    
+    current_recommended = RecommendedRelease.objects.filter(timestamp=recommended_latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+    serial2contract_latest_timestamp = Serial2Contract.objects.latest('timestamp')
+    current_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_latest_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")    
     os.system('pyats run job populate_db_job.py')
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
@@ -74,7 +76,9 @@ def all_changes(request):
     psirt_new_timestamp = PSIRT.objects.latest('timestamp')
     latest_psirt = PSIRT.objects.filter(timestamp=psirt_new_timestamp.timestamp).values("pyats_alias", "os", "advisory_id", "advisory_title", "bug_ids", "ips_signatures", "cves", "cvrf_url", "cvss_base_score", "cwe", "platform_name", "ios_release", "first_fixed", "first_published", "last_updated", "status", "version", "publication_url", "sir", "summary")
     recommended_new_timestamp = RecommendedRelease.objects.latest('timestamp')
-    latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")    
+    latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+    serial2contract_new_timestamp = Serial2Contract.objects.latest('timestamp')
+    latest_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")    
     acl_removals = current_acls.difference(latest_acls)
     acl_additions = latest_acls.difference(current_acls)
     arp_removals = current_arp.difference(latest_arp)
@@ -96,14 +100,16 @@ def all_changes(request):
     psirt_removals = current_psirt.difference(latest_psirt)
     psirt_additions = latest_psirt.difference(current_psirt)
     recommended_removals = current_recommended.difference(latest_recommended)
-    recommended_additions = latest_recommended.difference(current_recommended)     
+    recommended_additions = latest_recommended.difference(current_recommended)
+    serial2contract_removals = current_serial2contract.difference(latest_serial2contract)
+    serial2contract_additions = latest_serial2contract.difference(current_serial2contract)      
     vlan_removals = current_vlans.difference(latest_vlans)
     vlan_additions = latest_vlans.difference(current_vlans)
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -261,6 +267,16 @@ def recommended_changes(request):
     recommended_additions = latest_recommended.difference(current_recommended)
     return render(request, 'Changes/recommended_changes.html', {'recommended_removals': recommended_removals,'recommended_additions': recommended_additions})
 
+def serial2contract_changes(request):
+    latest_timestamp = Serial2Contract.objects.latest('timestamp')
+    current_serial2contract = Serial2Contract.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")
+    os.system('pyats run job serial2contract_job.py')
+    new_timestamp = Serial2Contract.objects.latest('timestamp')
+    latest_serial2contract = Serial2Contract.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")
+    serial2contract_removals = current_serial2contract.difference(latest_serial2contract)
+    serial2contract_additions = latest_serial2contract.difference(current_serial2contract)
+    return render(request, 'Changes/serial2contract_changes.html', {'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions})
+
 def show_inventory_changes(request):
     latest_timestamp = ShowInventory.objects.latest('timestamp')
     current_inventory = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias","os","part","description","pid","serial_number")
@@ -331,7 +347,9 @@ class ChangesResultAll(ListView):
         psirt_latest_timestamp = PSIRT.objects.latest('timestamp')
         current_psirt = PSIRT.objects.filter(timestamp=psirt_latest_timestamp.timestamp).values("pyats_alias", "os", "advisory_id", "advisory_title", "bug_ids", "ips_signatures", "cves", "cvrf_url", "cvss_base_score", "cwe", "platform_name", "ios_release", "first_fixed", "first_published", "last_updated", "status", "version", "publication_url", "sir", "summary")
         recommended_latest_timestamp = RecommendedRelease.objects.latest('timestamp')
-        current_recommended = RecommendedRelease.objects.filter(timestamp=recommended_latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")        
+        current_recommended = RecommendedRelease.objects.filter(timestamp=recommended_latest_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+        serial2contract_latest_timestamp = Serial2Contract.objects.latest('timestamp')
+        current_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_latest_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")        
         query = self.request.GET.get('get_all_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()          
@@ -370,7 +388,9 @@ class ChangesResultAll(ListView):
         psirt_new_timestamp = PSIRT.objects.latest('timestamp')
         latest_psirt = PSIRT.objects.filter(timestamp=psirt_new_timestamp.timestamp).values("pyats_alias", "os", "advisory_id", "advisory_title", "bug_ids", "ips_signatures", "cves", "cvrf_url", "cvss_base_score", "cwe", "platform_name", "ios_release", "first_fixed", "first_published", "last_updated", "status", "version", "publication_url", "sir", "summary")
         recommended_new_timestamp = RecommendedRelease.objects.latest('timestamp')
-        latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")        
+        latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
+        serial2contract_new_timestamp = Serial2Contract.objects.latest('timestamp')
+        latest_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")        
         acl_removals = current_acls.difference(latest_acls)
         acl_additions = latest_acls.difference(current_acls)
         arp_removals = current_arp.difference(latest_arp)
@@ -402,8 +422,10 @@ class ChangesResultAll(ListView):
         psirt_removals = current_psirt.difference(latest_psirt)
         psirt_additions = latest_psirt.difference(current_psirt)
         recommended_removals = current_recommended.difference(latest_recommended)
-        recommended_additions = latest_recommended.difference(current_recommended)                
-        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions })
+        recommended_additions = latest_recommended.difference(current_recommended)
+        serial2contract_removals = current_serial2contract.difference(latest_serial2contract)
+        serial2contract_additions = latest_serial2contract.difference(current_serial2contract)                      
+        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions})
 
 class ChangesResultACL(ListView):
     template_name = 'Changes/changes.html'
@@ -650,6 +672,22 @@ class ChangesResultRecommended(ListView):
         recommended_removals = current_recommended.difference(latest_recommended)
         recommended_additions = latest_recommended.difference(current_recommended)
         return render(request, 'Changes/recommended_changes.html', {'recommended_removals': recommended_removals,'recommended_additions': recommended_additions})
+
+class ChangesResultSerial2Contract(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = Serial2Contract.objects.latest('timestamp')
+        current_serial2contract = Serial2Contract.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")
+        query = self.request.GET.get('serial2contract_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job serial2contract_filter_job.py')
+        new_timestamp = Serial2Contract.objects.latest('timestamp')
+        latest_serial2contract = Serial2Contract.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")
+        serial2contract_removals = current_serial2contract.difference(latest_serial2contract)
+        serial2contract_additions = latest_serial2contract.difference(current_serial2contract)
+        return render(request, 'Changes/serial2contract_changes.html', {'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions})
 
 class ChangesResultInventory(ListView):
     template_name = 'Changes/changes.html'

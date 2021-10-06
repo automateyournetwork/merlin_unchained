@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -392,9 +392,33 @@ def recommended_csv_download_latest(request):
     writer = csv.writer(response)
     writer.writerow(['pyATS Alias','Base PID','Product Name','Software Type','Image Name','Description','Feature Set','Image Size','Suggested Release','Major Release','Release Train','Release Display Name','Release Date','Release Lifecycle','Currently Installed Version','Complaint','Timestamp'])
     latest_timestamp = RecommendedRelease.objects.latest('timestamp')
-    recommendations = RecommendedRelease.objects.all().values_list('pyats_alias','basePID','productName','softwareType','imageName','description','featureSet','imageSize','isSuggested','majorRelease','releaseTrain','relDispName','releaseDate','releaseLifeCycle','installed_version', 'compliant','timestamp')
+    recommendations = RecommendedRelease.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','basePID','productName','softwareType','imageName','description','featureSet','imageSize','isSuggested','majorRelease','releaseTrain','relDispName','releaseDate','releaseLifeCycle','installed_version', 'compliant','timestamp')
     for recommended in recommendations:
         writer.writerow(recommended)
+    return response
+
+def serial2contract_csv(request):
+    return render(request, 'CSV/Serial2Contract/serial2contract_csv.html')    
+
+def serial2contract_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="serial2contract_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Base PID','Customer Name','Address','City','State/Province','Country','Product Line End Date','Is Covered','Item Description','Item Type','Orderable Part ID','Pillar Code','Parent Serial Number','Service Contract','Service Description','Serial Number','Warranty End','Warranty Type','Warranty Description','Timestamp'])
+    serials = Serial2Contract.objects.all().values_list('pyats_alias','base_pid','customer_name','address','city','state_province','country','product_line_end_date','is_covered','item_description','item_type','orderable_pid','pillar_code','parent_sn','service_contract','service_description','serial_number','warranty_end','warranty_type','warranty_description','timestamp')
+    for serial in serials:
+        writer.writerow(serial)
+    return response
+
+def serial2contract_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="serial2contract_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Base PID','Customer Name','Address','City','State/Province','Country','Product Line End Date','Is Covered','Item Description','Item Type','Orderable Part ID','Pillar Code','Parent Serial Number','Service Contract','Service Description','Serial Number','Warranty End','Warranty Type','Warranty Description','Timestamp'])
+    latest_timestamp = Serial2Contract.objects.latest('timestamp')
+    serials = Serial2Contract.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','base_pid','customer_name','address','city','state_province','country','product_line_end_date','is_covered','item_description','item_type','orderable_pid','pillar_code','parent_sn','service_contract','service_description','serial_number','warranty_end','warranty_type','warranty_description','timestamp')
+    for serial in serials:
+        writer.writerow(serial)
     return response
 
 def show_inventory_csv(request):

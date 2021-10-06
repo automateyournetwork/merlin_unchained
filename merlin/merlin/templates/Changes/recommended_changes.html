@@ -5,7 +5,6 @@
 <h1>Merlin Network State Centre</h1>
 {% if recommended_additions %}
 <h2>Merlin has detected the following Recommended Release have been added</h2>
-{% for vrf in recommended_additions %}
 <table id = "recommended_additions" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
@@ -55,7 +54,6 @@
 {% endif %}
 {% if recommended_removals %}
 <h2>Merlin has detected the following Recommended Releases have been removed</h2>
-{% for vrf in recommended_removals %}
 <table id = "recommended_removals" class="table table-bordered">
   <thead class = "alert-success">
   <tr>

@@ -524,7 +524,7 @@
       </tbody></table>{% endfor %}
 {% endif %}
 {% if object_list.13 %}
-<h1>PSIRT Hits</h1>
+<h2>PSIRT Hits</h2>
 <table id = "psirt" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
@@ -577,7 +577,7 @@
 </table>
 {% endif %}
 {% if object_list.14 %}
-<h1>Recommended Release Hits</h1>
+<h2>Recommended Release Hits</h2>
 <table id = "recommended" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
@@ -624,7 +624,62 @@
 </table>
 {% endif %}
 {% if object_list.15 %}
-<h1>Show Inventory Hits</h1>
+<h2>Serial 2 Contract Hits</h2>
+<table id = "serial2contract" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Customer Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State / Province</th>
+    <th>Country</th>
+    <th>Product Line End Date</th>
+    <th>Is Covered</th>
+    <th>Item Description</th>
+    <th>Item Type</th>
+    <th>Orderable Part ID</th>
+    <th>Pillar Code</th>
+    <th>Parent Serial Number</th>
+    <th>Service Contract</th>
+    <th>Service Description</th>
+    <th>Serial Number</th>
+    <th>Warranty End</th>
+    <th>Warranty Type</th>
+    <th>Warranty Description</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for serial in object_list.15 %}
+<tr>
+    <td>{{ serial.pyats_alias }}</td>
+    <td>{{ serial.base_pid }}</td>
+    <td>{{ serial.customer_name }}</td>
+    <td>{{ serial.address }}</td>
+    <td>{{ serial.city }}</td>
+    <td>{{ serial.state_province }}</td>
+    <td>{{ serial.country }}</td>
+    <td>{{ serial.product_line_end_date }}</td>
+    <td>{{ serial.is_covered }}</td>
+    <td>{{ serial.item_description }}</td>
+    <td>{{ serial.item_type }}</td>
+    <td>{{ serial.orderable_pid }}</td>
+    <td>{{ serial.pillar_code }}</td>
+    <td>{{ serial.parent_sn }}</td>
+    <td>{{ serial.service_contract }}</td>
+    <td>{{ serial.service_description }}</td>
+    <td>{{ serial.serial_number }}</td>
+    <td>{{ serial.warranty_end }}</td>
+    <td>{{ serial.warranty_type }}</td>
+    <td>{{ serial.warranty_description }}</td>
+    <td>{{ serial.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% endif %}
+{% if object_list.16 %}
+<h2>Show Inventory Hits</h2>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
@@ -636,7 +691,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.15 %}
+  <tbody>{% for part in object_list.16 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -648,8 +703,8 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.16 %}
-<h1>Show IP Interface Brief Hits</h1>
+{% if object_list.17 %}
+<h2>Show IP Interface Brief Hits</h2>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
@@ -660,7 +715,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.16 %}
+  <tbody>{% for interface in object_list.17 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -671,9 +726,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.17 %}
+{% if object_list.18 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.17 %}
+  {% for version in object_list.18 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -1074,7 +1129,24 @@
       select: true
   });
   });
-</script>  
+</script>
+<script type = "text/javascript">
+  $(document).ready(function(){
+      $('#serial2contract').DataTable({
+      keys: true,
+      dom: 'Bfrtip',
+      lengthMenu: [
+          [ 10, 25, 50, -1 ],
+          [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+      ],
+      buttons: [
+          'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+      ],
+      colReorder: true,
+      select: true
+  });
+  });
+</script>
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#show_inventory').DataTable({

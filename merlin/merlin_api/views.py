@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnConfigSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, PSIRTSerializer, RecommendedSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnConfigSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, PSIRTSerializer, RecommendedSerializer, Serial2ContractSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesViewSet(viewsets.ModelViewSet):
     queryset = Devices.objects.all().order_by('timestamp')
@@ -65,6 +65,10 @@ class PSIRTViewSet(viewsets.ModelViewSet):
 class RecommendedViewSet(viewsets.ModelViewSet):
     queryset = RecommendedRelease.objects.all().order_by('timestamp')
     serializer_class = RecommendedSerializer
+
+class Serial2ContractViewSet(viewsets.ModelViewSet):
+    queryset = Serial2Contract.objects.all().order_by('timestamp')
+    serializer_class = Serial2ContractSerializer
 
 class ShowInventoryViewSet(viewsets.ModelViewSet):
     queryset = ShowInventory.objects.all().order_by('timestamp')

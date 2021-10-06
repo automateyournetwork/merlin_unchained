@@ -239,6 +239,21 @@
         <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
       </td>        
       </tr>
+      <tr>
+      <tr>
+        <td>Serial 2 Contract</td>
+        <td><a href="http://localhost:8000/Changes/serial2contract_changes/"><button id="serial2contract_changes_button">Get Serial 2 Contract Changes</button></a></td>
+        <td>
+          <div id ="serial2contract_filter">
+            <form id = "serial2contract_filter" action="{% url 'serial2contract_changes_filter' %}" method="get">
+              <input name="serial2contract_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address</b>
+      </td>        
+      </tr>      
       <tr>        
         <td>Show Inventory</td>
         <td><a href="http://localhost:8000/Changes/show_inventory_changes/"><button id="show_inventory_changes_button">Get Show Inventory Changes</button></a></td>

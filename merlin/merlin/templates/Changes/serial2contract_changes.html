@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if serial2contract_additions %}
+<h2>Merlin has detected the following Serial 2 Contract changes have been added</h2>
+<table id = "serial2contract_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Customer Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State / Province</th>
+    <th>Country</th>
+    <th>Product Line End Date</th>
+    <th>Is Covered</th>
+    <th>Item Description</th>
+    <th>Item Type</th>
+    <th>Orderable Part ID</th>
+    <th>Pillar Code</th>
+    <th>Parent Serial Number</th>
+    <th>Service Contract</th>
+    <th>Service Description</th>
+    <th>Serial Number</th>
+    <th>Warranty End</th>
+    <th>Warranty Type</th>
+    <th>Warranty Description</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for serial in serial2contract_additions %}
+<tr>
+    <td>{{ serial.pyats_alias }}</td>
+    <td>{{ serial.basePID }}</td>
+    <td>{{ serial.customer_name }}</td>
+    <td>{{ serial.address }}</td>
+    <td>{{ serial.city }}</td>
+    <td>{{ serial.state_province }}</td>
+    <td>{{ serial.country }}</td>
+    <td>{{ serial.product_line_end_date }}</td>
+    <td>{{ serial.is_covered }}</td>
+    <td>{{ serial.item_description }}</td>
+    <td>{{ serial.item_type }}</td>
+    <td>{{ serial.orderable_pid }}</td>
+    <td>{{ serial.pillar_code }}</td>
+    <td>{{ serial.parent_sn }}</td>
+    <td>{{ serial.service_contract }}</td>
+    <td>{{ serial.service_description }}</td>
+    <td>{{ serial.serial_number }}</td>
+    <td>{{ serial.warranty_end }}</td>
+    <td>{{ serial.warranty_type }}</td>
+    <td>{{ serial.warranty_description }}</td>
+    <td>{{ serial.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any Serial 2 Contract additons</h2>
+{% endif %}
+{% if serial2contract_removals %}
+<h2>Merlin has detected the following Serial 2 Contract have been removed</h2>
+<table id = "serial2contract_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>Base Part ID</th>
+    <th>Customer Name</th>
+    <th>Address</th>
+    <th>City</th>
+    <th>State / Province</th>
+    <th>Country</th>
+    <th>Product Line End Date</th>
+    <th>Is Covered</th>
+    <th>Item Description</th>
+    <th>Item Type</th>
+    <th>Orderable Part ID</th>
+    <th>Pillar Code</th>
+    <th>Parent Serial Number</th>
+    <th>Service Contract</th>
+    <th>Service Description</th>
+    <th>Serial Number</th>
+    <th>Warranty End</th>
+    <th>Warranty Type</th>
+    <th>Warranty Description</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for serial in serial2contract_removals %}
+<tr>
+    <td>{{ serial.pyats_alias }}</td>
+    <td>{{ serial.basePID }}</td>
+    <td>{{ serial.customer_name }}</td>
+    <td>{{ serial.address }}</td>
+    <td>{{ serial.city }}</td>
+    <td>{{ serial.state_province }}</td>
+    <td>{{ serial.country }}</td>
+    <td>{{ serial.product_line_end_date }}</td>
+    <td>{{ serial.is_covered }}</td>
+    <td>{{ serial.item_description }}</td>
+    <td>{{ serial.item_type }}</td>
+    <td>{{ serial.orderable_pid }}</td>
+    <td>{{ serial.pillar_code }}</td>
+    <td>{{ serial.parent_sn }}</td>
+    <td>{{ serial.service_contract }}</td>
+    <td>{{ serial.service_description }}</td>
+    <td>{{ serial.serial_number }}</td>
+    <td>{{ serial.warranty_end }}</td>
+    <td>{{ serial.warranty_type }}</td>
+    <td>{{ serial.warranty_description }}</td>
+    <td>{{ serial.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>  
+{% else %}
+<h2>Merlin has not detected any Serial 2 Contract removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#serial2contract_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#serial2contract_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+{% endblock %} 
