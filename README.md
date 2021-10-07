@@ -51,6 +51,11 @@ Note: If you will be accessing Merlin from a different PC, edit `ALLOWED_HOSTS` 
 docker-compose build merlin_unchained &&
 docker-compose up -d merlin_unchained
 ```
+
+To gracefull shutdown Merlin:
+```console
+$ docker-compose down --volumes
+```
 ## Merlin User Guide
 
 ### The Admin Panel - https://youtu.be/svuKgtc4mWI
@@ -155,6 +160,8 @@ Populate the following fields:
 * Alias - (required) A friendly name for the device
 * Type - (optional) Platform type friendly name (ie - Nexus 9000)
 * OS - (required) Either 'nxos', 'ios', or 'iosxe'
+* Platform (required) Plese check pyATS documentation but Platforms include:
+  * n9k, n7k, n5k, cat4500, cat3850, cat9300 
 * Username - (required) A valid username
 * Password - (required) A valid password
 * Protocol - (required) Typically 'ssh'; could be 'telnet'
