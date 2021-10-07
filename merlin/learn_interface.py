@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Learn Interface to JSON
             self.learned_interface = ParseLearnFunction.parse_learn(steps, device, "interface")
             if self.learned_interface is not None:

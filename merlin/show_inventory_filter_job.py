@@ -44,19 +44,17 @@ def main(runtime):
         # define the relationship.
         testbed_device.testbed = testbed
    
-        # ----------------
-        # Load the testbed
-        # ----------------
-        if not runtime.testbed:
-            # If no testbed is provided, load the default one.
-            # Load default location of Testbed
-            testbed = load(testbed)
-        else:
-            # Use the one provided
-            testbed = runtime.testbed
-
-        # Find the location of the script in relation to the job file
-        testscript = os.path.join(os.path.dirname(__file__), 'show_inventory.py')
-
-        # run script
-        runtime.tasks.run(testscript=testscript, testbed=testbed)
+    # ----------------
+    # Load the testbed
+    # ----------------
+    if not runtime.testbed:
+        # If no testbed is provided, load the default one.
+        # Load default location of Testbed
+        testbed = load(testbed)
+    else:
+        # Use the one provided
+        testbed = runtime.testbed
+    # Find the location of the script in relation to the job file
+    testscript = os.path.join(os.path.dirname(__file__), 'show_inventory.py')
+    # run script
+    runtime.tasks.run(testscript=testscript, testbed=testbed)

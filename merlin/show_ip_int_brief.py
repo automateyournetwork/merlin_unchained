@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Show IP Int Brief to JSON
             self.parsed_show_ip_brief=ParseShowCommandFunction.parse_show_command(steps, device, "show ip interface brief")
             if self.parsed_show_ip_brief is not None:

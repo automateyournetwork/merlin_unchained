@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Learn VRF to JSON
             self.learned_vrf = ParseLearnFunction.parse_learn(steps, device, "vrf")            
             if self.learned_vrf is not None:
