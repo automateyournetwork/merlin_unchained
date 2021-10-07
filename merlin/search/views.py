@@ -12,7 +12,7 @@ class SearchResultAllView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = (Devices.objects.filter(
-            Q(hostname__icontains=query) | Q(alias__icontains=query) | Q(device_type__icontains=query) | Q(os__icontains=query) | Q(username__icontains=query) | Q(password__icontains=query) | Q(protocol__icontains=query) | Q(ip_address__icontains=query) | Q(port__icontains=query) | Q(connection_timeout__icontains=query)
+            Q(hostname__icontains=query) | Q(alias__icontains=query) | Q(device_type__icontains=query) | Q(os__icontains=query) | Q(username__icontains=query) | Q(password__icontains=query) | Q(protocol__icontains=query) | Q(ip_address__icontains=query) | Q(port__icontains=query) | Q(connection_timeout__icontains=query | Q(platform__icontains=query))
         ),LearnACL.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(acl__icontains=query) | Q(ace__icontains=query) | Q(permission__icontains=query) | Q(logging__icontains=query) | Q(source_network__icontains=query) | Q(destination_network__icontains=query) | Q(l3_protocol__icontains=query) | Q(l4_protocol__icontains=query) | Q(operator__icontains=query) | Q(port__icontains=query)
         ),LearnARP.objects.filter(
@@ -62,7 +62,7 @@ class SearchResultStateView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         object_list = (Devices.objects.filter(
-            Q(hostname__icontains=query) | Q(alias__icontains=query) | Q(device_type__icontains=query) | Q(os__icontains=query) | Q(username__icontains=query) | Q(password__icontains=query) | Q(protocol__icontains=query) | Q(ip_address__icontains=query) | Q(port__icontains=query) | Q(connection_timeout__icontains=query)
+            Q(hostname__icontains=query) | Q(alias__icontains=query) | Q(device_type__icontains=query) | Q(os__icontains=query) | Q(username__icontains=query) | Q(password__icontains=query) | Q(protocol__icontains=query) | Q(ip_address__icontains=query) | Q(port__icontains=query) | Q(connection_timeout__icontains=query | Q(platform__icontains=query))
         ),LearnACL.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(acl__icontains=query) | Q(ace__icontains=query) | Q(permission__icontains=query) | Q(logging__icontains=query) | Q(source_network__icontains=query) | Q(destination_network__icontains=query) | Q(l3_protocol__icontains=query) | Q(l4_protocol__icontains=query) | Q(operator__icontains=query) | Q(port__icontains=query)
         ),LearnARP.objects.filter(
