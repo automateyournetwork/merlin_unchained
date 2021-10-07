@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Learn ACL to JSON
             self.learned_acl = ParseLearnFunction.parse_learn(steps, device, "acl")
             if self.learned_acl is not None:

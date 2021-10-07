@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Learn ARP to JSON
             self.learned_arp = ParseLearnFunction.parse_learn(steps, device, "arp")
             if self.learned_arp is not None:

@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Show Inventory to JSON
             self.parsed_show_inventory=ParseShowCommandFunction.parse_show_command(steps, device, "show inventory")
             timestamp=datetime.now().replace(microsecond=0)

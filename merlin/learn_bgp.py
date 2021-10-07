@@ -43,7 +43,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        for device in testbed:
+        testbed.devices.values():
             # Learn BGP to JSON
             with steps.start("Learning BGP", continue_=True) as step:
                 try:
