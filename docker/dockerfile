@@ -44,7 +44,11 @@ RUN echo "==> Adding  ..." \
  && pip install redis
 
 RUN echo "==> Adding PostgreSQL ..." \
- && pip install install psycopg2-binary
+ && pip install psycopg2-binary
+
+RUN echo "==> Adding Python NMAP ..." \
+ && sudo apt-get install nmap -y \
+ && pip install python-nmap
 
 COPY /images /images/
 COPY /merlin /merlin/

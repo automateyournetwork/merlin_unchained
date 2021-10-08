@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        testbed.devices.values():
+        for device in testbed.devices.values():
             # Show Version to JSON
             self.parsed_show_version=ParseShowCommandFunction.parse_show_command(steps, device, "show version")
             with steps.start('Store data',continue_=True) as step:

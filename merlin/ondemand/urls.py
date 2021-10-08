@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
+from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultNMAP, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
 
 urlpatterns = [
     path('OnDemand/', views.button),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('OnDemand/LearnPlatform/learn_platform_all_result/', views.learn_platform_all_ondemand, name="learn_platform_all"),
     path('OnDemand/LearnVLAN/learn_vlan_all_result/', views.learn_vlan_all_ondemand, name="learn_vlan_all"),
     path('OnDemand/LearnVRF/learn_vrf_all_result/', views.learn_vrf_all_ondemand, name="learn_vrf_all"),
+    path('OnDemand/NMAP/nmap_all_result/', views.nmap_all_ondemand, name="nmap_all"),
     path('OnDemand/ShowInventory/show_inventory_all_result/', views.show_inventory_all_ondemand, name="show_inventory_all"),
     path('OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_all_result/', views.show_ip_int_brief_all_ondemand, name="show_ip_int_brief_all"),
     path('OnDemand/ShowVersion/show_version_all_result/', views.show_version_all_ondemand, name="show_version_all"),
@@ -29,6 +30,7 @@ urlpatterns = [
     path('OnDemand/LearnPlatform/learn_platform_filter_result/', OnDemandResultPlatform.as_view(), name="learn_platform_ondemand_filter"),
     path('OnDemand/LearnVLAN/learn_vlan_filter_result/', OnDemandResultVLAN.as_view(), name="learn_vlan_ondemand_filter"),
     path('OnDemand/LearnVRF/learn_vrf_filter_result/', OnDemandResultVRF.as_view(), name="learn_vrf_ondemand_filter"),
+    path('OnDemand/NMAP/nmap_filter_result/', OnDemandResultNMAP.as_view(), name="nmap_ondemand_filter"),
     path('OnDemand/PSIRT/psirt_filter_result/', OnDemandResultPSIRT.as_view(), name="psirt_ondemand_filter"),
     path('OnDemand/Recommended/recommended_filter_result/', OnDemandResultRecommended.as_view(), name="recommended_ondemand_filter"),
     path('OnDemand/Serial2Contract/serial2contract_filter_result/', OnDemandResultSerial2Contract.as_view(), name="serial2contract_ondemand_filter"),

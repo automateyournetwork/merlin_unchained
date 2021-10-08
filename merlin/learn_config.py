@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        testbed.devices.values():
+        for device in testbed.devices.values():
             # Learn Config to JSON
             self.learned_config = ParseConfigFunction.parse_learn(steps, device, "config")            
             if self.learned_config is not None:

@@ -46,6 +46,10 @@ def learn_vrf_all_ondemand(request):
     os.system('pyats run job learn_vrf_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def nmap_all_ondemand(request):
+    os.system('python3 port_scanner_all.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def psirt_all_ondemand(request):
     os.system('pyats run job psirt_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
@@ -153,11 +157,20 @@ class OnDemandResultVRF(ListView):
         input_field.save()
         os.system('pyats run job learn_vrf_filter_job.py')
 
+class OnDemandResultNMAP(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('nmap_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('python3 port_scanner_filter.py')
+
 class OnDemandResultPSIRT(ListView):
     template_name = 'OnDemand/ondemand.html'
 
     def get_queryset(self):
-        query = self.request.GET.get('recommended_filter')
+        query = self.request.GET.get('psirt_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job psirt_filter_job.py')
