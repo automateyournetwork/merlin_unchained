@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        testbed.devices.values():
+        for device in testbed.devices.values():
             # Show Inventory to JSON
             self.parsed_show_inventory=ParseShowCommandFunction.parse_show_command(steps, device, "show inventory")
             if self.parsed_show_inventory is not None:

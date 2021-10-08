@@ -44,7 +44,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         # Loop over devices
         # ---------------------------------------
-        testbed.devices.values():
+        for device in testbed.devices.values():
             # Learn Platform to JSON
             self.learned_platform = ParseDictFunction.parse_learn(steps, device, "platform")
             if self.learned_platform is not None:

@@ -205,6 +205,27 @@
         </td>                
       </tr>
     <tr>
+      <td>Network Map</td>
+      <td><button id="nmap_all_devices_button">NMAP</button></td>
+      <td>
+        <div id ="nmap_filter">
+          <form id = "nmap_filter" action="{% url 'nmap_ondemand_filter' %}" method="get">
+            <input name="nmap_filter" type="text" placeholder="Filter Devices....">
+        </form>
+      </div>
+    </td>
+    <td>
+      <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+    </td>
+    <td>
+        <div id ="nmap_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </td>        
+    </tr>        
+    <tr>
       <td>Product Security Incident Response Team</td>
       <td><button id="psirt_all_devices_button">PSIRT</button></td>
       <td>
@@ -219,7 +240,7 @@
     </td>
     <td>
         <div id ="psirt_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -240,7 +261,7 @@
     </td>
     <td>
         <div id ="recommended_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -261,7 +282,7 @@
     </td>
     <td>
         <div id ="serial2contract_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -282,7 +303,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -303,7 +324,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -324,7 +345,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>

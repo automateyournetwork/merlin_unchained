@@ -7,6 +7,7 @@ const learnInterfaceSpinnerBox = document.getElementById('learn_interface_spinne
 const learnPlatformSpinnerBox = document.getElementById('learn_platform_spinner')
 const learnVLANSpinnerBox = document.getElementById('learn_vlan_spinner')
 const learnVRFSpinnerBox = document.getElementById('learn_vrf_spinner')
+const nmapSpinnerBox = document.getElementById('nmap_spinner')
 const psirtSpinnerBox = document.getElementById('psirt_spinner')
 const recommendedSpinnerBox = document.getElementById('recommended_spinner')
 const serial2contractSpinnerBox = document.getElementById('serial2contract_spinner')
@@ -136,6 +137,20 @@ $("#learn_vrf_all_devices_button").click(function(e){
         },
         success: function(response){
             learnVRFSpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#nmap_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/NMAP/nmap_all_result/",
+        beforeSend: function(){
+            nmapSpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            nmapSpinnerBox.classList.add('not-visible')
         }
     })
 })

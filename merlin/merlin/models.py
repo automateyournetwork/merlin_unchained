@@ -298,6 +298,24 @@ class LearnVRF(models.Model):
         template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
         return template.format(self)
 
+class NMAP(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    port = models.TextField()
+    conf = models.TextField()
+    cpe = models.TextField()
+    extra_info = models.TextField()
+    name = models.TextField()
+    product = models.TextField()
+    reason = models.TextField()
+    state = models.TextField()
+    version = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.port} {0.conf} {0.cpe} {0.extra_info} {0.name} {0.product} {0.reason} {0.state} {0.version} {0.timestamp}'
+        return template.format(self)
+
 class PSIRTCredentials(models.Model):
     key = models.TextField()
     client_secret = models.TextField()
