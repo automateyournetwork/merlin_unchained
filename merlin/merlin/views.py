@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -513,6 +513,11 @@ def learn_vrf_alias_archive(request,pyats_alias):
     v_list = LearnVRF.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'vrf_list': v_list}
     return render(request, 'HTML/LearnVRF/learn_vrf_alias_archive.html', context)    
+
+def nmap_all(request):
+    nmap_list = NMAP.objects.all()
+    context = {'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_all.html', context)
 
 def psirt_all(request):
     psirt_list = PSIRT.objects.all()

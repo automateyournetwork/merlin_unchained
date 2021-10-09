@@ -301,6 +301,7 @@ class LearnVRF(models.Model):
 class NMAP(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
+    protocol = models.TextField()
     port = models.TextField()
     conf = models.TextField()
     cpe = models.TextField()
@@ -313,7 +314,7 @@ class NMAP(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.port} {0.conf} {0.cpe} {0.extra_info} {0.name} {0.product} {0.reason} {0.state} {0.version} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.protocol} {0.port} {0.conf} {0.cpe} {0.extra_info} {0.name} {0.product} {0.reason} {0.state} {0.version} {0.timestamp}'
         return template.format(self)
 
 class PSIRTCredentials(models.Model):
