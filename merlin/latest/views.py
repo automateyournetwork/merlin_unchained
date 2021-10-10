@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Latest
 def latest(request):
@@ -33,6 +33,8 @@ def all_latest(request):
     vlan_list = LearnVLAN.objects.filter(timestamp=vlan_latest_timestamp.timestamp)
     vrf_latest_timestamp = LearnVRF.objects.latest('timestamp')
     vrf_list = LearnVRF.objects.filter(timestamp=vrf_latest_timestamp.timestamp)
+    nmap_latest_timestamp = NMAP.objects.latest('timestamp')
+    nmap_list = NMAP.objects.filter(timestamp=nmap_latest_timestamp.timestamp)
     psirt_latest_timestamp = PSIRT.objects.latest('timestamp')
     psirt_list = PSIRT.objects.filter(timestamp=psirt_latest_timestamp.timestamp)
     recommended_latest_timestamp = RecommendedRelease.objects.latest('timestamp')
@@ -45,7 +47,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'config_list': config_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list, 'recommended_list': recommended_list, 'psirt_list': psirt_list, 'serial2contract_list': serial2contract_list}
+    context = {'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'config_list': config_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list, 'nmap_list': nmap_list, 'recommended_list': recommended_list, 'psirt_list': psirt_list, 'serial2contract_list': serial2contract_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def learn_acl_latest(request):
@@ -125,6 +127,12 @@ def learn_vrf_latest(request):
     v_list = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'vrf_list': v_list}
     return render(request, 'Latest/LearnVRF/learn_vrf_latest.html', context)
+
+def nmap_latest(request):
+    latest_timestamp = NMAP.objects.latest('timestamp')
+    nmap_list = NMAP.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'nmap_list': nmap_list}
+    return render(request, 'Latest/NMAP/nmap_latest.html', context)
 
 def psirt_latest(request):
     latest_timestamp = PSIRT.objects.latest('timestamp')

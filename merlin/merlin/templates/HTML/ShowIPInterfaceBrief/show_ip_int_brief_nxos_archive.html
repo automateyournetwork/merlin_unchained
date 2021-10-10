@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Show IP Interface Brief Results for NX-OS</h1>
-<table id = "table" class="table table-bordered">
+<table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -24,12 +24,12 @@
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#show_ip_int_brief thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#show_ip_int_brief thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#show_ip_int_brief').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

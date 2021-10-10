@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if nmap_additions %}
+<h2>Merlin has detected the following NMAP Ports have been added</h2>
+<table id = "nmap_additions" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Protocol</th>
+            <th>Port</th>
+            <th>Config</th>
+            <th>CPE</th>
+            <th>Extra Info</th>
+            <th>Name</th>
+            <th>Product</th>
+            <th>Reason</th>
+            <th>State</th>
+            <th>Version</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for port in nmap_additions %}
+        <tr>
+            <td>{{ port.pyats_alias }}</td>
+            <td>{{ port.protocol }}</td>
+            <td>{{ port.port }}</td>
+            <td>{{ port.conf }}</td>
+            <td>{{ port.cpe }}</td>
+            <td>{{ port.extra_info }}</td>
+            <td>{{ port.name }}</td>
+            <td>{{ port.product }}</td>
+            <td>{{ port.reason }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.version }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
+{% else %}
+<h2>Merlin has not detected any NMAP additons</h2>
+{% endif %}
+{% if nmap_removals %}
+<h2>Merlin has detected the following NMAP Ports have been removed</h2>
+<table id = "nmap_removals" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Protocol</th>
+            <th>Port</th>
+            <th>Config</th>
+            <th>CPE</th>
+            <th>Extra Info</th>
+            <th>Name</th>
+            <th>Product</th>
+            <th>Reason</th>
+            <th>State</th>
+            <th>Version</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for port in nmap_removals %}
+        <tr>
+            <td>{{ port.pyats_alias }}</td>
+            <td>{{ port.protocol }}</td>
+            <td>{{ port.port }}</td>
+            <td>{{ port.conf }}</td>
+            <td>{{ port.cpe }}</td>
+            <td>{{ port.extra_info }}</td>
+            <td>{{ port.name }}</td>
+            <td>{{ port.product }}</td>
+            <td>{{ port.reason }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.version }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
+{% else %}
+<h2>Merlin has not detected any PSIRT removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#nmap_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#nmap_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+{% endblock %} 

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
@@ -246,6 +246,16 @@ def learn_vrf_changes(request):
     vrf_removals = current_vrfs.difference(latest_vrfs)
     vrf_additions = latest_vrfs.difference(current_vrfs)
     return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
+
+def nmap_changes(request):
+    latest_timestamp = NMAP.objects.latest('timestamp')
+    current_nmap = NMAP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "protocol", "port", "conf", "cpe", "extra_info", "name", "product", "reason", "state", "version")
+    os.system('python3 port_scanner_all.py')
+    new_timestamp = NMAP.objects.latest('timestamp')
+    latest_nmap = NMAP.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "protocol", "port", "conf", "cpe", "extra_info", "name", "product", "reason", "state", "version")
+    nmap_removals = current_nmap.difference(latest_nmap)
+    nmap_additions = latest_nmap.difference(current_nmap)
+    return render(request, 'Changes/nmap_changes.html', {'nmap_removals': nmap_removals,'nmap_additions': nmap_additions})
 
 def psirt_changes(request):
     latest_timestamp = PSIRT.objects.latest('timestamp')
@@ -641,6 +651,22 @@ class ChangesResultVRF(ListView):
         vrf_additions = latest_vrfs.difference(current_vrfs)
         return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})
 
+class ChangesResultNMAP(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = NMAP.objects.latest('timestamp')
+        current_nmap = NMAP.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "protocol", "port", "conf", "cpe", "extra_info", "name", "product", "reason", "state", "version")
+        query = self.request.GET.get('learn_vrf_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job learn_vrf_filter_job.py')
+        new_timestamp = NMAP.objects.latest('timestamp')
+        latest_nmap = NMAP.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "protocol", "port", "conf", "cpe", "extra_info", "name", "product", "reason", "state", "version")
+        nmap_removals = current_nmap.difference(latest_nmap)
+        nmap_additions = latest_nmap.difference(current_nmap)
+        return render(request, 'Changes/nmap_changes.html', {'nmap_removals': nmap_removals,'nmap_additions': nmap_additions})
+
 class ChangesResultPSIRT(ListView):
     template_name = 'Changes/changes.html'
 
@@ -650,7 +676,7 @@ class ChangesResultPSIRT(ListView):
         query = self.request.GET.get('psirt_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
-        os.system('pyats run job psirt_job.py')
+        os.system('python3 port_scanner_filter.py')
         new_timestamp = PSIRT.objects.latest('timestamp')
         latest_psirt = PSIRT.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "advisory_id", "advisory_title", "bug_ids", "ips_signatures", "cves", "cvrf_url", "cvss_base_score", "cwe", "platform_name", "ios_release", "first_fixed", "first_published", "last_updated", "status", "version", "publication_url", "sir", "summary")
         psirt_removals = current_psirt.difference(latest_psirt)

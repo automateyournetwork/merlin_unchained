@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -347,6 +347,30 @@ def learn_vrf_csv_download_latest(request):
     vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
+    return response
+
+def nmap_csv(request):
+    return render(request, 'CSV/NMAP/nmap_csv.html')    
+
+def nmap_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="nmap_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Protocol','Port','Configuration','CPE','Extra Info','Name','Product','Reason','State','Version','Timestamp'])
+    nmaps = NMAP.objects.all().values_list('pyats_alias','protocol','port','conf','cpe','extra_info','name','product','reason','state','version','timestamp')
+    for nmap in nmaps:
+        writer.writerow(nmap)
+    return response
+
+def nmap_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="nmap_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Protocol','Port','Configuration','CPE','Extra Info','Name','Product','Reason','State','Version','Timestamp'])
+    latest_timestamp = NMAP.objects.latest('timestamp')
+    nmaps = NMAP.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','protocol','port','conf','cpe','extra_info','name','product','reason','state','version','timestamp')
+    for nmap in nmaps:
+        writer.writerow(nmap)
     return response
 
 def psirt_csv(request):

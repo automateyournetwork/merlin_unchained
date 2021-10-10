@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Learn Platform for {{ pyats_alias }}{% endblock %}
+{% block title %}Learn Platform for {{ pyats_alias }} {% endblock %}
 
 {% block content %}
 <h1>Learn Platform for {{ pyats_alias }}</h1>
-<table id = "table" class="table table-bordered">
+<table id = "learn_platform" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -44,12 +44,12 @@
 </table>    
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_platform thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_platform thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_platform').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
