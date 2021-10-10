@@ -4,38 +4,35 @@
 
 {% block content %}
 <h1>Learn VRF for {{ pyats_alias }}</h1>
-{% for vrf in vrf_list %}
-    <p>Device Name: {{ vrf.hostname }}</p>
-    <p>Captured {{ vrf.timestamp }}</p>
-<table id = "table" class="table table-bordered">
-  <thead class = "alert-success">
+
+<table id = "learn_vrf" class="table table-bordered">
+    <thead class = "alert-success">
         <tr>
-          <th>pyATS Alias</th>          
-          <th>VRF</th>
-          <th>Address Family IPv4</th>
-          <th>Address Family IPv6</th>
-          <th>Route Distinguisher</th>
+            <th>pyATS Alias</th>          
+            <th>VRF</th>
+            <th>Address Family IPv4</th>
+            <th>Address Family IPv6</th>
+            <th>Route Distinguisher</th>
         </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>{% for vrf in vrf_list %}
         <tr>
           <td>{{ vrf.pyats_alias }}</td>
           <td>{{ vrf.vrf }}</td>
           <td>{{ vrf.address_family_ipv4 }}</td>
           <td>{{ vrf.address_family_ipv6 }}</td>
           <td>{{ vrf.route_distinguisher }}</td>
-        </tr>
-      </tbody>
-    </table>
-{% endfor %}
+        </tr>{% endfor %}
+    </tbody>
+</table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_vrf thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_vrf thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_vrf').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -98,5 +95,5 @@
     },
 });
 });        
-</script>
+</script>     
 {% endblock %}

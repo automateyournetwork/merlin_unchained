@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ChangesResultAll, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
+from .views import ChangesResultAll, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultNMAP, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
 
 urlpatterns = [
     path('Changes/', views.changes),
@@ -18,6 +18,7 @@ urlpatterns = [
     path('Changes/learn_platform_virtual_changes/', views.learn_platform_virtual_changes, name="learn_platform_virtual_changes"),
     path('Changes/learn_vlan_changes/', views.learn_vlan_changes, name="learn_vlan_changes"),
     path('Changes/learn_vrf_changes/', views.learn_vrf_changes, name="learn_vrf_changes"),
+    path('Changes/nmap_changes/', views.nmap_changes, name="nmap_changes"),
     path('Changes/psirt_changes/', views.psirt_changes, name="psirt_changes"),
     path('Changes/recommended_changes/', views.recommended_changes, name="recommended_changes"),
     path('Changes/serial2contract_changes/', views.serial2contract_changes, name="_changes"),
@@ -38,6 +39,7 @@ urlpatterns = [
     path('Changes/learn_platform_virtual_changes_filter/', ChangesResultPlatformVirtual.as_view(), name="learn_platform_virtual_changes_filter"),
     path('Changes/learn_vlan_changes_filter/', ChangesResultVLAN.as_view(), name="learn_vlan_changes_filter"),
     path('Changes/learn_vrf_changes_filter/', ChangesResultVRF.as_view(), name="learn_vrf_changes_filter"),
+    path('Changes/nmap_changes_filter/', ChangesResultNMAP.as_view(), name="nmap_changes_filter"),
     path('Changes/psirt_changes_filter/', ChangesResultPSIRT.as_view(), name="psirt_changes_filter"),
     path('Changes/recommended_changes_filter/', ChangesResultRecommended.as_view(), name="recommended_changes_filter"),
     path('Changes/serial2contract_changes_filter/', ChangesResultSerial2Contract.as_view(), name="serial2contract_changes_filter"),

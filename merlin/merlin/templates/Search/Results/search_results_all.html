@@ -5,39 +5,6 @@
 {% block content %}
 <h1>Merlin Search Results</h1>
 {% if object_list.0 %}
-<h2>Device Hits</h2>
-<table id = "devices" class="table table-bordered">
-  <thead class = "alert-success">
-  <tr>
-    <th>Hostname</th>
-    <th>Alias</th>
-    <th>Device Type</th>
-    <th>OS</th>
-    <th>Username</th>
-    <th>Protocol</th>
-    <th>IP Address</th>
-    <th>Port</th>
-    <th>Connection Timeout</th>
-    <th>Timestamp</th>
-  </tr>
-  </thead>
-  <tbody>{% for device in object_list.0 %}
-  <tr>
-    <td>{{ device.hostname }}</td>
-    <td>{{ device.alias }}</td>
-    <td>{{ device.device_type }}</td>
-    <td>{{ device.os }}</td>
-    <td>{{ device.username }}</td>
-    <td>{{ device.protocol }}</td>
-    <td>{{ device.ip_address }}</td>
-    <td>{{ device.port }}</td>
-    <td>{{ device.connection_timeout }}</td>
-    <td>{{ device.timestamp }}</td>
-  </tr>{% endfor %}  
-  </tbody>
-</table>
-{% endif %}
-{% if object_list.1 %}
 <h2>Learn ACL Hits</h2>
 <table id = "learn_acl" class="table table-bordered">
   <thead class = "alert-success">
@@ -56,7 +23,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for acl in object_list.1 %}
+  <tbody>{% for acl in object_list.0 %}
   <tr>
     <td>{{ acl.pyats_alias }}</td>
     <td>{{ acl.acl }}</td>
@@ -74,7 +41,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.2 %}
+{% if object_list.1 %}
 <h2>Learn ARP Hits</h2>
 <table id = "learn_arp" class="table table-bordered">
   <thead class = "alert-success">
@@ -89,7 +56,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.2 %}
+  <tbody>{% for interface in object_list.1 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -103,7 +70,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.2 %}
 <h2>Learn ARP Statistics Hits</h2>
 <table id = "learn_arp_statistics" class="table table-bordered">
   <thead class = "alert-success">
@@ -120,7 +87,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr>{% for stat in object_list.3 %}
+  <tr>{% for stat in object_list.2 %}
     <td>{{ stat.pyats_alias }}</td>
     <td>{{ stat.entries_total }}</td>
     <td>{{ stat.in_drops }}</td>
@@ -134,7 +101,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.4 %}
+{% if object_list.3 %}
 <h2>Learn BGP Instances Hits</h2>
 <table id = "learn_bgp_instances" class="table table-bordered">
     <thead class = "alert-success">
@@ -161,7 +128,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.4 %}
+  <tbody>{% for instance in object_list.3 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -187,7 +154,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.5 %}
+{% if object_list.4 %}
 <h2>Learn BGP Routes Per Peer Hits</h2>
 <table id = "learn_bgp_routes" class="table table-bordered">
     <thead class = "alert-success">
@@ -202,7 +169,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.5 %}
+  <tbody>{% for instance in object_list.4 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -216,7 +183,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.6 %}
+{% if object_list.5 %}
 <h2>Learn BGP Tables Hits</h2>
 <table id = "learn_bgp_tables" class="table table-bordered">
     <thead class = "alert-success">
@@ -235,7 +202,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.6 %}
+  <tbody>{% for instance in object_list.5 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -253,7 +220,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.7 %}
+{% if object_list.6 %}
 <h2>Learn Config Hits</h2>
 <table id = "learn_config" class="table table-bordered">
     <thead class = "alert-success">
@@ -263,7 +230,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for config in object_list.7 %}
+  <tbody>{% for config in object_list.6 %}
   <tr>
     <td>{{ config.pyats_alias }}</td>
     <td>{{ config.config }}</td>
@@ -272,7 +239,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.8 %}
+{% if object_list.7 %}
 <h2>Learn Interface Hits</h2>
 <table id = "learn_interface" class="table table-bordered">
     <thead class = "alert-success">
@@ -328,7 +295,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.8 %}
+  <tbody>{% for interface in object_list.7 %}
 <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.os }}</td> 
@@ -383,7 +350,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.8 %}
 <h2>Learn Platform Hits</h2>
 <table id = "learn_platform" class="table table-bordered">
     <thead class = "alert-success">
@@ -404,7 +371,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.9 %}
+  <tbody>{% for platform in object_list.8 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -424,7 +391,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.9 %}
 <h2>Learn Platform Slots Hits</h2>
 <table id = "learn_platform_slots" class="table table-bordered">
     <thead class = "alert-success">
@@ -441,7 +408,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.10 %}
+  <tbody>{% for platform in object_list.9 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -457,7 +424,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.11 %}
+{% if object_list.10 %}
 <h2>Learn Platform Virtual Hits</h2>
 <table id = "learn_platform_virtual" class="table table-bordered">
     <thead class = "alert-success">
@@ -472,7 +439,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.11 %}
+  <tbody>{% for platform in object_list.10 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -486,7 +453,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.12 %}
+{% if object_list.11 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -501,7 +468,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.12 %}
+  <tbody>{% for vlan in object_list.11 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -515,9 +482,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.13 %}
+{% if object_list.12 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.13 %}
+  {% for vrf in object_list.12 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -541,6 +508,43 @@
         <td>{{ vrf.timestamp }}</td>
       </tr>
       </tbody></table>{% endfor %}
+{% endif %}
+{% if object_list.13 %}
+<h2>NMAP Hits</h2>
+<table id = "nmap" class="table table-bordered">
+    <thead class = "alert-success">
+        <tr>
+            <th>pyATS Alias</th>
+            <th>Protocol</th>
+            <th>Port</th>
+            <th>Config</th>
+            <th>CPE</th>
+            <th>Extra Info</th>
+            <th>Name</th>
+            <th>Product</th>
+            <th>Reason</th>
+            <th>State</th>
+            <th>Version</th>
+            <th>Timestamp</th>
+          </tr>
+          </thead>
+          <tbody>{% for port in object_list.13 %}
+        <tr>
+            <td>{{ port.pyats_alias }}</td>
+            <td>{{ port.protocol }}</td>
+            <td>{{ port.port }}</td>
+            <td>{{ port.conf }}</td>
+            <td>{{ port.cpe }}</td>
+            <td>{{ port.extra_info }}</td>
+            <td>{{ port.name }}</td>
+            <td>{{ port.product }}</td>
+            <td>{{ port.reason }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.state }}</td>
+            <td>{{ port.version }}</td>
+          </tr>{% endfor %}
+          </tbody>  
+        </table>  
 {% endif %}
 {% if object_list.14 %}
 <h2>PSIRT Hits</h2>
@@ -879,23 +883,6 @@
 {% endif %}
 <script type = "text/javascript">
     $(document).ready(function(){
-        $('#devices').DataTable({
-        keys: true,
-        dom: 'Bfrtip',
-        lengthMenu: [
-            [ 10, 25, 50, -1 ],
-            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-        ],
-        buttons: [
-            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-        ],
-        colReorder: true,
-        select: true
-    });
-    });
-  </script>
-<script type = "text/javascript">
-    $(document).ready(function(){
         $('#learn_acl').DataTable({
         keys: true,
         dom: 'Bfrtip',
@@ -1132,6 +1119,23 @@
     });
     });
   </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#nmap').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>  
 <script type = "text/javascript">
   $(document).ready(function(){
       $('#psirt').DataTable({

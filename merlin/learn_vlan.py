@@ -46,7 +46,6 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         for device in testbed.devices.values():
             # Learn VLAN to JSON
-            device = testbed.devices[x]
             self.learned_vlan = ParseLearnFunction.parse_learn(steps, device, "vlan")
             if self.learned_vlan is not None:
                 # Set Django Database values from pyATS JSON

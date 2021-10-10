@@ -211,6 +211,20 @@
       </td>        
       </tr>
       <tr>
+        <td>Network Map</td>
+        <td><a href="http://localhost:8000/Changes/nmap_changes/"><button id="nmap_changes_button">Get NMAP Changes</button></a></td>
+        <td>
+          <div id ="nmap_filter">
+            <form id = "nmap_filter" action="{% url 'nmap_changes_filter' %}" method="get">
+              <input name="nmap_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>        
+      </tr>      
+      <tr>
         <td>PSIRT</td>
         <td><a href="http://localhost:8000/Changes/psirt_changes/"><button id="psirt_changes_button">Get PSIRT Changes</button></a></td>
         <td>

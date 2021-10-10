@@ -519,6 +519,31 @@ def nmap_all(request):
     context = {'nmap_list': nmap_list}
     return render(request, 'HTML/NMAP/nmap_all.html', context)
 
+def nmap_year_archive(request, year):
+    nmap_list = NMAP.objects.filter(timestamp__year=year)
+    context = {'year': year, 'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_year_archive.html', context)
+
+def nmap_month_archive(request, year, month):
+    nmap_list = NMAP.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_month_archive.html', context)
+
+def nmap_day_archive(request, year, month, day):
+    nmap_list = NMAP.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_day_archive.html', context)
+
+def nmap_nxos_archive(request):
+    nmap_list = NMAP.objects.filter(os='nxos')
+    context = {'os': os, 'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_nxos_archive.html', context)
+
+def nmap_alias_archive(request,pyats_alias):
+    nmap_list = NMAP.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'nmap_list': nmap_list}
+    return render(request, 'HTML/NMAP/nmap_alias_archive.html', context) 
+
 def psirt_all(request):
     psirt_list = PSIRT.objects.all()
     context = {'psirt_list': psirt_list}

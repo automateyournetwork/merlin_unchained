@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Show Inventory Results for {{ year }} {{ month }} {{ day }}</h1>
-<table id = "table" class="table table-bordered">
+<table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -28,12 +28,12 @@
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#show_inventory thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#show_inventory thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#show_inventory').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

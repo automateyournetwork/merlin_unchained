@@ -4,40 +4,40 @@
 
 {% block content %}
 <h1>Learn VLAN for NX-OS</h1>
-<table id = "table" class="table table-bordered">
+<table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
-  <tr>
-  <th>pyATS Alias</th>
-  <th>VLAN</th>
-  <th>Name</th>
-  <th>State</th>
-  <th>Shutdown</th>
-  <th>Interfaces</th>
-  <th>Mode</th>
-  <th>Timestamp</th>
-  </tr>
+    <tr>
+    <th>pyATS Alias</th>
+    <th>VLAN</th>
+    <th>Name</th>
+    <th>State</th>
+    <th>Shutdown</th>
+    <th>Interfaces</th>
+    <th>Mode</th>
+    <th>Timestamp</th>
+    </tr>
   </thead>
   <tbody>{% for vlan in vlan_list %}
-  <tr>
-    <td>{{ vlan.pyats_alias }}</td>
-    <td>{{ vlan.vlan }}</td>
-    <td>{{ vlan.name }}</td>
-    <td>{{ vlan.state }}</td>
-    <td>{{ vlan.shutdown }}</td>
-    <td>{{ vlan.interfaces }}</td>
-    <td>{{ vlan.mode }}</td>
-    <td>{{ vlan.timestamp }}</td>
-  </tr>{% endfor %}  
+    <tr>
+      <td>{{ vlan.pyats_alias }}</td>
+      <td>{{ vlan.vlan }}</td>
+      <td>{{ vlan.name }}</td>
+      <td>{{ vlan.state }}</td>
+      <td>{{ vlan.shutdown }}</td>
+      <td>{{ vlan.interfaces }}</td>
+      <td>{{ vlan.mode }}</td>
+      <td>{{ vlan.timestamp }}</td>
+    </tr>{% endfor %}  
   </tbody>
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_vlan thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_vlan thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_vlan').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [

@@ -4,11 +4,8 @@
 
 {% block content %}
 <h1>Show Version Results for NX-OS</h1>
-{% for version in version_list %}
 {%   if version.os == "nxos" %}
-    <p>Device Name: {{ version.device_name }}</p>
-    <p>Captured {{ version.timestamp }}</p>
-<table id = "table" class="table table-bordered">
+<table id = "show_version" class="table table-bordered">
   <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
@@ -31,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr>{% for version in version_list %}
           <td>{{ version.pyats_alias }}</td>
           <td>{{ version.device_name }}</td>          
           <td>{{ version.bootflash }}</td>
@@ -49,13 +46,11 @@
           <td>{{ version.system_compile_time }}</td>
           <td>{{ version.system_image_file }}</td>
           <td>{{ version.system_version }}</td>
-        </tr>
+        </tr>{% endfor %}
         </tbody>  
       </table>
 {%   else %}
-    <p>Device Name: {{ version.device_name }}</p>
-    <p>Captured {{ version.timestamp }}</p>
-<table id = "table" class="table table-bordered">
+<table id = "show_version" class="table table-bordered">
   <thead class = "alert-success">
         <tr>
           <th>pyATS Alias</th>
@@ -92,7 +87,7 @@
           <th>XE Version</th>          
         </tr>
         </thead>
-        <tbody>
+        <tbody>{% for version in version_list %}
         <tr>
           <td>{{ version.pyats_alias }}</td>
           <td>{{ version.device_name }}</td>
@@ -126,78 +121,78 @@
           <td>{{ version.rtr_type }}</td>
           <td>{{ version.version_short }}</td>
           <td>{{ version.xe_version }}</td>
-        </tr>
+        </tr>{% endfor %}
       </tbody>
-    </table>{% endif %}{% endfor %}
-    <script type = "text/javascript">
-      $(document).ready(function(){
-        $('#table thead tr')
-        .clone(true)
-        .addClass('filters')
-        .appendTo('#learn_acl thead');
-    
-        var table = $('#table').DataTable({
-            keys: true,
-            dom: 'Bfrtip',
-            lengthMenu: [
-                [ 10, 25, 50, -1 ],
-                [ '10 rows', '25 rows', '50 rows', 'Show all' ]
-            ],
-            buttons: [
-            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
-            ],
-            colReorder: true,
-            select: true,            
-            orderCellsTop: true,
-            fixedHeader: true,
-            initComplete: function () {
-            var api = this.api();
-    
-            // For each column
-            api
-                .columns()
-                .eq(0)
-                .each(function (colIdx) {
-                    // Set the header cell to contain the input element
-                    var cell = $('.filters th').eq(
-                        $(api.column(colIdx).header()).index()
-                    );
-                    var title = $(cell).text();
-                    $(cell).html('<input type="text" placeholder="' + title + '" />');
-    
-                    // On every keypress in this input
-                    $(
-                        'input',
-                        $('.filters th').eq($(api.column(colIdx).header()).index())
-                    )
-                        .off('keyup change')
-                        .on('keyup change', function (e) {
-                            e.stopPropagation();
-    
-                            // Get the search value
-                            $(this).attr('title', $(this).val());
-                            var regexr = '({search})'; //$(this).parents('th').find('select').val();
-    
-                            var cursorPosition = this.selectionStart;
-                            // Search the column for that value
-                            api
-                                .column(colIdx)
-                                .search(
-                                    this.value != ''
-                                        ? regexr.replace('{search}', '(((' + this.value + ')))')
-                                        : '',
-                                    this.value != '',
-                                    this.value == ''
-                                )
-                                .draw();
-    
-                            $(this)
-                                .focus()[0]
-                                .setSelectionRange(cursorPosition, cursorPosition);
-                        });
-                });
-        },
-    });
-    });        
-    </script>  
+    </table>{% endif %}
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#show_version thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#show_version thead');
+
+    var table = $('#show_version').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>   
 {% endblock %}

@@ -3,8 +3,8 @@
 {% block title %}Learn Platform Virtual for {{ pyats_alias }}{% endblock %}
 
 {% block content %}
-<h1>Learn Platform for Virtual {{ pyats_alias }}</h1>
-<table id = "table" class="table table-bordered">
+<h1>Learn Platform Virtual for {{ pyats_alias }}</h1>
+<table id = "learn_platform_virtual" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
@@ -29,15 +29,15 @@
     <td>{{ platform.timestamp }}</td>
   </tr>{% endfor %}
   </tbody>  
-</table>
+</table> 
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_platform_virtual thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_platform_virtual thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_platform_virtual').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -101,4 +101,4 @@
 });
 });        
 </script>
-{% endblock %}
+  {% endblock %}

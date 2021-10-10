@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Learn BGP Tables for {{ year }} {{ month }} {{ day }}{% endblock %}
+{% block title %}Learn BGP Tables for {{ year }}{% endblock %}
 
 {% block content %}
-<h1>Learn BGP Tables for {{ year }} {{ month }} {{ day }}</h1>
+<h1>Learn BGP Tables for {{ year }}</h1>
 <table id = "learn_bgp_tables" class="table table-bordered">
     <thead class = "alert-success">
         <tr>
@@ -18,7 +18,7 @@
             <th>Origin Code</th>
             <th>Status Code</th>
             <th>Weight</th>
-            <tr>Timestamp</tr>
+            <th>Timestamp</th>
           </tr>
           </thead>
           <tbody>{% for instance in bgp_tables_list %}

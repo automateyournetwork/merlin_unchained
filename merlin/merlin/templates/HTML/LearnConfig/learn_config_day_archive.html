@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Learn Config for {{ year }} {{ month }} {{ day }}{% endblock %}
+{% block title %}Learn Config for {{ year }} {{ month}} {{ day }} {% endblock %}
 
 {% block content %}
 
-<h1>Learn Config for {{ year }} {{ month }} {{ day }}</h1>
-<table id = "table" class="table table-bordered">
+<h1>Learn Config for {{ year }} {{ month}} {{ day }}</h1>
+<table id = "learn_config" class="table table-bordered">
   <thead class = "alert-success">
     <tr>
         <th>pyATS Alias</th>
@@ -25,12 +25,12 @@
 </table>    
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#table thead tr')
+    $('#learn_config thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#learn_acl thead');
+    .appendTo('#learn_config thead');
 
-    var table = $('#table').DataTable({
+    var table = $('#learn_config').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
