@@ -26,6 +26,102 @@ class DynamicJobInput(models.Model):
         template = '{0.input_field} {0.timestamp}'
         return template.format(self)
 
+class EoXCredentials(models.Model):
+    key = models.TextField()
+    client_secret = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.key} {0.client_secret} {0.timestamp}'
+        return template.format(self)
+
+class EoX_PID(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    pid = models.TextField()
+    description = models.TextField()
+    bulletin_number = models.TextField()
+    bulletin_url = models.TextField()
+    external_date = models.DateTimeField()
+    sale_date = models.DateTimeField()
+    sw_maintenance = models.DateTimeField()
+    security = models.DateTimeField()
+    routine_failure = models.DateTimeField()
+    service_contract = models.DateTimeField()
+    last = models.DateTimeField()
+    svc_attach = models.DateTimeField()
+    last_updated = models.DateTimeField()
+    pid_active = models.TextField()
+    migration_information = models.TextField()
+    migration_option = models.TextField()
+    migration_pid = models.TextField()
+    migration_name = models.TextField()
+    migration_strat = models.TextField()
+    migration_url = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        return template.format(self)
+
+class EoX_SN(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    pid = models.TextField()
+    description = models.TextField()
+    bulletin_number = models.TextField()
+    bulletin_url = models.TextField()
+    external_date = models.DateTimeField()
+    sale_date = models.DateTimeField()
+    sw_maintenance = models.DateTimeField()
+    security = models.DateTimeField()
+    routine_failure = models.DateTimeField()
+    service_contract = models.DateTimeField()
+    last = models.DateTimeField()
+    svc_attach = models.DateTimeField()
+    last_updated = models.DateTimeField()
+    pid_active = models.TextField()
+    migration_information = models.TextField()
+    migration_option = models.TextField()
+    migration_pid = models.TextField()
+    migration_name = models.TextField()
+    migration_strat = models.TextField()
+    migration_url = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        return template.format(self)
+
+class EoX_IOS(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    pid = models.TextField()
+    description = models.TextField()
+    bulletin_number = models.TextField()
+    bulletin_url = models.TextField()
+    external_date = models.DateTimeField()
+    sale_date = models.DateTimeField()
+    sw_maintenance = models.DateTimeField()
+    security = models.DateTimeField()
+    routine_failure = models.DateTimeField()
+    service_contract = models.DateTimeField()
+    last = models.DateTimeField()
+    svc_attach = models.DateTimeField()
+    last_updated = models.DateTimeField()
+    pid_active = models.TextField()
+    migration_information = models.TextField()
+    migration_option = models.TextField()
+    migration_pid = models.TextField()
+    migration_name = models.TextField()
+    migration_strat = models.TextField()
+    migration_url = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        return template.format(self)
+
 class LearnACL(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()

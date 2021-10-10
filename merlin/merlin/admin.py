@@ -4,6 +4,10 @@ from . import models
 
 admin.site.register(models.Devices)
 admin.site.register(models.DynamicJobInput)
+admin.site.register(models.EoXCredentials)
+admin.site.register(models.EoX_PID)
+admin.site.register(models.EoX_SN)
+admin.site.register(models.EoX_IOS)
 admin.site.register(models.LearnACL)
 admin.site.register(models.LearnARP)
 admin.site.register(models.LearnARPStatistics)
