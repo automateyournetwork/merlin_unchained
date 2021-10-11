@@ -69,25 +69,49 @@ class Collect_Information(aetest.Testcase):
                         current_version=self.parsed_show_version['version']['version']
 
                 # Go Get Recommended Release using chassis PID and Oauth token
-                if "N9K-C9500v" in self.parsed_show_inventory['name']['Chassis']['pid']:
-                    pid = "N9K-C93180LC-EX"
-                else:
-                    pid = self.parsed_show_inventory['name']['Chassis']['pid']
-                with steps.start('Calling API',continue_=True) as step:
-                    try:
-                        recommended_release_raw = requests.get("https://api.cisco.com/software/suggestion/v2/suggestions/software/productIds/%s" % pid, headers=oauth_headers)
-                    except Exception as e:
-                        step.failed('Could not parse it correctly\n{e}'.format(e=e))                           
+                if device.os == "nxos":               
+                    if "N9K-C9500v" in self.parsed_show_inventory['name']['Chassis']['pid']:
+                        pid = "N9K-C93180LC-EX"
+                    else:
+                        pid = self.parsed_show_inventory['name']['Chassis']['pid']
+                    
+                    with steps.start('Calling API',continue_=True) as step:
+                        try:
+                            recommended_release_raw = requests.get("https://api.cisco.com/software/suggestion/v2/suggestions/software/productIds/%s" % pid, headers=oauth_headers)
+                            recommended_release_json = recommended_release_raw.json()
+                        except Exception as e:
+                            step.failed('Could not parse it correctly\n{e}'.format(e=e))                           
                         
-                    recommended_release_json = recommended_release_raw.json()
-                    for product in recommended_release_json['productList']:
-                        for suggestion in product['suggestions']:
-                            if 'images' in suggestion:
-                                for image in suggestion['images']:
-                                    if current_version == suggestion['relDispName']:
-                                        compliant = "TRUE"
-                                    else:
-                                        compliant = "FALSE"
-                                    recommended_release = RecommendedRelease(pyats_alias=device.alias,os=device.os,basePID = product['product']['basePID'],productName = product['product']['productName'],softwareType = product['product']['softwareType'],imageName = image['imageName'],description = image['description'],featureSet = image['featureSet'],imageSize = image['imageSize'],isSuggested = suggestion['isSuggested'],majorRelease = suggestion['majorRelease'],releaseTrain = suggestion['releaseTrain'],relDispName = suggestion['relDispName'],releaseDate = suggestion['releaseDate'],releaseLifeCycle = suggestion['releaseLifeCycle'],installed_version=current_version,compliant=compliant,timestamp=datetime.now().replace(microsecond=0))
+                        for product in recommended_release_json['productList']:
+                            for suggestion in product['suggestions']:
+                                if 'images' in suggestion:
+                                    for image in suggestion['images']:
+                                        if current_version == suggestion['relDispName']:
+                                            compliant = "TRUE"
+                                        else:
+                                            compliant = "FALSE"
+                                        recommended_release = RecommendedRelease(pyats_alias=device.alias,os=device.os,basePID = product['product']['basePID'],productName = product['product']['productName'],softwareType = product['product']['softwareType'],imageName = image['imageName'],description = image['description'],featureSet = image['featureSet'],imageSize = image['imageSize'],isSuggested = suggestion['isSuggested'],majorRelease = suggestion['majorRelease'],releaseTrain = suggestion['releaseTrain'],relDispName = suggestion['relDispName'],releaseDate = suggestion['releaseDate'],releaseLifeCycle = suggestion['releaseLifeCycle'],installed_version=current_version,compliant=compliant,timestamp=datetime.now().replace(microsecond=0))
+                                        recommended_release.save()
+                elif device.os == "iosxe":
+                    if device.type == "Catalyst 9300":
+                        for key,value in self.parsed_show_inventory['slot']['1']['other'].items():
+                            pid = value['pid']
+                            with steps.start('Calling API',continue_=True) as step:
+                                try:
+                                    recommended_release_raw = requests.get("https://api.cisco.com/software/suggestion/v2/suggestions/software/productIds/%s" % pid, headers=oauth_headers)
+                                    recommended_release_json = recommended_release_raw.json()
+                                    print(recommended_release_json)
+                                except Exception as e:
+                                    step.failed('Could not parse it correctly\n{e}'.format(e=e))                           
                         
-                                    recommended_release.save()
+                            for product in recommended_release_json['productList']:
+                                for suggestion in product['suggestions']:
+                                    if 'images' in suggestion:
+                                        for image in suggestion['images']:
+                                            if current_version == suggestion['relDispName']:
+                                                compliant = "TRUE"
+                                            else:
+                                                compliant = "FALSE"
+                                            recommended_release = RecommendedRelease(pyats_alias=device.alias,os=device.os,basePID = product['product']['basePID'],productName = product['product']['productName'],softwareType = product['product']['softwareType'],imageName = image['imageName'],description = image['description'],featureSet = image['featureSet'],imageSize = image['imageSize'],isSuggested = suggestion['isSuggested'],majorRelease = suggestion['majorRelease'],releaseTrain = suggestion['releaseTrain'],relDispName = suggestion['relDispName'],releaseDate = suggestion['releaseDate'],releaseLifeCycle = suggestion['releaseLifeCycle'],installed_version=current_version,compliant=compliant,timestamp=datetime.now().replace(microsecond=0))
+                                            recommended_release.save()      
+#

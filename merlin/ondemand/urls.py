@@ -1,11 +1,12 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import OnDemandResultAll, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultNMAP, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
+from .views import OnDemandResultAll, OnDemandResultEoPID, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultNMAP, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
 
 urlpatterns = [
     path('OnDemand/', views.button),
     path('OnDemand/GetAll/get_all_all_result/', views.get_all_all_ondemand, name="get_all_all"),
+    path('OnDemand/EoPID/eox_pid_all_result/', views.eox_pid_all_ondemand, name="eox_pid_all"),
     path('OnDemand/LearnACL/learn_acl_all_result/', views.learn_acl_all_ondemand, name="learn_acl_all"),
     path('OnDemand/LearnARP/learn_arp_all_result/', views.learn_arp_all_ondemand, name="learn_arp_all"),
     path('OnDemand/LearnBGP/learn_bgp_all_result/', views.learn_bgp_all_ondemand, name="learn_bgp_all"),
@@ -22,6 +23,7 @@ urlpatterns = [
     path('OnDemand/Recommended/recommended_all_result/', views.recommended_all_ondemand, name="recommended_all"),
     path('OnDemand/Serial2Contract/serial2contract_all_result/', views.serial2contract_all_ondemand, name="serial2contract_all"),
     path('OnDemand/GetAll/get_all_filter_result/', OnDemandResultAll.as_view(), name="get_all_ondemand_filter"),
+    path('OnDemand/EoPID/eox_pid_filter_result/', OnDemandResultEoPID.as_view(), name="eox_pid_ondemand_filter"),
     path('OnDemand/LearnACL/learn_acl_filter_result/', OnDemandResultACL.as_view(), name="learn_acl_ondemand_filter"),
     path('OnDemand/LearnARP/learn_arp_filter_result/', OnDemandResultARP.as_view(), name="learn_arp_ondemand_filter"),
     path('OnDemand/LearnBGP/learn_bgp_filter_result/', OnDemandResultBGP.as_view(), name="learn_bgp_ondemand_filter"),

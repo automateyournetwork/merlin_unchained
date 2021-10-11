@@ -14,8 +14,12 @@ def get_all_all_ondemand(request):
     os.system('pyats run job populate_db_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def eox_pid_all_ondemand(request):
+    os.system('pyats run job eox_pid_job.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def learn_acl_all_ondemand(request):
-    os.system('pyats run job learn_acl_all_job.py')
+    os.system('pyats run job learn_acl_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
 def learn_arp_all_ondemand(request):
@@ -84,6 +88,15 @@ class OnDemandResultAll(ListView):
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job populate_db_filter_job.py')
+
+class OnDemandResultEoPID(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('eox_pid_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job eox_pid_filter_job.py')
 
 class OnDemandResultACL(ListView):
     template_name = 'OnDemand/ondemand.html'

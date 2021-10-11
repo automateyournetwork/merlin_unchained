@@ -37,6 +37,28 @@
       </td>
     </tr>
     <tr>
+      <td>End of Life - Part ID</td>       
+        <td><button id="eox_pid_all_devices_button">End of Life - Part ID</button></td>
+        <td>
+          <div id ="eox_pid_filter">
+            <form id = "eox_pid_filter" action="{% url 'eox_pid_ondemand_filter' %}" method="get">
+              <input name="eox_pid_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>
+      <td>
+        <div id ="eox_pid_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+        </div>
+      </td>        
+      </tr>
+      <tr>    
+    <tr>
       <td>Learn ACL</td>       
         <td><button id="learn_acl_all_devices_button">Learn ACL</button></td>
         <td>
@@ -51,7 +73,7 @@
       </td>
       <td>
         <div id ="learn_acl_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -72,7 +94,7 @@
       </td>
         <td>
           <div id ="learn_arp_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -93,7 +115,7 @@
       </td>
         <td>
           <div id ="learn_bgp_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-warning" role="status">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -114,7 +136,7 @@
       </td>
         <td>
           <div id ="learn_config_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -135,7 +157,7 @@
       </td>
         <td>
           <div id ="learn_interface_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-warning" role="status">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -156,7 +178,7 @@
       </td>
         <td>
           <div id ="learn_platform_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -177,7 +199,7 @@
       </td>
         <td>
           <div id ="learn_vlan_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-warning" role="status">
+            <div class="spinner-border text-primary" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -198,7 +220,7 @@
       </td>
         <td>
           <div id ="learn_vrf_spinner" class="d-flex not-visible">
-            <div class="spinner-border text-primary" role="status">
+            <div class="spinner-border text-warning" role="status">
               <span class="visually-hidden"></span>
             </div>
           </div>
@@ -219,7 +241,7 @@
     </td>
     <td>
         <div id ="nmap_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -240,7 +262,7 @@
     </td>
     <td>
         <div id ="psirt_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -261,7 +283,7 @@
     </td>
     <td>
         <div id ="recommended_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -282,7 +304,7 @@
     </td>
     <td>
         <div id ="serial2contract_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -303,7 +325,7 @@
     </td>
     <td>
         <div id ="show_inventory_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -324,7 +346,7 @@
     </td>
     <td>
         <div id ="show_ip_int_brief_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-primary" role="status">
+          <div class="spinner-border text-warning" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>
@@ -345,7 +367,7 @@
     </td>
     <td>
         <div id ="show_version_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden"></span>
           </div>
         </div>

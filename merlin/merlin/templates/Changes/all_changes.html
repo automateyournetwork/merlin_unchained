@@ -3,6 +3,126 @@
 {% block title %}Merlin Network State Centre{% endblock %}
 {% block content %}
 <h1>Merlin Network State Centre</h1>
+{% if pid_additions %}
+<h2>Merlin has detected the following End of Life - Part ID Values have been added</h2>
+<table id = "pid_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>Last Date of Support</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for pid in pid_additions %}
+  <tr>
+    <td>{{ pid.pyats_alias }}</td>
+    <td>{{ pid.pid }}</td>
+    <td>{{ pid.description }}</td>
+    <td>{{ pid.bulletin_number }}</td>
+    <td><a href="{{ pid.bulletin_url }}">{{ pid.bulletin_url }}</a></td>
+    <td>{{ pid.external_date }}</td>
+    <td>{{ pid.sale_date }}</td>
+    <td>{{ pid.sw_maintenance }}</td>
+    <td>{{ pid.security }}</td>
+    <td>{{ pid.routine_failure }}</td>
+    <td>{{ pid.service_contract }}</td>
+    <td>{{ pid.last }}</td>
+    <td>{{ pid.svc_attach }}</td>
+    <td>{{ pid.last_updated }}</td>
+    <td>{{ pid.pid_active }}</td>
+    <td>{{ pid.migration_information }}</td>
+    <td>{{ pid.migration_option }}</td>
+    <td>{{ pid.migration_pid }}</td>
+    <td>{{ pid.migration_name }}</td>
+    <td>{{ pid.migration_strat }}</td>
+    <td><a href="{{ pid.migration_url }}">{{ pid.migration_url }}</a></td>
+    <td>{{ pid.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>  
+{% else %}
+<h2>Merlin has not detected any End of Life - Part ID additons</h2>
+{% endif %}
+{% if pid_removals %}
+<h2>Merlin has detected the following End of Life - Part ID Values have been removed</h2>
+<table id = "pid_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>Last Date of Support</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for pid in pid_removals %}
+  <tr>
+    <td>{{ pid.pyats_alias }}</td>
+    <td>{{ pid.pid }}</td>
+    <td>{{ pid.description }}</td>
+    <td>{{ pid.bulletin_number }}</td>
+    <td><a href="{{ pid.bulletin_url }}">{{ pid.bulletin_url }}</a></td>
+    <td>{{ pid.external_date }}</td>
+    <td>{{ pid.sale_date }}</td>
+    <td>{{ pid.sw_maintenance }}</td>
+    <td>{{ pid.security }}</td>
+    <td>{{ pid.routine_failure }}</td>
+    <td>{{ pid.service_contract }}</td>
+    <td>{{ pid.last }}</td>
+    <td>{{ pid.svc_attach }}</td>
+    <td>{{ pid.last_updated }}</td>
+    <td>{{ pid.pid_active }}</td>
+    <td>{{ pid.migration_information }}</td>
+    <td>{{ pid.migration_option }}</td>
+    <td>{{ pid.migration_pid }}</td>
+    <td>{{ pid.migration_name }}</td>
+    <td>{{ pid.migration_strat }}</td>
+    <td><a href="{{ pid.migration_url }}">{{ pid.migration_url }}</a></td>
+    <td>{{ pid.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table> 
+{% else %}
+<h2>Merlin has not detected any End of Life - Part ID removals</h2>
+{% endif %}
 {% if acl_additions %}
 <h2>Merlin has detected the following ACL configurations have been added</h2>
 <table id = "acl_additions" class="table table-bordered">
@@ -1601,6 +1721,40 @@
 {% else %}
 <h2>Merlin has not detected any Version configuration removals</h2>
 {% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#pid_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#pid_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#device_additions').DataTable({
