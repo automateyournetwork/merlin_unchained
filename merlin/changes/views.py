@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView
 from django.db.models import Q
-from merlin.models import Devices, DynamicJobInput, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, DynamicJobInput, EoX_PID, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Changes Buttons
 
@@ -12,6 +12,8 @@ def changes(request):
     return render(request, 'Changes/changes.html')
 
 def all_changes(request):
+    eox_pid_latest_timestamp = EoX_PID.objects.latest('timestamp')
+    current_pids = EoX_PID.objects.filter(timestamp=eox_pid_latest_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')    
     acl_latest_timestamp = LearnACL.objects.latest('timestamp')
     current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     arp_latest_timestamp = LearnARP.objects.latest('timestamp')
@@ -46,6 +48,8 @@ def all_changes(request):
     serial2contract_latest_timestamp = Serial2Contract.objects.latest('timestamp')
     current_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_latest_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")    
     os.system('pyats run job populate_db_job.py')
+    eox_pid_new_timestamp = EoX_PID.objects.latest('timestamp')
+    latest_pids = EoX_PID.objects.filter(timestamp=eox_pid_new_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')    
     acl_new_timestamp = LearnACL.objects.latest('timestamp')
     latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
     arp_new_timestamp = LearnARP.objects.latest('timestamp')
@@ -79,6 +83,8 @@ def all_changes(request):
     latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
     serial2contract_new_timestamp = Serial2Contract.objects.latest('timestamp')
     latest_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")    
+    pid_removals = current_pids.difference(latest_pids)
+    pid_additions = latest_pids.difference(current_pids)
     acl_removals = current_acls.difference(latest_acls)
     acl_additions = latest_acls.difference(current_acls)
     arp_removals = current_arp.difference(latest_arp)
@@ -109,7 +115,17 @@ def all_changes(request):
     vrf_additions = latest_vrfs.difference(current_vrfs)
     version_removals = current_version.difference(latest_version)
     version_additions = latest_version.difference(current_version)       
-    return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
+    return render(request, 'Changes/all_changes.html', {'pid_removals': pid_removals,'pid_additions': pid_additions, 'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions,'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions,'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions})
+
+def eox_pid_changes(request):
+    latest_timestamp = EoX_PID.objects.latest('timestamp')
+    current_pids = EoX_PID.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')
+    os.system('pyats run job eox_pid_job.py')
+    new_timestamp = EoX_PID.objects.latest('timestamp')
+    latest_pids = EoX_PID.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')
+    pid_removals = current_pids.difference(latest_pids)
+    pid_additions = latest_pids.difference(current_pids)
+    return render(request, 'Changes/eox_pid_changes.html', {'pid_removals': pid_removals,'pid_additions': pid_additions})
 
 def learn_acl_changes(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')
@@ -323,6 +339,8 @@ class ChangesResultAll(ListView):
     template_name = 'Changes/changes.html'
 
     def get(self, request):
+        eox_pid_latest_timestamp = EoX_PID.objects.latest('timestamp')
+        current_pids = EoX_PID.objects.filter(timestamp=eox_pid_latest_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')
         acl_latest_timestamp = LearnACL.objects.latest('timestamp')
         current_acls = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
         arp_latest_timestamp = LearnARP.objects.latest('timestamp')
@@ -364,6 +382,8 @@ class ChangesResultAll(ListView):
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()          
         os.system('pyats run job populate_db_filter_job.py')
+        eox_pid_new_timestamp = EoX_PID.objects.latest('timestamp')
+        latest_pids = EoX_PID.objects.filter(timestamp=eox_pid_new_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')        
         acl_new_timestamp = LearnACL.objects.latest('timestamp')
         latest_acls = LearnACL.objects.filter(timestamp=acl_new_timestamp.timestamp).values("pyats_alias", "os", "acl", "ace", "permission", "logging", "source_network", "destination_network", "l3_protocol", "l4_protocol", "operator", "port")
         arp_new_timestamp = LearnARP.objects.latest('timestamp')
@@ -401,6 +421,8 @@ class ChangesResultAll(ListView):
         latest_recommended = RecommendedRelease.objects.filter(timestamp=recommended_new_timestamp.timestamp).values("pyats_alias", "os", "basePID", "productName", "softwareType", "imageName", "description", "featureSet", "imageSize", "isSuggested", "majorRelease", "releaseTrain", "relDispName", "releaseDate", "releaseLifeCycle", "installed_version", "compliant")
         serial2contract_new_timestamp = Serial2Contract.objects.latest('timestamp')
         latest_serial2contract = Serial2Contract.objects.filter(timestamp=serial2contract_new_timestamp.timestamp).values("pyats_alias", "os", "base_pid", "customer_name", "address", "city", "state_province", "country", "product_line_end_date", "is_covered", "item_description", "item_type", "orderable_pid", "pillar_code", "parent_sn", "service_contract", "service_description", "serial_number", "warranty_end", "warranty_type", "warranty_description")        
+        pid_removals = current_pids.difference(latest_pids)
+        pid_additions = latest_pids.difference(current_pids)
         acl_removals = current_acls.difference(latest_acls)
         acl_additions = latest_acls.difference(current_acls)
         arp_removals = current_arp.difference(latest_arp)
@@ -435,7 +457,23 @@ class ChangesResultAll(ListView):
         recommended_additions = latest_recommended.difference(current_recommended)
         serial2contract_removals = current_serial2contract.difference(latest_serial2contract)
         serial2contract_additions = latest_serial2contract.difference(current_serial2contract)                      
-        return render(request, 'Changes/all_changes.html', {'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions})
+        return render(request, 'Changes/all_changes.html', {'pid_removals': pid_removals,'pid_additions': pid_additions, 'acl_removals': acl_removals,'acl_additions': acl_additions, 'arp_removals': arp_removals,'arp_additions': arp_additions, 'arp_statistics_removals': arp_statistics_removals,'arp_statistics_additions': arp_statistics_additions, 'bgp_instances_removals': bgp_instances_removals,'bgp_instances_additions': bgp_instances_additions, 'bgp_route_removals': bgp_route_removals,'bgp_route_additions': bgp_route_additions, 'bgp_table_removals': bgp_table_removals,'bgp_table_additions': bgp_table_additions,'config_removals': config_removals,'config_additions': config_additions, 'interface_removals': interface_removals,'interface_additions': interface_additions,'platform_removals': platform_removals,'platform_additions': platform_additions,'platform_slot_removals': platform_slot_removals,'platform_slot_additions': platform_slot_additions,'platform_virtual_removals': platform_virtual_removals,'platform_virtual_additions': platform_virtual_additions, 'vlan_removals': vlan_removals, 'vlan_additions': vlan_additions, 'vrf_removals': vrf_removals, 'vrf_additions': vrf_additions, 'version_removals': version_removals, 'version_additions': version_additions, 'psirt_removals': psirt_removals,'psirt_additions': psirt_additions, 'recommended_removals': recommended_removals,'recommended_additions': recommended_additions, 'serial2contract_removals': serial2contract_removals,'serial2contract_additions': serial2contract_additions})
+
+class ChangesResultEoX_PID(ListView):
+    template_name = 'Changes/changes.html'
+
+    def get(self, request):
+        latest_timestamp = EoX_PID.objects.latest('timestamp')
+        current_pids = EoX_PID.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')
+        query = self.request.GET.get('eox_pid_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job eox_pid_filter_job.py')
+        new_timestamp = EoX_PID.objects.latest('timestamp')
+        latest_pids = EoX_PID.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os",'pid','description','bulletin_number','bulletin_url','external_date','sale_date','sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url')
+        pid_removals = current_pids.difference(latest_pids)
+        pid_additions = latest_pids.difference(current_pids)
+        return render(request, 'Changes/eox_pid_changes.html', {'pid_removals': pid_removals,'pid_additions': pid_additions})
 
 class ChangesResultACL(ListView):
     template_name = 'Changes/changes.html'

@@ -1,10 +1,14 @@
 from rest_framework import viewsets
-from merlin.serializers import DevicesSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnConfigSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, NMAPSerializer, PSIRTSerializer, RecommendedSerializer, Serial2ContractSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.serializers import DevicesSerializer, EoX_PIDSerializer, LearnACLSerializer, LearnARPSerializer, LearnARPStatisticsSerializer, LearnBGPInstancesSerializer, LearnBGPRoutesPerPeerSerializer, LearnBGPTablesSerializer, LearnConfigSerializer, LearnInterfaceSerializer, LearnPlatformSerializer, LearnPlatformSlotsSerializer, LearnPlatformVirtualSerializer, LearnVLANSerializer, LearnVRFSerializer, NMAPSerializer, PSIRTSerializer, RecommendedSerializer, Serial2ContractSerializer, ParseShowInventorySerializer, ParseShowIPIntBriefSerializer, ParseShowVersionSerializer
+from merlin.models import Devices, EoX_PID, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesViewSet(viewsets.ModelViewSet):
     queryset = Devices.objects.all().order_by('timestamp')
     serializer_class = DevicesSerializer
+
+class EoX_PIDViewSet(viewsets.ModelViewSet):
+    queryset = EoX_PID.objects.all().order_by('timestamp')
+    serializer_class = EoX_PIDSerializer
 
 class LearnACLViewSet(viewsets.ModelViewSet):
     queryset = LearnACL.objects.all().order_by('timestamp')

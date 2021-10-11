@@ -1,7 +1,7 @@
 import json
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -11,7 +11,9 @@ class SearchResultAllView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = (LearnACL.objects.filter(
+        object_list = (EoX_PID.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(pid__icontains=query) | Q(description__icontains=query) | Q(bulletin_number__icontains=query) | Q(migration_strat__icontains=query)
+        ),LearnACL.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(acl__icontains=query) | Q(ace__icontains=query) | Q(permission__icontains=query) | Q(logging__icontains=query) | Q(source_network__icontains=query) | Q(destination_network__icontains=query) | Q(l3_protocol__icontains=query) | Q(l4_protocol__icontains=query) | Q(operator__icontains=query) | Q(port__icontains=query)
         ),LearnARP.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(interface__icontains=query) | Q(neighbor_ip__icontains=query) | Q(neighbor_mac__icontains=query) | Q(origin__icontains=query) | Q(local_proxy__icontains=query) | Q(proxy__icontains=query)
@@ -61,7 +63,9 @@ class SearchResultStateView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = (LearnACL.objects.filter(
+        object_list = (EoX_PID.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(pid__icontains=query) | Q(description__icontains=query) | Q(bulletin_number__icontains=query) | Q(migration_strat__icontains=query)
+        ),LearnACL.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(acl__icontains=query) | Q(ace__icontains=query) | Q(permission__icontains=query) | Q(logging__icontains=query) | Q(source_network__icontains=query) | Q(destination_network__icontains=query) | Q(l3_protocol__icontains=query) | Q(l4_protocol__icontains=query) | Q(operator__icontains=query) | Q(port__icontains=query)
         ),LearnARP.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(interface__icontains=query) | Q(neighbor_ip__icontains=query) | Q(neighbor_mac__icontains=query) | Q(origin__icontains=query) | Q(local_proxy__icontains=query) | Q(proxy__icontains=query)

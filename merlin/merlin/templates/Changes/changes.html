@@ -29,6 +29,20 @@
       </td>
       </tr>
       <tr>
+        <td>End of Life - Part ID</td>
+        <td><a href="http://localhost:8000/Changes/eox_pid_changes/"><button id="eox_pid_changes_button">Get End of Life - PID Changes</button></a></td>
+        <td>
+          <div id ="eox_pid_filter">
+            <form id = "eox_pid_filter" action="{% url 'eox_pid_changes_filter' %}" method="get">
+              <input name="eox_pid_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>        
+      </tr>      
+      <tr>
         <td>Learn ACL</td>
         <td><a href="http://localhost:8000/Changes/learn_acl_changes/"><button id="learn_acl_changes_button">Get Learn ACL Changes</button></a></td>
         <td>

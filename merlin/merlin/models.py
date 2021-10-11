@@ -61,7 +61,7 @@ class EoX_PID(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.pid} {0.description} {0.bulletin_number} {0.bulletin_url} {0.external_date} {0.sale_date} {0.sw_maintenance} {0.security} {0.routine_failure} {0.service_contract} {0.last} {0.svc_attach} {0.last_updated} {0.pid_active} {0.migration_information} {0.migration_option} {0.migration_pid} {0.migration_name} {0.migration_strat} {0.migration_url} {0.timestamp}'
         return template.format(self)
 
 class EoX_SN(models.Model):
@@ -90,7 +90,7 @@ class EoX_SN(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.pid} {0.description} {0.bulletin_number} {0.bulletin_url} {0.external_date} {0.sale_date} {0.sw_maintenance} {0.security} {0.routine_failure} {0.service_contract} {0.last} {0.svc_attach} {0.last_updated} {0.pid_active} {0.migration_information} {0.migration_option} {0.migration_pid} {0.migration_name} {0.migration_strat} {0.migration_url} {0.timestamp}'
         return template.format(self)
 
 class EoX_IOS(models.Model):
@@ -119,7 +119,7 @@ class EoX_IOS(models.Model):
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.pid} {0.description} {0.bulletin_number} {0.bulletin_url} {0.external_date} {0.sale_date} {0.sw_maintenance} {0.security} {0.routine_failure} {0.service_contract} {0.last} {0.svc_attach} {0.last_updated} {0.pid_active} {0.migration_information} {0.migration_option} {0.migration_pid} {0.migration_name} {0.migration_strat} {0.migration_url} {0.timestamp}'
         return template.format(self)
 
 class LearnACL(models.Model):
