@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
     path('Latest/', views.latest),
     path('Latest/All/', views.all_latest),
+    path('Latest/EoX_PID/', views.eox_pid_latest),
+    path('Latest/EoX_SN/', views.eox_sn_latest),
     path('Latest/LearnACL/', views.learn_acl_latest),
     path('Latest/LearnARP/', views.learn_arp_latest),
     path('Latest/LearnARPStatistics/', views.learn_arp_statistics_latest),

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, EoX_PID, EoX_SN, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -68,6 +68,66 @@ def devices_port_archive(request, port):
     device_list = Devices.objects.filter(port=port)
     context = {'port': port, 'device_list': device_list}
     return render(request, 'HTML/Devices/devices_port_address_archive.html', context)
+
+def eox_pid_all(request):
+    pid_list = EoX_PID.objects.all()
+    context = {'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_all.html', context)
+
+def eox_pid_year_archive(request, year):
+    pid_list = EoX_PID.objects.filter(timestamp__year=year)
+    context = {'year': year, 'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_year_archive.html', context)
+
+def eox_pid_month_archive(request, year, month):
+    pid_list = EoX_PID.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_month_archive.html', context)
+
+def eox_pid_day_archive(request, year, month, day):
+    pid_list = EoX_PID.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_day_archive.html', context)
+
+def eox_pid_nxos_archive(request):
+    pid_list = EoX_PID.objects.filter(os='nxos')
+    context = {'os': os, 'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_nxos_archive.html', context)
+
+def eox_pid_alias_archive(request, pyats_alias):
+    pid_list = EoX_PID.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'pid_list': pid_list}
+    return render(request, 'HTML/EoX_PID/eox_pid_alias_archive.html', context)
+
+def eox_sn_all(request):
+    sn_list = EoX_SN.objects.all()
+    context = {'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_all.html', context)
+
+def eox_sn_year_archive(request, year):
+    sn_list = EoX_SN.objects.filter(timestamp__year=year)
+    context = {'year': year, 'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_year_archive.html', context)
+
+def eox_sn_month_archive(request, year, month):
+    sn_list = EoX_SN.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_month_archive.html', context)
+
+def eox_sn_day_archive(request, year, month, day):
+    sn_list = EoX_SN.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_day_archive.html', context)
+
+def eox_sn_nxos_archive(request):
+    sn_list = EoX_SN.objects.filter(os='nxos')
+    context = {'os': os, 'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_nxos_archive.html', context)
+
+def eox_sn_alias_archive(request, pyats_alias):
+    sn_list = EoX_SN.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'sn_list': sn_list}
+    return render(request, 'HTML/EoX_SN/eox_sn_alias_archive.html', context)
 
 def learn_acl_all(request):
     acl_list = LearnACL.objects.all()
