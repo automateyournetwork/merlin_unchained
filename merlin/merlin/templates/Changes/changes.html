@@ -43,6 +43,21 @@
       </td>        
       </tr>      
       <tr>
+      <tr>
+        <td>End of Life - Serial Number</td>
+        <td><a href="http://localhost:8000/Changes/eox_sn_changes/"><button id="eox_sn_changes_button">Get End of Life - Serial Number Changes</button></a></td>
+        <td>
+          <div id ="eox_sn_filter">
+            <form id = "eox_sn_filter" action="{% url 'eox_sn_changes_filter' %}" method="get">
+              <input name="eox_sn_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>        
+      </tr>      
+      <tr>      
         <td>Learn ACL</td>
         <td><a href="http://localhost:8000/Changes/learn_acl_changes/"><button id="learn_acl_changes_button">Get Learn ACL Changes</button></a></td>
         <td>

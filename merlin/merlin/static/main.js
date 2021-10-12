@@ -1,5 +1,6 @@
 const getAllSpinnerBox = document.getElementById('get_all_spinner')
 const eox_pid_SpinnerBox = document.getElementById('eox_pid_spinner')
+const eox_sn_SpinnerBox = document.getElementById('eox_sn_spinner')
 const learnACLSpinnerBox = document.getElementById('learn_acl_spinner')
 const learnARPSpinnerBox = document.getElementById('learn_arp_spinner')
 const learnBGPSpinnerBox = document.getElementById('learn_bgp_spinner')
@@ -40,6 +41,20 @@ $("#eox_pid_all_devices_button").click(function(e){
         },
         success: function(response){
             eox_pid_SpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#eox_sn_all_devices_button").click(function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/EoSN/eox_sn_all_result/",
+        beforeSend: function(){
+            eox_sn_SpinnerBox.classList.remove('not-visible')
+        },
+        success: function(response){
+            eox_sn_SpinnerBox.classList.add('not-visible')
         }
     })
 })

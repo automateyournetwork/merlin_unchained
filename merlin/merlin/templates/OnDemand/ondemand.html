@@ -59,6 +59,28 @@
       </tr>
       <tr>    
     <tr>
+    <tr>
+      <td>End of Life - Serial Number</td>       
+        <td><button id="eox_sn_all_devices_button">End of Life - Serial Number</button></td>
+        <td>
+          <div id ="eox_sn_filter">
+            <form id = "eox_sn_filter" action="{% url 'eox_sn_ondemand_filter' %}" method="get">
+              <input name="eox_sn_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>
+      <td>
+        <div id ="eox_sn_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-primary"></span>
+          </div>
+        </div>
+      </td>        
+      </tr>
+      <tr>      
       <td>Learn ACL</td>       
         <td><button id="learn_acl_all_devices_button">Learn ACL</button></td>
         <td>

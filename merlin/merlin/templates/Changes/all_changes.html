@@ -123,6 +123,125 @@
 {% else %}
 <h2>Merlin has not detected any End of Life - Part ID removals</h2>
 {% endif %}
+<h2>Merlin has detected the following End of Life - Serial Number Values have been added</h2>
+<table id = "sn_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>Last Date of Support</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for sn in sn_additions %}
+  <tr>
+    <td>{{ sn.pyats_alias }}</td>
+    <td>{{ sn.pid }}</td>
+    <td>{{ sn.description }}</td>
+    <td>{{ sn.bulletin_number }}</td>
+    <td><a href="{{ sn.bulletin_url }}">{{ sn.bulletin_url }}</a></td>
+    <td>{{ sn.external_date }}</td>
+    <td>{{ sn.sale_date }}</td>
+    <td>{{ sn.sw_maintenance }}</td>
+    <td>{{ sn.security }}</td>
+    <td>{{ sn.routine_failure }}</td>
+    <td>{{ sn.service_contract }}</td>
+    <td>{{ sn.last }}</td>
+    <td>{{ sn.svc_attach }}</td>
+    <td>{{ sn.last_updated }}</td>
+    <td>{{ sn.pid_active }}</td>
+    <td>{{ sn.migration_information }}</td>
+    <td>{{ sn.migration_option }}</td>
+    <td>{{ sn.migration_pid }}</td>
+    <td>{{ sn.migration_name }}</td>
+    <td>{{ sn.migration_strat }}</td>
+    <td><a href="{{ sn.migration_url }}">{{ sn.migration_url }}</a></td>
+    <td>{{ sn.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>  
+{% else %}
+<h2>Merlin has not detected any End of Life - Serial Number additons</h2>
+{% endif %}
+{% if sn_removals %}
+<h2>Merlin has detected the following End of Life - Serial Number Values have been removed</h2>
+<table id = "sn_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>Last Date of Support</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for sn in sn_removals %}
+  <tr>
+    <td>{{ sn.pyats_alias }}</td>
+    <td>{{ sn.pid }}</td>
+    <td>{{ sn.description }}</td>
+    <td>{{ sn.bulletin_number }}</td>
+    <td><a href="{{ sn.bulletin_url }}">{{ sn.bulletin_url }}</a></td>
+    <td>{{ sn.external_date }}</td>
+    <td>{{ sn.sale_date }}</td>
+    <td>{{ sn.sw_maintenance }}</td>
+    <td>{{ sn.security }}</td>
+    <td>{{ sn.routine_failure }}</td>
+    <td>{{ sn.service_contract }}</td>
+    <td>{{ sn.last }}</td>
+    <td>{{ sn.svc_attach }}</td>
+    <td>{{ sn.last_updated }}</td>
+    <td>{{ sn.pid_active }}</td>
+    <td>{{ sn.migration_information }}</td>
+    <td>{{ sn.migration_option }}</td>
+    <td>{{ sn.migration_pid }}</td>
+    <td>{{ sn.migration_name }}</td>
+    <td>{{ sn.migration_strat }}</td>
+    <td><a href="{{ sn.migration_url }}">{{ sn.migration_url }}</a></td>
+    <td>{{ sn.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table> 
+{% else %}
+<h2>Merlin has not detected any End of Life - Serial Number removals</h2>
+{% endif %}
 {% if acl_additions %}
 <h2>Merlin has detected the following ACL configurations have been added</h2>
 <table id = "acl_additions" class="table table-bordered">

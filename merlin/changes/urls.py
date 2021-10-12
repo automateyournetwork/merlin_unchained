@@ -1,11 +1,12 @@
 from django.urls import path
 from . import views
-from .views import ChangesResultAll, ChangesResultEoX_PID, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultNMAP, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
+from .views import ChangesResultAll, ChangesResultEoX_PID, ChangesResultEoX_SN, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultNMAP, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
 
 urlpatterns = [
     path('Changes/', views.changes),
     path('Changes/all_changes/', views.all_changes, name="all_changes"),
     path('Changes/eox_pid_changes/', views.eox_pid_changes, name="eox_pid_changes"),
+    path('Changes/eox_sn_changes/', views.eox_sn_changes, name="eox_sn_changes"),
     path('Changes/learn_acl_changes/', views.learn_acl_changes, name="learn_acl_changes"),
     path('Changes/learn_arp_changes/', views.learn_arp_changes, name="learn_arp_changes"),
     path('Changes/learn_arp_statistics_changes/', views.learn_arp_statistics_changes, name="learn_arp_statistics_changes"),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('Changes/show_version_changes/', views.show_version_changes, name="show_version_changes"),
     path('Changes/all_changes_filter/', ChangesResultAll.as_view(), name="get_all_changes_filter"),
     path('Changes/eox_pid_changes_filter/', ChangesResultEoX_PID.as_view(), name="eox_pid_changes_filter"),
+    path('Changes/eox_sn_changes_filter/', ChangesResultEoX_SN.as_view(), name="eox_sn_changes_filter"),
     path('Changes/learn_acl_changes_filter/', ChangesResultACL.as_view(), name="learn_acl_changes_filter"),
     path('Changes/learn_arp_changes_filter/', ChangesResultARP.as_view(), name="learn_arp_changes_filter"),
     path('Changes/learn_arp_statistics_changes_filter/', ChangesResultARPStatistics.as_view(), name="learn_arp_statistics_changes_filter"),

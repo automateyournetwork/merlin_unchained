@@ -5,6 +5,7 @@ from . import views
 router = routers.DefaultRouter()
 router.register(r'Devices', views.DevicesViewSet)
 router.register(r'EoX_PID', views.EoX_PIDViewSet)
+router.register(r'EoX_SN', views.EoX_SNViewSet)
 router.register(r'LearnACL', views.LearnACLViewSet)
 router.register(r'LearnARP', views.LearnARPViewSet)
 router.register(r'LearnARPStatistics', views.LearnARPStatisticsViewSet)

@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}End of Life - Part ID for NX-OS{% endblock %}
+
+{% block content %}
+<h1>End of Life - Part ID for NX-OS</h1>
+<table id = "eox_pid" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Date of Support</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for pid in pid_list %}
+  <tr>
+    <td>{{ pid.pyats_alias }}</td>
+    <td>{{ pid.pid }}</td>
+    <td>{{ pid.description }}</td>
+    <td>{{ pid.bulletin_number }}</td>
+    <td><a href="{{ pid.bulletin_url }}">{{ pid.bulletin_url }}</a></td>
+    <td>{{ pid.external_date }}</td>
+    <td>{{ pid.sale_date }}</td>
+    <td>{{ pid.sw_maintenance }}</td>
+    <td>{{ pid.security }}</td>
+    <td>{{ pid.routine_failure }}</td>
+    <td>{{ pid.service_contract }}</td>
+    <td>{{ pid.last }}</td>
+    <td>{{ pid.svc_attach }}</td>
+    <td>{{ pid.last_updated }}</td>
+    <td>{{ pid.pid_active }}</td>
+    <td>{{ pid.migration_information }}</td>
+    <td>{{ pid.migration_option }}</td>
+    <td>{{ pid.migration_pid }}</td>
+    <td>{{ pid.migration_name }}</td>
+    <td>{{ pid.migration_strat }}</td>
+    <td><a href="{{ pid.migration_url }}">{{ pid.migration_url }}</a></td>
+    <td>{{ pid.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#eox_pid thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#eox_pid thead');
+
+    var table = $('#eox_pid').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+  {% endblock %}
