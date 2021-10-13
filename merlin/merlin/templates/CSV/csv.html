@@ -17,7 +17,22 @@
     <td>Devices</td>
     <td><button onclick="location.href='{% url 'devices_csv' %}'">Export All Device Records</button></td>
     <td>N/A</td>
-  </tr>    
+  </tr>
+  <tr>
+    <td>End of Life - Part ID</td>
+    <td><button onclick="location.href='{% url 'eox_pid_csv' %}'">Export CSV</button></td>
+    <td><button onclick="location.href='{% url 'eox_pid_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  <tr>
+    <td>End of Life - Serial Number</td>
+    <td><button onclick="location.href='{% url 'eox_sn_csv' %}'">Export CSV</button></td>
+    <td><button onclick="location.href='{% url 'eox_sn_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>
+  <tr>
+    <td>End of Life - Software</td>
+    <td><button onclick="location.href='{% url 'eox_sw_csv' %}'">Export CSV</button></td>
+    <td><button onclick="location.href='{% url 'eox_sw_csv_latest' %}'">Export Latest Records</button></td>
+  </tr>  
   <tr>
     <td>Learn ACL</td>
     <td><button onclick="location.href='{% url 'learn_acl_csv' %}'">Export All ACL Records</button></td>

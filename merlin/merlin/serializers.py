@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, EoX_PID, EoX_SN, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -14,6 +14,11 @@ class EoX_PIDSerializer(serializers.HyperlinkedModelSerializer):
 class EoX_SNSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = EoX_SN
+        fields = ('pyats_alias', 'os', 'pid', 'description', 'bulletin_number', 'bulletin_url', 'external_date', 'sale_date', 'sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url','timestamp')
+
+class EoX_SWSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = EoX_IOS
         fields = ('pyats_alias', 'os', 'pid', 'description', 'bulletin_number', 'bulletin_url', 'external_date', 'sale_date', 'sw_maintenance','security','routine_failure','service_contract','last','svc_attach','last_updated','pid_active','migration_information','migration_option','migration_pid','migration_name','migration_strat','migration_url','timestamp')
 
 class LearnACLSerializer(serializers.HyperlinkedModelSerializer):

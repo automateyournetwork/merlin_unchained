@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, EoX_PID, EoX_SN, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 
 # Latest
 def latest(request):
@@ -10,7 +10,9 @@ def all_latest(request):
     pid_latest_timestamp = EoX_PID.objects.latest('timestamp')
     pid_list = EoX_PID.objects.filter(timestamp=pid_latest_timestamp.timestamp)
     sn_latest_timestamp = EoX_SN.objects.latest('timestamp')
-    sn_list = EoX_SN.objects.filter(timestamp=sn_latest_timestamp.timestamp)    
+    sn_list = EoX_SN.objects.filter(timestamp=sn_latest_timestamp.timestamp)
+    sw_latest_timestamp = EoX_IOS.objects.latest('timestamp')
+    sw_list = EoX_IOS.objects.filter(timestamp=sw_latest_timestamp.timestamp)    
     acl_latest_timestamp = LearnACL.objects.latest('timestamp')
     acl_list = LearnACL.objects.filter(timestamp=acl_latest_timestamp.timestamp)
     arp_latest_timestamp = LearnARP.objects.latest('timestamp')
@@ -51,7 +53,7 @@ def all_latest(request):
     ip_int_brief_list = ShowIPIntBrief.objects.filter(timestamp=ip_int_brief_latest_timestamp.timestamp)    
     version_latest_timestamp = ShowVersion.objects.latest('timestamp')
     version_list = ShowVersion.objects.filter(timestamp=version_latest_timestamp.timestamp)       
-    context = {'pid_list': pid_list, 'sn_list': sn_list, 'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'config_list': config_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list, 'nmap_list': nmap_list, 'recommended_list': recommended_list, 'psirt_list': psirt_list, 'serial2contract_list': serial2contract_list}
+    context = {'pid_list': pid_list, 'sn_list': sn_list, 'sw_list': sw_list, 'acl_list': acl_list, 'arp_list': arp_list, 'arp_statistics_list': arp_statistics_list, 'bgp_instances_list': bgp_instances_list, 'bgp_routes_list': bgp_routes_list, 'bgp_tables_list': bgp_tables_list, 'config_list': config_list, 'interface_list': interface_list, 'platform_list': platform_list, 'platform_slots_list': platform_slots_list, 'platform_virtual_list': platform_virtual_list, 'vlan_list': vlan_list,'vrf_list': vrf_list,'version_list': version_list,'ip_int_brief_list': ip_int_brief_list,'inventory_list': inventory_list, 'nmap_list': nmap_list, 'recommended_list': recommended_list, 'psirt_list': psirt_list, 'serial2contract_list': serial2contract_list}
     return render(request, 'Latest/All/all_latest.html', context)
 
 def eox_pid_latest(request):
@@ -64,7 +66,13 @@ def eox_sn_latest(request):
     latest_timestamp = EoX_SN.objects.latest('timestamp')
     sn_list = EoX_SN.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'sn_list': sn_list}
-    return render(request, 'Latest/EoX_SN/eox_sn_latest.html', context)    
+    return render(request, 'Latest/EoX_SN/eox_sn_latest.html', context)
+
+def eox_sw_latest(request):
+    latest_timestamp = EoX_IOS.objects.latest('timestamp')
+    sw_list = EoX_IOS.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'sw_list': sw_list}
+    return render(request, 'Latest/EoX_SW/eox_sw_latest.html', context)
 
 def learn_acl_latest(request):
     latest_timestamp = LearnACL.objects.latest('timestamp')

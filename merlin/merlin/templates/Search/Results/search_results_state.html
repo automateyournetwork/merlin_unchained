@@ -119,6 +119,63 @@
 </table>
 {% endif %}
 {% if object_list.2 %}
+<h2>End of Life - Software Hits</h2>
+<table id = "eox_sw" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Date of Support</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for pid in object_list.2 %}
+  <tr>
+    <td>{{ pid.pyats_alias }}</td>
+    <td>{{ pid.pid }}</td>
+    <td>{{ pid.description }}</td>
+    <td>{{ pid.bulletin_number }}</td>
+    <td><a href="{{ pid.bulletin_url }}">{{ pid.bulletin_url }}</a></td>
+    <td>{{ pid.external_date }}</td>
+    <td>{{ pid.sale_date }}</td>
+    <td>{{ pid.sw_maintenance }}</td>
+    <td>{{ pid.security }}</td>
+    <td>{{ pid.routine_failure }}</td>
+    <td>{{ pid.service_contract }}</td>
+    <td>{{ pid.last }}</td>
+    <td>{{ pid.svc_attach }}</td>
+    <td>{{ pid.last_updated }}</td>
+    <td>{{ pid.pid_active }}</td>
+    <td>{{ pid.migration_information }}</td>
+    <td>{{ pid.migration_option }}</td>
+    <td>{{ pid.migration_pid }}</td>
+    <td>{{ pid.migration_name }}</td>
+    <td>{{ pid.migration_strat }}</td>
+    <td><a href="{{ pid.migration_url }}">{{ pid.migration_url }}</a></td>
+    <td>{{ pid.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>
+{% endif %}
+{% if object_list.3 %}
 <h2>Learn ACL Hits</h2>
 <table id = "learn_acl" class="table table-bordered">
   <thead class = "alert-success">
@@ -137,7 +194,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for acl in object_list.2 %}
+  <tbody>{% for acl in object_list.3 %}
   <tr>
     <td>{{ acl.pyats_alias }}</td>
     <td>{{ acl.acl }}</td>
@@ -155,7 +212,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.3 %}
+{% if object_list.4 %}
 <h2>Learn ARP Hits</h2>
 <table id = "learn_arp" class="table table-bordered">
   <thead class = "alert-success">
@@ -170,7 +227,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.3 %}
+  <tbody>{% for interface in object_list.4 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -184,7 +241,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.4 %}
+{% if object_list.5 %}
 <h2>Learn ARP Statistics Hits</h2>
 <table id = "learn_arp_statistics" class="table table-bordered">
   <thead class = "alert-success">
@@ -201,7 +258,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr>{% for stat in object_list.4 %}
+  <tr>{% for stat in object_list.5 %}
     <td>{{ stat.pyats_alias }}</td>
     <td>{{ stat.entries_total }}</td>
     <td>{{ stat.in_drops }}</td>
@@ -215,7 +272,7 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.5 %}
+{% if object_list.6 %}
 <h2>Learn BGP Instances Hits</h2>
 <table id = "learn_bgp_instances" class="table table-bordered">
     <thead class = "alert-success">
@@ -242,7 +299,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.5 %}
+  <tbody>{% for instance in object_list.6 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -268,7 +325,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.6 %}
+{% if object_list.7 %}
 <h2>Learn BGP Routes Per Peer Hits</h2>
 <table id = "learn_bgp_routes" class="table table-bordered">
     <thead class = "alert-success">
@@ -283,7 +340,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.6 %}
+  <tbody>{% for instance in object_list.7 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -297,7 +354,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.7 %}
+{% if object_list.8 %}
 <h2>Learn BGP Tables Hits</h2>
 <table id = "learn_bgp_tables" class="table table-bordered">
     <thead class = "alert-success">
@@ -316,7 +373,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for instance in object_list.7 %}
+  <tbody>{% for instance in object_list.8 %}
 <tr>
     <td>{{ instance.pyats_alias }}</td>
     <td>{{ instance.instance }}</td>
@@ -334,7 +391,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.8 %}
+{% if object_list.9 %}
 <h2>Learn Interface Hits</h2>
 <table id = "learn_interface" class="table table-bordered">
     <thead class = "alert-success">
@@ -390,7 +447,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.8 %}
+  <tbody>{% for interface in object_list.9 %}
 <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.os }}</td> 
@@ -445,7 +502,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.9 %}
+{% if object_list.10 %}
 <h2>Learn Platform Hits</h2>
 <table id = "learn_platform" class="table table-bordered">
     <thead class = "alert-success">
@@ -466,7 +523,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.9 %}
+  <tbody>{% for platform in object_list.10 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -486,7 +543,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.10 %}
+{% if object_list.11 %}
 <h2>Learn Platform Slots Hits</h2>
 <table id = "learn_platform_slots" class="table table-bordered">
     <thead class = "alert-success">
@@ -503,7 +560,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.10 %}
+  <tbody>{% for platform in object_list.11 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -519,7 +576,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.11 %}
+{% if object_list.12 %}
 <h2>Learn Platform Virtual Hits</h2>
 <table id = "learn_platform_virtual" class="table table-bordered">
     <thead class = "alert-success">
@@ -534,7 +591,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for platform in object_list.11 %}
+  <tbody>{% for platform in object_list.12 %}
 <tr>
     <td>{{ platform.pyats_alias }}</td>
     <td>{{ platform.os }}</td>
@@ -548,7 +605,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.12 %}
+{% if object_list.13 %}
 <h2>Learn VLAN Hits</h2>
 <table id = "learn_vlan" class="table table-bordered">
   <thead class = "alert-success">
@@ -563,7 +620,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vlan in object_list.12 %}
+  <tbody>{% for vlan in object_list.13 %}
   <tr>
     <td>{{ vlan.pyats_alias }}</td>
     <td>{{ vlan.vlan }}</td>
@@ -577,9 +634,9 @@
   </tbody>
 </table>
 {% endif %}
-{% if object_list.13 %}
+{% if object_list.14 %}
   <h2>Learn VRF Hits</h2>
-  {% for vrf in object_list.13 %}
+  {% for vrf in object_list.14 %}
   <p>Device Name: {{ vrf.hostname }}</p>
   <p>Captured {{ vrf.timestamp }}</p>
 <table id = "learn_vrf" class="table table-bordered">
@@ -604,7 +661,7 @@
       </tr>
       </tbody></table>{% endfor %}
 {% endif %}
-{% if object_list.14 %}
+{% if object_list.15 %}
 <h2>NMAP Hits</h2>
 <table id = "nmap" class="table table-bordered">
     <thead class = "alert-success">
@@ -623,7 +680,7 @@
             <th>Timestamp</th>
           </tr>
           </thead>
-          <tbody>{% for port in object_list.14 %}
+          <tbody>{% for port in object_list.15 %}
         <tr>
             <td>{{ port.pyats_alias }}</td>
             <td>{{ port.protocol }}</td>
@@ -641,7 +698,7 @@
           </tbody>  
         </table>  
 {% endif %}
-{% if object_list.15 %}
+{% if object_list.16 %}
 <h2>PSIRT Hits</h2>
 <table id = "psirt" class="table table-bordered">
   <thead class = "alert-success">
@@ -668,7 +725,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for vulnerability in object_list.15 %}
+  <tbody>{% for vulnerability in object_list.16 %}
 <tr>
     <td>{{ vulnerability.pyats_alias }}</td>
     <td>{{ vulnerability.advisory_id }}</td>
@@ -694,7 +751,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.16 %}
+{% if object_list.17 %}
 <h2>Recommended Release Hits</h2>
 <table id = "recommended" class="table table-bordered">
   <thead class = "alert-success">
@@ -718,7 +775,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for suggestion in object_list.16 %}
+  <tbody>{% for suggestion in object_list.17 %}
 <tr>
     <td>{{ suggestion.pyats_alias }}</td>
     <td>{{ suggestion.basePID }}</td>
@@ -741,7 +798,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.17 %}
+{% if object_list.18 %}
 <h2>Serial 2 Contract Hits</h2>
 <table id = "serial2contract" class="table table-bordered">
   <thead class = "alert-success">
@@ -769,7 +826,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for serial in object_list.17 %}
+  <tbody>{% for serial in object_list.18 %}
 <tr>
     <td>{{ serial.pyats_alias }}</td>
     <td>{{ serial.base_pid }}</td>
@@ -796,7 +853,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.18 %}
+{% if object_list.19 %}
 <h2>Show Inventory Hits</h2>
 <table id = "show_inventory" class="table table-bordered">
   <thead class = "alert-success">
@@ -809,7 +866,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for part in object_list.18 %}
+  <tbody>{% for part in object_list.19 %}
 <tr>
     <td>{{ part.pyats_alias }}</td>
     <td>{{ part.part }}</td>
@@ -821,7 +878,7 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.19 %}
+{% if object_list.20 %}
 <h2>Show IP Interface Brief Hits</h2>
 <table id = "show_ip_int_brief" class="table table-bordered">
   <thead class = "alert-success">
@@ -833,7 +890,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in object_list.19 %}
+  <tbody>{% for interface in object_list.20 %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -844,9 +901,9 @@
   </tbody>  
 </table>
 {% endif %}
-{% if object_list.20 %}
+{% if object_list.21 %}
   <h2>Show Version Hits</h2>
-  {% for version in object_list.20 %}
+  {% for version in object_list.21 %}
   {%   if version.os == "nxos" %}
       <p>Device Name: {{ version.device_name }}</p>
       <p>Captured {{ version.timestamp }}</p>
@@ -1009,7 +1066,24 @@
         select: true
     });
     });
-  </script>  
+  </script> 
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#eox_sw').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>    
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#learn_acl').DataTable({

@@ -22,6 +22,10 @@ def eox_sn_all_ondemand(request):
     os.system('pyats run job eox_sn_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def eox_sw_all_ondemand(request):
+    os.system('pyats run job eox_sw_job.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def learn_acl_all_ondemand(request):
     os.system('pyats run job learn_acl_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
@@ -110,6 +114,15 @@ class OnDemandResultEoSN(ListView):
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job eox_sn_filter_job.py')
+
+class OnDemandResultEoSW(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('eox_sw_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job eox_sw_filter_job.py')
 
 class OnDemandResultACL(ListView):
     template_name = 'OnDemand/ondemand.html'

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, EoX_PID, EoX_SN, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -125,9 +125,39 @@ def eox_sn_nxos_archive(request):
     return render(request, 'HTML/EoX_SN/eox_sn_nxos_archive.html', context)
 
 def eox_sn_alias_archive(request, pyats_alias):
-    sn_list = EoX_SN.objects.filter(pyats_alias=pyats_alias)
+    sw_list = EoX_SN.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'sn_list': sn_list}
     return render(request, 'HTML/EoX_SN/eox_sn_alias_archive.html', context)
+
+def eox_sw_all(request):
+    sw_list = EoX_IOS.objects.all()
+    context = {'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_all.html', context)
+
+def eox_sw_year_archive(request, year):
+    sw_list = EoX_IOS.objects.filter(timestamp__year=year)
+    context = {'year': year, 'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_year_archive.html', context)
+
+def eox_sw_month_archive(request, year, month):
+    sw_list = EoX_IOS.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_month_archive.html', context)
+
+def eox_sw_day_archive(request, year, month, day):
+    sw_list = EoX_IOS.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_day_archive.html', context)
+
+def eox_sw_nxos_archive(request):
+    sw_list = EoX_IOS.objects.filter(os='nxos')
+    context = {'os': os, 'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_nxos_archive.html', context)
+
+def eox_sw_alias_archive(request, pyats_alias):
+    sw_list = EoX_IOS.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'sw_list': sw_list}
+    return render(request, 'HTML/EoX_SW/eox_sw_alias_archive.html', context)
 
 def learn_acl_all(request):
     acl_list = LearnACL.objects.all()
