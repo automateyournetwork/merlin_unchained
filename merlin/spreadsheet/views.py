@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, EoX_PID, EoX_SN, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -70,6 +70,30 @@ def eox_sn_csv_download_latest(request):
     for sn in eox_sns:
         writer.writerow(sn)
     return response    
+
+def eox_sw_csv(request):
+    return render(request, 'CSV/EoX_SW/eox_sw_csv.html')
+
+def eox_sw_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="eox_sw_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Part ID','Description','Bulletin Number','Bulletin URL','External Announcement','End of Sales','End of Software Maintenance','End of Security Vulnernabilites','End of Routine Maintenance','End of Service Contract','End of SVC Attachments','Last Updated','Part ID Active','Migration Information','Migration Options','Migration Part ID','Migration Name','Migration Strategy','Migration URL','Timestamp'])
+    eox_sws = EoX_IOS.objects.all().values_list('pyats_alias','pid', 'description', 'bulletin_number', 'bulletin_url', 'external_date', 'sale_date', 'sw_maintenance', 'security', 'routine_failure', 'service_contract', 'last', 'svc_attach', 'last_updated', 'pid_active', 'migration_information', 'migration_option', 'migration_pid', 'migration_name', 'migration_strat', 'migration_url', 'timestamp')
+    for sw in eox_sws:
+        writer.writerow(sw)
+    return response
+
+def eox_sw_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="eox_sw_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','Part ID','Description','Bulletin Number','Bulletin URL','External Announcement','End of Sales','End of Software Maintenance','End of Security Vulnernabilites','End of Routine Maintenance','End of Service Contract','End of SVC Attachments','Last Updated','Part ID Active','Migration Information','Migration Options','Migration Part ID','Migration Name','Migration Strategy','Migration URL','Timestamp'])
+    latest_timestamp = EoX_IOS.objects.latest('timestamp')
+    eox_sws = EoX_IOS.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','pid', 'description', 'bulletin_number', 'bulletin_url', 'external_date', 'sale_date', 'sw_maintenance', 'security', 'routine_failure', 'service_contract', 'last', 'svc_attach', 'last_updated', 'pid_active', 'migration_information', 'migration_option', 'migration_pid', 'migration_name', 'migration_strat', 'migration_url', 'timestamp')
+    for sw in eox_sws:
+        writer.writerow(sw)
+    return response
 
 def learn_acl_csv(request):
     return render(request, 'CSV/LearnACL/learn_acl_csv.html')

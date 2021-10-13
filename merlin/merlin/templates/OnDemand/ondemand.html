@@ -74,12 +74,33 @@
       </td>
       <td>
         <div id ="eox_sn_spinner" class="d-flex not-visible">
-          <div class="spinner-border text-warning" role="status">
+          <div class="spinner-border text-primary" role="status">
             <span class="visually-primary"></span>
           </div>
         </div>
       </td>        
       </tr>
+    <tr>
+      <td>End of Life - Software</td>       
+        <td><button id="eox_sw_all_devices_button">End of Life - Software</button></td>
+        <td>
+          <div id ="eox_sw_filter">
+            <form id = "eox_sw_filter" action="{% url 'eox_sw_ondemand_filter' %}" method="get">
+              <input name="eox_sw_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
+      </td>
+      <td>
+        <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
+      </td>
+      <td>
+        <div id ="eox_sw_spinner" class="d-flex not-visible">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-primary"></span>
+          </div>
+        </div>
+      </td>        
+      </tr>      
       <tr>      
       <td>Learn ACL</td>       
         <td><button id="learn_acl_all_devices_button">Learn ACL</button></td>

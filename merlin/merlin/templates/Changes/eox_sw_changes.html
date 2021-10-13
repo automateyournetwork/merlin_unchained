@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if sw_additions %}
+<h2>Merlin has detected the following End of Life - Software Values have been added</h2>
+<table id = "sw_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Date of Support</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for sw in sw_additions %}
+  <tr>
+    <td>{{ sw.pyats_alias }}</td>
+    <td>{{ sw.pid }}</td>
+    <td>{{ sw.description }}</td>
+    <td>{{ sw.bulletin_number }}</td>
+    <td><a href="{{ sw.bulletin_url }}">{{ sw.bulletin_url }}</a></td>
+    <td>{{ sw.external_date }}</td>
+    <td>{{ sw.sale_date }}</td>
+    <td>{{ sw.sw_maintenance }}</td>
+    <td>{{ sw.security }}</td>
+    <td>{{ sw.routine_failure }}</td>
+    <td>{{ sw.service_contract }}</td>
+    <td>{{ sw.last }}</td>
+    <td>{{ sw.svc_attach }}</td>
+    <td>{{ sw.last_updated }}</td>
+    <td>{{ sw.pid_active }}</td>
+    <td>{{ sw.migration_information }}</td>
+    <td>{{ sw.migration_option }}</td>
+    <td>{{ sw.migration_pid }}</td>
+    <td>{{ sw.migration_name }}</td>
+    <td>{{ sw.migration_strat }}</td>
+    <td><a href="{{ sw.migration_url }}">{{ sw.migration_url }}</a></td>
+    <td>{{ sw.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table>  
+{% else %}
+<h2>Merlin has not detected any End of Life - Software additons</h2>
+{% endif %}
+{% if sw_removals %}
+<h2>Merlin has detected the following End of Life - Software Values have been removed</h2>
+<table id = "sw_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <thead class = "alert-success">
+  <tr>
+  <th>pyATS Alias</th>
+  <th>Product ID</th>
+  <th>Description</th>
+  <th>Bulletin Number</th>
+  <th>Bulletin URL</th>
+  <th>External Announcement Date</th>
+  <th>End of Sale</th>
+  <th>End of Software Maintenance</th>
+  <th>End of Security Vulnerabilities Support</th>
+  <th>End of Routine Failure Analysis</th>
+  <th>End of Service Contract Renewal</th>
+  <th>End of SVC Attachment</th>
+  <th>Last Date of Support</th>
+  <th>Last Updated</th>
+  <th>PID Active</th>
+  <th>Migration Information</th>
+  <th>Migration Option</th>
+  <th>Migration Product ID</th>
+  <th>Migration Product Name</th>
+  <th>Migration Strategy</th>
+  <th>Migration Product Info URL</th>
+  <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for sw in sw_removals %}
+  <tr>
+    <td>{{ sw.pyats_alias }}</td>
+    <td>{{ sw.pid }}</td>
+    <td>{{ sw.description }}</td>
+    <td>{{ sw.bulletin_number }}</td>
+    <td><a href="{{ sw.bulletin_url }}">{{ sw.bulletin_url }}</a></td>
+    <td>{{ sw.external_date }}</td>
+    <td>{{ sw.sale_date }}</td>
+    <td>{{ sw.sw_maintenance }}</td>
+    <td>{{ sw.security }}</td>
+    <td>{{ sw.routine_failure }}</td>
+    <td>{{ sw.service_contract }}</td>
+    <td>{{ sw.last }}</td>
+    <td>{{ sw.svc_attach }}</td>
+    <td>{{ sw.last_updated }}</td>
+    <td>{{ sw.pid_active }}</td>
+    <td>{{ sw.migration_information }}</td>
+    <td>{{ sw.migration_option }}</td>
+    <td>{{ sw.migration_pid }}</td>
+    <td>{{ sw.migration_name }}</td>
+    <td>{{ sw.migration_strat }}</td>
+    <td><a href="{{ sw.migration_url }}">{{ sw.migration_url }}</a></td>
+    <td>{{ sw.timestamp }}</td>
+  </tr>{% endfor %}  
+  </tbody>
+</table> 
+{% else %}
+<h2>Merlin has not detected any End of Life - Software removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#sw_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#sw_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+{% endblock %} 

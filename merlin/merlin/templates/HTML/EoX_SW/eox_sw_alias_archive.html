@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}Latest End of Life - Serial Number{% endblock %}
+{% block title %}End of Life - Software for {{ pyats_alias }}{% endblock %}
 
 {% block content %}
-<h1>Latest End of Life - Serial Number</h1>
-<table id = "eox_sn" class="table table-bordered">
+<h1>End of Life - Software for {{ pyats_alias }}</h1>
+<table id = "eox_sw" class="table table-bordered">
   <thead class = "alert-success">
   <tr>
   <th>pyATS Alias</th>
@@ -31,7 +31,7 @@
   <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for pid in sn_list %}
+  <tbody>{% for pid in sw_list %}
   <tr>
     <td>{{ pid.pyats_alias }}</td>
     <td>{{ pid.pid }}</td>
@@ -60,12 +60,12 @@
 </table>
 <script type = "text/javascript">
   $(document).ready(function(){
-    $('#eox_sn thead tr')
+    $('#eox_sw thead tr')
     .clone(true)
     .addClass('filters')
-    .appendTo('#eox_sn thead');
+    .appendTo('#eox_sw thead');
 
-    var table = $('#eox_sn').DataTable({
+    var table = $('#eox_sw').DataTable({
         keys: true,
         dom: 'Bfrtip',
         lengthMenu: [
@@ -129,4 +129,4 @@
 });
 });        
 </script>
-{% endblock %}
+  {% endblock %}
