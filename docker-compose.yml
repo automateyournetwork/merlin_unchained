@@ -12,7 +12,7 @@ services:
       - db
       - redis
       - flower
-      - merlin_worker01
+      - merlin_celery_beat00
   db:
     image: 'postgres'
     environment:
@@ -32,17 +32,17 @@ services:
       - 8888:8888
     depends_on:
       - redis
-      - merlin_worker01
+      - merlin_celery_beat00
   redis:
     image: "redis:alpine"
     command: redis-server
     ports:
-     - "6379:6379"
-  merlin_worker01:
+     - "6379:6379"     
+  merlin_celery_beat00:
     build: 
       context: ./
       dockerfile: ./docker/dockerfile
-    command: bash -c "cd /merlin/ && celery -A merlin worker -l INFO"
+    command: bash -c "cd /merlin/ && celery -A merlin worker --beat -l INFO"
     restart: on-failure
     volumes:
       - ./merlin/stickydata:/opt/merlin/stickydata
