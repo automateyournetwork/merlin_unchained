@@ -32,6 +32,13 @@ RUN echo "==> Adding Celery ..." \
  && pip install -U Celery \
  && pip install django-celery-beat
 
+RUN echo "==> Adding  ..." \
+ && wget http://download.redis.io/redis-stable.tar.gz \
+ && tar xzf redis-stable.tar.gz \
+ && cd redis-stable \
+ && sudo make install \
+ && pip install redis
+
 RUN echo "==> Adding PostgreSQL ..." \
  && pip install psycopg2-binary
 

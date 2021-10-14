@@ -1,7 +1,7 @@
 import os
 from celery import Celery
 
-app = Celery('merlin')
+app = Celery('merlin',broker='redis://redis:6379/0')
 
 # Celery settings are in settings.py using a `CELERY_` prefix.
 app.config_from_object('django.conf:settings', namespace='CELERY')
