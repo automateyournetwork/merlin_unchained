@@ -9,7 +9,10 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - "db"
+      - db
+      - redis
+      - flower
+      - celery_worker
   db:
     image: 'postgres'
     environment:
@@ -19,4 +22,29 @@ services:
     volumes:
       - ./data/db:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5432:5432"  
+  flower:  
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379
+      - FLOWER_PORT=8888
+    ports:  
+      - 8888:8888
+    depends_on:
+      - redis
+      - celery_worker
+  redis:
+    image: "redis:alpine"
+    command: redis-server
+    ports:
+     - "6379:6379"
+  celery_worker:
+    build: 
+      context: ./
+      dockerfile: ./docker/dockerfile
+    command: bash -c "cd /merlin/ && celery -A merlin worker -l INFO"
+    restart: on-failure
+    volumes:
+      - ./merlin/stickydata:/opt/merlin/stickydata
+    depends_on:
+      - redis
