@@ -1,6 +1,8 @@
 import os
 from pyats.topology import Testbed, Device
 from genie.testbed import load
+import django
+django.setup()
 from merlin.models import Devices
 
 def main(runtime):

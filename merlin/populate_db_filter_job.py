@@ -3,8 +3,9 @@ import json
 import sys
 from pyats.topology import Testbed, Device
 from genie.testbed import load
+import django
+django.setup()
 from merlin.models import Devices, DynamicJobInput
-from merlin.models import Devices
 from django.db.models import Q
 
 def main(runtime):
