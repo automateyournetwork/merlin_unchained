@@ -15,270 +15,285 @@ const psirtSpinnerBox = document.getElementById('psirt_spinner')
 const recommendedSpinnerBox = document.getElementById('recommended_spinner')
 const serial2contractSpinnerBox = document.getElementById('serial2contract_spinner')
 const showInventorySpinnerBox = document.getElementById('show_inventory_spinner')
+const showLicenseSummarySpinnerBox = document.getElementById('show_license_summary_spinner')
 const showIPIntBriefSpinnerBox = document.getElementById('show_ip_int_brief_spinner')
 const showVersionSpinnerBox = document.getElementById('show_version_spinner')
 
-$("#get_all_all_devices_button").click(function(e){
+$("#get_all_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/GetAll/get_all_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             getAllSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             getAllSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#eox_pid_all_devices_button").click(function(e){
+$("#eox_pid_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/EoPID/eox_pid_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             eox_pid_SpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             eox_pid_SpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#eox_sn_all_devices_button").click(function(e){
+$("#eox_sn_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/EoSN/eox_sn_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             eox_sn_SpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             eox_sn_SpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#eox_sw_all_devices_button").click(function(e){
+$("#eox_sw_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/EoSW/eox_sw_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             eox_sw_SpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             eox_sw_SpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_acl_all_devices_button").click(function(e){
+$("#learn_acl_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnACL/learn_acl_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnACLSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnACLSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_arp_all_devices_button").click(function(e){
+$("#learn_arp_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnARP/learn_arp_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnARPSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnARPSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_bgp_all_devices_button").click(function(e){
+$("#learn_bgp_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnBGP/learn_bgp_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnBGPSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnBGPSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_config_all_devices_button").click(function(e){
+$("#learn_config_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnConfig/learn_config_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnConfigSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnConfigSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_interface_all_devices_button").click(function(e){
+$("#learn_interface_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnInterface/learn_interface_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnInterfaceSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnInterfaceSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_platform_all_devices_button").click(function(e){
+$("#learn_platform_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnPlatform/learn_platform_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnPlatformSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnPlatformSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_vlan_all_devices_button").click(function(e){
+$("#learn_vlan_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnVLAN/learn_vlan_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnVLANSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnVLANSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#learn_vrf_all_devices_button").click(function(e){
+$("#learn_vrf_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/LearnVRF/learn_vrf_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             learnVRFSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             learnVRFSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#nmap_all_devices_button").click(function(e){
+$("#nmap_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/NMAP/nmap_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             nmapSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             nmapSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#psirt_all_devices_button").click(function(e){
+$("#psirt_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/PSIRT/psirt_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             psirtSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             psirtSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#recommended_all_devices_button").click(function(e){
+$("#recommended_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/Recommended/recommended_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             recommendedSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             recommendedSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#serial2contract_all_devices_button").click(function(e){
+$("#serial2contract_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/Serial2Contract/serial2contract_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             serial2contractSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             serial2contractSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#show_inventory_all_devices_button").click(function(e){
+$("#show_inventory_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/ShowInventory/show_inventory_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             showInventorySpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             showInventorySpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#show_ip_int_brief_all_devices_button").click(function(e){
+$("#show_license_summary_all_devices_button").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/OnDemand/ShowLicenseSummary/show_license_summary_all_result/",
+        beforeSend: function () {
+            showLicenseSummarySpinnerBox.classList.remove('not-visible')
+        },
+        success: function (response) {
+            showLicenseSummarySpinnerBox.classList.add('not-visible')
+        }
+    })
+})
+
+$("#show_ip_int_brief_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             showIPIntBriefSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             showIPIntBriefSpinnerBox.classList.add('not-visible')
         }
     })
 })
 
-$("#show_version_all_devices_button").click(function(e){
+$("#show_version_all_devices_button").click(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
         url: "/OnDemand/ShowVersion/show_version_all_result/",
-        beforeSend: function(){
+        beforeSend: function () {
             showVersionSpinnerBox.classList.remove('not-visible')
         },
-        success: function(response){
+        success: function (response) {
             showVersionSpinnerBox.classList.add('not-visible')
         }
     })
