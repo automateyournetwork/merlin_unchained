@@ -78,6 +78,10 @@ def show_inventory_all_ondemand(request):
     os.system('pyats run job show_inventory_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
 
+def show_license_summary_all_ondemand(request):
+    os.system('pyats run job show_license_summary_job.py')
+    return render(request, 'OnDemand/ondemand_result.html')
+
 def show_ip_int_brief_all_ondemand(request):
     os.system('pyats run job show_ip_int_brief_job.py')
     return render(request, 'OnDemand/ondemand_result.html')
