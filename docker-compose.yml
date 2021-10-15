@@ -13,6 +13,7 @@ services:
       - redis
       - flower
       - merlin_celery_beat00
+      - prometheus
   db:
     image: 'postgres'
     environment:
@@ -48,3 +49,13 @@ services:
       - ./merlin/stickydata:/opt/merlin/stickydata
     depends_on:
       - redis
+  prometheus:
+    image: prom/prometheus:v2.21.0
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - prometheus-data:/prometheus
+
+volumes:
+  prometheus-data:      

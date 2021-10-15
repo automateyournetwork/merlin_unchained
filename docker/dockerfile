@@ -28,11 +28,18 @@ RUN echo "==> Adding Django ..." \
 RUN echo "==> Adding Django REST Framework ..." \
  && pip install djangorestframework
 
+RUN echo "==> Adding Celery and Django Celery Beat..." \
+ && pip install -U Celery \
+ && pip install django-celery-beat
+
+RUN echo "==> Adding Django Prometheus ..." \
+ && pip install django-prometheus
+
 RUN echo "==> Adding Celery ..." \
  && pip install -U Celery \
  && pip install django-celery-beat
 
-RUN echo "==> Adding  ..." \
+RUN echo "==> Adding Redis (be patient - long step) ..." \
  && wget http://download.redis.io/redis-stable.tar.gz \
  && tar xzf redis-stable.tar.gz \
  && cd redis-stable \
