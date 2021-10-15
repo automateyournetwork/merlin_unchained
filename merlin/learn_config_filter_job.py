@@ -3,6 +3,8 @@ import json
 import sys
 from pyats.topology import Testbed, Device
 from genie.testbed import load
+import django
+django.setup()
 from merlin.models import Devices, DynamicJobInput
 from django.db.models import Q
 

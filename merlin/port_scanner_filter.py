@@ -3,6 +3,8 @@
 # ----------------
 # Written by John Capobianco, March 2021
 # Copyright (c) 2021 John Capobianco
+import django
+django.setup()
 from merlin.models import Devices, DynamicJobInput
 from django.db.models import Q
 from nmap import PortScanner
