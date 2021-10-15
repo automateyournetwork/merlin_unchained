@@ -544,6 +544,19 @@ class ShowIPIntBrief(models.Model):
         template = '{0.pyats_alias} {0.os} {0.interface} {0.interface_status} {0.ip_address} {0.timestamp}'
         return template.format(self)
 
+class ShowLicenseSummary(models.Model):
+    pyats_alias = models.TextField()
+    os = models.TextField()
+    license_name = models.TextField()
+    entitlement = models.TextField()
+    count = models.TextField()
+    status = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.pyats_alias} {0.os} {0.license_name} {0.entitlement} {0.count} {0.status} {0.timestamp}'
+        return template.format(self)
+
 class ShowVersion(models.Model):
     pyats_alias = models.TextField()
     bootflash = models.TextField()
