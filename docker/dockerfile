@@ -10,8 +10,7 @@ ENV DJANGO_SUPERUSER_PASSWORD=admin
 RUN echo "==> Upgrading apk and installing system utilities ...." \
  && apt -y update \
  && apt-get install -y wget \
- && apt-get -y install sudo \
- && apt-get -y install curl
+ && apt-get -y install sudo
 
 RUN echo "==> Installing Python3 and pip ...." \  
  && apt-get install python3 -y \
