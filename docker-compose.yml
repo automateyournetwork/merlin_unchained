@@ -15,6 +15,7 @@ services:
       - merlin_celery_beat00
       - prometheus
       - elasticsearch
+      - kibana
   db:
     image: 'postgres'
     environment:
@@ -72,6 +73,20 @@ services:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
       - ./docker-data-volumes/elasticsearch:/usr/share/elasticsearch/data
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.3
+    depends_on:
+      - elasticsearch
+    container_name: kibana
+    ports:
+      - 9300:5601
+    environment:
+      SERVERNAME: localhost
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      ELASTICSEARCH_USERNAME: elastic
+      ELASTICSEARCH_PASSWORD: merlin
+      SERVER_SSL_ENABLED: "false"
 
 volumes:
   prometheus-data:      
