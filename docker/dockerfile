@@ -7,7 +7,7 @@ ENV DJANGO_SUPERUSER_EMAIL=admin@automateyournetwork.ca
 ENV DJANGO_SUPERUSER_USERNAME=admin
 ENV DJANGO_SUPERUSER_PASSWORD=admin
 
-RUN echo "==> Upgrading apk and system ...." \
+RUN echo "==> Upgrading apk and installing system utilities ...." \
  && apt -y update \
  && apt-get install -y wget \
  && apt-get -y install sudo
@@ -34,6 +34,9 @@ RUN echo "==> Adding Celery and Django Celery Beat..." \
 
 RUN echo "==> Adding Django Prometheus ..." \
  && pip install django-prometheus
+
+RUN echo "==> Adding Django Elasticsarch DSL ..." \
+ && pip install django-elasticsearch-dsl
 
 RUN echo "==> Adding Celery ..." \
  && pip install -U Celery \
