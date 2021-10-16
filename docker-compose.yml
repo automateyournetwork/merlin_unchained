@@ -14,6 +14,7 @@ services:
       - flower
       - merlin_celery_beat00
       - prometheus
+      - elasticsearch
   db:
     image: 'postgres'
     environment:
@@ -56,6 +57,21 @@ services:
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    container_name: elasticsearch
+    user: "1000:1000"
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - ELASTIC_PASSWORD=merlin
+    ports:
+      - 9200:9200
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
+      - ./docker-data-volumes/elasticsearch:/usr/share/elasticsearch/data
 
 volumes:
   prometheus-data:      

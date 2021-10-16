@@ -29,6 +29,14 @@ Featuring presentation enhancements with
 
 ![Datatables](images/datatables.png)
 
+Metrics by 
+
+![Prometheus](images/prometheus_logo.png)
+
+Featuring Advanced Search and more with 
+
+![Elastic](images/elastic_logo.png)
+
 Containerized with 
 
 ![Docker](images/Moby-logo.png)

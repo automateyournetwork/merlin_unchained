@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'rest_framework',
     'celery',
-    'django_prometheus'
+    'django_prometheus',
+    'django_elasticsearch_dsl',
 ]
 
 MIDDLEWARE = [
@@ -144,3 +145,9 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'  
 CELERY_TIMEZONE = "America/New_York"
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'elastic:merlin@elasticsearch:9200'
+    },
+}
