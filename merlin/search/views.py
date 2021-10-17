@@ -42,7 +42,7 @@ class SearchResultAllView(ListView):
         ),LearnVLAN.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vlan__icontains=query) | Q(interfaces__icontains=query) | Q(mode__icontains=query) | Q(name__icontains=query) | Q(shutdown__icontains=query) | Q(state__icontains=query)
         ),LearnVRF.objects.filter(
-            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(address_family_ipv4__icontains=query) | Q(address_family_ipv6__icontains=query) | Q(route_distinguisher__icontains=query)
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(route_distinguisher__icontains=query)
         ),NMAP.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(protocol__icontains=query) | Q(port__icontains=query) | Q(conf__icontains=query) | Q(cpe__icontains=query) | Q(extra_info__icontains=query) | Q(name__icontains=query) | Q(product__icontains=query) | Q(reason__icontains=query) | Q(state__icontains=query) | Q(version__icontains=query)
         ),PSIRT.objects.filter(
@@ -96,7 +96,7 @@ class SearchResultStateView(ListView):
         ),LearnVLAN.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vlan__icontains=query) | Q(interfaces__icontains=query) | Q(mode__icontains=query) | Q(name__icontains=query) | Q(shutdown__icontains=query) | Q(state__icontains=query)
         ),LearnVRF.objects.filter(
-            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(address_family_ipv4__icontains=query) | Q(address_family_ipv6__icontains=query) | Q(route_distinguisher__icontains=query)
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(vrf__icontains=query) | Q(route_distinguisher__icontains=query)
         ),NMAP.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(protocol__icontains=query) | Q(port__icontains=query) | Q(conf__icontains=query) | Q(cpe__icontains=query) | Q(extra_info__icontains=query) | Q(name__icontains=query) | Q(product__icontains=query) | Q(reason__icontains=query) | Q(state__icontains=query) | Q(version__icontains=query)
         ),PSIRT.objects.filter(

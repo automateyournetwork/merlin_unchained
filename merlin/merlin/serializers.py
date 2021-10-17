@@ -84,7 +84,7 @@ class LearnVLANSerializer(serializers.HyperlinkedModelSerializer):
 class LearnVRFSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = LearnVRF
-        fields = ('pyats_alias', 'os', 'vrf', 'address_family_ipv4', 'address_family_ipv6', 'route_distinguisher', 'timestamp')
+        fields = ('pyats_alias', 'os', 'vrf', 'route_distinguisher', 'timestamp')
 
 class NMAPSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

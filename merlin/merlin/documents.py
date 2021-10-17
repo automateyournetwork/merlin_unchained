@@ -475,8 +475,6 @@ class LearnVRFDocument(Document):
              'pyats_alias',
              'os',
              'vrf',
-             'address_family_ipv4',
-             'address_family_ipv6',
              'route_distinguisher',
              'timestamp'
          ]
