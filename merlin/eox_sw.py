@@ -74,8 +74,8 @@ class Collect_Information(aetest.Testcase):
                     if "EndOfSecurityVulSupportDate" in eox_sw_json:
                         security=pid['EndOfSecurityVulSupportDate']['value']
                     else:
-                        security="null"
-                                
+                        security="2000-01-01"
+
                     for pid in eox_sw_json['EOXRecord']:
                         if "EOXError" not in pid:
                             eox_sw = EoX_IOS(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))

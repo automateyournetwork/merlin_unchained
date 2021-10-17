@@ -75,7 +75,7 @@ class Collect_Information(aetest.Testcase):
                                     if "EndOfSecurityVulSupportDate" in eox_sn_json:
                                         security=pid['EndOfSecurityVulSupportDate']['value']
                                     else:
-                                        security="null"
+                                        security="2000-01-01"
                                 
                                     for pid in eox_sn_json['EOXRecord']:
                                         if "EOXError" not in pid:

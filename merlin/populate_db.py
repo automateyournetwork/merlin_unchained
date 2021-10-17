@@ -45,6 +45,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         for device in testbed.devices.values():
             # EoX - PID
+            # Show Inventory to JSON
             self.parsed_show_inventory=ParseShowCommandFunction.parse_show_command(steps, device, "show inventory")
             with steps.start('Store data',continue_=True) as step:
 
@@ -75,11 +76,12 @@ class Collect_Information(aetest.Testcase):
                         if "EndOfSecurityVulSupportDate" in eox_pid_json:
                             security=pid['EndOfSecurityVulSupportDate']['value']
                         else:
-                            security="null"
+                            security="2000-01-01"
 
                         for pid in eox_pid_json['EOXRecord']:
-                            eox_pid = EoX_PID(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))
-                            eox_pid.save()
+                            if "EOXError" not in pid:                                
+                                eox_pid = EoX_PID(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))
+                                eox_pid.save()
                 elif device.os == "iosxe":
                     if device.type == "Catalyst 9300":
                         for slot,value01 in self.parsed_show_inventory['slot'].items():
@@ -96,12 +98,86 @@ class Collect_Information(aetest.Testcase):
                                         if "EndOfSecurityVulSupportDate" in eox_pid_json:
                                             security=pid['EndOfSecurityVulSupportDate']['value']
                                         else:
-                                            security="null"
+                                            security="2000-01-01"
 
                                         for pid in eox_pid_json['EOXRecord']:
                                             if "EOXError" not in pid:
                                                 eox_pid = EoX_PID(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))
-                                                eox_pid.save()  
+                                                eox_pid.save() 
+            
+            # EoX - SN
+            # Show Inventory to JSON
+            self.parsed_show_inventory=ParseShowCommandFunction.parse_show_command(steps, device, "show inventory")
+            with steps.start('Store data',continue_=True) as step:
+
+                # Get OAuth Token
+                if hasattr(self, 'parsed_show_inventory'):
+                    db_key = EoXCredentials.objects.all().values('key')
+                    db_user = EoXCredentials.objects.all().values('client_secret')
+                    eox_sn_api_username = db_key[0]['key']
+                    eox_sn_api_password = db_user[0]['client_secret']
+
+                    oauth_token_raw = requests.post("https://cloudsso.cisco.com/as/token.oauth2?grant_type=client_credentials&client_id=%s&client_secret=%s" % (eox_sn_api_username,eox_sn_api_password))
+                    oauth_token_json = oauth_token_raw.json()
+                    oauth_headers = {"Authorization": "%s %s" % (oauth_token_json['token_type'],oauth_token_json['access_token'])}
+
+                # Go Get Recommended Release using chassis PID and Oauth token
+                if device.os == "nxos":
+                    for part,value in self.parsed_show_inventory.items():
+                        for pid,value01 in value.items():
+                                sn = value01['serial_number']
+                                with steps.start('Calling API',continue_=True) as step:
+                                    try:
+                                        eox_sn_raw = requests.get("https://api.cisco.com/supporttools/eox/rest/5/EOXBySerialNumber/%s" % sn, headers=oauth_headers)
+                                        eox_sn_json = eox_sn_raw.json()
+                                    except Exception as e:
+                                        step.failed('Could not parse it correctly\n{e}'.format(e=e))                           
+                                    
+                                    if "EndOfSecurityVulSupportDate" in eox_sn_json:
+                                        security=pid['EndOfSecurityVulSupportDate']['value']
+                                    else:
+                                        security="2000-01-01"
+                                
+                                    for pid in eox_sn_json['EOXRecord']:
+                                        if "EOXError" not in pid:
+                                            eox_sn = EoX_SN(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))
+                                            eox_sn.save()
+            # EoX - Software
+            # Show Version to JSON
+            self.parsed_show_version=ParseShowCommandFunction.parse_show_command(steps, device, "show version")
+            
+            with steps.start('Store data',continue_=True) as step:
+
+                # Get OAuth Token
+                if hasattr(self, 'parsed_show_version'):
+                    db_key = EoXCredentials.objects.all().values('key')
+                    db_user = EoXCredentials.objects.all().values('client_secret')
+                    eox_sw_api_username = db_key[0]['key']
+                    eox_sw_api_password = db_user[0]['client_secret']
+
+                    oauth_token_raw = requests.post("https://cloudsso.cisco.com/as/token.oauth2?grant_type=client_credentials&client_id=%s&client_secret=%s" % (eox_sw_api_username,eox_sw_api_password))
+                    oauth_token_json = oauth_token_raw.json()
+                    oauth_headers = {"Authorization": "%s %s" % (oauth_token_json['token_type'],oauth_token_json['access_token'])}
+
+                # Go Get Recommended Release using chassis PID and Oauth token
+                if device.os == "nxos":
+                    sw = self.parsed_show_version['platform']['software']['system_version']
+                    with steps.start('Calling API',continue_=True) as step:
+                        try:
+                            eox_sw_raw = requests.get("https://api.cisco.com/supporttools/eox/rest/5/EOXBySWReleaseString/1?responseencoding=&input1=%s,%s" % (sw, device.os), headers=oauth_headers)
+                            eox_sw_json = eox_sw_raw.json()
+                        except Exception as e:
+                            step.failed('Could not parse it correctly\n{e}'.format(e=e))                           
+                                    
+                    if "EndOfSecurityVulSupportDate" in eox_sw_json:
+                        security=pid['EndOfSecurityVulSupportDate']['value']
+                    else:
+                        security="2000-01-01"
+
+                    for pid in eox_sw_json['EOXRecord']:
+                        if "EOXError" not in pid:
+                            eox_sw = EoX_IOS(pyats_alias=device.alias,os=device.os,pid=pid['EOLProductID'],description=pid['ProductIDDescription'],bulletin_number=pid['ProductBulletinNumber'],bulletin_url=pid['LinkToProductBulletinURL'],external_date=pid['EOXExternalAnnouncementDate']['value'],sale_date=pid['EndOfSaleDate']['value'],sw_maintenance=pid['EndOfSWMaintenanceReleases']['value'],security=security,routine_failure=pid['EndOfRoutineFailureAnalysisDate']['value'],service_contract=pid['EndOfServiceContractRenewal']['value'],last=pid['LastDateOfSupport']['value'],svc_attach=pid['EndOfSvcAttachDate']['value'],last_updated=pid['UpdatedTimeStamp']['value'],pid_active=pid['EOXMigrationDetails']['PIDActiveFlag'],migration_information=pid['EOXMigrationDetails']['MigrationInformation'],migration_option=pid['EOXMigrationDetails']['MigrationOption'],migration_pid=pid['EOXMigrationDetails']['MigrationProductId'],migration_name=pid['EOXMigrationDetails']['MigrationProductName'],migration_strat=pid['EOXMigrationDetails']['MigrationStrategy'],migration_url=pid['EOXMigrationDetails']['MigrationProductInfoURL'],timestamp=datetime.now().replace(microsecond=0))
+                            eox_sw.save()
 
             # Learn ACL to JSON
             self.learned_acl = ParseLearnFunction.parse_learn(steps, device, "acl")
@@ -181,7 +257,18 @@ class Collect_Information(aetest.Testcase):
                     for instance in self.learned_bgp.routes_per_peer['instance']:
                         for vrf in self.learned_bgp.routes_per_peer['instance'][instance]['vrf']:
                             for neighbor in self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor']:
-                                learnBGPRoutesPerPeer = LearnBGPRoutesPerPeer(pyats_alias=device.alias,os=device.os,instance=instance,vrf=vrf,neighbor=neighbor,advertised=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised'],routes=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['routes'],remote_as=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['remote_as'],timestamp=datetime.now().replace(microsecond=0))
+                                if self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised'] == {}:
+                                    advertised="0"
+                                else:
+                                    advertised=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised']
+
+                                if self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['routes'] == {}:
+                                    routes="0"
+                                else:
+                                    routes=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised']
+
+                                learnBGPRoutesPerPeer = LearnBGPRoutesPerPeer(pyats_alias=device.alias,os=device.os,instance=instance,vrf=vrf,neighbor=neighbor,advertised=advertised,routes=routes,remote_as=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['remote_as'],timestamp=datetime.now().replace(microsecond=0))
+                                print (learnBGPRoutesPerPeer)
                         learnBGPRoutesPerPeer.save()
                         
                 if self.learned_bgp.table is not None:

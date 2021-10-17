@@ -64,7 +64,18 @@ class Collect_Information(aetest.Testcase):
                     for instance in self.learned_bgp.routes_per_peer['instance']:
                         for vrf in self.learned_bgp.routes_per_peer['instance'][instance]['vrf']:
                             for neighbor in self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor']:
-                                learnBGPRoutesPerPeer = LearnBGPRoutesPerPeer(pyats_alias=device.alias,os=device.os,instance=instance,vrf=vrf,neighbor=neighbor,advertised=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised'],routes=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['routes'],remote_as=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['remote_as'],timestamp=datetime.now().replace(microsecond=0))
+                                if self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised'] == {}:
+                                    advertised="0"
+                                else:
+                                    advertised=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised']
+
+                                if self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['routes'] == {}:
+                                    routes="0"
+                                else:
+                                    routes=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['address_family']['ipv4 unicast']['advertised']
+
+                                learnBGPRoutesPerPeer = LearnBGPRoutesPerPeer(pyats_alias=device.alias,os=device.os,instance=instance,vrf=vrf,neighbor=neighbor,advertised=advertised,routes=routes,remote_as=self.learned_bgp.routes_per_peer['instance'][instance]['vrf'][vrf]['neighbor'][neighbor]['remote_as'],timestamp=datetime.now().replace(microsecond=0))
+                                print (learnBGPRoutesPerPeer)
                         learnBGPRoutesPerPeer.save()
                         
                 if self.learned_bgp.table is not None:
