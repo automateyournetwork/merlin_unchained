@@ -20,7 +20,7 @@ from pyats import topology
 from pyats.log.utils import banner
 from general_functionalities import ParseShowCommandFunction, ParseLearnFunction, ParseConfigFunction, ParseDictFunction
 from datetime import datetime
-from merlin.models import LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedReleaseCredentials, RecommendedRelease, Serial2ContractCredentials, Serial2Contract, PSIRTCredentials, PSIRT, ShowInventory, ShowIPIntBrief, ShowVersion 
+from merlin.models import EoXCredentials, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, RecommendedReleaseCredentials, RecommendedRelease, Serial2ContractCredentials, Serial2Contract, PSIRTCredentials, PSIRT, ShowInventory, ShowIPIntBrief, ShowVersion 
 # ----------------
 # AE Test Setup
 # ----------------
