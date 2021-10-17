@@ -72,7 +72,7 @@ services:
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
-      - ./docker-data-volumes/elasticsearch:/usr/share/elasticsearch/data
+      - elasticdata01:/usr/share/elasticsearch/data:rw
   kibana:
     image: docker.elastic.co/kibana/kibana:7.13.3
     depends_on:
@@ -89,4 +89,6 @@ services:
       SERVER_SSL_ENABLED: "false"
 
 volumes:
-  prometheus-data:      
+  prometheus-data:
+  elasticdata01:
+    driver: local
