@@ -1,5 +1,5 @@
 cd merlin
-sleep 45
+sleep 120
 python3 manage.py makemigrations merlin
 python3 manage.py migrate merlin
 python3 manage.py migrate

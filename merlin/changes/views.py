@@ -754,13 +754,13 @@ class ChangesResultVRF(ListView):
 
     def get(self, request):
         latest_timestamp = LearnVRF.objects.latest('timestamp')
-        current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+        current_vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values("pyats_alias", "os", "vrf", "route_distinguisher")
         query = self.request.GET.get('learn_vrf_filter')
         input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
         input_field.save()
         os.system('pyats run job learn_vrf_filter_job.py')
         new_timestamp = LearnVRF.objects.latest('timestamp')
-        latest_vrfs = LearnVRF.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "address_family_ipv4", "address_family_ipv6", "route_distinguisher")
+        latest_vrfs = LearnVRF.objects.filter(timestamp=new_timestamp.timestamp).values("pyats_alias", "os", "vrf", "route_distinguisher")
         vrf_removals = current_vrfs.difference(latest_vrfs)
         vrf_additions = latest_vrfs.difference(current_vrfs)
         return render(request, 'Changes/learn_vrf_changes.html', {'vrf_removals': vrf_removals,'vrf_additions': vrf_additions})

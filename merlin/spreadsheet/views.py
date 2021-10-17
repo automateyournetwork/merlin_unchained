@@ -404,8 +404,8 @@ def learn_vrf_csv_download(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="learn_vrf_all.csv'
     writer = csv.writer(response)
-    writer.writerow(['pyATS Alias','VRF','Address Family IPv4','Address Family IPv6','Route Distinguisher','Timestamp'])
-    vrfs = LearnVRF.objects.all().values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
+    writer.writerow(['pyATS Alias','VRF','Route Distinguisher','Timestamp'])
+    vrfs = LearnVRF.objects.all().values_list('pyats_alias','vrf','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
     return response
@@ -414,9 +414,9 @@ def learn_vrf_csv_download_latest(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="learn_vrf_latest.csv'
     writer = csv.writer(response)
-    writer.writerow(['pyATS Alias','VRF','Address Family IPv4','Address Family IPv6','Route Distinguisher','Timestamp'])
+    writer.writerow(['pyATS Alias','VRF','Route Distinguisher','Timestamp'])
     latest_timestamp = LearnVRF.objects.latest('timestamp')
-    vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','address_family_ipv4','address_family_ipv6','route_distinguisher','timestamp')
+    vrfs = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','vrf','route_distinguisher','timestamp')
     for vrf in vrfs:
         writer.writerow(vrf)
     return response

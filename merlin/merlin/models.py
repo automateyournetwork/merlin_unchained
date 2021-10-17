@@ -385,13 +385,11 @@ class LearnVRF(models.Model):
     pyats_alias = models.TextField()
     os = models.TextField()
     vrf = models.TextField()
-    address_family_ipv4 = models.TextField()
-    address_family_ipv6 = models.TextField()
     route_distinguisher = models.TextField()
     timestamp = models.DateTimeField()
 
     def __str__(self):
-        template = '{0.pyats_alias} {0.os} {0.vrf} {0.address_family_ipv4} {0.address_family_ipv6} {0.route_distinguisher} {0.timestamp}'
+        template = '{0.pyats_alias} {0.os} {0.vrf} {0.route_distinguisher} {0.timestamp}'
         return template.format(self)
 
 class NMAP(models.Model):
