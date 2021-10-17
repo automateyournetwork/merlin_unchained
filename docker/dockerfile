@@ -38,10 +38,6 @@ RUN echo "==> Adding Django Prometheus ..." \
 RUN echo "==> Adding Django Elasticsarch DSL ..." \
  && pip install django-elasticsearch-dsl
 
-RUN echo "==> Adding Celery ..." \
- && pip install -U Celery \
- && pip install django-celery-beat
-
 RUN echo "==> Adding Redis (be patient - long step) ..." \
  && wget http://download.redis.io/redis-stable.tar.gz \
  && tar xzf redis-stable.tar.gz \
