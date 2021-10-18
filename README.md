@@ -41,6 +41,10 @@ Containerized with
 
 ![Docker](images/Moby-logo.png)
 
+Presented with
+
+![Heimdall](images/heimdall_logo.png)
+
 # Merlin Installation Guide 
 
 ## Install Docker Engine and Docker Compose (already included on macOS and Windows)
@@ -81,6 +85,12 @@ $ docker-compose down --volumes
 * In the interest of agility and accessibility and due to demand I've decided to make a working README for the project in it's current Alpha state so others can start to use the tool 
 
 * The project has ** only ** been tested against a single device and has not taken scale into consideration at this point yet - once I scale out and confirm 1+n devices work this bullet point will be removed
+
+# Homepage
+
+Simply Visit http://localhost:80 to navigate the world of Merlin
+
+![Homepage](images/homepage.PNG)
 
 # Log In - Admin Panel 
 
