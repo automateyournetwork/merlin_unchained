@@ -191,9 +191,9 @@ class Collect_Information(aetest.Testcase):
                                 if 'ipv4' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']:
                                     if 'source_network' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']:
                                         for source_network in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']['source_network']:
-                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network=source_network,destination_network=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']['destination_network'],l3_protocol=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']['protocol'],l4_protocol="null",operator="null",port="null",timestamp=datetime.now().replace(microsecond=0))
+                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network=source_network,destination_network=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']['destination_network'],l3_protocol=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l3']['ipv4']['protocol'],l4_protocol="false",operator="false",port="false",timestamp=datetime.now().replace(microsecond=0))
                     else:
-                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace="null",permission="null",logging="null",source_network="null",destination_network="null",l3_protocol="null",l4_protocol="null",operator="null",port="null",timestamp=datetime.now().replace(microsecond=0))
+                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace="false",permission="false",logging="false",source_network="false",destination_network="false",l3_protocol="false",l4_protocol="false",operator="false",port="false",timestamp=datetime.now().replace(microsecond=0))
                     
                     #Write to the DB    
                     learnACL.save()
@@ -205,19 +205,19 @@ class Collect_Information(aetest.Testcase):
                             if 'l4' in self.learned_acl['acls'][acl]['aces'][ace]['matches']:
                                 if 'udp' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']:
                                     if 'source_port' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']:
-                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="source protocol",destination_network="null",l3_protocol="null",l4_protocol="udp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['source_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['source_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
+                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="source protocol",destination_network="false",l3_protocol="false",l4_protocol="udp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['source_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['source_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
                                     elif 'destination_port' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']:
-                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="null",destination_network="destination protocol",l3_protocol="null",l4_protocol="udp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
+                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="false",destination_network="destination protocol",l3_protocol="false",l4_protocol="udp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['udp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
                                 elif 'tcp' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']:
                                     if 'source_port' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']:
-                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="source protocol",destination_network="null",l3_protocol="null",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['source_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['source_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
+                                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="source protocol",destination_network="false",l3_protocol="false",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['source_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['source_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
                                     elif 'destination_port' in self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']:
                                         if 'logging' in self.learned_acl['acls'][acl]['aces'][ace]['actions']:
-                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="null",destination_network="destination protocol",l3_protocol="null",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
+                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging=self.learned_acl['acls'][acl]['aces'][ace]['actions']['logging'],source_network="false",destination_network="destination protocol",l3_protocol="false",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
                                         else:
-                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging="null",source_network="null",destination_network="destination protocol",l3_protocol="null",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
+                                            learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace=ace,permission=self.learned_acl['acls'][acl]['aces'][ace]['actions']['forwarding'],logging="false",source_network="false",destination_network="destination protocol",l3_protocol="false",l4_protocol="tcp",operator=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['operator'],port=self.learned_acl['acls'][acl]['aces'][ace]['matches']['l4']['tcp']['destination_port']['operator']['port'],timestamp=datetime.now().replace(microsecond=0))
                     else:
-                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace="null",permission="null",logging="null",source_network="null",destination_network="null",l3_protocol="null",l4_protocol="null",operator="null",port="null",timestamp=datetime.now().replace(microsecond=0))
+                        learnACL=LearnACL(pyats_alias=device.alias,os=device.os,acl=acl,ace="false",permission="false",logging="false",source_network="false",destination_network="false",l3_protocol="false",l4_protocol="false",operator="false",port="false",timestamp=datetime.now().replace(microsecond=0))
                     
                     #Write to the DB
                     learnACL.save()
@@ -231,7 +231,7 @@ class Collect_Information(aetest.Testcase):
                         for neighbor in self.learned_arp['interfaces'][interface]['ipv4']['neighbors']:
                             learnARP=LearnARP(pyats_alias=device.alias,os=device.os,interface=interface,neighbor_ip=neighbor,neighbor_mac=self.learned_arp['interfaces'][interface]['ipv4']['neighbors'][neighbor]['link_layer_address'],origin=self.learned_arp['interfaces'][interface]['ipv4']['neighbors'][neighbor]['origin'],local_proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['local_proxy_enable'],proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['proxy_enable'],timestamp=datetime.now().replace(microsecond=0))
                     else:
-                            learnARP=LearnARP(pyats_alias=device.alias,os=device.os,interface=interface,neighbor_ip="null",neighbor_mac="null",origin="null",local_proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['local_proxy_enable'],proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['proxy_enable'],timestamp=datetime.now().replace(microsecond=0))
+                            learnARP=LearnARP(pyats_alias=device.alias,os=device.os,interface=interface,neighbor_ip="false",neighbor_mac="false",origin="false",local_proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['local_proxy_enable'],proxy=self.learned_arp['interfaces'][interface]['arp_dynamic_learning']['proxy_enable'],timestamp=datetime.now().replace(microsecond=0))
                     learnARP.save()
                 
                 learnARPStatistics = LearnARPStatistics(pyats_alias=device.alias,os=device.os,entries_total=self.learned_arp['statistics']['entries_total'],in_drops=self.learned_arp['statistics']['in_drops'],in_replies_pkts=self.learned_arp['statistics']['in_replies_pkts'],in_requests_pkts=self.learned_arp['statistics']['in_requests_pkts'],incomplete_total=self.learned_arp['statistics']['incomplete_total'],out_replies_pkts=self.learned_arp['statistics']['out_replies_pkts'],out_requests_pkts=self.learned_arp['statistics']['out_requests_pkts'],timestamp=datetime.now().replace(microsecond=0))
@@ -295,244 +295,244 @@ class Collect_Information(aetest.Testcase):
                     if 'description' in self.learned_interface[interface]:
                         description = self.learned_interface[interface]['description']
                     else:
-                        description = "null"
+                        description = "false"
 
                     if 'enabled' in self.learned_interface[interface]:
                         enabled = self.learned_interface[interface]['enabled']
                     else:
-                        enabled = "null"
+                        enabled = "false"
 
                     if 'oper_status' in self.learned_interface[interface]:
                         oper_status = self.learned_interface[interface]['oper_status']
                     else:
-                        oper_status = "null"
+                        oper_status = "false"
 
                     if 'access_vlan' in self.learned_interface[interface]:
                         access_vlan =  self.learned_interface[interface]['access_vlan']
                     else:
-                        access_vlan = "null"
+                        access_vlan = "false"
 
                     if 'native_vlan' in self.learned_interface[interface]:
                         native_vlan =  self.learned_interface[interface]['native_vlan']
                     else:
-                        native_vlan = "null"
+                        native_vlan = "false"
 
                     if 'switchport_enable' in self.learned_interface[interface]:
                         switchport_enable =  self.learned_interface[interface]['switchport_enable']
                     else:
-                        switchport_enable = "null" 
+                        switchport_enable = "false" 
 
                     if 'switchport_mode' in self.learned_interface[interface]:
                         switchport_mode =  self.learned_interface[interface]['switchport_mode']
                     else:
-                        switchport_mode = "null" 
+                        switchport_mode = "false" 
 
                     if 'interface_type' in self.learned_interface[interface]:
                         interface_type =  self.learned_interface[interface]['type']
                     else:
-                        interface_type = "null"                     
+                        interface_type = "false"                     
 
                     if 'bandwidth' in self.learned_interface[interface]:
                         bandwidth =  self.learned_interface[interface]['bandwidth']
                     else:
-                        bandwidth = "null"
+                        bandwidth = "false"
 
                     if 'auto_negotiate' in self.learned_interface[interface]:
                         auto_negotiate =  self.learned_interface[interface]['auto_negotiate']
                     else:
-                        auto_negotiate = "null"
+                        auto_negotiate = "false"
 
                     if 'port_speed' in self.learned_interface[interface]:
                         speed =  self.learned_interface[interface]['port_speed']
                     else:
-                        speed = "null"
+                        speed = "false"
 
                     if 'duplex_mode' in self.learned_interface[interface]:
                         duplex =  self.learned_interface[interface]['duplex_mode']
                     else:
-                        duplex = "null"
+                        duplex = "false"
 
                     if 'mtu' in self.learned_interface[interface]:
                         mtu =  self.learned_interface[interface]['mtu']
                     else:
-                        mtu = "null"
+                        mtu = "false"
 
                     if 'mac_address' in self.learned_interface[interface]:
                         mac_address =  self.learned_interface[interface]['mac_address']
                     else:
-                        mac_address = "null"
+                        mac_address = "false"
 
                     if 'phys_address' in self.learned_interface[interface]:
                         physical_address =  self.learned_interface[interface]['phys_address']
                     else:
-                        physical_address = "null"
+                        physical_address = "false"
 
                     if 'ipv4' in self.learned_interface[interface]:
                         for ip_address in self.learned_interface[interface]['ipv4']:
                             ip_address = ip_address
                     else:
-                        ip_address = "null"
+                        ip_address = "false"
 
                     if 'medium' in self.learned_interface[interface]:
                         medium =  self.learned_interface[interface]['medium']
                     else:
-                        medium = "null"
+                        medium = "false"
 
                     if 'delay' in self.learned_interface[interface]:
                         delay =  self.learned_interface[interface]['delay']
                     else:
-                        delay = "null"
+                        delay = "false"
 
                     if 'encapsulation' in self.learned_interface[interface]:
                         encapsulation =  self.learned_interface[interface]['encapsulation']['encapsulation']
                     else:
-                        encapsulation = "null"
+                        encapsulation = "false"
 
                     if 'flow_control' in self.learned_interface[interface]:
                         flow_control_receive =  self.learned_interface[interface]['flow_control']['receive']
                         flow_control_send =  self.learned_interface[interface]['flow_control']['send']
                     else:
-                        flow_control_receive = "null"
-                        flow_control_send = "null"
+                        flow_control_receive = "false"
+                        flow_control_send = "false"
 
                     if 'port_channel' in self.learned_interface[interface]:
                         if 'port_channel_int' in self.learned_interface[interface]['port_channel']:
                             port_channel_int = self.learned_interface[interface]['port_channel']['port_channel_int']
                         else:
-                            port_channel_int = "null"
+                            port_channel_int = "false"
                         
                         if 'port_channel_member_intfs' in self.learned_interface[interface]['port_channel']:
                             port_channel_member_intfs = self.learned_interface[interface]['port_channel']['port_channel_member_intfs']
                         else:
-                            port_channel_member_intfs = "null"
+                            port_channel_member_intfs = "false"
 
                         if 'port_channel_member' in self.learned_interface[interface]['port_channel']:
                             port_channel_member = self.learned_interface[interface]['port_channel']['port_channel_member']
                         else:
-                            port_channel_member = "null"
+                            port_channel_member = "false"
                     else:
-                        port_channel_int = "null"
-                        port_channel_member_intfs = "null"
-                        port_channel_member = "null"
+                        port_channel_int = "false"
+                        port_channel_member_intfs = "false"
+                        port_channel_member = "false"
 
                     if 'last_change' in self.learned_interface[interface]:
                         last_change =  self.learned_interface[interface]['last_change']
                     else:
-                        last_change = "null"
+                        last_change = "false"
 
                     if 'counters' in self.learned_interface[interface]:
                         if 'in_broadcast_pkts' in self.learned_interface[interface]['counters']:
                             in_broadcast_pkts = self.learned_interface[interface]['counters']['in_broadcast_pkts']
                         else:
-                            in_broadcast_pkts = "null"
+                            in_broadcast_pkts = "false"
 
                         if 'in_crc_errors' in self.learned_interface[interface]['counters']:
                             in_crc_errors = self.learned_interface[interface]['counters']['in_crc_errors']
                         else: 
-                            in_crc_errors = "null"
+                            in_crc_errors = "false"
 
                         if 'in_errors' in self.learned_interface[interface]['counters']:
                             in_errors = self.learned_interface[interface]['counters']['in_errors']
                         else: 
-                            in_errors = "null"
+                            in_errors = "false"
 
                         if 'in_mac_pause_frames' in self.learned_interface[interface]['counters']:
                             in_mac_pause_frames = self.learned_interface[interface]['counters']['in_mac_pause_frames']
                         else: 
-                            in_mac_pause_frames = "null"
+                            in_mac_pause_frames = "false"
 
                         if 'in_multicast_pkts' in self.learned_interface[interface]['counters']:
                             in_multicast_pkts = self.learned_interface[interface]['counters']['in_multicast_pkts']
                         else: 
-                            in_multicast_pkts = "null"
+                            in_multicast_pkts = "false"
 
                         if 'in_octets' in self.learned_interface[interface]['counters']:
                             in_octets = self.learned_interface[interface]['counters']['in_octets']
                         else: 
-                            in_octets = "null"
+                            in_octets = "false"
 
                         if 'in_unicast_pkts' in self.learned_interface[interface]['counters']:
                             in_unicast_pkts = self.learned_interface[interface]['counters']['in_unicast_pkts']
                         else: 
-                            in_unicast_pkts = "null"
+                            in_unicast_pkts = "false"
 
                         if 'in_unknown_protos' in self.learned_interface[interface]['counters']:
                             in_unknown_protos = self.learned_interface[interface]['counters']['in_unknown_protos']
                         else: 
-                            in_unknown_protos = "null"
+                            in_unknown_protos = "false"
 
                         if 'in_pkts' in self.learned_interface[interface]['counters']:
                             in_pkts = self.learned_interface[interface]['counters']['in_pkts']
                         else: 
-                            in_pkts = "null"
+                            in_pkts = "false"
 
                         if 'out_broadcast_pkts' in self.learned_interface[interface]['counters']:
                             out_broadcast_pkts = self.learned_interface[interface]['counters']['out_broadcast_pkts']
                         else: 
-                            out_broadcast_pkts = "null"
+                            out_broadcast_pkts = "false"
 
                         if 'out_discard' in self.learned_interface[interface]['counters']:
                             out_discard = self.learned_interface[interface]['counters']['out_discard']
                         else: 
-                            out_discard = "null"
+                            out_discard = "false"
 
                         if 'out_errors' in self.learned_interface[interface]['counters']:
                             out_errors = self.learned_interface[interface]['counters']['out_errors']
                         else: 
-                            out_errors = "null"
+                            out_errors = "false"
 
                         if 'out_mac_pause_frames' in self.learned_interface[interface]['counters']:
                             out_mac_pause_frames = self.learned_interface[interface]['counters']['out_mac_pause_frames']
                         else: 
-                            out_mac_pause_frames = "null"
+                            out_mac_pause_frames = "false"
 
                         if 'out_multicast_pkts' in self.learned_interface[interface]['counters']:
                             out_multicast_pkts = self.learned_interface[interface]['counters']['out_multicast_pkts']
                         else: 
-                            out_multicast_pkts = "null"
+                            out_multicast_pkts = "false"
 
                         if 'out_unicast_pkts' in self.learned_interface[interface]['counters']:
                             out_unicast_pkts = self.learned_interface[interface]['counters']['out_unicast_pkts']
                         else: 
-                            out_unicast_pkts = "null"
+                            out_unicast_pkts = "false"
 
                         if 'out_pkts' in self.learned_interface[interface]['counters']:
                             out_pkts = self.learned_interface[interface]['counters']['out_pkts']
                         else: 
-                            out_pkts = "null"
+                            out_pkts = "false"
 
                         if 'last_clear' in self.learned_interface[interface]['counters']:
                             last_clear = self.learned_interface[interface]['counters']['last_clear']
                         else: 
-                            last_clear = "null"
+                            last_clear = "false"
 
                     else:
-                        in_broadcast_pkts = "null"
-                        in_crc_errors = "null"
-                        in_errors = "null"
-                        in_mac_pause_frames = "null"
-                        in_multicast_pkts = "null"
-                        in_octets = "null"
-                        in_unicast_pkts = "null"
-                        in_unknown_protos = "null"
-                        in_pkts = "null"
-                        out_broadcast_pkts = "null"
-                        out_discard = "null"
-                        out_errors = "null"
-                        out_mac_pause_frames = "null"
-                        out_multicast_pkts = "null"
-                        out_unicast_pkts = "null"
-                        out_pkts = "null"
-                        last_clear = "null"
+                        in_broadcast_pkts = "false"
+                        in_crc_errors = "false"
+                        in_errors = "false"
+                        in_mac_pause_frames = "false"
+                        in_multicast_pkts = "false"
+                        in_octets = "false"
+                        in_unicast_pkts = "false"
+                        in_unknown_protos = "false"
+                        in_pkts = "false"
+                        out_broadcast_pkts = "false"
+                        out_discard = "false"
+                        out_errors = "false"
+                        out_mac_pause_frames = "false"
+                        out_multicast_pkts = "false"
+                        out_unicast_pkts = "false"
+                        out_pkts = "false"
+                        last_clear = "false"
 
                     if 'rate' in self.learned_interface[interface]:
                         input_rate =  self.learned_interface[interface]['rate']['in_rate']
                         load_interval = self.learned_interface[interface]['rate']['load_interval']
                         output_rate = self.learned_interface[interface]['rate']['out_rate']
                     else:
-                        input_rate = "null"
-                        load_interval = "null"
-                        output_rate = "null"
+                        input_rate = "false"
+                        load_interval = "false"
+                        output_rate = "false"
 
                     learnInterface=LearnInterface(pyats_alias=device.alias,os=device.os,interface=interface,description=description,enabled=enabled,status=oper_status,access_vlan=access_vlan,native_vlan=native_vlan,switchport=switchport_enable,switchport_mode=switchport_mode,interface_type=interface_type,bandwidth=bandwidth,auto_negotiate=auto_negotiate,speed=speed,duplex=duplex,mtu=mtu,mac_address=mac_address,physical_address=physical_address,ip_address=ip_address,medium=medium,delay=delay,encapsulation=encapsulation,flow_control_receive=flow_control_receive,flow_control_send=flow_control_send,port_channel=port_channel_int,port_channel_member_interfaces=port_channel_member_intfs,port_channel_member=port_channel_member,last_change=last_change,input_broadcast=in_broadcast_pkts,input_crc_errors=in_crc_errors,input_errors=in_errors,input_mac_pause_frames=in_mac_pause_frames,input_multicast=in_multicast_pkts,input_octets=in_octets,input_unicast=in_unicast_pkts,input_unknown=in_unknown_protos,input_total=in_pkts,output_broadcast=out_broadcast_pkts,output_discard=out_discard,output_errors=out_errors,output_mac_pause_frames=out_mac_pause_frames,output_multicast=out_multicast_pkts,output_unicast=out_unicast_pkts,output_total=out_pkts,last_clear=last_clear,input_rate=input_rate,load_interval=load_interval,output_rate=output_rate,timestamp=datetime.now().replace(microsecond=0))
                     learnInterface.save()
@@ -549,17 +549,17 @@ class Collect_Information(aetest.Testcase):
                         if 'redundancy_state' in self.learned_platform['slot'][slot][part]:
                             slot_redundancy_state = self.learned_platform['slot'][slot][part]['redundancy_state']
                         else:
-                            slot_redundancy_state = 'null'
+                            slot_redundancy_state = 'false'
 
                         if 'rp_boot_image' in self.learned_platform['slot'][slot][part]:
                             rp_boot_image = self.learned_platform['slot'][slot][part]['rp_boot_image']
                         else:
-                            rp_boot_image = 'null'
+                            rp_boot_image = 'false'
 
                         if 'rp_uptime' in self.learned_platform['slot'][slot][part]:
                             rp_uptime = self.learned_platform['slot'][slot][part]['rp_uptime']
                         else:
-                            rp_uptime = 'null'
+                            rp_uptime = 'false'
 
                     # Set Django Database values from pyATS JSON
                     learnPlatformSlots=LearnPlatformSlots(pyats_alias=device.alias,os=device.os,slot=slot,slot_name=slot_name,slot_sn=slot_sn,slot_state=slot_state,slot_redundancy_state=slot_redundancy_state,rp_boot_image=rp_boot_image,slot_rp_uptime=rp_uptime,timestamp=datetime.now().replace(microsecond=0))
@@ -596,7 +596,7 @@ class Collect_Information(aetest.Testcase):
                         if 'interfaces' in self.learned_vlan['vlans'][vlan]:                           
                             learnVLAN=LearnVLAN(pyats_alias=device.alias,os=device.os,vlan=vlan,interfaces=self.learned_vlan['vlans'][vlan]['interfaces'],mode=self.learned_vlan['vlans'][vlan]['mode'],name=self.learned_vlan['vlans'][vlan]['name'],shutdown=self.learned_vlan['vlans'][vlan]['shutdown'],state=self.learned_vlan['vlans'][vlan]['state'],timestamp=datetime.now().replace(microsecond=0))
                         else:
-                            learnVLAN=LearnVLAN(pyats_alias=device.alias,os=device.os,vlan=vlan,interfaces="null",mode=self.learned_vlan['vlans'][vlan]['mode'],name=self.learned_vlan['vlans'][vlan]['name'],shutdown=self.learned_vlan['vlans'][vlan]['shutdown'],state=self.learned_vlan['vlans'][vlan]['state'],timestamp=datetime.now().replace(microsecond=0))
+                            learnVLAN=LearnVLAN(pyats_alias=device.alias,os=device.os,vlan=vlan,interfaces="false",mode=self.learned_vlan['vlans'][vlan]['mode'],name=self.learned_vlan['vlans'][vlan]['name'],shutdown=self.learned_vlan['vlans'][vlan]['shutdown'],state=self.learned_vlan['vlans'][vlan]['state'],timestamp=datetime.now().replace(microsecond=0))
 
                         learnVLAN.save()
 
@@ -875,7 +875,8 @@ class Collect_Information(aetest.Testcase):
                                     except Exception as e:
                                         step.failed('There was a problem with the APIy\n{e}'.format(e=e))
 
-            # PSIRT API 
+            # PSIRT
+            # Show Version to JSON
             self.parsed_show_version=ParseShowCommandFunction.parse_show_command(steps, device, "show version")
             with steps.start('Store data',continue_=True) as step:
 
@@ -909,11 +910,9 @@ class Collect_Information(aetest.Testcase):
                         
                     psirt_json=psirt_raw.json()
                     for advisory in psirt_json['advisories']:
-                        if device.os == "nxos":
-                            for platform in advisory['platforms']:
-                                psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name=platform['name'],ios_release=advisory['iosRelease'],first_fixed=platform['firstFixes'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
-                        else:        
-                            psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name="null",ios_release=advisory['iosRelease'],first_fixed=advisory['firstFixed'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
+                        for platform in advisory['platforms']:
+                            for fix in platform['firstFixes']:
+                                psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name=platform['name'],ios_release=advisory['iosRelease'],first_fixed=fix['name'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
                         
                         psirt.save()
 
@@ -945,8 +944,8 @@ class Collect_Information(aetest.Testcase):
             if self.parsed_show_version is not None:
                 # Set Django Database values from pyATS JSON
                 if device.os == "nxos":
-                    showVersion=ShowVersion(pyats_alias=device.alias,bootflash=self.parsed_show_version['platform']['hardware']['bootflash'],chassis=self.parsed_show_version['platform']['hardware']['chassis'],cpu=self.parsed_show_version['platform']['hardware']['cpu'],device_name=self.parsed_show_version['platform']['hardware']['device_name'],memory=self.parsed_show_version['platform']['hardware']['memory'],model=self.parsed_show_version['platform']['hardware']['model'],processor_board_id=self.parsed_show_version['platform']['hardware']['processor_board_id'],rp=self.parsed_show_version['platform']['hardware']['rp'],slots=self.parsed_show_version['platform']['hardware']['slots'],name=self.parsed_show_version['platform']['name'],os=device.os,reason=self.parsed_show_version['platform']['reason'],days=self.parsed_show_version['platform']['kernel_uptime']['days'],hours=self.parsed_show_version['platform']['kernel_uptime']['hours'],minutes=self.parsed_show_version['platform']['kernel_uptime']['minutes'],seconds=self.parsed_show_version['platform']['kernel_uptime']['seconds'],system_compile_time=self.parsed_show_version['platform']['software']['system_compile_time'],system_image_file=self.parsed_show_version['platform']['software']['system_image_file'],system_version=self.parsed_show_version['platform']['software']['system_version'],chassis_sn="null",compiled_by="null",curr_config_register="null",image_id="null",image_type="null",label="null",license_level="null",license_type="null",non_volatile="null",physical="null",next_reload_license_level="null",platform="null",processor_type="null",returned_to_rom_by="null",rom="null",rtr_type="null",uptime="null",uptime_this_cp="null",version_short="null",xe_version="null",timestamp=datetime.now().replace(microsecond=0))
+                    showVersion=ShowVersion(pyats_alias=device.alias,bootflash=self.parsed_show_version['platform']['hardware']['bootflash'],chassis=self.parsed_show_version['platform']['hardware']['chassis'],cpu=self.parsed_show_version['platform']['hardware']['cpu'],device_name=self.parsed_show_version['platform']['hardware']['device_name'],memory=self.parsed_show_version['platform']['hardware']['memory'],model=self.parsed_show_version['platform']['hardware']['model'],processor_board_id=self.parsed_show_version['platform']['hardware']['processor_board_id'],rp=self.parsed_show_version['platform']['hardware']['rp'],slots=self.parsed_show_version['platform']['hardware']['slots'],name=self.parsed_show_version['platform']['name'],os=device.os,reason=self.parsed_show_version['platform']['reason'],days=self.parsed_show_version['platform']['kernel_uptime']['days'],hours=self.parsed_show_version['platform']['kernel_uptime']['hours'],minutes=self.parsed_show_version['platform']['kernel_uptime']['minutes'],seconds=self.parsed_show_version['platform']['kernel_uptime']['seconds'],system_compile_time=self.parsed_show_version['platform']['software']['system_compile_time'],system_image_file=self.parsed_show_version['platform']['software']['system_image_file'],system_version=self.parsed_show_version['platform']['software']['system_version'],chassis_sn="false",compiled_by="false",curr_config_register="false",image_id="false",image_type="false",label="false",license_level="false",license_type="false",non_volatile="false",physical="false",next_reload_license_level="false",platform="false",processor_type="false",returned_to_rom_by="false",rom="false",rtr_type="false",uptime="false",uptime_this_cp="false",version_short="false",xe_version="false",timestamp=datetime.now().replace(microsecond=0))
                 elif device.os == "iosxe":
-                    showVersion=ShowVersion(pyats_alias=device.alias,bootflash=self.parsed_show_version['version']['system_image'],chassis=self.parsed_show_version['version']['chassis'],cpu="null",device_name=self.parsed_show_version['version']['hostname'],memory=self.parsed_show_version['version']['main_mem'],model=self.parsed_show_version['version']['platform'],processor_board_id="null",rp="null",slots="null",name="null",os=device.os,reason=self.parsed_show_version['version']['last_reload_reason'],days="null",hours="null",minutes="null",seconds="null",system_compile_time=self.parsed_show_version['version']['compiled_date'],system_image_file=self.parsed_show_version['version']['system_image'],system_version=self.parsed_show_version['version']['version'],chassis_sn=self.parsed_show_version['version']['chassis_sn'],compiled_by=self.parsed_show_version['version']['compiled_by'],curr_config_register=self.parsed_show_version['version']['curr_config_register'],image_id=self.parsed_show_version['version']['image_id'],image_type=self.parsed_show_version['version']['image_type'],label=self.parsed_show_version['version']['label'],license_level=self.parsed_show_version['version']['license_level'],license_type=self.parsed_show_version['version']['license_type'],non_volatile=self.parsed_show_version['version']['mem_size']['non-volatile configuration'],physical=self.parsed_show_version['version']['mem_size']['physical'],next_reload_license_level=self.parsed_show_version['version']['next_reload_license_level'],platform=self.parsed_show_version['version']['platform'],processor_type=self.parsed_show_version['version']['processor_type'],returned_to_rom_by=self.parsed_show_version['version']['returned_to_rom_by'],rom=self.parsed_show_version['version']['rom'],rtr_type=self.parsed_show_version['version']['rtr_type'],uptime=self.parsed_show_version['version']['uptime'],uptime_this_cp=self.parsed_show_version['version']['uptime_this_cp'],version_short=self.parsed_show_version['version']['version_short'],xe_version=self.parsed_show_version['version']['xe_version'],timestamp=datetime.now().replace(microsecond=0))
+                    showVersion=ShowVersion(pyats_alias=device.alias,bootflash=self.parsed_show_version['version']['system_image'],chassis=self.parsed_show_version['version']['chassis'],cpu="false",device_name=self.parsed_show_version['version']['hostname'],memory=self.parsed_show_version['version']['main_mem'],model=self.parsed_show_version['version']['platform'],processor_board_id="false",rp="false",slots="false",name="false",os=device.os,reason=self.parsed_show_version['version']['last_reload_reason'],days="false",hours="false",minutes="false",seconds="false",system_compile_time=self.parsed_show_version['version']['compiled_date'],system_image_file=self.parsed_show_version['version']['system_image'],system_version=self.parsed_show_version['version']['version'],chassis_sn=self.parsed_show_version['version']['chassis_sn'],compiled_by=self.parsed_show_version['version']['compiled_by'],curr_config_register=self.parsed_show_version['version']['curr_config_register'],image_id=self.parsed_show_version['version']['image_id'],image_type=self.parsed_show_version['version']['image_type'],label=self.parsed_show_version['version']['label'],license_level=self.parsed_show_version['version']['license_level'],license_type=self.parsed_show_version['version']['license_type'],non_volatile=self.parsed_show_version['version']['mem_size']['non-volatile configuration'],physical=self.parsed_show_version['version']['mem_size']['physical'],next_reload_license_level=self.parsed_show_version['version']['next_reload_license_level'],platform=self.parsed_show_version['version']['platform'],processor_type=self.parsed_show_version['version']['processor_type'],returned_to_rom_by=self.parsed_show_version['version']['returned_to_rom_by'],rom=self.parsed_show_version['version']['rom'],rtr_type=self.parsed_show_version['version']['rtr_type'],uptime=self.parsed_show_version['version']['uptime'],uptime_this_cp=self.parsed_show_version['version']['uptime_this_cp'],version_short=self.parsed_show_version['version']['version_short'],xe_version=self.parsed_show_version['version']['xe_version'],timestamp=datetime.now().replace(microsecond=0))
                 # Save the objects into the database.
                 showVersion.save()             
