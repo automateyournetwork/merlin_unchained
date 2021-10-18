@@ -16,6 +16,7 @@ services:
       - prometheus
       - elasticsearch
       - kibana
+      - elasticvue      
   db:
     image: 'postgres'
     environment:
@@ -67,12 +68,21 @@ services:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
       - ELASTIC_PASSWORD=merlin
+      - http.cors.enabled=true
+      - http.cors.allow-origin=/.*/      
     ports:
       - 9200:9200
     volumes:
       - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elastic-certificates.p12:/usr/share/elasticsearch/config/elastic-certificates.p12
       - elasticdata01:/usr/share/elasticsearch/data:rw
+  elasticvue:
+    image: cars10/elasticvue
+    container_name: elasticvue
+    ports:
+      - 8080:8080
+    depends_on:
+      - elasticsearch          
   kibana:
     image: docker.elastic.co/kibana/kibana:7.13.3
     depends_on:
