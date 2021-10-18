@@ -79,10 +79,8 @@ class Collect_Information(aetest.Testcase):
                         
                     psirt_json=psirt_raw.json()
                     for advisory in psirt_json['advisories']:
-                        if device.os == "nxos":
-                            for platform in advisory['platforms']:
-                                psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name=platform['name'],ios_release=advisory['iosRelease'],first_fixed=platform['firstFixes'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
-                        else:        
-                            psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name="null",ios_release=advisory['iosRelease'],first_fixed=advisory['firstFixed'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
+                        for platform in advisory['platforms']:
+                            for fix in platform['firstFixes']:
+                                psirt=PSIRT(pyats_alias=device.alias,os=device.os,advisory_id=advisory['advisoryId'],advisory_title=advisory['advisoryTitle'],bug_ids=advisory['bugIDs'],ips_signatures=advisory['ipsSignatures'],cves=advisory['cves'],cvrf_url=advisory['cvrfUrl'],cvss_base_score=advisory['cvssBaseScore'],cwe=advisory['cwe'],platform_name=platform['name'],ios_release=advisory['iosRelease'],first_fixed=fix['name'],first_published=advisory['firstPublished'],last_updated=advisory['lastUpdated'],status=advisory['status'],version=advisory['version'],publication_url=advisory['publicationUrl'],sir=advisory['sir'],summary=advisory['summary'],timestamp=datetime.now().replace(microsecond=0))
                         
                         psirt.save()
