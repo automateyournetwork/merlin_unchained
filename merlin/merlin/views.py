@@ -4,6 +4,9 @@ from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, Learn
 import os
 
 # HTML VIEWS #
+def html(request):
+    return render(request, 'HTML/html.html')
+
 def devices_all(request):
     device_list = Devices.objects.all()
     context = {'device_list': device_list}

@@ -16,7 +16,8 @@ services:
       - prometheus
       - elasticsearch
       - kibana
-      - elasticvue      
+      - elasticvue
+      - heimdall      
   db:
     image: 'postgres'
     environment:
@@ -97,6 +98,18 @@ services:
       ELASTICSEARCH_USERNAME: elastic
       ELASTICSEARCH_PASSWORD: merlin
       SERVER_SSL_ENABLED: "false"
+  heimdall:
+    image: lscr.io/linuxserver/heimdall
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./heimdall/config:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
 
 volumes:
   prometheus-data:

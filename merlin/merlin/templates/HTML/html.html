@@ -1,0 +1,667 @@
+{% extends "base.html" %}
+
+{% block title %}HTML Pages{% endblock %}
+
+{% block content %}
+<h1>HTML Pages</h1>
+<h2>Devices</h2>
+<table id = "devices" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>By Hostname</th>
+  <th>By OS</th>
+  <th>By Alias</th>
+  <th>By Device Type</th>
+  <th>By Username</th>
+  <th>By IP Address</th>
+  <th>By Port</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/Devices/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/Devices/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/Devices/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/Devices/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/Devices/Hostname/sbx-n9kv/">By Hostname (ie /Hostname/sbx-n9kv/)</a></td>
+    <td><a href="http://localhost:8000/Devices/Alias/DevNet_Sandbox_Nexus9k/">By Alias (ie /Alias/DevNet_Sandbox_Nexus9k/)</a></td>
+    <td><a href="http://localhost:8000/Devices/OS/nxos/">By OS (ie /OS/nxos/)</a></td>
+    <td><a href="http://localhost:8000/Devices/Type/Nexus_9000/">By Type (ie /Type/Nexus_9000/)</a></td>
+    <td><a href="http://localhost:8000/Devices/Username/admin/">By Username (ie /Username/admin/)</a></td>
+    <td><a href="http://localhost:8000/Devices/Protocol/ssh/">By Protocol (ie /Protocol/ssh/)</a></td>
+  </tr>
+</table>
+<h2>End of Life - Part ID</h2>
+<table id = "eox_pid" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/EoX_PID/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/EoX_PID/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/EoX_PID/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/EoX_PID/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/EoX_PID/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/EoX_PID/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>End of Life - Serial Number</h2>
+<table id = "eox_sn" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/EoX_SN/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/EoX_SN/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/EoX_SN/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SN/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SN/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SN/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>End of Life - Software</h2>
+<table id = "eox_sw" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/EoX_SW/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/EoX_SW/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/EoX_SW/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SW/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SW/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/EoX_SW/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Access Control Lists</h2>
+<table id = "learn_acl" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnACL/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnACL/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnACL/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnACL/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnACL/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnACL/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Address Resolution Protocol</h2>
+<table id = "learn_arp" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnARP/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnARP/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnARP/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnARP/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnARP/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnARP/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Border Gateway Protocol - Instances</h2>
+<table id = "learn_bgp_instances" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnBGPInstances/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnBGPInstances/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPInstances/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPInstances/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPInstances/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPInstances/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Border Gateway Protocol - Routes</h2>
+<table id = "learn_bgp_routes" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Border Gateway Protocol - Tables</h2>
+<table id = "learn_bgp_tables" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnBGPRoutes/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Running Configuration</h2>
+<table id = "learn_config" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnConfig/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnConfig/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnConfig/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnConfig/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnConfig/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnConfig/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Interface</h2>
+<table id = "learn_interface" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnInterface/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnInterface/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnInterface/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnInterface/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnInterface/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnInterface/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn Platform</h2>
+<table id = "learn_platform" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnPlatform/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnPlatform/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnPlatform/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnPlatform/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnPlatform/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnPlatform/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn VLAN</h2>
+<table id = "learn_vlan" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnVLAN/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnVLAN/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnVLAN/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnVLAN/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnVLAN/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnVLAN/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Learn VRF</h2>
+<table id = "learn_vrf" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/LearnVRF/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/LearnVRF/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/LearnVRF/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/LearnVRF/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/LearnVRF/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/LearnVRF/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Network Map</h2>
+<table id = "nmap" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/NMAP/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/NMAP/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/NMAP/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/NMAP/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/NMAP/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/NMAP/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Cisco Product Security Indicent Response Team (PSIRT)</h2>
+<table id = "psirt" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/PSIRT/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/PSIRT/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/PSIRT/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/PSIRT/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/PSIRT/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/PSIRT/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Cisco Software Suggestions</h2>
+<table id = "recommended" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/Recommended/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/Recommended/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/Recommended/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/Recommended/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/Recommended/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/Recommended/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Cisco Serial 2 Contract Information</h2>
+<table id = "serial" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/Serial2Contract/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/Serial2Contract/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/Serial2Contract/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/Serial2Contract/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/Serial2Contract/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/Serial2Contract/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Show Inventory</h2>
+<table id = "show_inventory" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/ShowInventory/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/ShowInventory/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/ShowInventory/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/ShowInventory/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/ShowInventory/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/ShowInventory/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Show IP Interface Brief</h2>
+<table id = "show_ip_int_brief" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/ShowIPInterfaceBrief/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<h2>Show Version</h2>
+<table id = "show_version" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+  <th>All Records</th>
+  <th>By Year</th>
+  <th>By Month</th>
+  <th>By Day</th>
+  <th>NXOS</th>
+  <th>By Alias</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="http://localhost:8000/ShowVersion/All/">All Devices</a></td>
+    <td><a href="http://localhost:8000/ShowVersion/2020/">By Year (ie /2020)</a></td>
+    <td><a href="http://localhost:8000/ShowVersion/2020/10/">By Month (ie /2020/10/)</a></td>
+    <td><a href="http://localhost:8000/ShowVersion/2020/10/01">By Day (ie /2020/10/01/)</a></td>
+    <td><a href="http://localhost:8000/ShowVersion/nxos/">NXOS (ie /nxos/)</a></td>
+    <td><a href="http://localhost:8000/ShowVersion/DevNet_Sandbox_Nexus9k/">By Alias (ie /DevNet_Sandbox_Nexus9k/)</a></td>
+  </tr>
+</table>
+<script>
+  $(document).ready( function () {
+    $('#devices').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#eox_pid').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#eox_sn').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#eox_sw').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_acl').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_arp').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_bgp_instances').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_bgp_routes').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_bgp_tables').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_config').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_interface').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_platform').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_vlan').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#learn_vrf').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#nmap').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#psirt').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#recommended').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#serial').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#show_inventory').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#show_ip_int_brief').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+<script>
+  $(document).ready( function () {
+    $('#show_version').DataTable({
+      keys: true,
+      colReorder: true,
+      select: true,
+    });
+} ); 
+</script>
+{% endblock %}
