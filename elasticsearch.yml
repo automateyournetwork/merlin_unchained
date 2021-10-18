@@ -10,3 +10,10 @@ xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
 xpack.security.transport.ssl.truststore.path: elastic-certificates.p12
 xpack.security.transport.ssl.truststore.type: PKCS12
 xpack.security.transport.ssl.truststore.password: merlin123
+
+# allow CORS requests from http://localhost:8080
+http.cors.enabled: true
+http.cors.allow-origin: "http://localhost:8080"
+
+# and if your cluster uses authorization:
+http.cors.allow-headers: X-Requested-With,Content-Type,Content-Length,Authorization
