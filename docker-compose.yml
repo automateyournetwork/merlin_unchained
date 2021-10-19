@@ -18,7 +18,8 @@ services:
       - elasticsearch
       - kibana
       - elasticvue
-      - heimdall      
+      - dejavu
+      - heimdall
   db:
     image: 'postgres'
     environment:
@@ -97,7 +98,14 @@ services:
     ports:
       - 8080:8080   
     depends_on:
-      - elasticsearch          
+      - elasticsearch
+  dejavu:
+    image: appbaseio/dejavu:3.4.7
+    container_name: dejavu
+    ports:
+      - '1358:1358'
+    links:
+      - elasticsearch            
   kibana:
     image: docker.elastic.co/kibana/kibana:7.13.3
     depends_on:
