@@ -49,10 +49,8 @@ class Collect_Information(aetest.Testcase):
                 # Show Version to JSON
                 self.parsed_show_license_summary=ParseShowCommandFunction.parse_show_command(steps, device, "show license summary")
                 if self.parsed_show_license_summary is not None:
-                    print(self.parsed_show_license_summary)
-                    # Set Django Database values from pyATS JSON
-                    # showLicenseSummary=ShowLicenseSummary(pyats_alias=device.alias, os=device.os, license_name= ,entitlement= ,count= ,status= ,timestamp=datetime.now().replace(microsecond=0))
-                    # # Save the objects into the database.
-                    # showLicenseSummary.save()
-
-                    # {'license_usage': {'network-advantage': {'entitlement': 'C9300-48 Network Advan...', 'count': '1', 'status': 'IN USE'}, 'dna-advantage': {'entitlement': 'C9300-48 DNA Advantage', 'count': '1', 'status': 'IN USE'}}}
+                    for license in self.parsed_show_license_summary["license_usage"]:
+                        # Set Django Database values from pyATS JSON
+                        showLicenseSummary=ShowLicenseSummary(pyats_alias=device.alias, os=device.os, license_name= license, entitlement=self.parsed_show_license_summary["license_usage"][license]["entitlement"],count=self.parsed_show_license_summary["license_usage"][license]["count"],status=self.parsed_show_license_summary["license_usage"][license]["status"],timestamp=datetime.now().replace(microsecond=0))
+                        # # Save the objects into the database.
+                        showLicenseSummary.save()
