@@ -317,10 +317,11 @@ class LearnInterface(models.Model):
         return template.format(self)
 
 class InterfaceEnable(models.Model):
+    pyats_alias = models.TextField()
     interface = models.TextField()
 
     def __str__(self):
-        template = '{0.interface}'
+        template = '{0.pyats_alias} {0.interface}'
         return template.format(self)
 
 class LearnPlatform(models.Model):
