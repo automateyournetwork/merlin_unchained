@@ -13,6 +13,7 @@
     <th>Enabled</th>
     <th>Enable / Disable Interface</th>
     <th>Timestamp</th>
+    <th>Status</th>
   </tr>
   </thead>
   <tbody>{% for interface in interface_list %}
@@ -23,14 +24,21 @@
     <td>{{ interface.enabled }}</td> 
     {% if interface.enabled == "True" %}
     <td>
-        <button value="{{ interface.interface }}" name="disable">Disable</button>
+        <button id="disable_interface" value="{{ interface.interface }}" name="disable" onclick="location.href='{% url 'Interfaces/result' %}'">Disable</button>
     </td>
     {% else %}
     <td>
-        <button value="{{ interface.interface }}" name="enable">Enable</button>
+        <button id="enable_interface" value="{{ interface.interface }}" name="enable" onclick="location.href='{% url 'Interfaces/result' %}'">Enable</button>
     </td>
     {% endif %}
     <td>{{ interface.timestamp }}</td>
+    <td>
+      <div id="interface_enable_spinner" class="d-flex not-visible">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+      </div>
+    </td>    
   </tr>{% endfor %}
   </tbody>  
 </table> 
