@@ -9,8 +9,8 @@ from merlin.models import Devices, DynamicJobInput
 
 def main(runtime):
 
-    # Query the database for Filtered Devices
-    device_list = Devices.objects.filter(alias=pyats_alias)
+    # Query the database for All Devices
+    device_list = Devices.objects.all()
 
     # Flush Search
     delete_records = DynamicJobInput.objects.all()

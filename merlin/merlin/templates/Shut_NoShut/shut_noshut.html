@@ -4,6 +4,8 @@
 
 {% block content %}
 <h1>Enable / Disable Interfaces on {{ pyats_alias }}</h1>
+<form action="{% url 'shut_noshut' pyats_alias %}" method="post">
+{% csrf_token %}
 <table id = "learn_interface" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
@@ -24,11 +26,11 @@
     <td>{{ interface.enabled }}</td> 
     {% if interface.enabled == "True" %}
     <td>
-        <button id="disable_interface" value="{{ interface.interface }}" name="disable" onclick="location.href='{% url 'Interfaces/result' %}'">Disable</button>
+        <button id="disable_interface" value="{{ interface.interface }}" name="disable">Disable</button>
     </td>
     {% else %}
     <td>
-        <button id="enable_interface" value="{{ interface.interface }}" name="enable" onclick="location.href='{% url 'Interfaces/result' %}'">Enable</button>
+        <button id="enable_interface" value="{{ interface.interface }}" name="enable">Enable</button>
     </td>
     {% endif %}
     <td>{{ interface.timestamp }}</td>
@@ -41,7 +43,8 @@
     </td>    
   </tr>{% endfor %}
   </tbody>  
-</table> 
+</table>
+</form>
 <script type = "text/javascript">
   $(document).ready(function(){
     $('#learn_interface thead tr')
