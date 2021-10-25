@@ -24,14 +24,18 @@
     <td>{{ interface.interface }}</td> 
     <td>{{ interface.description }}</td> 
     <td>{{ interface.enabled }}</td> 
-    {% if interface.enabled == "True" %}
+    {% if interface.interface == "Mgmt0" %}
+    <td>Management Interface</td>
+    {% else %}    
+      {% if interface.enabled == "True" %}
     <td>
-        <button id="disable_interface" value="{{ interface.interface }}" name="disable">Disable</button>
+        <button id="disable_interface" value="{{ interface.interface }}" name="disable" style="background-color: red">Disable</button>
     </td>
-    {% else %}
+      {% else %}
     <td>
-        <button id="enable_interface" value="{{ interface.interface }}" name="enable">Enable</button>
+        <button id="enable_interface" value="{{ interface.interface }}" name="enable" style="background-color: green">Enable</button>
     </td>
+      {% endif %}
     {% endif %}
     <td>{{ interface.timestamp }}</td>
     <td>
