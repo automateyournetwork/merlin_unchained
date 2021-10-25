@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Bulk Device Upload{% endblock %}
+
+{% block content %}
+<h1>Merlin Bulk Device Upload</h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div>
+<!--                | means OR operator-->
+                <strong>{{message|safe}}</strong>
+            </div>
+        {% endfor %}
+    {% else %}
+    {{order}}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="file1">Upload a file</label>
+        <input type="file" id="file1" name="file">
+        <small>Only accepts CSV files</small>
+        <button type="submit">Upload</button>
+    </form>
+    {% endif %}
+    {% for profile in profiles %}
+    {{profile.name}}
+    {% endfor %}
+{% endblock %}

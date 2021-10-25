@@ -189,6 +189,22 @@ Populate the following fields:
 
 Again, you can populate multiple devices and mix operating systems, but in this Alpha scale (1+n devices) and non-NXOS platforms (IOS, IOS-XE), have NOT been tested, will NOT be supported, but will eventually become part of Merlin. Your mileage may vary.
 
+## Bulk Import
+
+Using this format
+
+```csv
+
+Hostname,Alias,Device_type,OS,Platform,Username,Password,Protocol,IP Address,Port,Connection Timeout
+
+```
+
+You can visit http://localhost:8000/DeviceImport/ and bulk-upload your devices into Merlin 
+
+![Bulk Upload](images/bulkupload.PNG)
+
+Please refer to the bulk_import_template.csv file in this repository
+
 ## Scheduling Merlin 
 
 In the Admin Panel, using the Django Celery Beat package, you can setup periodic scheduled hands-free Merlin.
