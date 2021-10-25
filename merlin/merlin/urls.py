@@ -29,6 +29,7 @@ urlpatterns = [
     path('', include('latest.urls')),
     path('HTML/', views.html),
     path('', include('shut_noshut.urls')),
+    path('', include('csv_import.urls')),
     path('Devices/All/', views.devices_all),
     path('Devices/<int:year>/', views.devices_year_archive),
     path('Devices/<int:year>/<int:month>/', views.devices_month_archive),
