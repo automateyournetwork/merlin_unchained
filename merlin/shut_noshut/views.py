@@ -3,7 +3,12 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from merlin.models import Devices, LearnInterface, InterfaceEnable
-    
+
+def device_list(request):
+    device_list = Devices.objects.all()
+    context = {'device_list': device_list}
+    return render(request, 'Shut_NoShut/device_list.html', context)    
+
 def shut_noshut(request, pyats_alias):
     if request.method == "POST":
         desired_state = request.POST.dict()
