@@ -29,6 +29,10 @@ Featuring presentation enhancements with
 
 ![Datatables](images/datatables.png)
 
+And Mind Maps by
+
+![Markmap](images/MarkMapLogo.PNG)
+
 Metrics by 
 
 ![Prometheus](images/prometheus_logo.png)
