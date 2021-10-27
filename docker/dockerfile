@@ -52,6 +52,10 @@ RUN echo "==> Adding Python NMAP ..." \
  && sudo apt-get install nmap -y \
  && pip install python-nmap
 
+RUN echo "==> Adding NPM and Markmap support ..." \
+ && sudo DEBIAN_FRONTEND="noninteractive" apt -y install npm \
+ && sudo npm install markmap-cli -g
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
