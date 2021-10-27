@@ -1,4 +1,5 @@
 import os
+from django.conf import settings
 from celery import Celery
 
 app = Celery('merlin',broker='redis://redis:6379/0')
@@ -7,7 +8,7 @@ app = Celery('merlin',broker='redis://redis:6379/0')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
-app.autodiscover_tasks()
+app.autodiscover_tasks(settings.INSTALLED_APPS, related_name='tasks')
 
 @app.task(bind=True)
 def debug_task(self):
