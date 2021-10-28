@@ -5,3 +5,4 @@
 | Jared Mauck | Highland, CA, USA | October 26th, 2021 | WOOT! |
 | Robert Ward | Fort Worth, Texas | 10/26/2021 | This is cool! |
 | Eric Chou | Seattle, WA | October 27th, 2021 | Hello John, nice Mind Map |
+| Jonathan Carter | Seattle, WA | October 28th, 2021 | Thanks John, you're amazing! |
