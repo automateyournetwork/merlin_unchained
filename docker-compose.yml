@@ -130,7 +130,7 @@ services:
     volumes:
       - ./heimdall/config:/config
     ports:
-      - 80:80
+      - 9000:80
     restart: unless-stopped
 
 volumes:
