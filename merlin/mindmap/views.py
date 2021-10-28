@@ -85,6 +85,82 @@ def learn_acl_mindmap(request, pyats_alias):
     os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_acl_mind_map.html' % pyats_alias)
 
+def learn_arp_mindmap(request, pyats_alias):
+    latest_timestamp = LearnARP.objects.latest('timestamp')
+    arp_list = LearnARP.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn ARP\n","| Alias | Operating System | Interface | Neighbor IP | Neighbor MAC | Origin | Local Proxy | Proxy | Timestamp |\n","| ----- | ---------------- | --------- | ----------- | ------------ | ------ | ----------- | ----- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for arp in arp_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (arp.pyats_alias,arp.os,arp.interface,arp.neighbor_ip,arp.neighbor_mac,arp.origin,arp.local_proxy,arp.proxy,arp.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_arp_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_arp_mind_map.html' % pyats_alias)
+
+def learn_arp_statistics_mindmap(request, pyats_alias):
+    latest_timestamp = LearnARPStatistics.objects.latest('timestamp')
+    arp_list = LearnARPStatistics.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn ARP Statistics\n","| Alias | Operating System | Total Entries | Input Drops | Input Replies | Input Requests | Total Incomplete | Output Replies | Output Requests | Timestamp |\n","| ----- | ---------------- | ------------- | ----------- | ------------- | -------------- | ---------------- | -------------- | --------------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for arp in arp_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (arp.pyats_alias,arp.os,arp.entries_total,arp.in_drops,arp.in_replies_pkts,arp.in_requests_pkts,arp.incomplete_total,arp.out_replies_pkts,arp.out_requests_pkts,arp.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_arp_statistics_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_arp_statistics_mind_map.html' % pyats_alias)
+
+def learn_bgp_instances_mindmap(request, pyats_alias):
+    latest_timestamp = LearnBGPInstances.objects.latest('timestamp')
+    bgp_instance_list = LearnBGPInstances.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn BGP Instances\n","| Alias | Operating System | Instance | BGP ID | Protocol State | Next Hop Trigger Critical Delay | Next Hop Trigger Delay | Next Hop Trigger Enabled | VRF | Router ID | Cluster ID | Confederation ID | Neighbor | Version | Hold Time | Keep Alive Interval | Local AS | Remote AS | Received Bytes in Queue | Received Capability | Received Keep Alives | Received Notifications | Received Opens | Received Route Refresh | Received Total | Received Total Bytes | Recieved Updates | Sent Bytes in Queue | Sent Capability | Sent Keep Alives | Sent Notifications | Sent Opens | Sent Route Refresh | Sent Total | Sent Total Bytes | Sent Updates | Last Reset | Reset Reason | Timestamp |\n","| ----- | ---------------- | -------- | ------ | -------------- | ------------------------------- | ---------------------- | ------------------------ | --- | --------- | ---------- | ---------------- | -------- | ------- | --------- | ------------------- | -------- | --------- | ----------------------- | ------------------- | -------------------- | ---------------------- | -------------- | ---------------------- | -------------- | -------------------- | ---------------- | ------------------- | --------------- | ---------------- | ------------------ | ---------- | ------------------ | ---------- | ---------------- | ------------ | ---------- | ------------ | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for instance in bgp_instance_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (instance.pyats_alias,instance.os,instance.instance,instance.bgp_id,instance.protocol_state,instance.nexthop_trigger_delay_critical,instance.nexthop_trigger_delay_noncritical,instance.nexthop_trigger_enabled,instance.vrf,instance.router_id,instance.cluster_id,instance.confederation_id,instance.neighbor,instance.version,instance.hold_time,instance.keep_alive_interval,instance.local_as,instance.remote_as,instance.neighbor_counters_received_bytes_in_queue,instance.neighbor_counters_received_capability,instance.neighbor_counters_received_keepalives,instance.neighbor_counters_received_notifications,instance.neighbor_counters_received_opens,instance.neighbor_counters_received_route_refresh,instance.neighbor_counters_received_total,instance.neighbor_counters_received_total_bytes,instance.neighbor_counters_received_updates,instance.neighbor_counters_sent_bytes_in_queue,instance.neighbor_counters_sent_capability,instance.neighbor_counters_sent_keepalives,instance.neighbor_counters_sent_notifications,instance.neighbor_counters_sent_opens,instance.neighbor_counters_sent_route_refresh,instance.neighbor_counters_sent_total,instance.neighbor_counters_sent_total_bytes,instance.neighbor_counters_sent_updates,instance.last_reset,instance.reset_reason,instance.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_instances_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_bgp_instances_mind_map.html' % pyats_alias)
+
+def learn_bgp_route_mindmap(request, pyats_alias):
+    latest_timestamp = LearnBGPRoutesPerPeer.objects.latest('timestamp')
+    bgp_route_list = LearnBGPRoutesPerPeer.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn BGP Routes\n","| Alias | Operating System | Instance | VRF | Neighbor | Advertised | Routes | Remote AS | Timestamp |\n","| ----- | ---------------- | -------- | --- | -------- | ---------- | ------ | --------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for route in bgp_route_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (route.pyats_alias,route.os,route.instance,route.vrf,route.neighbor,route.advertised,route.routes,route.remote_as,route.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)    
+
 def learn_platform_mindmap(request, pyats_alias):
     latest_timestamp = LearnPlatform.objects.latest('timestamp')
     platform_list = LearnPlatform.objects.filter(timestamp=latest_timestamp.timestamp)
