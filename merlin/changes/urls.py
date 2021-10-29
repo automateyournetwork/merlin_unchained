@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ChangesResultAll, ChangesResultEoX_PID, ChangesResultEoX_SN, ChangesResultEoX_SW, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultNMAP, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultVersion
+from .views import ChangesResultAll, ChangesResultEoX_PID, ChangesResultEoX_SN, ChangesResultEoX_SW, ChangesResultACL, ChangesResultARP, ChangesResultARPStatistics, ChangesResultBGPInstance, ChangesResultBGPRoute, ChangesResultBGPTable, ChangesResultConfig, ChangesResultInterface, ChangesResultPlatform, ChangesResultPlatformSlots, ChangesResultPlatformVirtual, ChangesResultVLAN, ChangesResultVRF, ChangesResultNMAP, ChangesResultPSIRT, ChangesResultRecommended, ChangesResultSerial2Contract, ChangesResultInventory, ChangesResultIPInterfaceBrief, ChangesResultLicenseSummary, ChangesResultVersion
 
 urlpatterns = [
     path('Changes/', views.changes),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('Changes/serial2contract_changes/', views.serial2contract_changes, name="_changes"),
     path('Changes/show_inventory_changes/', views.show_inventory_changes, name="show_inventory_changes"),
     path('Changes/show_ip_int_brief_changes/', views.show_ip_int_brief_changes, name="show_ip_int_brief_changes"),
+    path('Changes/show_license_summary_changes/', views.show_license_summary_changes, name="show_license_summary_changes"),    
     path('Changes/show_version_changes/', views.show_version_changes, name="show_version_changes"),
     path('Changes/all_changes_filter/', ChangesResultAll.as_view(), name="get_all_changes_filter"),
     path('Changes/eox_pid_changes_filter/', ChangesResultEoX_PID.as_view(), name="eox_pid_changes_filter"),
@@ -51,5 +52,6 @@ urlpatterns = [
     path('Changes/serial2contract_changes_filter/', ChangesResultSerial2Contract.as_view(), name="serial2contract_changes_filter"),
     path('Changes/show_inventory_changes_filter/', ChangesResultInventory.as_view(), name="show_inventory_changes_filter"),
     path('Changes/show_ip_int_brief_changes_filter/', ChangesResultIPInterfaceBrief.as_view(), name="show_ip_int_brief_changes_filter"),
+    path('Changes/show_license_summary_changes_filter/', ChangesResultLicenseSummary.as_view(), name="show_license_summary_changes_filter"),
     path('Changes/show_version_changes_filter/', ChangesResultVersion.as_view(), name="show_version_changes_filter"),
 ]

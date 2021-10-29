@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowLicenseSummary, ShowVersion
 import csv
 
 # CSV VIEWS
@@ -563,6 +563,30 @@ def show_ip_int_brief_csv_download_latest(request):
     interfaces = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','interface','interface_status','ip_address','timestamp')
     for interface in interfaces:
         writer.writerow(interface)
+    return response
+
+def show_license_summary_csv(request):
+    return render(request, 'CSV/ShowLicenseSummary/show_license_summary.html')    
+
+def show_license_summary_csv_download(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_license_summary_all.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','License Name','Entitlement','Count','Status','Timestamp'])
+    licenses = ShowLicenseSummary.objects.all().values_list('pyats_alias','license_name','entitlement','count','status','timestamp')
+    for license in licenses:
+        writer.writerow(license)
+    return response
+
+def show_license_summary_csv_download_latest(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="show_license_summary_latest.csv'
+    writer = csv.writer(response)
+    writer.writerow(['pyATS Alias','License Name','Entitlement','Count','Status','Timestamp'])
+    latest_timestamp = ShowLicenseSummary.objects.latest('timestamp')
+    licenses = ShowLicenseSummary.objects.filter(timestamp=latest_timestamp.timestamp).values_list('pyats_alias','license_name','entitlement','count','status','timestamp')
+    for license in licenses:
+        writer.writerow(license)
     return response
 
 def show_version_csv(request):

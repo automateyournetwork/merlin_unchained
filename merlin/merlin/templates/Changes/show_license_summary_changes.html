@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Network State Centre{% endblock %}
+{% block content %}
+<h1>Merlin Network State Centre</h1>
+{% if license_additions %}
+<h2>Merlin has detected the following License configurations have been added</h2>
+<table id = "show_license_summary_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_additions %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any License configuration additions</h2>
+{% endif %}
+{% if license_removals %}
+<h2>Merlin has detected the following License configurations have been removed</h2>
+<table id = "show_license_summary_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_removals %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any License configuration removals</h2>
+{% endif %}
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#interface_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+  <script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_license_summary_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>
+{% endblock %} 

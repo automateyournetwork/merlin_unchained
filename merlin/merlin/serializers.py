@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowLicenseSummary, ShowIPIntBrief, ShowVersion
 
 class DevicesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -110,6 +110,11 @@ class ParseShowInventorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ShowInventory
         fields = ('pyats_alias', 'os', 'part', 'description', 'pid', 'serial_number', 'timestamp')
+
+class ParseShowLicenseSummarySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ShowLicenseSummary
+        fields = ('pyats_alias', 'os', 'license_name', 'entitlement', 'count', 'status', 'timestamp')
 
 class ParseShowIPIntBriefSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

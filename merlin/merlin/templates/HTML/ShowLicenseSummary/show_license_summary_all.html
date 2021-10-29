@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Show License Summary{% endblock %}
+
+{% block content %}
+<h1>Show License Summary Results</h1>
+<table id = "show_license_summary" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_list %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+<script type = "text/javascript">
+  $(document).ready(function(){
+    $('#show_license_summary thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#show_license_summary thead');
+
+    var table = $('#show_license_summary').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
+{% endblock %}

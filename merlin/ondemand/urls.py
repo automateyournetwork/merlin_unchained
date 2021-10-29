@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
-from .views import OnDemandResultAll, OnDemandResultEoPID, OnDemandResultEoSN, OnDemandResultEoSW, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultNMAP, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
+from .views import OnDemandResultAll, OnDemandResultEoPID, OnDemandResultEoSN, OnDemandResultEoSW, OnDemandResultACL, OnDemandResultARP, OnDemandResultBGP, OnDemandResultConfig, OnDemandResultInterface, OnDemandResultPlatform, OnDemandResultVLAN, OnDemandResultVRF, OnDemandResultNMAP, OnDemandResultPSIRT, OnDemandResultRecommended, OnDemandResultSerial2Contract, OnDemandResultInventory, OnDemandResultLicenseSummary, OnDemandResultIPInterfaceBrief, OnDemandResultVersion
 
 urlpatterns = [
     path('OnDemand/', views.button),
@@ -42,6 +42,7 @@ urlpatterns = [
     path('OnDemand/Recommended/recommended_filter_result/', OnDemandResultRecommended.as_view(), name="recommended_ondemand_filter"),
     path('OnDemand/Serial2Contract/serial2contract_filter_result/', OnDemandResultSerial2Contract.as_view(), name="serial2contract_ondemand_filter"),
     path('OnDemand/ShowInventory/show_inventory_filter_result/', OnDemandResultInventory.as_view(), name="show_inventory_ondemand_filter"),
+    path('OnDemand/ShowLicenseSummary/show_license_summary_filter_result/', OnDemandResultLicenseSummary.as_view(), name="show_license_summary_ondemand_filter"),
     path('OnDemand/ShowIPInterfaceBrief/show_ip_int_brief_filter_result/', OnDemandResultIPInterfaceBrief.as_view(), name="show_ip_int_brief_ondemand_filter"),
     path('OnDemand/ShowVersion/show_version_filter_result/', OnDemandResultVersion.as_view(), name="show_version_ondemand_filter"),
 ]

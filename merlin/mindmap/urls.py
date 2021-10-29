@@ -13,4 +13,5 @@ urlpatterns = [
     path('Mindmap/<str:pyats_alias>/LearnBGPInstances/', views.learn_bgp_instances_mindmap),
     path('Mindmap/<str:pyats_alias>/LearnBGPRoutes/', views.learn_bgp_route_mindmap),    
     path('Mindmap/<str:pyats_alias>/LearnPlatform/', views.learn_platform_mindmap),
+    path('Mindmap/<str:pyats_alias>/ShowLicenseSummary/', views.show_license_summary_mindmap),
 ]

@@ -875,6 +875,29 @@
   </tr>{% endfor %}
   </tbody>  
 </table>
+<h2>Latest Show License Summary Results</h2>
+<table id = "show_license_summary" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_list %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
 <h2>Latest Show Version Results</h2>
 {% for version in version_list %}
 {%   if version.os == "nxos" %}
@@ -1363,6 +1386,23 @@
     });
     });
   </script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#show_license_summary').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+  </script>     
 <script type = "text/javascript">
     $(document).ready(function(){
         $('#show_version').DataTable({
