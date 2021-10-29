@@ -159,7 +159,45 @@ def learn_bgp_route_mindmap(request, pyats_alias):
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)
     markdown.close
     os.remove("markdown.md")
-    return render(request, 'Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)    
+    return render(request, 'Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)
+
+def learn_bgp_table_mindmap(request, pyats_alias):
+    latest_timestamp = LearnBGPTables.objects.latest('timestamp')
+    bgp_table_list = LearnBGPTables.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn BGP Tables\n","| Alias | Operating System | Instance | VRF | Table Version | Prefix | Index | Local Preference | Next Hop | Origin Code | Status Code | Weight | Timestamp |\n","| ----- | ---------------- | -------- | --- | ------------- | ------ | ----- | ---------------- | -------- | ----------- | ----------- | ------ | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for table in bgp_table_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (table.pyats_alias,table.os,table.instance,table.vrf,table.table_version,table.prefix,table.index,table.localpref,table.next_hop,table.origin_code,table.status_code,table.weight,table.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_tables_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_bgp_tables_mind_map.html' % pyats_alias)
+
+def learn_interface_mindmap(request, pyats_alias):
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn Interface\n","| Alias | Operating System | Interface | Description | Enabled | Status | Access VLAN | Native VLAN | Switchport | Switchport Mode | Interface Type | Bandwidth | Auto Negotiate | Speed | Duplex | MTU | MAC Address | Physical Address | IP Address | Medium | Delay | Encapsulation | Flow Control Receive | Flow Control Send | Port Channel | Port Channel Member Interfaces | Port Channel Member | Last Change | Input Broadcast | Input CRC Errors | Input MAC Pause Frames | Input Multicast | Input Octets | Input Unicast | Input Unknown | Input Total | Output Broadcast | Output Discard | Output Errors | Output MAC Pause Frames | Output Multicast | Output Unicast | Output Total | Last Clear | Input Rate | Load Interval | Output Rate | Timestamp |\n","| ----- | ---------------- | --------- | ----------- | ------- | ------ | ----------- | ----------- | ---------- | --------------- | -------------- | --------- | -------------- | ----- | ------ | --- | ----------- | ---------------- | ---------- | ------ | ----- | ------------- | -------------------- | ----------------- | ------------ | ------------------------------ | ------------------- | ----------- | --------------- | ---------------- | ---------------------- | --------------- | ------------ | ------------- | ------------- | ----------- | ---------------- | -------------- | ------------- | ----------------------- | ---------------- | -------------- | ------------ | ---------- | ---------- | ------------- | ----------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for interface in interface_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (interface.pyats_alias,interface.os,interface.interface,interface.description,interface.enabled,interface.status,interface.access_vlan,interface.native_vlan,interface.switchport,interface.switchport_mode,interface.interface_type,interface.bandwidth,interface.auto_negotiate,interface.speed,interface.duplex,interface.mtu,interface.mac_address,interface.physical_address,interface.ip_address,interface.medium,interface.delay,interface.encapsulation,interface.flow_control_receive,interface.flow_control_send,interface.port_channel,interface.port_channel_member_interfaces,interface.port_channel_member,interface.last_change,interface.input_broadcast,interface.input_crc_errors,interface.input_errors,interface.input_mac_pause_frames,interface.input_multicast,interface.input_octets,interface.input_unicast,interface.input_unknown,interface.input_total,interface.output_broadcast,interface.output_discard,interface.output_errors,interface.output_mac_pause_frames,interface.output_multicast,interface.output_unicast,interface.output_total,interface.last_clear,interface.input_rate,interface.load_interval,interface.output_rate,interface.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_interface_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_interface_mind_map.html' % pyats_alias)
 
 def learn_platform_mindmap(request, pyats_alias):
     latest_timestamp = LearnPlatform.objects.latest('timestamp')
