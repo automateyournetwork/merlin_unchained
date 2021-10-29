@@ -245,6 +245,15 @@ class OnDemandResultInventory(ListView):
         input_field.save()
         os.system('pyats run job show_inventory_filter_job.py')
 
+class OnDemandResultLicenseSummary(ListView):
+    template_name = 'OnDemand/ondemand.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('show_license_summary_filter')
+        input_field = DynamicJobInput(input_field=query,timestamp=datetime.now().replace(microsecond=0))
+        input_field.save()
+        os.system('pyats run job show_license_summary_filter_job.py')
+
 class OnDemandResultIPInterfaceBrief(ListView):
     template_name = 'OnDemand/ondemand.html'
 

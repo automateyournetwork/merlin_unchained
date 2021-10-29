@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowLicenseSummary, ShowIPIntBrief, ShowVersion
 
 # Latest
 def latest(request):
@@ -181,6 +181,12 @@ def show_inventory_latest(request):
     inventory_list = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp)
     context = {'inventory_list': inventory_list}
     return render(request, 'Latest/ShowInventory/show_inventory_latest.html', context)
+
+def show_license_summary_latest(request):
+    latest_timestamp = ShowLicenseSummary.objects.latest('timestamp')
+    license_list = ShowLicenseSummary.objects.filter(timestamp=latest_timestamp.timestamp)
+    context = {'license_list': license_list}
+    return render(request, 'Latest/ShowLicenseSummary/show_license_summary_latest.html', context)
 
 def show_ip_int_brief_latest(request):
     latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')

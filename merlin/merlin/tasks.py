@@ -66,6 +66,10 @@ def run_all_tasks_job():
 def run_all_tasks_job():
     os.system('pyats run job show_inventory_job.py')
 
+@shared_task(name = "Show License Summary")
+def run_all_tasks_job():
+    os.system('pyats run job show_license_summary_job.py')
+
 @shared_task(name = "Show IP Interface Brief")
 def run_all_tasks_job():
     os.system('pyats run job show_ip_int_brief_job.py')

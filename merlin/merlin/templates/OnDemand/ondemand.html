@@ -378,6 +378,11 @@
       <td>Show License Summary</td>
       <td><button id="show_license_summary_all_devices_button">Show License Summary</button></td>
       <td>
+        <div id="show_license_summary_filter">
+          <form id="show_license_summary_filter" action="{% url 'show_license_summary_ondemand_filter' %}" method="get">
+            <input name="show_license_summary_filter" type="text" placeholder="Filter Devices....">
+          </form>
+        </div>
       </td>
       <td>
         <b>* Hostname * Alias * Device Type * Operating System * Username * IP Address * Platform *</b>
