@@ -1655,7 +1655,7 @@
 {% else %}
 <h2>Merlin has not detected any Inventory configuration removals</h2>
 {% endif %}
-{% if interface_additions %}
+{% if ip_int_brief_additions %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been added</h2>
 <table id = "ip_int_brief_additions" class="table table-bordered">
   <thead class = "alert-success">
@@ -1667,7 +1667,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in interface_additions %}
+  <tbody>{% for interface in ip_int_brief_additions %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -1680,7 +1680,7 @@
 {% else %}
 <h2>Merlin has not detected any IP Interface Brief configuration additions</h2>
 {% endif %}
-{% if interface_removals %}
+{% if ip_int_brief_removals %}
 <h2>Merlin has detected the following IP Interface Brief configurations have been removed</h2>
 <table id = "ip_int_brief_removals" class="table table-bordered">
   <thead class = "alert-success">
@@ -1692,7 +1692,7 @@
     <th>Timestamp</th>
   </tr>
   </thead>
-  <tbody>{% for interface in interface_removals %}
+  <tbody>{% for interface in ip_int_brief_removals %}
   <tr>
     <td>{{ interface.pyats_alias }}</td>
     <td>{{ interface.interface }}</td>
@@ -1704,6 +1704,60 @@
 </table>
 {% else %}
 <h2>Merlin has not detected any IP Interface Brief configuration removals</h2>
+{% endif %}
+{% if license_additions %}
+<h2>Merlin has detected the following License configurations have been added</h2>
+<table id = "show_license_summary_additions" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_additions %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any License configuration additions</h2>
+{% endif %}
+{% if license_removals %}
+<h2>Merlin has detected the following License configurations have been removed</h2>
+<table id = "show_license_summary_removals" class="table table-bordered">
+  <thead class = "alert-success">
+  <tr>
+    <th>pyATS Alias</th>
+    <th>License Name</th>
+    <th>Entitlement</th>
+    <th>Count</th>
+    <th>Status</th>
+    <th>Timestamp</th>
+  </tr>
+  </thead>
+  <tbody>{% for license in license_removals %}
+  <tr>
+    <td>{{ license.pyats_alias }}</td>
+    <td>{{ license.license_name }}</td>
+    <td>{{ license.entitlement }}</td>
+    <td>{{ license.count }}</td>
+    <td>{{ license.status }}</td>
+    <td>{{ license.timestamp }}</td>
+  </tr>{% endfor %}
+  </tbody>  
+</table>
+{% else %}
+<h2>Merlin has not detected any License configuration removals</h2>
 {% endif %}
 {% if version_additions %}
 <h2>Merlin has detected the following Version configurations have been added</h2>
@@ -2563,6 +2617,40 @@
       select: true
   });
   });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#license_additions').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
+</script>
+<script type = "text/javascript">
+    $(document).ready(function(){
+        $('#license_removals').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+            'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true
+    });
+    });
 </script>
 <script type = "text/javascript">
     $(document).ready(function(){

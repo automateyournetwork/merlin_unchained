@@ -1,7 +1,7 @@
 import os
 import time
 from django.shortcuts import render
-from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowLicenseSummary, ShowVersion
 
 # CSV VIEWS
 def mindmap_page(request):
@@ -179,3 +179,22 @@ def learn_platform_mindmap(request, pyats_alias):
     markdown.close
     os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_platform_mind_map.html' % pyats_alias)
+
+def show_license_summary_mindmap(request, pyats_alias):
+    latest_timestamp = ShowLicenseSummary.objects.latest('timestamp')
+    license_list = ShowLicenseSummary.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Show License Summary\n","| Alias | Operating System | License Name | Entitlement | Count | Status | Timestamp |\n","| ----- | ---------------- | ------------ | ----------- | ----- | ------ | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for license in license_list:
+        markdown_data = "| %s | %s | %s | %s | %s | %s | %s |\n" % (license.pyats_alias,license.os,license.license_name,license.entitlement,license.count,license.status,license.timestamp)
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_license_summary_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_show_license_summary_mind_map.html' % pyats_alias)

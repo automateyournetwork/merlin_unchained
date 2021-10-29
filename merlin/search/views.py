@@ -1,7 +1,7 @@
 import json
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
-from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from merlin.models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowLicenseSummary, ShowIPIntBrief, ShowVersion
 
 class SearchView(TemplateView):
     template_name = 'Search/search.html'
@@ -55,6 +55,8 @@ class SearchResultAllView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(interface__icontains=query) | Q(interface_status__icontains=query) | Q(ip_address__icontains=query)
+        ),ShowLicenseSummary.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(license_name__icontains=query) | Q(entitlement__icontains=query) | Q(count__icontains=query) | Q(status__icontains=query) 
         ),ShowVersion.objects.filter(
             Q(pyats_alias__icontains=query) | Q(bootflash__icontains=query) | Q(chassis__icontains=query) | Q(cpu__icontains=query) | Q(device_name__icontains=query) | Q(memory__icontains=query) | Q(model__icontains=query) | Q(processor_board_id__icontains=query) | Q(rp__icontains=query) | Q(slots__icontains=query) | Q(days__icontains=query) | Q(hours__icontains=query) | Q(minutes__icontains=query) | Q(seconds__icontains=query) | Q(name__icontains=query) | Q(os__icontains=query) | Q(reason__icontains=query) | Q(system_compile_time__icontains=query) | Q(system_image_file__icontains=query) | Q(system_version__icontains=query) | Q(chassis_sn__icontains=query) | Q(compiled_by__icontains=query) | Q(curr_config_register__icontains=query) | Q(image_id__icontains=query) | Q(image_type__icontains=query) | Q(label__icontains=query) | Q(license_level__icontains=query) | Q(license_type__icontains=query) | Q(non_volatile__icontains=query) | Q(physical__icontains=query) | Q(next_reload_license_level__icontains=query) | Q(platform__icontains=query) | Q(processor_type__icontains=query) | Q(returned_to_rom_by__icontains=query) | Q(rom__icontains=query) | Q(rtr_type__icontains=query) | Q(uptime__icontains=query) | Q(uptime_this_cp__icontains=query) | Q(version_short__icontains=query) | Q(xe_version__icontains=query) 
         )
@@ -109,6 +111,8 @@ class SearchResultStateView(ListView):
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(part__icontains=query) | Q(description__icontains=query) | Q(pid__icontains=query) | Q(serial_number__icontains=query) 
         ),ShowIPIntBrief.objects.filter(
             Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(interface__icontains=query) | Q(interface_status__icontains=query) | Q(ip_address__icontains=query)
+        ),ShowLicenseSummary.objects.filter(
+            Q(pyats_alias__icontains=query) | Q(os__icontains=query) | Q(license_name__icontains=query) | Q(entitlement__icontains=query) | Q(count__icontains=query) | Q(status__icontains=query) 
         ),ShowVersion.objects.filter(
             Q(pyats_alias__icontains=query) | Q(bootflash__icontains=query) | Q(chassis__icontains=query) | Q(cpu__icontains=query) | Q(device_name__icontains=query) | Q(memory__icontains=query) | Q(model__icontains=query) | Q(processor_board_id__icontains=query) | Q(rp__icontains=query) | Q(slots__icontains=query) | Q(days__icontains=query) | Q(hours__icontains=query) | Q(minutes__icontains=query) | Q(seconds__icontains=query) | Q(name__icontains=query) | Q(os__icontains=query) | Q(reason__icontains=query) | Q(system_compile_time__icontains=query) | Q(system_image_file__icontains=query) | Q(system_version__icontains=query) | Q(chassis_sn__icontains=query) | Q(compiled_by__icontains=query) | Q(curr_config_register__icontains=query) | Q(image_id__icontains=query) | Q(image_type__icontains=query) | Q(label__icontains=query) | Q(license_level__icontains=query) | Q(license_type__icontains=query) | Q(non_volatile__icontains=query) | Q(physical__icontains=query) | Q(next_reload_license_level__icontains=query) | Q(platform__icontains=query) | Q(processor_type__icontains=query) | Q(returned_to_rom_by__icontains=query) | Q(rom__icontains=query) | Q(rtr_type__icontains=query) | Q(uptime__icontains=query) | Q(uptime_this_cp__icontains=query) | Q(version_short__icontains=query) | Q(xe_version__icontains=query) 
         )

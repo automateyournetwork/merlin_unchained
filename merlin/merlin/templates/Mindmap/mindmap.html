@@ -16,6 +16,7 @@
       <th>Learn ARP Statistics</th>
       <th>Learn BGP Instances</th>      
       <th>Learn Platform</th>
+      <th>Show License Summary</th>
     </tr>
     </thead>
     <tbody>{% for device in device_list %}
@@ -29,6 +30,7 @@
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnARPStatistics">Learn ARP Statistics</a></td>
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnBGPInstances">Learn BGP Instances</a></td>      
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnPlatform">Learn Platform</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/ShowLicenseSummary">Show License Summary</a></td>
     </tr>{% endfor %}  
     </tbody>
   </table>

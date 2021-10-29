@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowVersion
+from .models import Devices, EoX_PID, EoX_SN, EoX_IOS, LearnACL, LearnARP, LearnARPStatistics, LearnBGPInstances, LearnBGPRoutesPerPeer, LearnBGPTables, LearnConfig, LearnInterface, LearnPlatform, LearnPlatformSlots, LearnPlatformVirtual, LearnVLAN, LearnVRF, NMAP, PSIRT, RecommendedRelease, Serial2Contract, ShowInventory, ShowIPIntBrief, ShowLicenseSummary, ShowVersion
 import os
 
 # HTML VIEWS #
@@ -786,6 +786,36 @@ def show_ip_int_brief_alias_archive(request, pyats_alias):
     interface_list = ShowIPIntBrief.objects.filter(pyats_alias=pyats_alias)
     context = {'pyats_alias': pyats_alias, 'interface_list': interface_list}
     return render(request, 'HTML/ShowIPInterfaceBrief/show_ip_int_brief_alias_archive.html', context)
+
+def show_license_summary_all(request):
+    v_list = ShowLicenseSummary.objects.all()
+    context = {'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_all.html', context)
+
+def show_license_summary_year_archive(request, year):
+    v_list = ShowLicenseSummary.objects.filter(timestamp__year=year)
+    context = {'year': year, 'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_year_archive.html', context)
+
+def show_license_summary_month_archive(request, year, month):
+    v_list = ShowLicenseSummary.objects.filter(timestamp__year=year,timestamp__month=month)
+    context = {'year': year, 'month': month, 'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_month_archive.html', context)
+
+def show_license_summary_day_archive(request, year, month, day):
+    v_list = ShowLicenseSummary.objects.filter(timestamp__year=year,timestamp__month=month,timestamp__day=day)
+    context = {'year': year, 'month': month, 'day': day, 'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_day_archive.html', context)
+
+def show_license_summary_nxos_archive(request):
+    v_list = ShowLicenseSummary.objects.filter(os='nxos')
+    context = {'os': os, 'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_nxos_archive.html', context)
+
+def show_license_summary_alias_archive(request, pyats_alias):
+    v_list = ShowLicenseSummary.objects.filter(pyats_alias=pyats_alias)
+    context = {'pyats_alias': pyats_alias, 'license_list': v_list}
+    return render(request, 'HTML/ShowLicenseSummary/show_license_summary_alias_archive.html', context)
 
 def show_version_all(request):
     v_list = ShowVersion.objects.all()
