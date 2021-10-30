@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_prometheus',
     'django_elasticsearch_dsl',
     'gTTS',
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
