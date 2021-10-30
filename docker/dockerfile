@@ -56,6 +56,9 @@ RUN echo "==> Adding NPM and Markmap support ..." \
  && sudo DEBIAN_FRONTEND="noninteractive" apt -y install npm \
  && sudo npm install markmap-cli -g
 
+RUN echo "==> Adding Django Google Text to Speech ..." \
+ && pip install Django-Gtts
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/

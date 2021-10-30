@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'celery',
     'django_prometheus',
     'django_elasticsearch_dsl',
+    'gTTS',
 ]
 
 MIDDLEWARE = [
