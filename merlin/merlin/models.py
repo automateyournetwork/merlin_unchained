@@ -611,17 +611,17 @@ class ShowVersion(models.Model):
         template = '{0.pyats_alias} {0.bootflash} {0.chassis} {0.cpu} {0.device_name} {0.memory} {0.model} {0.processor_board_id} {0.rp} {0.slots} {0.days} {0.hours} {0.minutes} {0.seconds} {0.name} {0.os} {0.reason} {0.system_compile_time} {0.system_image_file} {0.system_version} {0.chassis_sn} {0.compiled_by} {0.curr_config_register} {0.image_id} {0.image_type} {0.label} {0.license_level} {0.license_type} {0.non_volatile} {0.physical} {0.next_reload_license_level} {0.platform} {0.processor_type} {0.returned_to_rom_by} {0.rom} {0.rtr_type} {0.uptime} {0.uptime_this_cp} {0.version_short} {0.xe_version} {0.timestamp}'
         return template.format(self)
 
-class TwilioCredentials(models.Model, Importable):
+class TwilioCredentials(models.Model):
     sid = models.TextField()
     token = models.TextField()
-    from_number = PhoneNumberField(null=False, blank=False, unique=True)
+    from_number = PhoneNumberField(unique=True)
 
     def __str__(self):
         template = '{0.sid} {0.token} {0.from_number}'
         return template.format(self)
 
-class NumbersToCall(models.Model, Importable):
-    number_to_call = PhoneNumberField(null=False, blank=False, unique=True)
+class NumbersToCall(models.Model):
+    number_to_call = PhoneNumberField(unique=True)
 
     def __str__(self):
         template = '{0.number_to_call}'
