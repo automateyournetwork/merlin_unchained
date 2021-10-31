@@ -625,11 +625,4 @@ class NumbersToCall(models.Model):
 
     def __str__(self):
         template = '{0.number_to_call}'
-        return template.format(self)
-
-class DropBoxCredentials(models.Model):
-    token = models.TextField()
-
-    def __str__(self):
-        template = '{0.token}'
-        return template.format(self)          
+        return template.format(self)      
