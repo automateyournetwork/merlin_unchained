@@ -62,6 +62,12 @@ RUN echo "==> Adding Django Google Text to Speech ..." \
 RUN echo "==> Adding Django Phone Number Field..." \
  && pip install django-phonenumber-field[phonenumberslite]
 
+RUN echo "==> Adding Twilio..." \
+ && pip install twilio
+
+RUN echo "==> Adding Dropbox..." \
+ && pip install dropbox
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
