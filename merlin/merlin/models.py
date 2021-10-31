@@ -625,4 +625,12 @@ class NumbersToCall(models.Model):
 
     def __str__(self):
         template = '{0.number_to_call}'
-        return template.format(self)      
+        return template.format(self)
+
+class TwilioSMS(models.Model):
+    from_number = models.TextField()
+    number_to_text = models.TextField()
+
+    def __str__(self):
+        template = '{0.from_number} {0.number_to_text}'
+        return template.format(self)            

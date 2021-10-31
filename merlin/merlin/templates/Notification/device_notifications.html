@@ -12,20 +12,24 @@
     <thead class = "alert-success">
   <tr>
     <th>pyATS Alias</th>
+    <th>Contact Engineer</th>
     <th>Make Twilio Voice Call</th>
     <th>Latest Twilio Voice Message</th>
+    <th>Send Twilio SMS</th>
   </tr>
   </thead>
   <tbody>
 <tr>
     <td style='text-align:center; vertical-align:middle'>{{ pyats_alias }}</td>
-    <td style='text-align:center; vertical-align:middle'><button id="disable_interface" value="Phone" name="disable_interface">Phone</button></td>
+    <td style='text-align:center; vertical-align:middle'>If Any Interfaces Are Disabled</td>
+    <td style='text-align:center; vertical-align:middle'><button id="disable_interface_voice" value="Phone" name="disable_interface_voice">Phone</button></td>
     <td style='text-align:center; vertical-align:middle'>
         <audio
             src="{% static 'notification/disabled_interfaces.mp3' %}"
             controls
         ></audio>    
     </td>
+    <td style='text-align:center; vertical-align:middle'><button id="disable_interface_sms" value="SMS" name="disable_interface_sms">Text</button></td>
 </tr>
   </tbody>  
 </table>
