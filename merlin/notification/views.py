@@ -1,11 +1,10 @@
 import os
-from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from merlin.models import Devices, LearnInterface, TwilioCredentials, NumbersToCall, DropBoxCredentials
 from gtts import gTTS
 from twilio.rest import Client
-import dropbox
+
 
 def device_list(request):
     device_list = Devices.objects.all()
@@ -36,31 +35,24 @@ def device_notifications(request, pyats_alias):
                 mp3 = gTTS(text = text, lang='en-us')
                 # Save MP3
                 mp3.save('disabled_interfaces.mp3')
-                # Dropbox 
-                db_db_token = DropBoxCredentials.objects.all().values('token')
-                account_token = db_db_token[0]['token']
-                d = dropbox.Dropbox(account_token)
-                # open the file and upload it
-                with filepath.open("disabled_interfaces.mp3", "rb") as f:
-                    meta = d.files_upload(f.read(), "disabled_interfaces.mp3", mode=dropbox.files.WriteMode("overwrite"))
-                # Get link to file
-                link = d.sharing_create_shared_link("disabled_interfaces.mp3")
-                url = link.url                
-                os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                                  
+                # Move file into static folder
+                os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
+                # Get Twilio stuff
+                tw_db_sid = TwilioCredentials.objects.all().values('sid')
                 tw_db_token = TwilioCredentials.objects.all().values('token')
                 tw_db_from = TwilioCredentials.objects.all().values('from_number')
                 tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
                 account_sid = tw_db_sid[0]['sid']
                 auth_token = tw_db_token[0]['token']
                 from_number = tw_db_from[0]['from_number']
-                client = Client(account_sid, auth_token)     
-                for number in db_to_call:
-                    call = client.calls.create(
-                        url=url,
-                        to=number,
-                        from_=from_number
-                    )
-
+                number_to_call = tw_db_to_call[0]['number_to_call']
+                client = Client(account_sid, auth_token)
+                # Make calls
+                call = client.calls.create(
+                    url="https://www.automateyournetwork.ca/wp-content/uploads/2021/10/disabled_interfaces.mp3",
+                    to=number_to_call,
+                    from_=from_number
+                )
             context = {'pyats_alias': pyats_alias}
             return render(request,"Notification/device_notifications.html", context)
     else:

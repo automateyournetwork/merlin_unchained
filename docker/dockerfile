@@ -65,9 +65,6 @@ RUN echo "==> Adding Django Phone Number Field..." \
 RUN echo "==> Adding Twilio..." \
  && pip install twilio
 
-RUN echo "==> Adding Dropbox..." \
- && pip install dropbox
-
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
