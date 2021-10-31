@@ -1,7 +1,7 @@
 import os
 from django.shortcuts import render
 from django.http import HttpResponse
-from merlin.models import Devices, LearnInterface, TwilioCredentials, NumbersToCall
+from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials 
 from gtts import gTTS
 from twilio.rest import Client
 
