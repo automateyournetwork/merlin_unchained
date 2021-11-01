@@ -18,7 +18,7 @@ def eox_pid_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for pid in pid_list:
-        markdown_data = "| %s | %s | %s | %s | %s | <%s> | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | <%s> | %s |\n" % (pid.pyats_alias,pid.os,pid.pid,pid.description,pid.bulletin_number,pid.bulletin_url,pid.external_date,pid.sale_date,pid.sw_maintenance,pid.security,pid.routine_failure,pid.service_contract,pid.last,pid.svc_attach,pid.last_updated,pid.pid_active,pid.migration_information,pid.migration_option,pid.migration_pid,pid.migration_name,pid.migration_strat,pid.migration_url,pid.timestamp)
+        markdown_data = f"| { pid.pyats_alias } | { pid.os } | { pid.pid } | { pid.description } | { pid.bulletin_number } | <{ pid.bulletin_url }> | { pid.external_date } | { pid.sale_date } | { pid.sw_maintenance } | { pid.security } | { pid.routine_failure } | { pid.service_contract } | { pid.last } | { pid.svc_attach } | { pid.last_updated } | { pid.pid_active } | { pid.migration_information } | { pid.migration_option } | { pid.migration_pid } | { pid.migration_name } | { pid.migration_strat } | <{ pid.migration_url }> | { pid.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -37,7 +37,7 @@ def eox_sn_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for sn in sn_list:
-        markdown_data = "| %s | %s | %s | %s | %s | <%s> | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | <%s> | %s |\n" % (sn.pyats_alias,sn.os,sn.pid,sn.description,sn.bulletin_number,sn.bulletin_url,sn.external_date,sn.sale_date,sn.sw_maintenance,sn.security,sn.routine_failure,sn.service_contract,sn.last,sn.svc_attach,sn.last_updated,sn.sn_active,sn.migration_information,sn.migration_option,sn.migration_sn,sn.migration_name,sn.migration_strat,sn.migration_url,sn.timestamp)
+        markdown_data = f"| { sn.pyats_alias} | { sn.os } | { sn.pid } | { sn.description } | { sn.bulletin_number } | { sn.bulletin_url } | { sn.external_date } | { sn.sale_date} | { sn.sw_maintenance } | { sn.security } | { sn.routine_failure } | { sn.service_contract,sn } | { last } | { sn.svc_attach } | { sn.last_updated } | { sn.sn_active } | { sn.migration_information } | { sn.migration_option } | { sn.migration_sn } | { sn.migration_name } | { sn.migration_strat } | <{ sn.migration_url }> | { sn.timestamp }|\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -56,7 +56,7 @@ def eox_sw_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for sw in sw_list:
-        markdown_data = "| %s | %s | %s | %s | %s | <%s> | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | <%s> | %s |\n" % (sw.pyats_alias,sw.os,sw.pid,sw.description,sw.bulletin_number,sw.bulletin_url,sw.external_date,sw.sale_date,sw.sw_maintenance,sw.security,sw.routine_failure,sw.service_contract,sw.last,sw.svc_attach,sw.last_updated,sw.sw_active,sw.migration_information,sw.migration_option,sw.migration_sw,sw.migration_name,sw.migration_strat,sw.migration_url,sw.timestamp)
+        markdown_data = f"| { sw.pyats_alias} | { sw.os } | { sw.pid } | { sw.description } | { sw.bulletin_number } | { sw.bulletin_url } | { sw.external_date } | { sw.sale_date} | { sw.sw_maintenance } | { sw.security } | { sw.routine_failure } | { sw.service_contract,sw } | { last } | { sw.svc_attach } | { sw.last_updated } | { sw.sw_active } | { sw.migration_information } | { sw.migration_option } | { sw.migration_sw } | { sw.migration_name } | { sw.migration_strat } | <{ sw.migration_url }> | { sw.timestamp }|\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -75,7 +75,7 @@ def learn_acl_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for acl in acl_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (acl.pyats_alias,acl.os,acl.acl,acl.ace,acl.permission,acl.logging,acl.source_network,acl.destination_network,acl.l3_protocol,acl.l4_protocol,acl.operator,acl.port,acl.timestamp)
+        markdown_data = f"| { acl.pyats_alias } | { acl.os } | { acl.acl } | { acl.ace } | { acl.permission } | { acl.logging } | { acl.source_network } | { acl.destination_network } | { acl.l3_protocol } | { acl.l4_protocol } | { acl.operator } | { acl.port } | { acl.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -94,7 +94,7 @@ def learn_arp_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for arp in arp_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (arp.pyats_alias,arp.os,arp.interface,arp.neighbor_ip,arp.neighbor_mac,arp.origin,arp.local_proxy,arp.proxy,arp.timestamp)
+        markdown_data = f"| { arp.pyats_alias } | { arp.os } | { arp.interface } | { arp.neighbor_ip } | { arp.neighbor_mac } | { arp.origin } | { arp.local_proxy } | { arp.proxy } | { arp.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -113,7 +113,7 @@ def learn_arp_statistics_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for arp in arp_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (arp.pyats_alias,arp.os,arp.entries_total,arp.in_drops,arp.in_replies_pkts,arp.in_requests_pkts,arp.incomplete_total,arp.out_replies_pkts,arp.out_requests_pkts,arp.timestamp)
+        markdown_data = f"| { arp.pyats_alias } | { arp.os } | { arp.entries_total } | { arp.in_drops } | { arp.in_replies_pkts } | { arp.in_requests_pkts } | { arp.incomplete_total } | { arp.out_replies_pkts } | { arp.out_requests_pkts } | { arp.timestamp }|\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -132,7 +132,7 @@ def learn_bgp_instances_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for instance in bgp_instance_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (instance.pyats_alias,instance.os,instance.instance,instance.bgp_id,instance.protocol_state,instance.nexthop_trigger_delay_critical,instance.nexthop_trigger_delay_noncritical,instance.nexthop_trigger_enabled,instance.vrf,instance.router_id,instance.cluster_id,instance.confederation_id,instance.neighbor,instance.version,instance.hold_time,instance.keep_alive_interval,instance.local_as,instance.remote_as,instance.neighbor_counters_received_bytes_in_queue,instance.neighbor_counters_received_capability,instance.neighbor_counters_received_keepalives,instance.neighbor_counters_received_notifications,instance.neighbor_counters_received_opens,instance.neighbor_counters_received_route_refresh,instance.neighbor_counters_received_total,instance.neighbor_counters_received_total_bytes,instance.neighbor_counters_received_updates,instance.neighbor_counters_sent_bytes_in_queue,instance.neighbor_counters_sent_capability,instance.neighbor_counters_sent_keepalives,instance.neighbor_counters_sent_notifications,instance.neighbor_counters_sent_opens,instance.neighbor_counters_sent_route_refresh,instance.neighbor_counters_sent_total,instance.neighbor_counters_sent_total_bytes,instance.neighbor_counters_sent_updates,instance.last_reset,instance.reset_reason,instance.timestamp)
+        markdown_data = f"| { instance.pyats_alias } | { instance.os } | { instance.instance } | { instance.bgp_id } | { instance.protocol_state } | { instance.nexthop_trigger_delay_critical } | { instance.nexthop_trigger_delay_noncritical } | { instance.nexthop_trigger_enabled } | { instance.vrf } | { instance.router_id } | { instance.cluster_id } | { instance.confederation_id } | { instance.neighbor } | { instance.version } | { instance.hold_time } | { instance.keep_alive_interval } | { instance.local_as } | { instance.remote_as } | { instance.neighbor_counters_received_bytes_in_queue } | { instance.neighbor_counters_received_capability } | { instance.neighbor_counters_received_keepalives } | { instance.neighbor_counters_received_notifications } | { instance.neighbor_counters_received_opens } | { instance.neighbor_counters_received_route_refresh } | { instance.neighbor_counters_received_total } | { instance.neighbor_counters_received_total_bytes } | { instance.neighbor_counters_received_updates } | { instance.neighbor_counters_sent_bytes_in_queue } | { instance.neighbor_counters_sent_capability } | { instance.neighbor_counters_sent_keepalives } | { instance.neighbor_counters_sent_notifications } | { instance.neighbor_counters_sent_opens } | { instance.neighbor_counters_sent_route_refresh } | { instance.neighbor_counters_sent_total } | { instance.neighbor_counters_sent_total_bytes } | { instance.neighbor_counters_sent_updates } | { instance.last_reset } | { instance.reset_reason } | { instance.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -151,7 +151,7 @@ def learn_bgp_route_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for route in bgp_route_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (route.pyats_alias,route.os,route.instance,route.vrf,route.neighbor,route.advertised,route.routes,route.remote_as,route.timestamp)
+        markdown_data = f"| { route.pyats_alias } | { route.os } | { route.instance } | { route.vrf } | { route.neighbor } | { route.advertised } | { route.routes } | { route.remote_as } | { route.timestamp } |\n" % ()
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -170,7 +170,7 @@ def learn_bgp_table_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for table in bgp_table_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (table.pyats_alias,table.os,table.instance,table.vrf,table.table_version,table.prefix,table.index,table.localpref,table.next_hop,table.origin_code,table.status_code,table.weight,table.timestamp)
+        markdown_data = f"| { table.pyats_alias } | { table.os } | { table.instance } | { table.vrf } | { table.table_version } | { table.prefix } | { table.index } | { table.localpref } | { table.next_hop } | { table.origin_code } | { table.status_code } | { table.weight } | { table.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -189,7 +189,7 @@ def learn_interface_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for interface in interface_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (interface.pyats_alias,interface.os,interface.interface,interface.description,interface.enabled,interface.status,interface.access_vlan,interface.native_vlan,interface.switchport,interface.switchport_mode,interface.interface_type,interface.bandwidth,interface.auto_negotiate,interface.speed,interface.duplex,interface.mtu,interface.mac_address,interface.physical_address,interface.ip_address,interface.medium,interface.delay,interface.encapsulation,interface.flow_control_receive,interface.flow_control_send,interface.port_channel,interface.port_channel_member_interfaces,interface.port_channel_member,interface.last_change,interface.input_broadcast,interface.input_crc_errors,interface.input_errors,interface.input_mac_pause_frames,interface.input_multicast,interface.input_octets,interface.input_unicast,interface.input_unknown,interface.input_total,interface.output_broadcast,interface.output_discard,interface.output_errors,interface.output_mac_pause_frames,interface.output_multicast,interface.output_unicast,interface.output_total,interface.last_clear,interface.input_rate,interface.load_interval,interface.output_rate,interface.timestamp)
+        markdown_data = f"| { interface.pyats_alias } | { interface.os } | { interface.interface } | { interface.description } | { interface.enabled } | { interface.status } | { interface.access_vlan } | { interface.native_vlan } | { interface.switchport } | { interface.switchport_mode } | { interface.interface_type } | { interface.bandwidth } | { interface.auto_negotiate } | { interface.speed } | { interface.duplex } | { interface.mtu } | { interface.mac_address } | { interface.physical_address } | { interface.ip_address } | { interface.medium } | { interface.delay } | { interface.encapsulation } | { interface.flow_control_receive } | { interface.flow_control_send } | { interface.port_channel } | { interface.port_channel_member_interfaces } | { interface.port_channel_member } | { interface.last_change } | { interface.input_broadcast } | { interface.input_crc_errors } | { interface.input_errors } | { interface.input_mac_pause_frames } | { interface.input_multicast } | { interface.input_octets } | { interface.input_unicast } | { interface.input_unknown } | { interface.input_total } | { interface.output_broadcast } | { interface.output_discard } | { interface.output_errors } | { interface.output_mac_pause_frames } | { interface.output_multicast } | { interface.output_unicast } | { interface.output_total } | { interface.last_clear } | { interface.input_rate } | { interface.load_interval } | { interface.output_rate } | { interface.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -208,7 +208,7 @@ def learn_platform_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for item in platform_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n" % (item.pyats_alias,item.os,item.chassis,item.chassis_sn,item.disk_free_space,item.disk_total_space,item.disk_used_space,item.image,item.installed_packages,item.main_mem,item.rp_uptime,item.rtr_type,item.version,item.timestamp)
+        markdown_data = f"| { item.pyats_alias } | { item.os } | { item.chassis } | { item.chassis_sn } | { item.disk_free_space } | { item.disk_total_space } | { item.disk_used_space } | { item.image } | { item.installed_packages } | { item.main_mem } | { item.rp_uptime } | { item.rtr_type } | { item.version } | { item.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
@@ -227,7 +227,7 @@ def show_license_summary_mindmap(request, pyats_alias):
     markdown.close()
     markdown = open("markdown.md", "a")
     for license in license_list:
-        markdown_data = "| %s | %s | %s | %s | %s | %s | %s |\n" % (license.pyats_alias,license.os,license.license_name,license.entitlement,license.count,license.status,license.timestamp)
+        markdown_data = f"| { license.pyats_alias } | { license.os } | { license.license_name } | { license.entitlement } | { license.count } | { license.status } | { license.timestamp } |\n"
         markdown.write(markdown_data)
     markdown.close
     markdown = open('markdown.md', 'r')
