@@ -65,19 +65,19 @@ def device_notifications(request, pyats_alias):
             # Get Twilio stuff
             tw_db_sid = TwilioCredentials.objects.all().values('sid')
             tw_db_token = TwilioCredentials.objects.all().values('token')
-            tw_db_from = TwilioSMS.objects.all().values('from_number')
-            tw_db_to_text = TwilioSMS.objects.all().values('number_to_text')
+            tw_db_from = TwilioCredentials.objects.all().values('from_number')
+            tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
             account_sid = tw_db_sid[0]['sid']
             auth_token = tw_db_token[0]['token']
             from_number = tw_db_from[0]['from_number']
             client = Client(account_sid, auth_token)
             for interface in interface_list:
                 if interface.interface != "Vlan1":
-                    for number in tw_db_to_text:               
+                    for number in tw_db_to_call:               
                         message = client.messages.create(
                             body=f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }",
-                            from_=from_number,
-                            to=number['number_to_text']
+                            from_=f"+1{ from_number }",
+                            to=f"+1{ number['number_to_call'] }"
                             )                
 
             context = {'pyats_alias': pyats_alias}

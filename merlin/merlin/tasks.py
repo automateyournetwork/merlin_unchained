@@ -1,6 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 import os
+from .models import LearnInterface, NumbersToCall, TwilioCredentials
+from gtts import gTTS
+from twilio.rest import Client
 
 @shared_task(name = "Schedule All Tasks")
 def run_all_tasks_job():
@@ -77,3 +80,43 @@ def run_all_tasks_job():
 @shared_task(name = "Show Version")
 def run_all_tasks_job():
     os.system('pyats run job show_version_job.py')
+
+@shared_task(name = "Call If Interfaces Get Disabled")
+def run_all_tasks_job():
+    # Learn Interface to JSON
+    os.system('pyats run job learn_interface_job.py')
+    latest_timestamp = LearnInterface.objects.latest('timestamp')
+    interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")
+    shut_interfaces = []
+    for interface in interface_list:
+        if interface.interface != "Vlan1":
+            down_int = interface.interface
+            description = interface.description
+            device_alias = interface.pyats_alias
+            shut_interfaces.append(down_int)
+            shut_interfaces.append(description)
+    if shut_interfaces != "[]":
+        # Generate Message in Text
+        text = f"Hello! At { latest_timestamp.timestamp }, on device { interface.pyats_alias }, Merlin has detected the following interfaces are disabled { shut_interfaces }"
+        # Convert to MP3
+        mp3 = gTTS(text = text, lang='en-us')
+        # Save MP3
+        mp3.save('disabled_interfaces.mp3')
+        # Move file into static folder
+        os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
+        # Get Twilio stuff
+        tw_db_sid = TwilioCredentials.objects.all().values('sid')
+        tw_db_token = TwilioCredentials.objects.all().values('token')
+        tw_db_from = TwilioCredentials.objects.all().values('from_number')
+        tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
+        account_sid = tw_db_sid[0]['sid']
+        auth_token = tw_db_token[0]['token']
+        from_number = tw_db_from[0]['from_number']
+        client = Client(account_sid, auth_token)
+        # Make calls
+        for number in tw_db_to_call:
+            call = client.calls.create(
+                url="https://www.automateyournetwork.ca/wp-content/uploads/2021/10/disabled_interfaces.mp3",
+                to=number['number_to_call'],
+                from_=from_number
+        )
