@@ -8,3 +8,4 @@
 | Jonathan Carter | Seattle, WA | October 28th, 2021 | Thanks John, you're amazing! |
 | Dane DeValcourt | Lafayette, LA | 10/28/2021 | Just dropping in! |
 | Arnold Smith | Toronto, Ontario | October 29, 2021 | This looks good! |
+| Rajasekar P | Chennai, TN, India | November 1, 2021 | Thanks John, you are inspiring and a person whom i admire |
