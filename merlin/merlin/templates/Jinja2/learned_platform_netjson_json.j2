@@ -1,0 +1,97 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn Platform",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for platform in to_parse_platform %}
+        { 
+            "id": "{{ platform.pyats_alias }}"
+        },
+        { 
+            "id": "Type: {{ platform.rtr_type | default("N/A") }}"
+        },          
+        { 
+            "id": "Chassis: {{ platform.chassis | default("N/A") }}"
+        },
+        { 
+            "id": "Serial Number: {{ platform.chassis_sn | default("N/A") }}"
+        },
+        { 
+            "id": "Uptime: {{ platform.rp_uptime | default("N/A") }}"
+        },
+        { 
+            "id": "Total Space: {{ platform.disk_total_space | default("N/A") }}"
+        },    
+        { 
+            "id": "Used Space: {{ platform.disk_used_space | default("N/A") }}"
+        },    
+        { 
+            "id": "Free Space: {{ platform.disk_free_space | default("N/A") }}"
+        },
+        { 
+            "id": "Image: {{ platform.image | default("N/A") }}"
+        },
+        { 
+            "id": "Memory: {{ platform.main_mem | default("N/A") }}"
+        },    
+        { 
+            "id": "OS: {{ platform.os | default("N/A") }}"
+        },    
+        { 
+            "id": "Version: {{ platform.version | default("N/A") }}"
+        }{% endfor %}
+    ],
+    "links": [{% for platform in to_parse_platform %}
+        {
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Type: {{ platform.rtr_type | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Chassis: {{ platform.chassis | default("N/A") }}",
+            "cost": 1             
+        },
+        { 
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Serial Number: {{ platform.chassis_sn | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Uptime: {{ platform.rp_uptime | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Total Space: {{ platform.disk_total_space | default("N/A") }}",
+            "cost": 1
+        },    
+        {
+            "source": "Total Space: {{ platform.disk_total_space | default("N/A") }}",
+            "target": "Used Space: {{ platform.disk_used_space | default("N/A") }}",
+            "cost": 1
+        },    
+        { 
+            "source": "Total Space: {{ platform.disk_total_space | default("N/A") }}",
+            "target": "Free Space: {{ platform.disk_free_space | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ platform.pyats_alias  }}",
+            "target": "Memory: {{ platform.main_mem | default("N/A") }}",
+            "cost": 1            
+        },    
+        { 
+            "source": "Image: {{ platform.image | default("N/A") }}",
+            "target": "OS: {{ platform.os | default("N/A") }}",
+            "cost": 1            
+        },    
+        { 
+            "source": "Image: {{ platform.image | default("N/A") }}",
+            "target": "Version: {{ platform.version | default("N/A") }}",
+            "cost": 1
+        }{% endfor %}
+    ]
+}
