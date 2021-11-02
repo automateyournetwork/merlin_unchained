@@ -65,6 +65,9 @@ RUN echo "==> Adding Django Phone Number Field..." \
 RUN echo "==> Adding Twilio..." \
  && pip install twilio
 
+RUN echo "==> Adding Network JSON Graph..." \
+ && npm install netjsongraph.js --save
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
