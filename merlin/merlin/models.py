@@ -615,9 +615,10 @@ class TwilioCredentials(models.Model):
     sid = models.TextField()
     token = models.TextField()
     from_number = PhoneNumberField(unique=True)
+    from_number_sms = PhoneNumberField(unique=True)
 
     def __str__(self):
-        template = '{0.sid} {0.token} {0.from_number}'
+        template = '{0.sid} {0.token} {0.from_number} {0.from_number_sms}'
         return template.format(self)
 
 class NumbersToCall(models.Model):
