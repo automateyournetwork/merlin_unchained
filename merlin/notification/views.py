@@ -65,7 +65,7 @@ def device_notifications(request, pyats_alias):
             # Get Twilio stuff
             tw_db_sid = TwilioCredentials.objects.all().values('sid')
             tw_db_token = TwilioCredentials.objects.all().values('token')
-            tw_db_from = TwilioCredentials.objects.all().values('from_number')
+            tw_db_from = TwilioCredentials.objects.all().values('from_number_sms')
             tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
             account_sid = tw_db_sid[0]['sid']
             auth_token = tw_db_token[0]['token']
