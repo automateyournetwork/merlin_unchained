@@ -120,3 +120,26 @@ def run_all_tasks_job():
                 to=number['number_to_call'],
                 from_=from_number
         )
+
+@shared_task(name = "Text If Interfaces Get Disabled")
+def run_all_tasks_job():
+            os.system('pyats run job learn_interface_job.py')
+            latest_timestamp = LearnInterface.objects.latest('timestamp')
+            interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")
+            # Get Twilio stuff
+            tw_db_sid = TwilioCredentials.objects.all().values('sid')
+            tw_db_token = TwilioCredentials.objects.all().values('token')
+            tw_db_from = TwilioCredentials.objects.all().values('from_number_sms')
+            tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
+            account_sid = tw_db_sid[0]['sid']
+            auth_token = tw_db_token[0]['token']
+            from_number = tw_db_from[0]['from_number_sms']
+            client = Client(account_sid, auth_token)
+            for interface in interface_list:
+                if interface.interface != "Vlan1":
+                    for number in tw_db_to_call:               
+                        message = client.messages.create(
+                            body=f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
+                            from_=f"+1{ from_number }",
+                            to=f"+1{ number['number_to_call'] }"
+                            )        

@@ -13,9 +13,11 @@
   <tr>
     <th>pyATS Alias</th>
     <th>Contact Engineer</th>
-    <th>Make Twilio Voice Call</th>
+    <th>Twilio Voice Call Merlin Numbers</th>
+    <th>Twilio Voice On-Demand</th>
     <th>Latest Twilio Voice Message</th>
-    <th>Send Twilio SMS</th>
+    <th>Send Twilio SMS Merlin Numbers</th>
+    <th>Send Twilio SMS On-Demand</th>
   </tr>
   </thead>
   <tbody>
@@ -23,6 +25,14 @@
     <td style='text-align:center; vertical-align:middle'>{{ pyats_alias }}</td>
     <td style='text-align:center; vertical-align:middle'>If Any Interfaces Are Disabled</td>
     <td style='text-align:center; vertical-align:middle'><button id="disable_interface_voice" value="Phone" name="disable_interface_voice">Phone</button></td>
+    <td>
+        <form id="disable_interface_voice_input" action="{% url 'device_notifications' pyats_alias %}" method="post">
+            {% csrf_token %}
+            <label for="disable_interface_voice_input">Phone Number to Call:</label><br>
+            <input id="disable_interface_voice_input" name="disable_interface_voice_input" type="text" placeholder="(Country Code Area Code Phone Number)">
+            <input type="submit" value="Phone">
+        </form>
+    </td>    
     <td style='text-align:center; vertical-align:middle'>
         <audio
             src="{% static 'notification/disabled_interfaces.mp3' %}"
@@ -30,6 +40,14 @@
         ></audio>    
     </td>
     <td style='text-align:center; vertical-align:middle'><button id="disable_interface_sms" value="SMS" name="disable_interface_sms">Text</button></td>
+    <td>
+        <form id="disable_interface_sms_input" action="{% url 'device_notifications' pyats_alias %}" method="post">
+            {% csrf_token %}        
+            <label for="disable_interface_sms_input">Number to Text:</label><br>
+            <input id="disable_interface_sms_input" name="disable_interface_sms_input" type="text" placeholder="(Country Code Area Code Phone Number)">
+            <input type="submit" value="Text">
+        </form>
+    </td>    
 </tr>
   </tbody>  
 </table>
