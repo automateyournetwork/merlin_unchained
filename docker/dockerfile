@@ -68,6 +68,9 @@ RUN echo "==> Adding Twilio..." \
 RUN echo "==> Adding Network JSON Graph..." \
  && npm install netjsongraph.js --save
 
+RUN echo "==> Adding Google Cloud..." \
+ && pip install --upgrade gcloud
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
