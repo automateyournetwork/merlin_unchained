@@ -6,7 +6,6 @@ from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredenti
 from gtts import gTTS
 from twilio.rest import Client
 from merlin.forms import LearnPlatformVoiceInput, LearnPlatformSMSInput
-from gcloud import storage
 
 def device_list(request):
     device_list = Devices.objects.all()
@@ -23,33 +22,23 @@ def device_notifications(request, pyats_alias):
 
         if disabled_interfaces_voice:
             # Learn Interface to JSON
-            #os.system('pyats run job learn_interface_job.py')
-            #latest_timestamp = LearnInterface.objects.latest('timestamp')
-            #interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")            
-            #shut_interfaces = []
-            #for interface in interface_list:
-            #    if interface.interface != "Vlan1":
-            #        down_int = interface.interface
-            #        description = interface.description
-            #        shut_interfaces.append(down_int)
-            #        shut_interfaces.append(description)
-            #if shut_interfaces != "[]":
+            os.system('pyats run job learn_interface_job.py')
+            latest_timestamp = LearnInterface.objects.latest('timestamp')
+            interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")            
+            shut_interfaces = []
+            for interface in interface_list:
+                if interface.interface != "Vlan1":
+                    down_int = interface.interface
+                    description = interface.description
+                    shut_interfaces.append(down_int)
+                    shut_interfaces.append(description)
+            if shut_interfaces != "[]":
             # Generate Message in Text
-            text = f"Hello! At , on device , Merlin has detected the following interfaces are disabled"
+            text = f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interfaces are disabled { shut_interfaces }"
             # Convert to MP3
             mp3 = gTTS(text = text, lang='en-us')
             # Save MP3
             mp3.save('disabled_interfaces.mp3')
-            #Google Upload to Storage
-            google_db_bucket = GoogleCredentials.objects.all().values('bucket')
-            google_bucket = google_db_bucket[0]['bucket']
-            google_db_credentials = GoogleCredentials.objects.all().values('credentials')
-            google_credentials = google_db_credentials[0]['credentials']
-            storage_client = storage.Client.from_service_account_json(google_credentials)
-            client = storage.Client(credentials=credentials, project='myproject')
-            bucket = client.get_bucket(google_bucket)
-            blob = bucket.blob('disabled_interfaces.mp3')
-            blob.upload_from_filename('disabled_interfaces.mp3')
             # Move file into static folder
             os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
             # Get Twilio stuff
@@ -64,7 +53,7 @@ def device_notifications(request, pyats_alias):
             # Make calls
             for number in tw_db_to_call:
                 call = client.calls.create(
-                    url=blob.public_url,
+                    url="https://www.automateyournetwork.ca/wp-content/uploads/2021/10/disabled_interfaces.mp3",
                     to=number['number_to_call'],
                     from_=from_number
             )
