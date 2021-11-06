@@ -24,66 +24,66 @@ def device_notifications(request, pyats_alias):
 
         if disabled_interfaces_voice:
             # Learn Interface to JSON
-            os.system('pyats run job learn_interface_job.py')
-            latest_timestamp = LearnInterface.objects.latest('timestamp')
-            interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")            
-            shut_interfaces = []
-            for interface in interface_list:
-                if interface.interface != "Vlan1":
-                    down_int = interface.interface
-                    description = interface.description
-                    shut_interfaces.append(down_int)
-                    shut_interfaces.append(description)
-            if shut_interfaces != "[]":
-                google_db_client_id = GoogleCredentials.objects.all().values('client_id')
-                google_db_client_email = GoogleCredentials.objects.all().values('client_email')
-                google_db_private_key_id = GoogleCredentials.objects.all().values('private_key_id')
-                google_db_private_key = GoogleCredentials.objects.all().values('private_key')
-                google_db_bucket = GoogleCredentials.objects.all().values('bucket')
-                client_id = google_db_client_id[0]['client_id']
-                client_email = google_db_client_email[0]['client_email']
-                private_key_id = google_db_private_key_id[0]['private_key_id']
-                private_key = google_db_private_key[0]['private_key']
-                bucket = google_db_bucket[0]['bucket']
-                # Generate Message in Text
-                text = f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interfaces are disabled { shut_interfaces }"
-                # Convert to MP3
-                mp3 = gTTS(text = text, lang='en-us')
-                # Save MP3
-                mp3.save('disabled_interfaces.mp3')
-                #Google Upload to Storage
-                credentials_dict = {
-                    'type': 'service_account',
-                    'client_id': os.environ['client_id'],
-                    'client_email': os.environ['client_email'],
-                    'private_key_id': os.environ['private_key_id'],
-                    'private_key': os.environ['private_key'],
-                }
-                credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                    credentials_dict
-                )
-                client = storage.Client(credentials=credentials, project='myproject')
-                bucket = client.get_bucket(bucket)
-                blob = bucket.blob('disabled_interfaces.mp3')
-                blob.upload_from_filename('disabled_interfaces.mp3')
-                # Move file into static folder
-                os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
-                # Get Twilio stuff
-                tw_db_sid = TwilioCredentials.objects.all().values('sid')
-                tw_db_token = TwilioCredentials.objects.all().values('token')
-                tw_db_from = TwilioCredentials.objects.all().values('from_number')
-                tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
-                account_sid = tw_db_sid[0]['sid']
-                auth_token = tw_db_token[0]['token']
-                from_number = tw_db_from[0]['from_number']
-                client = Client(account_sid, auth_token)
-                # Make calls
-                for number in tw_db_to_call:
-                    call = client.calls.create(
-                        url=blob.public_url,
-                        to=number['number_to_call'],
-                        from_=from_number
-                )
+            #os.system('pyats run job learn_interface_job.py')
+            #latest_timestamp = LearnInterface.objects.latest('timestamp')
+            #interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")            
+            #shut_interfaces = []
+            #for interface in interface_list:
+            #    if interface.interface != "Vlan1":
+            #        down_int = interface.interface
+            #        description = interface.description
+            #        shut_interfaces.append(down_int)
+            #        shut_interfaces.append(description)
+            #if shut_interfaces != "[]":
+            google_db_client_id = GoogleCredentials.objects.all().values('client_id')
+            google_db_client_email = GoogleCredentials.objects.all().values('client_email')
+            google_db_private_key_id = GoogleCredentials.objects.all().values('private_key_id')
+            google_db_private_key = GoogleCredentials.objects.all().values('private_key')
+            google_db_bucket = GoogleCredentials.objects.all().values('bucket')
+            client_id = google_db_client_id[0]['client_id']
+            client_email = google_db_client_email[0]['client_email']
+            private_key_id = google_db_private_key_id[0]['private_key_id']
+            private_key = google_db_private_key[0]['private_key']
+            bucket = google_db_bucket[0]['bucket']
+            # Generate Message in Text
+            text = f"Hello! At , on device , Merlin has detected the following interfaces are disabled"
+            # Convert to MP3
+            mp3 = gTTS(text = text, lang='en-us')
+            # Save MP3
+            mp3.save('disabled_interfaces.mp3')
+            #Google Upload to Storage
+            credentials_dict = {
+                'type': 'service_account',
+                'client_id': os.environ['client_id'],
+                'client_email': os.environ['client_email'],
+                'private_key_id': os.environ['private_key_id'],
+                'private_key': os.environ['private_key'],
+            }
+            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                credentials_dict
+            )
+            client = storage.Client(credentials=credentials, project='myproject')
+            bucket = client.get_bucket(bucket)
+            blob = bucket.blob('disabled_interfaces.mp3')
+            blob.upload_from_filename('disabled_interfaces.mp3')
+            # Move file into static folder
+            os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
+            # Get Twilio stuff
+            tw_db_sid = TwilioCredentials.objects.all().values('sid')
+            tw_db_token = TwilioCredentials.objects.all().values('token')
+            tw_db_from = TwilioCredentials.objects.all().values('from_number')
+            tw_db_to_call = NumbersToCall.objects.all().values('number_to_call')
+            account_sid = tw_db_sid[0]['sid']
+            auth_token = tw_db_token[0]['token']
+            from_number = tw_db_from[0]['from_number']
+            client = Client(account_sid, auth_token)
+            # Make calls
+            for number in tw_db_to_call:
+                call = client.calls.create(
+                    url=blob.public_url,
+                    to=number['number_to_call'],
+                    from_=from_number
+            )
             context = {'pyats_alias': pyats_alias}
             return render(request,"Notification/device_notifications.html", context)
 

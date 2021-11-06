@@ -636,5 +636,5 @@ class GoogleCredentials(models.Model):
     bucket = models.TextField()
 
     def __str__(self):
-        template = '{0.access_key} {0.secret_key} {0.bucket}'
+        template = '{0.client_id} {0.client_email} {0.private_key_id} {0.private_key} {0.bucket}'
         return template.format(self)        
