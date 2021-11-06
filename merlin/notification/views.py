@@ -2,7 +2,7 @@ import os
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
-from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials, GoogleCredentials
+from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials, S3Credentials
 from gtts import gTTS
 from twilio.rest import Client
 from merlin.forms import LearnPlatformVoiceInput, LearnPlatformSMSInput
@@ -39,6 +39,29 @@ def device_notifications(request, pyats_alias):
             mp3 = gTTS(text = text, lang='en-us')
             # Save MP3
             mp3.save('disabled_interfaces.mp3')
+            # Amazon S3 MP3
+            s3_db_access_key = S3Credentials.objects.all().values('access_key')
+            s3_db_secret_key = S3Credentials.objects.all().values('secret_key')
+            s3_db_bucket = S3Credentials.objects.all().values('bucket')
+            access_key = s3_db_access_key[0]['access_key']
+            secret_key = s3_db_secret_key[0]['secret_key']
+            bucket = s3_db_bucket[0]['bucket']            
+            def upload_to_aws(local_file, bucket, s3_file):
+                s3 = boto3.client('s3', aws_access_key_id=access_key,
+                                  aws_secret_access_key=secret_key)
+
+                try:
+                    s3.upload_file(local_file, bucket, s3_file)
+                    print("Upload Successful")
+                    return True
+                except FileNotFoundError:
+                    print("The file was not found")
+                    return False
+                except NoCredentialsError:
+                    print("Credentials not available")
+                    return False
+
+            uploaded = upload_to_aws('disabled_interfaces.mp3', bucket, 'disabled_interfaces.mp3')
             # Move file into static folder
             os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
             # Get Twilio stuff
@@ -53,7 +76,8 @@ def device_notifications(request, pyats_alias):
             # Make calls
             for number in tw_db_to_call:
                 call = client.calls.create(
-                    url="https://www.automateyournetwork.ca/wp-content/uploads/2021/10/disabled_interfaces.mp3",
+                    method='GET',
+                    url="https://merlinunchained.s3.us-east-2.amazonaws.com/disabled_interfaces.mp3",
                     to=number['number_to_call'],
                     from_=from_number
             )

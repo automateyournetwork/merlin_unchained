@@ -628,10 +628,11 @@ class NumbersToCall(models.Model):
         template = '{0.number_to_call}'
         return template.format(self)
 
-class GoogleCredentials(models.Model):
-    credentials = models.JSONField()
+class S3Credentials(models.Model):
+    access_key = models.TextField()
+    secret_key = models.TextField()
     bucket = models.TextField()
 
     def __str__(self):
-        template = '{0.credentials} {0.bucket}'
+        template = '{0.access_key} {0.secret_key} {0.bucket}'
         return template.format(self)          
