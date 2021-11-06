@@ -41,9 +41,11 @@ def device_notifications(request, pyats_alias):
             # Save MP3
             mp3.save('disabled_interfaces.mp3')
             #Google Upload to Storage
+            google_db_bucket = GoogleCredentials.objects.all().values('bucket')
             google_bucket = google_db_bucket[0]['bucket']
-            storage_client = storage.Client.from_service_account_json(
-                'google_cloud.json')
+            google_db_credentials = GoogleCredentials.objects.all().values('credentials')
+            google_credentials = google_db_credentials[0]['credentials']
+            storage_client = storage.Client.from_service_account_json(google_credentials)
             client = storage.Client(credentials=credentials, project='myproject')
             bucket = client.get_bucket(google_bucket)
             blob = bucket.blob('disabled_interfaces.mp3')

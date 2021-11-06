@@ -626,4 +626,12 @@ class NumbersToCall(models.Model):
 
     def __str__(self):
         template = '{0.number_to_call}'
-        return template.format(self)      
+        return template.format(self)
+
+class GoogleCredentials(models.Model):
+    credentials = models.JSONField()
+    bucket = models.TextField()
+
+    def __str__(self):
+        template = '{0.credentials} {0.bucket}'
+        return template.format(self)          
