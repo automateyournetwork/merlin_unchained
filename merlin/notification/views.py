@@ -2,11 +2,12 @@ import os
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
-from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials 
+from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials, GoogleCredentials
 from gtts import gTTS
 from twilio.rest import Client
 from merlin.forms import LearnPlatformVoiceInput, LearnPlatformSMSInput
-
+from gcloud import storage
+from oauth2client.service_account import ServiceAccountCredentials
 
 def device_list(request):
     device_list = Devices.objects.all()
@@ -34,12 +35,37 @@ def device_notifications(request, pyats_alias):
                     shut_interfaces.append(down_int)
                     shut_interfaces.append(description)
             if shut_interfaces != "[]":
+                google_db_client_id = GoogleCredentials.objects.all().values('client_id')
+                google_db_client_email = GoogleCredentials.objects.all().values('client_email')
+                google_db_private_key_id = GoogleCredentials.objects.all().values('private_key_id')
+                google_db_private_key = GoogleCredentials.objects.all().values('private_key')
+                google_db_bucket = GoogleCredentials.objects.all().values('bucket')
+                client_id = google_db_client_id[0]['client_id']
+                client_email = google_db_client_email[0]['client_email']
+                private_key_id = google_db_private_key_id[0]['private_key_id']
+                private_key = google_db_private_key[0]['private_key']
+                bucket = google_db_bucket[0]['bucket']
                 # Generate Message in Text
-                text = f"Hello! At { interface.timestamp }, on device { pyats_alias }, Merlin has detected the following interfaces are disabled { shut_interfaces }"
+                text = f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interfaces are disabled { shut_interfaces }"
                 # Convert to MP3
                 mp3 = gTTS(text = text, lang='en-us')
                 # Save MP3
                 mp3.save('disabled_interfaces.mp3')
+                #Google Upload to Storage
+                credentials_dict = {
+                    'type': 'service_account',
+                    'client_id': os.environ['client_id'],
+                    'client_email': os.environ['client_email'],
+                    'private_key_id': os.environ['private_key_id'],
+                    'private_key': os.environ['private_key'],
+                }
+                credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                    credentials_dict
+                )
+                client = storage.Client(credentials=credentials, project='myproject')
+                bucket = client.get_bucket(bucket)
+                blob = bucket.blob('disabled_interfaces.mp3')
+                blob.upload_from_filename('disabled_interfaces.mp3')
                 # Move file into static folder
                 os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
                 # Get Twilio stuff
@@ -54,7 +80,7 @@ def device_notifications(request, pyats_alias):
                 # Make calls
                 for number in tw_db_to_call:
                     call = client.calls.create(
-                        url="https://www.automateyournetwork.ca/wp-content/uploads/2021/10/disabled_interfaces.mp3",
+                        url=blob.public_url,
                         to=number['number_to_call'],
                         from_=from_number
                 )
@@ -79,7 +105,7 @@ def device_notifications(request, pyats_alias):
                 if interface.interface != "Vlan1":
                     for number in tw_db_to_call:               
                         message = client.messages.create(
-                            body=f"Hello! At { interface.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
+                            body=f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
                             from_=f"+1{ from_number }",
                             to=f"+1{ number['number_to_call'] }"
                             )                
@@ -144,7 +170,7 @@ def device_notifications(request, pyats_alias):
                 if interface.interface != "Vlan1":
                     for number in tw_db_to_call:               
                         message = client.messages.create(
-                            body=f"Hello! At { interface.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
+                            body=f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
                             from_=f"+1{ from_number }",
                             to=f"+1{ disabled_interfaces_sms_input }"
                             )                
