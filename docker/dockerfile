@@ -68,6 +68,9 @@ RUN echo "==> Adding Twilio..." \
 RUN echo "==> Adding Network JSON Graph..." \
  && npm install netjsongraph.js --save
 
+RUN echo "==> Adding boto3 for S3 Upload..." \
+  && pip install boto3
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
