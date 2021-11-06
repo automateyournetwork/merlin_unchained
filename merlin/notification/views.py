@@ -7,7 +7,6 @@ from gtts import gTTS
 from twilio.rest import Client
 from merlin.forms import LearnPlatformVoiceInput, LearnPlatformSMSInput
 from gcloud import storage
-from oauth2client.service_account import ServiceAccountCredentials
 
 def device_list(request):
     device_list = Devices.objects.all()
@@ -35,16 +34,6 @@ def device_notifications(request, pyats_alias):
             #        shut_interfaces.append(down_int)
             #        shut_interfaces.append(description)
             #if shut_interfaces != "[]":
-            google_db_client_id = GoogleCredentials.objects.all().values('client_id')
-            google_db_client_email = GoogleCredentials.objects.all().values('client_email')
-            google_db_private_key_id = GoogleCredentials.objects.all().values('private_key_id')
-            google_db_private_key = GoogleCredentials.objects.all().values('private_key')
-            google_db_bucket = GoogleCredentials.objects.all().values('bucket')
-            client_id = google_db_client_id[0]['client_id']
-            client_email = google_db_client_email[0]['client_email']
-            private_key_id = google_db_private_key_id[0]['private_key_id']
-            private_key = google_db_private_key[0]['private_key']
-            bucket = google_db_bucket[0]['bucket']
             # Generate Message in Text
             text = f"Hello! At , on device , Merlin has detected the following interfaces are disabled"
             # Convert to MP3
@@ -52,18 +41,11 @@ def device_notifications(request, pyats_alias):
             # Save MP3
             mp3.save('disabled_interfaces.mp3')
             #Google Upload to Storage
-            credentials_dict = {
-                'type': 'service_account',
-                'client_id': os.environ['client_id'],
-                'client_email': os.environ['client_email'],
-                'private_key_id': os.environ['private_key_id'],
-                'private_key': os.environ['private_key'],
-            }
-            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
-                credentials_dict
-            )
+            google_bucket = google_db_bucket[0]['bucket']
+            storage_client = storage.Client.from_service_account_json(
+                'google_cloud.json')
             client = storage.Client(credentials=credentials, project='myproject')
-            bucket = client.get_bucket(bucket)
+            bucket = client.get_bucket(google_bucket)
             blob = bucket.blob('disabled_interfaces.mp3')
             blob.upload_from_filename('disabled_interfaces.mp3')
             # Move file into static folder

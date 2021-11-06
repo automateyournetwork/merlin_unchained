@@ -626,15 +626,4 @@ class NumbersToCall(models.Model):
 
     def __str__(self):
         template = '{0.number_to_call}'
-        return template.format(self)
-
-class GoogleCredentials(models.Model):
-    client_id = models.TextField()
-    client_email = models.TextField()
-    private_key_id = models.TextField()
-    private_key = models.TextField()
-    bucket = models.TextField()
-
-    def __str__(self):
-        template = '{0.client_id} {0.client_email} {0.private_key_id} {0.private_key} {0.bucket}'
-        return template.format(self)        
+        return template.format(self)      
