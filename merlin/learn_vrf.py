@@ -46,8 +46,7 @@ class Collect_Information(aetest.Testcase):
         # ---------------------------------------
         for device in testbed.devices.values():
             # Learn VRF to JSON
-            self.learned_vrf = ParseLearnFunction.parse_learn(steps, device, "vrf")
-            print (self.learned_vrf)     
+            self.learned_vrf = ParseLearnFunction.parse_learn(steps, device, "vrf")    
             if self.learned_vrf is not None:
                 # Set Django Database values from pyATS JSON
                 for vrf in self.learned_vrf['vrfs']:

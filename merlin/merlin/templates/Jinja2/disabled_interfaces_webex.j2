@@ -82,7 +82,7 @@
                 {
                     "type": "Column",
                     "width": 65,
-                    "items": [{% for interface in shut_interfaces%}
+                    "items": [{% for interface in shut_interfaces %}
                         {
                             "type": "TextBlock",
                             "text": "{{ device_id }}",
@@ -106,7 +106,7 @@
                             "type": "TextBlock",
                             "text": "{{ timestamp }}",
                             "color": "Light"
-                        }                                              
+                        }{% endfor %}
                     ]
                 }
             ],
@@ -145,7 +145,7 @@
                     "items": [
                         {
                             "type": "TextBlock",
-                            "text": "[Merlin GitHub Repository](https://github.com/automateyournetwork/merlin_unchained)",
+                            "text": "[Latest Learn Interfaces](http://localhost:8000/Latest/LearnInterface/)",
                             "horizontalAlignment": "Left",
                             "size": "Medium"
                         }
