@@ -20,6 +20,11 @@ services:
       - elasticvue
       - dejavu
       - heimdall
+    environment:
+      - USE_S3=TRUE
+      - AWS_ACCESS_KEY_ID={{ your S3 user access key here }}
+      - AWS_SECRET_ACCESS_KEY={{ your S3 user secret key here }}
+      - AWS_STORAGE_BUCKET_NAME={{ your S3 bucket here }}
   db:
     image: 'postgres'
     environment:
