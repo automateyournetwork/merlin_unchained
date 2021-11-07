@@ -635,4 +635,13 @@ class S3Credentials(models.Model):
 
     def __str__(self):
         template = '{0.access_key} {0.secret_key} {0.bucket}'
-        return template.format(self)          
+        return template.format(self)
+
+class WebEx(models.Model):
+    roomid = models.TextField()
+    token = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.roomid} {0.token} {0.timestamp}'
+        return template.format(self)
