@@ -11,3 +11,4 @@
 | Rajasekar P | Chennai, TN, India | November 1, 2021 | Thanks John, you are inspiring and a person whom i admire |
 | Dan Richards | Nashville, TN, USA | November 5, 2021 | You rock John! Thanks for sharing your passion with us! |
 | Jordan Villarreal | Schererville, IN, USA | November 6, 2021 | Thank you for offering this up!  I'm looking forward to the session! |
+| Clay Curtis | Dunedin, Florida, USA | November 7, 2021 | Here for some cool Python work! |

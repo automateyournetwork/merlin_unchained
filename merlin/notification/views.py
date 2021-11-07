@@ -1,13 +1,15 @@
 import os
 import boto3
+import requests
 from botocore.exceptions import NoCredentialsError
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import ListView
-from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials, S3Credentials
+from merlin.models import Devices, LearnInterface, NumbersToCall, TwilioCredentials, S3Credentials, WebEx
 from gtts import gTTS
 from twilio.rest import Client
 from merlin.forms import LearnPlatformVoiceInput, LearnPlatformSMSInput
+from jinja2 import Environment, FileSystemLoader
 
 def device_list(request):
     device_list = Devices.objects.all()
@@ -208,9 +210,9 @@ def device_notifications(request, pyats_alias):
             template_dir = 'merlin/templates/Jinja2'
             env = Environment(loader=FileSystemLoader(template_dir))
             disabled_interfaces_webex = env.get_template('disabled_interfaces_webex.j2')
-            os.system('pyats run job learn_interface_job.py')
+            #os.system('pyats run job learn_interface_job.py')
             latest_timestamp = LearnInterface.objects.latest('timestamp')
-            interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")            
+            interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")
             shut_interfaces = []
             for interface in interface_list:
                 if interface.interface != "Vlan1":
@@ -225,12 +227,6 @@ def device_notifications(request, pyats_alias):
                 mp3 = gTTS(text = text, lang='en-us')
                 # Save MP3
                 mp3.save('disabled_interfaces.mp3')
-                # Move file into static folder
-                os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
-                webex_db_roomid = WebEx.objects.all().values('roomid')
-                webex_db_token = WebEx.objects.all().values('token')
-                roomid = webex_db_roomid[0]['roomid']
-                token = webex_db_token[0]['token']
                 # Amazon S3 MP3
                 s3_db_access_key = S3Credentials.objects.all().values('access_key')
                 s3_db_secret_key = S3Credentials.objects.all().values('secret_key')
@@ -254,15 +250,20 @@ def device_notifications(request, pyats_alias):
                         print("Credentials not available")
                         return False
 
-                uploaded = upload_to_aws('disabled_interfaces.mp3', bucket, 'disabled_interfaces.mp3')
+                uploaded = upload_to_aws('disabled_interfaces.mp3', bucket, 'disabled_interfaces.mp3')                
+                # Move file into static folder
+                os.system("mv disabled_interfaces.mp3 merlin/static/notification/")                
+                webex_db_roomid = WebEx.objects.all().values('roomid')
+                webex_db_token = WebEx.objects.all().values('token')
+                roomid = webex_db_roomid[0]['roomid']
+                token = webex_db_token[0]['token']
                 # -----------------------
                 # Send to WebEx
                 # -----------------------
-                with steps.start('Send Adaptive Card',continue_=True) as step:
                 # Adaptive Card
-                    webex_adaptive_card = disabled_interfaces_webex.render(shut_interfaces=shut_interfaces,roomid=webex_roomid,device_id=pyats_alias,timestamp=latest_timestamp.timestamp)
-                    webex_adaptive_card_response = requests.post('https://webexapis.com/v1/messages', data=webex_adaptive_card, headers={"Content-Type": "application/json", "Authorization": f"Bearer { webex_token }" })
-                    print('The POST to WebEx had a response code of ' + str(webex_adaptive_card_response.status_code) + 'due to' + webex_adaptive_card_response.reason)
+                webex_adaptive_card = disabled_interfaces_webex.render(shut_interfaces=shut_interfaces,roomid=roomid,device_id=pyats_alias,timestamp=latest_timestamp.timestamp)
+                webex_adaptive_card_response = requests.post('https://webexapis.com/v1/messages', data=webex_adaptive_card, headers={"Content-Type": "application/json", "Authorization": f"Bearer { token }" })
+                print('The POST to WebEx had a response code of ' + str(webex_adaptive_card_response.status_code) + 'due to' + webex_adaptive_card_response.reason)
             context = {'pyats_alias': pyats_alias}
             return render(request,"Notification/device_notifications.html", context)
     else:
