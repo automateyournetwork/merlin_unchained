@@ -71,6 +71,9 @@ RUN echo "==> Adding Network JSON Graph..." \
 RUN echo "==> Adding boto3 for S3 Upload..." \
   && pip install boto3
 
+RUN echo "==> Adding Django Storages..." \
+  && pip install django-storages
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
