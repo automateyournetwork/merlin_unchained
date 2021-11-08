@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'gTTS',
     'phonenumber_field',
     'storages',
+    'channels',
+    'viewer',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +86,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'merlin.wsgi.application'
 
+ASGI_APPLICATION = "merlin.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -175,3 +178,25 @@ ELASTICSEARCH_DSL = {
         'hosts': 'elastic:merlin@elasticsearch:9200'
     },
 }
+
+CHANNEL_LAYERS = {
+   "default": {
+       "BACKEND": "asgi_redis.RedisChannelLayer",
+       "CONFIG": {
+           "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+       },
+       "ROUTING": "django_blender.routing.channel_routing",
+    },
+}
+
+BLENDER_FILE = os.path.join(BASE_DIR, "monkey.blend")
+BLENDER_RENDER_TMP_DIR = '/tmp/django_blender'
+BLENDER_RENDER_SYNC_INTERVAL = 0.2
+BLENDER_USE_GPU = False
+BLENDER_GPU_DEVICE = "CUDA"
+
+
+BROKER_TRANSPORT = "redis"
+BROKER_HOST = "localhost"
+BROKER_PORT = 6379
+BROKER_VHOST = "0"

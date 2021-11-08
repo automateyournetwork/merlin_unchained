@@ -74,6 +74,38 @@ RUN echo "==> Adding boto3 for S3 Upload..." \
 RUN echo "==> Adding Django Storages..." \
   && pip install django-storages
 
+RUN echo "==> Adding Django Channels..." \
+  && pip install -U channels
+
+RUN echo "==> Adding Git..." \
+  && sudo apt-get -y update \
+  && sudo apt install -y git-all
+
+RUN echo "==> Adding Blender Part One ..." \
+  && sudo apt-get install -y libopenexr-dev \
+  && mkdir ~/blender-git \
+  && cd ~/blender-git \
+  && git clone https://git.blender.org/blender.git \
+  && cd blender \
+  && git submodule update --init --recursive \
+  && git submodule foreach git checkout master \
+  && git submodule foreach git pull --rebase origin master
+
+RUN echo "==> Updating cmake ..." \
+  && sudo apt-get -y update \
+  && sudo apt-get -y install cmake
+
+RUN echo "==> Adding Blender Part Two..." \
+  && cd ~/blender-git \
+  && ./blender/build_files/build_environment/install_deps.sh \
+  && mkdir ~/blender-git/build \
+  && cd ~/blender-git/build \
+  && cmake ../blender -DWITH_PYTHON_INSTALL=OFF -DWITH_PLAYER=OFF -DWITH_PYTHON_MODULE=ON -DCMAKE_INSTALL_PREFIX=$HOME/django-blender-env/lib/python3.5/site-packages
+
+RUN echo "==> Adding Blender Part Three..." \  
+  && make \
+  && make install
+
 COPY /images /images/
 COPY /merlin /merlin/
 COPY /scripts /scripts/
