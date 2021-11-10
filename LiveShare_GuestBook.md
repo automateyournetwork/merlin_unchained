@@ -12,3 +12,4 @@
 | Dan Richards | Nashville, TN, USA | November 5, 2021 | You rock John! Thanks for sharing your passion with us! |
 | Jordan Villarreal | Schererville, IN, USA | November 6, 2021 | Thank you for offering this up!  I'm looking forward to the session! |
 | Clay Curtis | Dunedin, Florida, USA | November 7, 2021 | Here for some cool Python work! |
+| Matthew DeNapoli | Cleveland, OH, USA | November 10, 2021 | Just snackin' |
