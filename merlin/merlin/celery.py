@@ -3,7 +3,7 @@ from django.conf import settings
 from celery import Celery
 from celery.signals import worker_init
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_blender.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'merlin.settings')
 app = Celery('merlin',broker='redis://redis:6379/0')
 
 # Celery settings are in settings.py using a `CELERY_` prefix.
@@ -29,4 +29,4 @@ def get_blender(filepath=settings.BLENDER_FILE, new_instance=False):
         preferences = bpy.context.user_preferences.addons['cycles'].preferences
         preferences.compute_device_type = settings.BLENDER_GPU_DEVICE if settings.BLENDER_USE_GPU else 'NONE'
         bpy.context.scene.cycles.device = 'GPU' if settings.BLENDER_USE_GPU else 'CPU'
-    return sys.modules['bpy']    
+    return sys.modules['bpy']

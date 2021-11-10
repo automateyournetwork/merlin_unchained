@@ -27,7 +27,7 @@
 
 <script>
 $(function() {
-    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_scheme = window.location.protocol == "http:" ? "wss" : "ws";
     var ws_path = ws_scheme + '://' + window.location.host + '/viewer/';
 
     var socket = new WebSocket(ws_path);

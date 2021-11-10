@@ -34,7 +34,6 @@ urlpatterns = [
     path('', include('netgraph.urls')),
     path('', include('notification.urls')),
     path('', include('viewer.urls')),
-    path('', include('blender.urls')),
     path('Devices/All/', views.devices_all),
     path('Devices/<int:year>/', views.devices_year_archive),
     path('Devices/<int:year>/<int:month>/', views.devices_month_archive),

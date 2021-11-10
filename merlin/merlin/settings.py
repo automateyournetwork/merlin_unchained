@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'merlin',
+    'channels',
+    'channels_redis',
     'django_celery_beat',
     'rest_framework',
     'celery',
@@ -50,7 +52,6 @@ INSTALLED_APPS = [
     'gTTS',
     'phonenumber_field',
     'storages',
-    'channels',
     'viewer',
 ]
 
@@ -181,11 +182,10 @@ ELASTICSEARCH_DSL = {
 
 CHANNEL_LAYERS = {
    "default": {
-       "BACKEND": "asgi_redis.RedisChannelLayer",
+       "BACKEND": "channels_redis.core.RedisChannelLayer",
        "CONFIG": {
-           "hosts": [os.environ.get('REDIS_URL', 'redis://localhost:6379')],
+           "hosts": [os.environ.get('REDIS_URL', 'redis://redis:6379')]
        },
-       "ROUTING": "django_blender.routing.channel_routing",
     },
 }
 
