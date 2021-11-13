@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 from celery import shared_task
+import os
 from .models import LearnInterface, NumbersToCall, TwilioCredentials
 from gtts import gTTS
 from twilio.rest import Client
@@ -141,6 +142,4 @@ def run_all_tasks_job():
                             body=f"Hello! At { latest_timestamp.timestamp }, on device { pyats_alias }, Merlin has detected the following interface is now disabled { interface.interface } { interface.description }. Please visit http://localhost:8000/Latest/LearnPlatform/ for details",
                             from_=f"+1{ from_number }",
                             to=f"+1{ number['number_to_call'] }"
-                            )
-
-                          
+                            )                                                  
