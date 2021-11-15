@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}Merlin Voice Commands{% endblock %}
+{% block content %}
+<h1>Merlin Voice Commands</h1>
+<table id = "voice" class="table table-bordered">
+    <thead class = "alert-success">
+  <tr>
+    <th>Learn Command</th>
+    <th>Command</th>
+    <th>Send Command</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <div id= 'record'>
+        <button onclick="startConverting()" class='btn btn-info btn-sm' id="re">Learn Command</button>
+      </div>
+    </td>
+    <td>
+      <div id='result'>
+        Your text will  appear here
+      </div>
+    </td>
+    <td>
+      <div id= 'send'>
+        <button class='btn btn-info btn-sm ml-3' value="Send" id="send">Send Command</button></td>
+      </div>
+    </td>
+  </tr>
+  </tbody>  
+</table>
+<script type = "text/javascript">
+  function startConverting()
+         {
+           document.getElementById("re").style.visibility = "hidden";   
+           var r=document.getElementById('result');
+           var spr=new webkitSpeechRecognition(); //Initialisation of web Kit
+             spr.continuous=false; //True if continous conversion is needed, false to stop transalation when paused 
+             spr.interimResults=true;
+             spr.lang='en-IN'; // Set Input language
+             spr.start(); //Start Recording the voice 
+             var ftr='';
+             spr.onresult=function(event){
+                 var interimTranscripts='';
+                 for(var i=event.resultIndex;i<event.results.length;i++)
+                 {
+                     var transcript=event.results[i][0].transcript;
+                     transcript.replace("\n","<br>")
+                     if(event.results[i].isFinal){
+                         ftr+=transcript;
+                     }
+                     else
+                     interimTranscripts+=transcript;
+                 }
+                 r.innerHTML=ftr +interimTranscripts ;
+             };
+             spr.onerror=function(event){};
+         }
+         $(document).ready(function() {
+             $("#send").click(function(event){
+                   $.ajax({
+                       type:"POST",
+                       url:"/Voice/Learn/",
+                       data: {
+                               send : $('#result').html()
+                               },
+                       success: function(){
+                           alert("Audio succesfully Submitted");
+                       }
+                   });
+             });
+           });
+  </script>
+{% endblock %}

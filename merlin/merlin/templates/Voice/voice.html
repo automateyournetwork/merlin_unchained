@@ -1,76 +1,94 @@
 {% extends "base.html" %}
 
-{% block title %}Merlin Voice Commands{% endblock %}
+{% block title %}Merlin Voice{% endblock %}
+
 {% block content %}
-<h1>Merlin Voice Commands</h1>
+<h1>Merlin Voice List</h1>
 <table id = "voice" class="table table-bordered">
     <thead class = "alert-success">
-  <tr>
-    <th>Learn Command</th>
-    <th>Command</th>
-    <th>Send Command</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>
-      <div id= 'record'>
-        <button onclick="startConverting()" class='btn btn-info btn-sm' id="re">Learn Command</button>
-      </div>
-    </td>
-    <td>
-      <div id='result'>
-        Your text will  appear here
-      </div>
-    </td>
-    <td>
-      <div id= 'send'>
-        <button class='btn btn-info btn-sm ml-3' value="Send" id="send">Send Command</button></td>
-      </div>
-    </td>
-  </tr>
-  </tbody>  
-</table>
+    <tr>
+      <th>pyATS Learn Commands</th>
+      <th>pyATS Parsed Show Commands</th>
+      <th>Cisco CLI Configuration Commands</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td><a href="http://localhost:8000/Learn/">pyATS Learn Commands</a></td>
+      <td><a href="http://localhost:8000/Show/">pyATS Parsed Show Commands</a></td>
+      <td><a href="http://localhost:8000/Config/">Cisco CLI Config Terminal Commands</a></td>
+    </tr>{% endfor %}  
+    </tbody>
+  </table>
 <script type = "text/javascript">
-  function startConverting()
-         {
-           document.getElementById("re").style.visibility = "hidden";   
-           var r=document.getElementById('result');
-           var spr=new webkitSpeechRecognition(); //Initialisation of web Kit
-             spr.continuous=false; //True if continous conversion is needed, false to stop transalation when paused 
-             spr.interimResults=true;
-             spr.lang='en-IN'; // Set Input language
-             spr.start(); //Start Recording the voice 
-             var ftr='';
-             spr.onresult=function(event){
-                 var interimTranscripts='';
-                 for(var i=event.resultIndex;i<event.results.length;i++)
-                 {
-                     var transcript=event.results[i][0].transcript;
-                     transcript.replace("\n","<br>")
-                     if(event.results[i].isFinal){
-                         ftr+=transcript;
-                     }
-                     else
-                     interimTranscripts+=transcript;
-                 }
-                 r.innerHTML=ftr +interimTranscripts ;
-             };
-             spr.onerror=function(event){};
-         }
-         $(document).ready(function() {
-             $("#send").click(function(event){
-                   $.ajax({
-                       type:"POST",
-                       url:"/Voice/",
-                       data: {
-                               send : $('#result').html()
-                               },
-                       success: function(){
-                           alert("Audio succesfully Submitted");
-                       }
-                   });
-             });
-           });
-  </script>
+  $(document).ready(function(){
+    $('#voice thead tr')
+    .clone(true)
+    .addClass('filters')
+    .appendTo('#voice thead');
+
+    var table = $('#voice').DataTable({
+        keys: true,
+        dom: 'Bfrtip',
+        lengthMenu: [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        buttons: [
+        'pageLength','colvis','copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        colReorder: true,
+        select: true,            
+        orderCellsTop: true,
+        fixedHeader: true,
+        initComplete: function () {
+        var api = this.api();
+
+        // For each column
+        api
+            .columns()
+            .eq(0)
+            .each(function (colIdx) {
+                // Set the header cell to contain the input element
+                var cell = $('.filters th').eq(
+                    $(api.column(colIdx).header()).index()
+                );
+                var title = $(cell).text();
+                $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                // On every keypress in this input
+                $(
+                    'input',
+                    $('.filters th').eq($(api.column(colIdx).header()).index())
+                )
+                    .off('keyup change')
+                    .on('keyup change', function (e) {
+                        e.stopPropagation();
+
+                        // Get the search value
+                        $(this).attr('title', $(this).val());
+                        var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                        var cursorPosition = this.selectionStart;
+                        // Search the column for that value
+                        api
+                            .column(colIdx)
+                            .search(
+                                this.value != ''
+                                    ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                    : '',
+                                this.value != '',
+                                this.value == ''
+                            )
+                            .draw();
+
+                        $(this)
+                            .focus()[0]
+                            .setSelectionRange(cursorPosition, cursorPosition);
+                    });
+            });
+    },
+});
+});        
+</script>
 {% endblock %}
