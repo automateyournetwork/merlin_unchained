@@ -1,11 +1,7 @@
 import os
-import requests
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
-from pyats import aetest
-from pyats import topology
-from pyats.log.utils import banner
 from datetime import datetime
 from merlin.models import DynamicJobInput
 
@@ -39,4 +35,4 @@ def config_voice_page(request):
         os.system(f'pyats run job voice_config_job.py')
     else:
         message = "Please check the POST call"
-    return render(request,"Voice/show_voice.html")    
+    return render(request,"Voice/config_voice.html")    
