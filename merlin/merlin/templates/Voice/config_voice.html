@@ -6,16 +6,28 @@
 <table id = "voice" class="table table-bordered">
     <thead class = "alert-success">
   <tr>
-    <th>Config Terminal Command</th>
+    <th>pyATS Alias</th>
+    <th>Interface</th>
+    <th>Description</th>
+    <th>Enabled</th>
+    <th>Config Interface Command</th>
     <th>Command</th>
     <th>Send Command</th>
   </tr>
   </thead>
-  <tbody>
+  <tbody>{% for interface in interface_list %}
   <tr>
+    <td>{{ interface.pyats_alias }}</td>
+    <td>{{ interface.interface }}</td> 
+    <td>{{ interface.description }}</td> 
+    {% if interface.enabled == "True" %}
+    <td bgcolor="green">{{ interface.enabled }}</td>
+    {% else %}
+    <td bgcolor="red">{{ interface.enabled }}</td>
+    {% endif %}  
     <td>
       <div id= 'record'>
-        <button onclick="startConverting()" class='btn btn-info btn-sm' id="re">Config Terminal Command</button>
+        <button onclick="startConverting()" class='btn btn-info btn-sm' id="re">Config Interface Command</button>
       </div>
     </td>
     <td>
@@ -24,12 +36,12 @@
       </div>
     </td>
     <td>
-      <div id= 'send'>
-        <button class='btn btn-info btn-sm ml-3' value="Send" id="send">Send Command</button></td>
-      </div>
+        <div id= 'send'>
+          <button class='btn btn-info btn-sm ml-3' value="Send" id="send" data-url="{% url 'config_voice' pyats_alias user_interface %}">Send Command</button></td>
+        </div>     
     </td>
-  </tr>
-  </tbody>  
+  </tr>{% endfor %}
+  </tbody> 
 </table>
 <script type = "text/javascript">
   function startConverting()
@@ -62,7 +74,7 @@
              $("#send").click(function(event){
                    $.ajax({
                        type:"POST",
-                       url:"/Voice/Show/",
+                       url:$("#send").attr("data-url"),
                        data: {
                                send : $('#result').html()
                                },
