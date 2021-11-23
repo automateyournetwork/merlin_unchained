@@ -20,6 +20,7 @@ services:
       - elasticvue
       - dejavu
       - heimdall
+      - grafana
     environment:
       - USE_S3=FALSE
       - AWS_ACCESS_KEY_ID={{ your S3 user access key here }}
@@ -137,6 +138,17 @@ services:
     ports:
       - 9000:80
     restart: unless-stopped
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana:/var/lib/grafana
+    env_file: .gfenv
 
 volumes:
   prometheus-data:
