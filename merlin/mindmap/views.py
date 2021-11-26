@@ -218,6 +218,101 @@ def learn_platform_mindmap(request, pyats_alias):
     os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_platform_mind_map.html' % pyats_alias)
 
+def learn_vlan_mindmap(request, pyats_alias):
+    latest_timestamp = LearnVLAN.objects.latest('timestamp')
+    vlan_list = LearnVLAN.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn VLAN\n","| Alias | Operating System | VLAN | Interfaces | Mode | Name | Shutdown | State | Timestamp |\n","| ----- | ---------------- | ---- | ---------- | ---- | ---- | -------- | ----- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for vlan in vlan_list:
+        markdown_data = f"| { vlan.pyats_alias } | { vlan.os } | { vlan.vlan } | { vlan.interfaces } | { vlan.mode } | { vlan.name } | { vlan.shutdown } | { vlan.state } | { vlan.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_vlan_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_vlan_mind_map.html' % pyats_alias)
+
+def learn_vrf_mindmap(request, pyats_alias):
+    latest_timestamp = LearnVRF.objects.latest('timestamp')
+    vrf_list = LearnVRF.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Learn VRF\n","| Alias | Operating System | VRF | Route Distinguisher | Timestamp |\n","| ----- | ---------------- | --- | ------------------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for vrf in vrf_list:
+        markdown_data = f"| { vrf.pyats_alias } | { vrf.os } | { vrf.vrf } | { vrf.route_distinguisher } | { vrf.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_vrf_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_learn_vrf_mind_map.html' % pyats_alias)
+
+def nmap_mindmap(request, pyats_alias):
+    latest_timestamp = NMAP.objects.latest('timestamp')
+    nmap_list = NMAP.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Network Map\n","| Alias | Operating System | Protocol | Port | Conf | CPE | Extra Info | Name | Product | Reason | State | Version | Timestamp |\n","| ----- | ---------------- | -------- | ---- | ---- | --- | ---------- | ---- | ------- | ------ | ----- | ------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for map in nmap_list:
+        markdown_data = f"| { map.pyats_alias } | { map.os } | { map.protocol } | { map.port } | { map.conf } | { map.cpe } | { map.extra_info } | { map.name } | { map.product } | { map.reason } | { map.state } | { map.version } | { map.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_nmap_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_nmap_mind_map.html' % pyats_alias)
+
+def show_inventory_mindmap(request, pyats_alias):
+    latest_timestamp = ShowInventory.objects.latest('timestamp')
+    inventory_list = ShowInventory.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Show Inventory\n","| Alias | Operating System | Part | Description | Part ID | Serial Number | Timestamp |\n","| ----- | ---------------- | ---- | ----------- | ------- | ------------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for item in inventory_list:
+        markdown_data = f"| { item.pyats_alias } | { item.os } | { item.part } | { item.description } | { item.pid } | { item.serial_number } | { item.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_inventory_summary_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_show_inventory_summary_mind_map.html' % pyats_alias)
+
+def show_ip_int_brief_mindmap(request, pyats_alias):
+    latest_timestamp = ShowIPIntBrief.objects.latest('timestamp')
+    interface_list = ShowIPIntBrief.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Show IP Interface Brief\n","| Alias | Operating System | Interface | Interface Status | IP Address | Timestamp |\n","| ----- | ---------------- | --------- | ---------------- | ---------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for interface in interface_list:
+        markdown_data = f"| { interface.pyats_alias } | { interface.os } | { interface.interface } | { interface.interface_status } | { interface.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_ip_interface_brief_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_show_ip_interface_brief_mind_map.html' % pyats_alias)
+
 def show_license_summary_mindmap(request, pyats_alias):
     latest_timestamp = ShowLicenseSummary.objects.latest('timestamp')
     license_list = ShowLicenseSummary.objects.filter(timestamp=latest_timestamp.timestamp)
@@ -236,3 +331,22 @@ def show_license_summary_mindmap(request, pyats_alias):
     markdown.close
     os.remove("markdown.md")
     return render(request, 'Mindmap/%s_show_license_summary_mind_map.html' % pyats_alias)
+
+def show_version_mindmap(request, pyats_alias):
+    latest_timestamp = ShowVersion.objects.latest('timestamp')
+    version_list = ShowVersion.objects.filter(timestamp=latest_timestamp.timestamp)
+    markdown = open("markdown.md", "w")
+    markdown_header_rows = ["# Latest Show Version\n","| Alias | Operating System | Bootflash | Chassis | CPU | Device Name | Memory | Model | Processor Board ID | RP | Slots | Uptime Days | Hours | Minutes | Seconds | Name | Last Reload Reason | System Compile Time | System Image File | System Version | Chassis Serial Number | Compiled By | Current Config Register | Image ID | Image Type | Label | License Level | License Type | Non Volatile | Physical | Next Reload License Level | Platform | Processor Type | Returned to ROM by | ROM | Router Type | Uptime | Uptime this CP | Version Short | XE Version | Timestamp |\n","| ----- | ---------------- | --------- | ------- | --- | ----------- | ------ | ----- | ------------------ | -- | ----- | ----------- | ----- | ------- | ------- | ---- | ------------------ | ------------------- | ----------------- | -------------- | --------------------- | ----------- | ----------------------- | -------- | ---------- | ----- | ------------- | ------------ | ------------ | -------- | ------------------------- | -------- | -------------- | ------------------ | --- | ----------- | ------ | -------------- | ------------- | ---------- | --------- |\n"]
+    markdown.writelines(markdown_header_rows)
+    markdown.close()
+    markdown = open("markdown.md", "a")
+    for version in version_list:
+        markdown_data = f"| { version.pyats_alias } | { version.os } | { version.bootflash } | { version.chassis } | { version.cpu } | { version.device_name } | { version.memory } | { version.model } | { version.processor_board_id } | { version.rp } | { version.slots } | { version.days } | { version.hours } | { version.minutes } | { version.seconds } | { version.name } | { version.os } | { version.reason } | { version.system_compile_time } | { version.system_image_file } | { version.system_version } | { version.chassis_sn } | { version.compiled_by } | { version.curr_config_register } | { version.image_id } | { version.image_type } | { version.label } | { version.license_level } | { version.license_type } | { version.non_volatile } | { version.physical } | { version.next_reload_license_level } | { version.platform } | { version.processor_type } | { version.returned_to_rom_by } | { version.rom } | { version.rtr_type } | { version.uptime } | { version.uptime_this_cp } | { version.version_short } | { version.xe_version } | { version.timestamp } |\n"
+        markdown.write(markdown_data)
+    markdown.close
+    markdown = open('markdown.md', 'r')
+    print(markdown.read()) 
+    os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_version_mind_map.html' % pyats_alias)
+    markdown.close
+    os.remove("markdown.md")
+    return render(request, 'Mindmap/%s_show_version_mind_map.html' % pyats_alias)    

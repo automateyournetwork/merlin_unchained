@@ -15,5 +15,11 @@ urlpatterns = [
     path('Mindmap/<str:pyats_alias>/LearnBGPTables/', views.learn_bgp_table_mindmap),
     path('Mindmap/<str:pyats_alias>/LearnInterface/', views.learn_interface_mindmap),
     path('Mindmap/<str:pyats_alias>/LearnPlatform/', views.learn_platform_mindmap),
+    path('Mindmap/<str:pyats_alias>/LearnVLAN/', views.learn_vlan_mindmap),
+    path('Mindmap/<str:pyats_alias>/LearnVRF/', views.learn_vrf_mindmap),
+    path('Mindmap/<str:pyats_alias>/NMAP/', views.nmap_mindmap),
+    path('Mindmap/<str:pyats_alias>/ShowInventory/', views.show_inventory_mindmap),
+    path('Mindmap/<str:pyats_alias>/ShowIPInterfaceBrief/', views.show_ip_int_brief_mindmap),
     path('Mindmap/<str:pyats_alias>/ShowLicenseSummary/', views.show_license_summary_mindmap),
+    path('Mindmap/<str:pyats_alias>/ShowVersion/', views.show_version_mindmap),
 ]

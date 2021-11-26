@@ -18,7 +18,13 @@
       <th>Learn BGP Tables</th>
       <th>Learn Interfaces</th>
       <th>Learn Platform</th>
+      <th>Learn VLAN</th>
+      <th>Learn VRF</th>
+      <th>Network Map</th>
+      <th>Show Inventory</th>
+      <th>Show IP Interface Brief</th>
       <th>Show License Summary</th>
+      <th>Show Version</th>
     </tr>
     </thead>
     <tbody>{% for device in device_list %}
@@ -34,7 +40,13 @@
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnBGPTables">Learn BGP Tables</a></td>
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnInterface">Learn Interface</a></td>
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnPlatform">Learn Platform</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnVLAN">Learn VLAN</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/LearnVRF">Learn VRF</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/NMAP">Network Map</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/ShowInventory">Show Inventory</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/ShowIPInterfaceBrief">Show IP Interface Brief</a></td>
       <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/ShowLicenseSummary">Show License Summary</a></td>
+      <td><a href="http://localhost:8000/Mindmap/{{ device.alias }}/ShowVersion">Show Version</a></td>
     </tr>{% endfor %}  
     </tbody>
   </table>
