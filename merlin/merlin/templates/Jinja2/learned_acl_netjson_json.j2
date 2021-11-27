@@ -1,0 +1,104 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn ACL",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for access_list in to_parse_access_list %}{% set access_list_loop = loop %}
+        { 
+            "id": "{{ access_list.pyats_alias }}"
+        },
+        {
+            "id": "Access Control List: {{ access_list.acl | default("N/A") }}"
+        },        
+        {
+            "id": "Access Control Entry: {{ access_list.ace | default("N/A") }}"
+        },
+        {
+            "id": "Permission: {{ access_list.permission | default("N/A") }}"
+        },
+        {
+            "id": "Logging: {{ access_list.logging | default("N/A") }}"
+        },           
+        {
+            "id": "Source Network: {{ access_list.source_network | default("N/A") }}"
+        },
+        {
+            "id": "Destination Network: {{ access_list.destination_network | default("N/A") }}"
+        },
+        {
+            "id": "Layer 3 Protocol: {{ access_list.l3_protocol | default("N/A") }}"
+        },
+        {
+            "id": "Layer 4 Protocol: {{ access_list.l4_protocol | default("N/A") }}"
+        },
+        {
+            "id": "Operator: {{ access_list.operator | default("N/A") }}"
+        },
+        {
+            "id": "Port: {{ access_list.port | default("N/A") }}"
+        },         
+        {
+            "id": "Timestamp: {{ access_list.timestamp | default("N/A") }}"{% if access_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for access_list in to_parse_access_list %}{% set access_list_loop = loop %}
+        {
+            "source": "{{ access_list.pyats_alias }}",
+            "target": "Access Control List: {{ access_list.acl | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Access Control List: {{ access_list.acl | default("N/A") }}",
+            "target": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Permission: {{ access_list.permission | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Logging: {{ access_list.logging | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Source Network: {{ access_list.source_network | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Destination Network: {{ access_list.destination_network | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Layer 3 Protocol: {{ access_list.l3_protocol | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Layer 4 Protocol: {{ access_list.l4_protocol | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Operator: {{ access_list.operator | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Port: {{ access_list.port | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Access Control Entry: {{ access_list.ace | default("N/A") }}",
+            "target": "Timestamp: {{ access_list.timestamp | default("N/A") }}",
+            "cost": 3{% if access_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

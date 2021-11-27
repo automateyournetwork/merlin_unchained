@@ -62,7 +62,7 @@ class Collect_Information(aetest.Testcase):
 
                 # Go Get Recommended Release using chassis PID and Oauth token
                 if device.os == "nxos":
-                    if "N9K-C9500v" in self.parsed_show_inventory['name']['Chassis']['pid']:
+                    if "N9K-C9300v" in self.parsed_show_inventory['name']['Chassis']['pid']:
                         pid = "N9K-C93180LC-EX"
                     else:
                         pid = self.parsed_show_inventory['name']['Chassis']['pid']

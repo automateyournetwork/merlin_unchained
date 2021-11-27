@@ -1,0 +1,56 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn ARP",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for arp in to_parse_arp_list %}{% set arp_list_loop = loop %}
+        { 
+            "id": "{{ arp.pyats_alias }}"
+        },
+        {
+            "id": "Interface: {{ arp.interface | default("N/A") }}"
+        },        
+        {
+            "id": "Neighbor IP: {{ arp.neighbor_ip | default("N/A") }}"
+        },
+        {
+            "id": "Neighbor MAC: {{ arp.neighbor_mac | default("N/A") }}"
+        },
+        {
+            "id": "Origin: {{ arp.origin | default("N/A") }}"
+        },       
+        {
+            "id": "Timestamp: {{ arp.timestamp | default("N/A") }}"{% if arp_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for arp in to_parse_arp_list %}{% set arp_list_loop = loop %}
+        {
+            "source": "{{ arp.pyats_alias }}",
+            "target": "Interface: {{ arp.interface | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ arp.interface | default("N/A") }}",
+            "target": "Neighbor IP: {{ arp.neighbor_ip | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Interface: {{ arp.interface | default("N/A") }}",
+            "target": "Neighbor MAC: {{ arp.neighbor_mac | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Interface: {{ arp.interface | default("N/A") }}",
+            "target": "Origin: {{ arp.origin | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Interface: {{ arp.interface | default("N/A") }}",
+            "target": "Timestamp: {{ arp.timestamp | default("N/A") }}",
+            "cost": 3{% if arp_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

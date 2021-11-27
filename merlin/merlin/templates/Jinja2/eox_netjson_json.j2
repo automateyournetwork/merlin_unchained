@@ -1,0 +1,190 @@
+{
+    "type": "NetworkGraph",
+    "label": "End of Life - Part ID",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for item in to_parse_eox %}
+        { 
+            "id": "{{ item.pyats_alias }}"
+        },
+        { 
+            "id": "Operating System: {{ item.rtr_type | default("N/A") }}"
+        },          
+        { 
+            "id": "Part ID: {{ item.pid | default("N/A") }}"
+        },
+        { 
+            "id": "Description: {{ item.description | default("N/A") }}"
+        },
+        { 
+            "id": "Bulletin Number: {{ item.bulletin_number | default("N/A") }}"
+        },
+        { 
+            "id": "Bulletin URL: {{ item.bulletin_url | default("N/A") }}"
+        },    
+        { 
+            "id": "External Announcement Date: {{ item.external_date | default("N/A") }}"
+        },    
+        { 
+            "id": "End of Sale: {{ item.sale_date | default("N/A") }}"
+        },
+        { 
+            "id": "End of Software Maintenance: {{ item.sw_maintenance | default("N/A") }}"
+        },
+        { 
+            "id": "End of Security: {{ item.security | default("N/A") }}"
+        },
+        { 
+            "id": "End of Routine Failure: {{ item.routine_failure | default("N/A") }}"
+        },
+        { 
+            "id": "End of Service Contract: {{ item.service_contract | default("N/A") }}"
+        },
+        { 
+            "id": "Last: {{ item.last | default("N/A") }}"
+        },
+        { 
+            "id": "Last SVC Attachment: {{ item.svc_attach | default("N/A") }}"
+        },
+        { 
+            "id": "Last Updated: {{ item.last_updated | default("N/A") }}"
+        },
+        { 
+            "id": "Part ID Active: {{ item.pid_active | default("N/A") }}"
+        },
+        { 
+            "id": "Migration Information: {{ item.migration_information | default("N/A") }}"
+        },
+        { 
+            "id": "Migration Option: {{ item.migration_option | default("N/A") }}"
+        },
+        { 
+            "id": "Migration Part ID: {{ item.migration_pid | default("N/A") }}"
+        },
+        { 
+            "id": "Migration Name: {{ item.migration_name | default("N/A") }}"
+        },
+        { 
+            "id": "Migration Strategy: {{ item.migration_strat | default("N/A") }}"
+        },
+        { 
+            "id": "Migration URL: {{ item.migration_url | default("N/A") }}"
+        },        
+        { 
+            "id": "Timestamp: {{ item.timestamp | default("N/A") }}"
+        }{% endfor %}
+    ],
+    "links": [{% for item in to_parse_eox %}
+        {
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Operating System: {{ item.rtr_type | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Part ID: {{ item.pid | default("N/A") }}",
+            "cost": 1             
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Description: {{ item.description | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Bulletin Number: {{ item.bulletin_number | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Bulletin URL: {{ item.bulletin_url | default("N/A") }}",
+            "cost": 1
+        },    
+        {
+            "source": "{{ item.pyats_alias  }}",
+            "target": "External Announcement Date: {{ item.external_date | default("N/A") }}",
+            "cost": 1
+        },    
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "End of Sale: {{ item.sale_date | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "End of Software Maintenance: {{ item.sw_maintenance | default("N/A") }}",
+            "cost": 1            
+        },    
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "End of Security: {{ item.security | default("N/A") }}",
+            "cost": 1            
+        },    
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "End of Routine Failure: {{ item.routine_failure | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "End of Service Contract: {{ item.service_contract | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Last: {{ item.last | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Last SVC Attachment: {{ item.svc_attach | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Last Updated: {{ item.last_updated | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Part ID Active: {{ item.pid_active | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Migration Option: {{ item.migration_option | default("N/A") }}",
+            "cost": 2
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Migration Part ID: {{ item.migration_pid | default("N/A") }}",
+            "cost": 2
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Migration Name: {{ item.migration_name | default("N/A") }}",
+            "cost": 2
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Migration Strategy: {{ item.migration_strat | default("N/A") }}",
+            "cost": 2
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Migration URL: {{ item.migration_url | default("N/A") }}",
+            "cost": 2
+        },
+        { 
+            "source": "Migration Information: {{ item.migration_information | default("N/A") }}",
+            "target": "Timestamp: {{ item.timestamp | default("N/A") }}",
+            "cost": 2
+        }{% endfor %}
+    ]
+}
