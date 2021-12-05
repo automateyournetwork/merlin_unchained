@@ -1,0 +1,72 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn VLAN",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for vlan in to_parse_vlan %}{% set vlan_loop = loop %}
+        { 
+            "id": "{{ vlan.pyats_alias }}"
+        },
+        { 
+            "id": "VLAN: {{ vlan.vlan | default("N/A") }}"
+        },          
+        { 
+            "id": "Interfaces: {{ vlan.interfaces | default("N/A") }}"
+        },
+        { 
+            "id": "Mode: {{ vlan.mode | default("N/A") }}"
+        },
+        { 
+            "id": "Name: {{ vlan.name | default("N/A") }}"
+        },
+        { 
+            "id": "Shutdown: {{ vlan.shutdown | default("N/A") }}"
+        },    
+        { 
+            "id": "State: {{ vlan.state | default("N/A") }}"
+        },   
+        { 
+            "id": "Timestamp: {{ vlan.timestamp | default("N/A") }}"{% if vlan_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for vlan in to_parse_vlan %}{% set vlan_loop = loop %}
+        {
+            "source": "{{ vlan.pyats_alias  }}",
+            "target": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "Interfaces: {{ vlan.interfaces | default("N/A") }}",
+            "cost": 1             
+        },
+        { 
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "Mode: {{ vlan.mode | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "Name: {{ vlan.name | default("N/A") }}",
+            "cost": 1
+        },
+        { 
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "Shutdown: {{ vlan.shutdown | default("N/A") }}",
+            "cost": 1
+        },    
+        {
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "State: {{ vlan.state | default("N/A") }}",
+            "cost": 1
+        },    
+        { 
+            "source": "VLAN: {{ vlan.vlan | default("N/A") }}",
+            "target": "Timestamp: {{ vlan.timestamp | default("N/A") }}",
+            "cost": 1{% if vlan_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

@@ -25,7 +25,6 @@ def eox_pid_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_eox_pid_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_eox_pid_mind_map.html' % pyats_alias)
 
 def eox_sn_mindmap(request, pyats_alias):
@@ -44,7 +43,6 @@ def eox_sn_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_eox_sn_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_eox_sn_mind_map.html' % pyats_alias)
 
 def eox_sw_mindmap(request, pyats_alias):
@@ -63,7 +61,6 @@ def eox_sw_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_eox_sw_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_eox_sw_mind_map.html' % pyats_alias)    
 
 def learn_acl_mindmap(request, pyats_alias):
@@ -82,7 +79,6 @@ def learn_acl_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_acl_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_acl_mind_map.html' % pyats_alias)
 
 def learn_arp_mindmap(request, pyats_alias):
@@ -101,7 +97,6 @@ def learn_arp_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_arp_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_arp_mind_map.html' % pyats_alias)
 
 def learn_arp_statistics_mindmap(request, pyats_alias):
@@ -120,7 +115,6 @@ def learn_arp_statistics_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_arp_statistics_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_arp_statistics_mind_map.html' % pyats_alias)
 
 def learn_bgp_instances_mindmap(request, pyats_alias):
@@ -139,7 +133,6 @@ def learn_bgp_instances_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_instances_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_bgp_instances_mind_map.html' % pyats_alias)
 
 def learn_bgp_route_mindmap(request, pyats_alias):
@@ -158,7 +151,6 @@ def learn_bgp_route_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_bgp_routes_mind_map.html' % pyats_alias)
 
 def learn_bgp_table_mindmap(request, pyats_alias):
@@ -177,7 +169,6 @@ def learn_bgp_table_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_bgp_tables_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_bgp_tables_mind_map.html' % pyats_alias)
 
 def learn_interface_mindmap(request, pyats_alias):
@@ -196,7 +187,6 @@ def learn_interface_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_interface_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_interface_mind_map.html' % pyats_alias)
 
 def learn_platform_mindmap(request, pyats_alias):
@@ -215,7 +205,6 @@ def learn_platform_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_platform_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_platform_mind_map.html' % pyats_alias)
 
 def learn_vlan_mindmap(request, pyats_alias):
@@ -234,7 +223,6 @@ def learn_vlan_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_vlan_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_vlan_mind_map.html' % pyats_alias)
 
 def learn_vrf_mindmap(request, pyats_alias):
@@ -253,7 +241,6 @@ def learn_vrf_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_learn_vrf_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_learn_vrf_mind_map.html' % pyats_alias)
 
 def nmap_mindmap(request, pyats_alias):
@@ -272,7 +259,6 @@ def nmap_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_nmap_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_nmap_mind_map.html' % pyats_alias)
 
 def show_inventory_mindmap(request, pyats_alias):
@@ -291,7 +277,6 @@ def show_inventory_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_inventory_summary_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_show_inventory_summary_mind_map.html' % pyats_alias)
 
 def show_ip_int_brief_mindmap(request, pyats_alias):
@@ -310,7 +295,6 @@ def show_ip_int_brief_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_ip_interface_brief_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_show_ip_interface_brief_mind_map.html' % pyats_alias)
 
 def show_license_summary_mindmap(request, pyats_alias):
@@ -329,7 +313,6 @@ def show_license_summary_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_license_summary_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_show_license_summary_mind_map.html' % pyats_alias)
 
 def show_version_mindmap(request, pyats_alias):
@@ -348,5 +331,4 @@ def show_version_mindmap(request, pyats_alias):
     print(markdown.read()) 
     os.system('markmap --no-open markdown.md --output merlin/templates/Mindmap/%s_show_version_mind_map.html' % pyats_alias)
     markdown.close
-    os.remove("markdown.md")
     return render(request, 'Mindmap/%s_show_version_mind_map.html' % pyats_alias)    

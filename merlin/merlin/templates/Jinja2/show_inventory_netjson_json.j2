@@ -1,0 +1,56 @@
+{
+    "type": "NetworkGraph",
+    "label": "Show Inventory",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for item in to_parse_inventory %}{% set inventory_loop = loop %}
+        { 
+            "id": "{{ item.pyats_alias }}"
+        },
+        { 
+            "id": "Part: {{ item.part | default("N/A") }}"
+        },          
+        { 
+            "id": "Description: {{ item.description | default("N/A") }}"
+        },
+        { 
+            "id": "Part ID: {{ item.pid | default("N/A") }}"
+        },
+        { 
+            "id": "Serial Number: {{ item.serial_number | default("N/A") }}"
+        },        
+        { 
+            "id": "Timestamp: {{ item.timestamp | default("N/A") }}"{% if inventory_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for item in to_parse_inventory %}{% set inventory_loop = loop %}
+        {
+            "source": "{{ item.pyats_alias  }}",
+            "target": "Part: {{ item.part | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "Part: {{ item.part | default("N/A") }}",
+            "target": "Description: {{ item.description | default("N/A") }}",
+            "cost": 1             
+        },
+        {
+            "source": "Part: {{ item.part | default("N/A") }}",
+            "target": "Part ID: {{ item.pid | default("N/A") }}",
+            "cost": 1             
+        },
+        {
+            "source": "Part: {{ item.part | default("N/A") }}",
+            "target": "Serial Number: {{ item.serial_number | default("N/A") }}",
+            "cost": 1             
+        },        
+        { 
+            "source": "Part: {{ item.part | default("N/A") }}",
+            "target": "Timestamp: {{ item.timestamp | default("N/A") }}",
+            "cost": 1{% if inventory_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

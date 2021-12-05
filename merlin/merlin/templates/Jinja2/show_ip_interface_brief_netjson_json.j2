@@ -1,0 +1,48 @@
+{
+    "type": "NetworkGraph",
+    "label": "Show IP Interface Brief",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for interface in to_parse_interface %}{% set interface_loop = loop %}
+        { 
+            "id": "{{ interface.pyats_alias }}"
+        },
+        { 
+            "id": "Interface: {{ interface.interface | default("N/A") }}"
+        },          
+        { 
+            "id": "Status: {{ interface.interface_status | default("N/A") }}"
+        },
+        { 
+            "id": "IP Address: {{ interface.ip_address | default("N/A") }}"
+        },      
+        { 
+            "id": "Timestamp: {{ interface.timestamp | default("N/A") }}"{% if interface_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for interface in to_parse_interface %}{% set inventory_loop = loop %}
+        {
+            "source": "{{ interface.pyats_alias  }}",
+            "target": "Interface: {{ interface.interface | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Status: {{ interface.interface_status | default("N/A") }}",
+            "cost": 1             
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "IP Address: {{ interface.ip_address | default("N/A") }}",
+            "cost": 1             
+        },     
+        { 
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Timestamp: {{ interface.timestamp | default("N/A") }}",
+            "cost": 1{% if inventory_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}
