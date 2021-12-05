@@ -1,0 +1,160 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn Interface",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for interface in to_parse_interface %}{% set interface_list_loop = loop %}
+        { 
+            "id": "{{ interface.pyats_alias }}"
+        },
+        {
+            "id": "Interface: {{ interface.interface | default("N/A") }}"
+        },        
+        {
+            "id": "Description: {{ interface.description | default("N/A") }}"
+        },
+        {
+            "id": "Enabled: {{ interface.enabled | default("N/A") }}"
+        },
+        {
+            "id": "Status: {{ interface.status | default("N/A") }}"
+        },
+        {
+            "id": "Access VLAN: {{ interface.access_vlan | default("N/A") }}"
+        },        
+        {
+            "id": "Native VLAN: {{ interface.native_vlan | default("N/A") }}"
+        },        
+        {
+            "id": "Switchport Mode: {{ interface.switchport_mode | default("N/A") }}"
+        },
+        {
+            "id": "Interface Type: {{ interface.interface_type | default("N/A") }}"
+        },
+        {
+            "id": "Bandwidth: {{ interface.bandwidth | default("N/A") }}"
+        },
+        {
+            "id": "Speed: {{ interface.speed | default("N/A") }}"
+        },
+        {
+            "id": "MAC Address: {{ interface.mac_address | default("N/A") }}"
+        },
+        {
+            "id": "Physical Address: {{ interface.physical_address | default("N/A") }}"
+        },
+        {
+            "id": "IP Address: {{ interface.ip_address | default("N/A") }}"
+        },
+        {
+            "id": "Port Channel: {{ interface.port_channel | default("N/A") }}"
+        },
+        {
+            "id": "Port Channel Member Interfaces: {{ interface.port_channel_member_interfaces | default("N/A") }}"
+        },
+        {
+            "id": "Port Channel Member: {{ interface.port_channel_member | default("N/A") }}"
+        },
+        {
+            "id": "Last Change: {{ interface.last_change | default("N/A") }}"
+        },                                              
+        {
+            "id": "Timestamp: {{ interface.timestamp | default("N/A") }}"{% if interface_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for interface in to_parse_interface %}{% set interface_list_loop = loop %}
+        {
+            "source": "{{ interface.pyats_alias }}",
+            "target": "Interface: {{ interface.interface | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Description: {{ interface.description | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Enabled: {{ interface.enabled | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Status: {{ interface.status | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Access VLAN: {{ interface.access_vlan | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Native VLAN: {{ interface.native_vlan | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Switchport Mode: {{ interface.switchport_mode | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Interface Type: {{ interface.interface_type | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Bandwidth: {{ interface.bandwidth | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Speed: {{ interface.speed | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "MAC Address: {{ interface.mac_address | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Physical Address: {{ interface.physical_address | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "IP Address: {{ interface.ip_address | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Port Channel: {{ interface.port_channel | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Port Channel: {{ interface.port_channel | default("N/A") }}",
+            "target": "Port Channel Member Interfaces: {{ interface.port_channel_member_interfaces | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Port Channel: {{ interface.port_channel | default("N/A") }}",
+            "target": "Port Channel Member: {{ interface.port_channel_member | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Last Change: {{ interface.last_change | default("N/A") }}",
+            "cost": 1
+        },                
+        {
+            "source": "Interface: {{ interface.interface | default("N/A") }}",
+            "target": "Timestamp: {{ interface.timestamp | default("N/A") }}",
+            "cost": 1{% if interface_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

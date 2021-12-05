@@ -1,0 +1,40 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn VRF",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for vrf in to_parse_vrf %}{% set vrf_loop = loop %}
+        { 
+            "id": "{{ vrf.pyats_alias }}"
+        },
+        { 
+            "id": "VRF: {{ vrf.vrf | default("N/A") }}"
+        },          
+        { 
+            "id": "Route Distinguisher: {{ vrf.route_distinguisher | default("N/A") }}"
+        }, 
+        { 
+            "id": "Timestamp: {{ vrf.timestamp | default("N/A") }}"{% if vrf_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for vrf in to_parse_vrf %}{% set vrf_loop = loop %}
+        {
+            "source": "{{ vrf.pyats_alias  }}",
+            "target": "VRF: {{ vrf.vrf | default("N/A") }}",
+            "cost": 1
+        },          
+        {
+            "source": "VRF: {{ vrf.vrf | default("N/A") }}",
+            "target": "Route Distinguisher: {{ vrf.route_distinguisher | default("N/A") }}",
+            "cost": 1             
+        },
+        { 
+            "source": "VRF: {{ vrf.vrf | default("N/A") }}",
+            "target": "Timestamp: {{ vrf.timestamp | default("N/A") }}",
+            "cost": 1{% if vrf_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

@@ -1,0 +1,80 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn ARP Statistics",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for arp in to_parse_arp_statistics_list %}{% set arp_list_loop = loop %}
+        { 
+            "id": "{{ arp.pyats_alias }}"
+        },
+        {
+            "id": "Total Entries: {{ arp.entries_total | default("N/A") }}"
+        },        
+        {
+            "id": "Input Drops: {{ arp.in_drops | default("N/A") }}"
+        },
+        {
+            "id": "Input Replies: {{ arp.in_replies_pkts | default("N/A") }}"
+        },
+        {
+            "id": "Input Requests: {{ arp.in_requests_pkts | default("N/A") }}"
+        },
+        {
+            "id": "Output Replies: {{ arp.incomplete_total | default("N/A") }}"
+        },        
+        {
+            "id": "Output Requests: {{ arp.out_replies_pkts | default("N/A") }}"
+        },        
+        {
+            "id": "Total Incomplete: {{ arp.out_requests_pkts | default("N/A") }}"
+        },
+        {
+            "id": "Timestamp: {{ arp.timestamp | default("N/A") }}"{% if arp_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for arp in to_parse_arp_statistics_list %}{% set arp_list_loop = loop %}
+        {
+            "source": "{{ arp.pyats_alias }}",
+            "target": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Input Drops: {{ arp.in_drops | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Input Replies: {{ arp.in_replies_pkts | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Input Requests: {{ arp.in_requests_pkts | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Output Replies: {{ arp.incomplete_total | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Output Requests: {{ arp.out_replies_pkts | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Total Entries: {{ arp.entries_total | default("N/A") }}",
+            "target": "Total Incomplete: {{ arp.out_requests_pkts | default("N/A") }}",
+            "cost": 3
+        },               
+        {
+            "source": "{{ arp.pyats_alias }}",
+            "target": "Timestamp: {{ arp.timestamp | default("N/A") }}",
+            "cost": 1{% if arp_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

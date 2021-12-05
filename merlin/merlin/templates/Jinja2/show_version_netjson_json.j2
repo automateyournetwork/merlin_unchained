@@ -1,0 +1,304 @@
+{
+    "type": "NetworkGraph",
+    "label": "Show Version",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for version in to_parse_version %}{% set version_loop = loop %}
+        { 
+            "id": "{{ version.pyats_alias }}"
+        },
+        { 
+            "id": "Bootflash: {{ version.bootflash | default("N/A") }}"
+        },          
+        { 
+            "id": "Chassis: {{ version.chassis | default("N/A") }}"
+        },
+        { 
+            "id": "CPU: {{ version.cpu | default("N/A") }}"
+        },
+        { 
+            "id": "Device Name: {{ version.device_name | default("N/A") }}"
+        },
+        { 
+            "id": "Memory: {{ version.memory | default("N/A") }}"
+        },
+        { 
+            "id": "Model: {{ version.model | default("N/A") }}"
+        },
+        { 
+            "id": "Processor Board ID: {{ version.processor_board_id | default("N/A") }}"
+        },
+        { 
+            "id": "RP: {{ version.rp | default("N/A") }}"
+        },
+        { 
+            "id": "Slots: {{ version.slots | default("N/A") }}"
+        },
+        { 
+            "id": "Friendly Name: {{ version.name | default("N/A") }}"
+        },
+        { 
+            "id": "OS: {{ version.os | default("N/A") }}"
+        },
+        { 
+            "id": "Reload Reason: {{ version.reason | default("N/A") }}"
+        },
+        { 
+            "id": "System Compile Time: {{ version.system_compile_time | default("N/A") }}"
+        },
+        { 
+            "id": "System Image: {{ version.system_image_file | default("N/A") }}"
+        },
+        { 
+            "id": "System Version: {{ version.system_version | default("N/A") }}"
+        },
+        { 
+            "id": "Chassis Serial Number: {{ version.chassis_sn | default("N/A") }}"
+        },
+        { 
+            "id": "Compiled By: {{ version.compiled_by | default("N/A") }}"
+        },
+        { 
+            "id": "Config Register: {{ version.curr_config_register | default("N/A") }}"
+        },
+        { 
+            "id": "Image ID: {{ version.image_id | default("N/A") }}"
+        },
+        { 
+            "id": "Image Type: {{ version.image_type | default("N/A") }}"
+        },
+        { 
+            "id": "Label: {{ version.label | default("N/A") }}"
+        },
+        { 
+            "id": "License Level: {{ version.license_level | default("N/A") }}"
+        },
+        { 
+            "id": "License Type: {{ version.license_type | default("N/A") }}"
+        },
+        { 
+            "id": "Non-Volatile: {{ version.non_volatile | default("N/A") }}"
+        },
+        { 
+            "id": "Physical: {{ version.physical | default("N/A") }}"
+        },
+        { 
+            "id": "License Level Next Reload: {{ version.next_reload_license_level | default("N/A") }}"
+        },
+        { 
+            "id": "Platform: {{ version.platform | default("N/A") }}"
+        },
+        { 
+            "id": "Processor Type: {{ version.processor_type | default("N/A") }}"
+        },
+        { 
+            "id": "Returned to ROM: {{ version.returned_to_rom_by | default("N/A") }}"
+        },
+        { 
+            "id": "ROM: {{ version.rom | default("N/A") }}"
+        },
+        { 
+            "id": "Router Type: {{ version.rtr_type | default("N/A") }}"
+        },
+        { 
+            "id": "Uptime: {{ version.uptime | default("N/A") }}"
+        },
+        { 
+            "id": "Uptime this CP: {{ version.uptime_this_cp | default("N/A") }}"
+        },
+        { 
+            "id": "Short Version: {{ version.version_short | default("N/A") }}"
+        },
+        { 
+            "id": "Version: {{ version.xe_version | default("N/A") }}"
+        },        
+        { 
+            "id": "Timestamp: {{ version.timestamp | default("N/A") }}"{% if version_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for version in to_parse_version %}{% set version_loop = loop %}
+        {
+            "source": "{{ version.pyats_alias  }}",
+            "target": "Platform: {{ version.platform | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Chassis: {{ version.chassis | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Bootflash: {{ version.bootflash | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "CPU: {{ version.cpu | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "{{ version.pyats_alias  }}",
+            "target": "Device Name: {{ version.device_name | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Memory: {{ version.memory | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Model: {{ version.model | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "CPU: {{ version.cpu | default("N/A") }}",
+            "target": "Processor Board ID: {{ version.processor_board_id | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Chassis: {{ version.chassis | default("N/A") }}",
+            "target": "RP: {{ version.rp | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Chassis: {{ version.chassis | default("N/A") }}",
+            "target": "Slots: {{ version.slots | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Uptime: {{ version.uptime | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Uptime: {{ version.uptime | default("N/A") }}",
+            "target": "Uptime this CP: {{ version.uptime_this_cp | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Friendly Name: {{ version.name | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Friendly Name: {{ version.name | default("N/A") }}",
+            "target": "Label: {{ version.label | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "OS: {{ version.os | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Uptime: {{ version.uptime | default("N/A") }}",
+            "target": "Reload Reason: {{ version.reason | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Uptime: {{ version.uptime | default("N/A") }}",
+            "target": "System Compile Time: {{ version.system_compile_time | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "OS: {{ version.os | default("N/A") }}",
+            "target": "System Image: {{ version.system_image_file | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "System Image: {{ version.system_image_file | default("N/A") }}",
+            "target": "System Version: {{ version.system_version | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Chassis: {{ version.chassis | default("N/A") }}",
+            "target": "Chassis Serial Number: {{ version.chassis_sn | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "System Image: {{ version.system_image_file | default("N/A") }}",
+            "target": "Compiled By: {{ version.compiled_by | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Config Register: {{ version.curr_config_register | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "System Image: {{ version.system_image_file | default("N/A") }}",
+            "target": "Image ID: {{ version.image_id | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Image ID: {{ version.image_id | default("N/A") }}",
+            "target": "Image Type: {{ version.image_type | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "{{ version.pyats_alias  }}",
+            "target": "License Level: {{ version.license_level | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "License Level: {{ version.license_level | default("N/A") }}",
+            "target": "License Type: {{ version.license_type | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Memory: {{ version.memory | default("N/A") }}",
+            "target": "Non-Volatile: {{ version.non_volatile | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "Memory: {{ version.memory | default("N/A") }}",
+            "target": "Physical: {{ version.physical | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "License Level: {{ version.license_level | default("N/A") }}",
+            "target": "License Level Next Reload: {{ version.next_reload_license_level | default("N/A") }}",
+            "cost": 2
+        },
+        {
+            "source": "CPU: {{ version.cpu | default("N/A") }}",
+            "target": "Processor Type: {{ version.processor_type | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "ROM: {{ version.rom | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "ROM: {{ version.rom | default("N/A") }}",
+            "target": "Returned to ROM: {{ version.returned_to_rom_by | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Platform: {{ version.platform | default("N/A") }}",
+            "target": "Router Type: {{ version.rtr_type | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "System Version: {{ version.system_version | default("N/A") }}",
+            "target": "Version: {{ version.xe_version | default("N/A") }}",
+            "cost": 3
+        },
+        {
+            "source": "Version: {{ version.xe_version | default("N/A") }}",
+            "target": "Short Version: {{ version.version_short | default("N/A") }}",
+            "cost": 3
+        },
+        { 
+            "source": "{{ version.pyats_alias | default("N/A") }}",
+            "target": "Timestamp: {{ version.timestamp | default("N/A") }}",
+            "cost": 1{% if version_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}

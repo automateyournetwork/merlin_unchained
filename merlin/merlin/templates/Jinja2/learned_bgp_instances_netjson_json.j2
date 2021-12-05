@@ -1,0 +1,120 @@
+{
+    "type": "NetworkGraph",
+    "label": "Learn BGP Instances",
+    "protocol": "OLSR",
+    "version": "0.6.6.2",
+    "metric": "ETX",
+    "nodes": [{% for instance in to_parse_bgp_instances %}{% set instance_list_loop = loop %}
+        { 
+            "id": "{{ instance.pyats_alias }}"
+        },
+        {
+            "id": "Instance: {{ instance.instance | default("N/A") }}"
+        },        
+        {
+            "id": "BGP ID: {{ instance.bgp_id | default("N/A") }}"
+        },
+        {
+            "id": "Protocol State: {{ instance.protocol_state | default("N/A") }}"
+        },
+        {
+            "id": "VRF: {{ instance.vrf | default("N/A") }}"
+        },
+        {
+            "id": "Router ID: {{ instance.router_id | default("N/A") }}"
+        },        
+        {
+            "id": "Cluster ID: {{ instance.cluster_id | default("N/A") }}"
+        },        
+        {
+            "id": "Confederation ID: {{ instance.confederation_id | default("N/A") }}"
+        },
+        {
+            "id": "Neighbor: {{ instance.neighbor | default("N/A") }}"
+        },
+        {
+            "id": "Local AS: {{ instance.local_as | default("N/A") }}"
+        },
+        {
+            "id": "Remote AS: {{ instance.remote_as | default("N/A") }}"
+        },
+        {
+            "id": "Last Reset: {{ instance.last_reset | default("N/A") }}"
+        },
+        {
+            "id": "Last Reset Reason: {{ instance.reset_reason | default("N/A") }}"
+        },        
+        {
+            "id": "Timestamp: {{ instance.timestamp | default("N/A") }}"{% if instance_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ],
+    "links": [{% for instance in to_parse_bgp_instances %}{% set instance_list_loop = loop %}
+        {
+            "source": "{{ instance.pyats_alias }}",
+            "target": "Instance: {{ instance.instance | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Instance: {{ instance.instance | default("N/A") }}",
+            "target": "BGP ID: {{ instance.bgp_id | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Instance: {{ instance.instance | default("N/A") }}",
+            "target": "Protocol State: {{ instance.protocol_state | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Instance: {{ instance.instance | default("N/A") }}",
+            "target": "VRF: {{ instance.vrf | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "VRF: {{ instance.vrf | default("N/A") }}",
+            "target": "Router ID: {{ instance.router_id | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "VRF: {{ instance.vrf | default("N/A") }}",
+            "target": "Cluster ID: {{ instance.cluster_id | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "VRF: {{ instance.vrf | default("N/A") }}",
+            "target": "Confederation ID: {{ instance.confederation_id | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "VRF: {{ instance.vrf | default("N/A") }}",
+            "target": "Neighbor: {{ instance.neighbor | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Neighbor: {{ instance.neighbor | default("N/A") }}",
+            "target": "Local AS: {{ instance.local_as | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Local AS: {{ instance.local_as | default("N/A") }}",
+            "target": "Remote AS: {{ instance.remote_as | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Remote AS: {{ instance.remote_as | default("N/A") }}",
+            "target": "Last Reset: {{ instance.last_reset | default("N/A") }}",
+            "cost": 1
+        },
+        {
+            "source": "Last Reset: {{ instance.last_reset | default("N/A") }}",
+            "target": "Last Reset Reason: {{ instance.reset_reason | default("N/A") }}",
+            "cost": 1
+        },        
+        {
+            "source": "Instance: {{ instance.instance | default("N/A") }}",
+            "target": "Timestamp: {{ instance.timestamp | default("N/A") }}",
+            "cost": 1{% if instance_list_loop.last %}
+        }{% else %}
+        },{% endif %}{% endfor %}
+    ]
+}
