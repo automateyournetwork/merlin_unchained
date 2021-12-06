@@ -17,7 +17,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://developer.webex.com/images/webex-teams-logo.png"
+                            "url": "https://raw.githubusercontent.com/automateyournetwork/merlin_unchained/main/images/Merlin_logo.png"               
                         }
                     ],
                     "width": "stretch"
@@ -76,13 +76,13 @@
                             "type": "TextBlock",
                             "text": "Timestamp:",
                             "color": "Light"
-                        }                                                 
+                        }                                      
                     ]
                 },
                 {
                     "type": "Column",
                     "width": 65,
-                    "items": [{% for interface in shut_interfaces %}
+                    "items": [
                         {
                             "type": "TextBlock",
                             "text": "{{ device_id }}",
@@ -90,14 +90,14 @@
                         },
                         {
                             "type": "TextBlock",
-                            "text": "{{ interface.interface }}",
+                            "text": "{{ interface }}",
                             "color": "Light",
                             "weight": "Lighter",
                             "spacing": "Small"
                         },
                         {
                             "type": "TextBlock",
-                            "text": "{{ interface.description }}",
+                            "text": "{{ description }}",
                             "weight": "Lighter",
                             "color": "Light",
                             "spacing": "Small"
@@ -106,7 +106,7 @@
                             "type": "TextBlock",
                             "text": "{{ timestamp }}",
                             "color": "Light"
-                        }{% endfor %}
+                        }
                     ]
                 }
             ],
@@ -115,7 +115,7 @@
         },
         {
             "type": "TextBlock",
-            "text": "Merlin has provided this information for the {{ device_id }} using pyATS Learn Platform",
+            "text": "Merlin has detected the following interface {{ interface }} with description {{ description }} on device {{ device_id }} is disabled using pyATS Learn Interface at {{ timestamp }}",
             "wrap": true
         },
         {
@@ -145,7 +145,7 @@
                     "items": [
                         {
                             "type": "TextBlock",
-                            "text": "[Latest Learn Interfaces](http://localhost:8000/Latest/LearnInterface/)",
+                            "text": "[Latest Learn Interfaces](http://192.168.2.56:8000/Latest/LearnInterface/)",
                             "horizontalAlignment": "Left",
                             "size": "Medium"
                         }

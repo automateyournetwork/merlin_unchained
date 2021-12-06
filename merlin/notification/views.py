@@ -210,7 +210,7 @@ def device_notifications(request, pyats_alias):
             template_dir = 'merlin/templates/Jinja2'
             env = Environment(loader=FileSystemLoader(template_dir))
             disabled_interfaces_webex = env.get_template('disabled_interfaces_webex.j2')
-            #os.system('pyats run job learn_interface_job.py')
+            os.system('pyats run job learn_interface_job.py')
             latest_timestamp = LearnInterface.objects.latest('timestamp')
             interface_list = LearnInterface.objects.filter(timestamp=latest_timestamp.timestamp,enabled="False")
             shut_interfaces = []
@@ -261,9 +261,15 @@ def device_notifications(request, pyats_alias):
                 # Send to WebEx
                 # -----------------------
                 # Adaptive Card
-                webex_adaptive_card = disabled_interfaces_webex.render(shut_interfaces=shut_interfaces,roomid=roomid,device_id=pyats_alias,timestamp=latest_timestamp.timestamp)
-                webex_adaptive_card_response = requests.post('https://webexapis.com/v1/messages', data=webex_adaptive_card, headers={"Content-Type": "application/json", "Authorization": f"Bearer { token }" })
-                print('The POST to WebEx had a response code of ' + str(webex_adaptive_card_response.status_code) + 'due to' + webex_adaptive_card_response.reason)
+                # list to dictionary
+                def Convert(lst):
+                    res_dct = {lst[i]: lst[i + 1] for i in range(0, len(lst), 2)}
+                    return res_dct
+                shut_interfaces_dict = Convert(shut_interfaces)
+                for interface,description in shut_interfaces_dict.items():
+                    webex_adaptive_card = disabled_interfaces_webex.render(interface=interface,description=description,roomid=roomid,device_id=pyats_alias,timestamp=latest_timestamp.timestamp)
+                    webex_adaptive_card_response = requests.post('https://webexapis.com/v1/messages', data=webex_adaptive_card, headers={"Content-Type": "application/json", "Authorization": f"Bearer { token }" })
+                    print('The POST to WebEx had a response code of ' + str(webex_adaptive_card_response.status_code) + 'due to' + webex_adaptive_card_response.reason)
             context = {'pyats_alias': pyats_alias}
             return render(request,"Notification/device_notifications.html", context)
     else:
