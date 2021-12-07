@@ -645,3 +645,11 @@ class WebEx(models.Model):
     def __str__(self):
         template = '{0.roomid} {0.token} {0.timestamp}'
         return template.format(self)
+
+class Discord(models.Model):
+    webookUrl = models.TextField()
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        template = '{0.webookUrl} {0.timestamp}'
+        return template.format(self)        
