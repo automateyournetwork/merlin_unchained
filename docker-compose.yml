@@ -138,6 +138,7 @@ services:
     ports:
       - 9000:80
     restart: unless-stopped
+
   grafana:
     container_name: grafana
     image: grafana/grafana:latest
